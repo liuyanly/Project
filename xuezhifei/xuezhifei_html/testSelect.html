@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="js/assets/css/amazeui.min.css">
+</head>
+<body>
+<select id="course_select" data-am-selected="{ btnStyle: 'secondary'}">
+    <option value="0">全部</option>
+    <option value="12">物理</option>
+</select>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/assets/js/amazeui.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    $('select').selected();
+    var courseSelect = $("#course_select");
+    var courseId;
+    courseSelect.on('change',function(){
+        courseId = $(this).val();
+        console.log(courseId)
+    });
+});
+</script>
+</body>
+</html>

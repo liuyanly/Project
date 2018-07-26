@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>就医策划</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/medical_planning.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="1"></my-header>
+        </div>
+        <div class="main">
+            <div class="top-box container clearFix">
+                <div class="left" @mouseenter="enterStatus(0)" v-show="enterType==1">
+                    <p class="top-img">
+                        <img src="images/b1_icon1.png">
+                    </p>
+                    <p class="bottom-word">健康管家</p>
+                </div>
+                <div class="left bg" @mouseleave="enterStatus(1)" @click="openMsgBox()" v-show="enterType==0">
+                    <p class="large-title">健康管家</p>
+                    <div class="content-word">
+                        某某与公益的橄榄枝，就像一只和平鸽飞翔于世界民 族之林，在不同肤色的人群中飞越五洲，让全世界的 少年儿童平等地欣赏艺术。
+                    </div>
+                </div>
+                <div class="right" @mouseenter="enterStatus1(0)" v-show="enterType1==1">
+                    <p class="top-img">
+                        <img src="images/b1_icon2.png">
+                    </p>
+                    <p class="bottom-word">医助经理</p>
+                </div>
+                <div class="right bg" @mouseleave="enterStatus1(1)" @click="openMsgBox2()" v-show="enterType1==0">
+                    <p class="large-title">医助经理</p>
+                    <div class="content-word">
+                        某某与公益的橄榄枝，就像一只和平鸽飞翔于世界民 族之林，在不同肤色的人群中飞越五洲，让全世界的 少年儿童平等地欣赏艺术。
+                    </div>
+                </div>
+            </div>
+            <p class="bottom-title">就医策划</p>
+            <div class="container relative" style="height:310px;margin-bottom: 64px;">
+                <div class="intro-div absolute clearFix" style="top: 0;">
+                    <div class="one pub">
+                        <p class="img-p">
+                            <img src="images/a1_icon1.png">
+                        </p>
+                        <p class="title-p">智能分诊</p>
+                        <div class="content-word">
+                            患者诊前指导的绝佳助手，继承梅奥分诊知识内容体系，获取权威指导及诊前护理建议。
+                        </div>
+                    </div>
+                    <div class="two pub">
+                        <p class="img-p">
+                            <img src="images/a1_icon2.png">
+                        </p>
+                        <p class="title-p">在线咨询</p>
+                        <div class="content-word">
+                            支持图文、电话、视频三种咨询形式与专家便捷沟通，获得基干病情的专家建议。家庭医生做朋友，呵护全家健康。
+                        </div>
+                    </div>
+                    <div class="three pub">
+                        <p class="img-p">
+                            <img src="images/a1_icon3.png">
+                        </p>
+                        <p class="title-p">健康管理</p>
+                        <div class="content-word">
+                            采集基础健康医疗信息， 建立私人健康档案，对 体检报告进行深度解读， 并由临床专家团队跟踪 服务，提供健康风险预 警及针对性的健康管理 方案。
+                        </div>
+                    </div>
+                    <div class="four pub">
+                        <p class="img-p">
+                            <img src="images/a1_icon4.png">
+                        </p>
+                        <p class="title-p">就医策划</p>
+                        <div class="content-word">
+                            让就医更高效、便捷、 省时、省心。诊前采集 信息，精准分诊；诊中 全程陪同，住院手术安 排；诊后康复指导，建 立私人健康档案。
+                        </div>
+                    </div>
+                    <div class="five pub">
+                        <p class="img-p">
+                            <img src="images/a1_icon5.png">
+                        </p>
+                        <p class="title-p">疾病管理</p>
+                        <div class="content-word">
+                            就医病历电子化存储， 清晰展示，随时查看， 永久保存，为您建立专 属的、连续的健康医疗 档案。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+        <div class="fade" v-if="msgBoxStatus==1">
+            <form class="demoform">
+                <div class="msg-box">
+                    <div class="content-box">
+                        <p class="title clearFix">
+                            <span class="left">提示</span>
+                            <span class="close-btn right" @click="cancelChoose()">×</span>
+                        </p>
+                        <p class="input-p">
+                            您的请求已发送给医助经理,稍后会与您联系
+                            <!-- <input type="number" v-model="telNum" datatype="m" placeholder="请输入手机号码" nullmsg="请输入手机号码" errormsg="手机号码格式不正确" readonly>
+                            <span class="Validform_checktip"></span> -->
+                        </p>
+                        <p class="btn-p">
+                            <button type="button" class="sure" @click="sureChoose">确定</button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="fade" v-if="msgBoxStatus==2">
+            <form class="demoform">
+                <div class="msg-box">
+                    <div class="content-box">
+                        <p class="title clearFix">
+                            <span class="left">提示</span>
+                            <span class="close-btn right" @click="cancelChoose()">×</span>
+                        </p>
+                        <p class="input-p" style="margin-top: 56px;margin-bottom: 0;">
+                            立即成为会员？
+                        </p>
+                        <p class="btn-p" style="margin-top: 56px;">
+                            <button type="button" class="sure" @click="sureChoose2">确定</button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    enterType: 1,
+                    enterType1: 1,
+                    msgBoxStatus: 0,
+                    telNum: '',
+                }
+            },
+            mounted: function() {
+                getToken(this)
+                $(".demoform").Validform({
+                    tiptype: 3
+                });
+                // this.getData()
+            },
+            methods: {
+                enterStatus: function(type) {
+                    this.enterType = type;
+                },
+                enterStatus1: function(type) {
+                    this.enterType1 = type;
+                },
+                cancelChoose: function() {
+                    this.msgBoxStatus = 0;
+                },
+                sureChoose: function() {
+                    this.msgBoxStatus = 0;
+
+                },
+                //获取就医策划数据
+                getData: function() {
+                    var that = this
+                    axios.get(userApi + '/assistantmanagerphone')
+                        .then(function(res) {
+                            console.log(res.data)
+                            that.telNum = res.data.data;
+                        })
+                        .catch(function(err) {
+
+                        })
+                },
+                openMsgBox: function() {
+                    this.msgBoxStatus = 2;
+                },
+                openMsgBox2: function() {
+                    var _this = this;
+                    axios.post(userApi + '/user/anonymousphonemanager')
+                        .then(function(res) {
+                            console.log(res)
+                            if (res.status == 200)
+                                _this.msgBoxStatus = 1;
+                        })
+                        .catch(function(err) {
+                            _this.$message('请求失败')
+                        })
+
+
+                },
+                sureChoose2: function() {
+                    location.href = 'vip_info.html';
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

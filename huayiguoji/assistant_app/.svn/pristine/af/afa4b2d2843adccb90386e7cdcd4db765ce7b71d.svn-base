@@ -1,0 +1,153 @@
+<template>
+    <div class="choose-assistant">
+        <headers headName='选择医助'></headers>
+        <div class="contentScollr">
+        <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore" bottomPullText='上拉刷新' bottomLoadingText='加载中......'>
+        <ul class="order-list already-complete">
+            <li class="clear" @click="serviceList(data.translates.assistant_account.id)" v-for="data in dataList">
+                <div class="img-box left">
+                    <img :src="data.translates.avatar_img" class="head-img" />
+                </div>
+                <div class="left info-box">
+                    <p class="name">
+                        {{data.realname}}
+                    </p>
+                    <p class="status" v-if="type!=2">
+                        服务患者：{{data.service_num}}人
+                    </p>
+                    <p class="status" v-if="type==2">
+                        已签约：{{data.service_num}}人
+                    </p>
+                </div>
+            </li>
+        </ul>
+        </mt-loadmore>
+    </div>
+    </div>
+</template>
+<script>
+    //导入模板
+    import headers from "../components/Header.vue";
+    export default {
+        data (){
+            return{
+                type:this.$route.params.type,
+                dataList:[],
+                currentPage:1,
+                per_page:1,
+                total_page:0,
+                allLoaded:false,//分页
+                topStatus:false,//分页
+            }
+        },
+        mounted(){
+            this.getDataList('/assistant?e_s[guard]=assistant&per_page='+this.per_page+'&page='+this.currentPage)
+        },
+        methods:{
+            loadBottom() {
+                if(this.currentPage<this.total_page){
+                    let oldPage=this.currentPage
+                    this.currentPage=this.currentPage+1
+                    this.getDataList('/assistant?e_s[guard]=assistant&per_page='+this.per_page+'&page='+this.currentPage)
+                    this.$refs.loadmore.onBottomLoaded();
+                }
+            },
+            serviceList(id){
+                if(this.$route.params.type==1){
+                    this.$router.push({name:'DistributionTask',params:{patientId:this.$route.params.patientId,assistantId:id}});
+                    // this.$router.push({name:'ChooseAssistantDetail',params:{type:1,patientId:this.$route.params.patientId,assistantId:id}});
+                }else{
+                    this.$router.push({name:'SignDistribution',params:{patientId:this.$route.params.patientId,assistantId:id}});
+                    // this.$router.push({name:'SignAssistantDetail',params:{type:2,patientId:this.$route.params.patientId,assistantId:id}});
+                }
+            },
+            getDataList(url){
+                var that=this
+                that.$ajax.get(url)
+                .then(function(res){
+                    if(res.data.status==200){
+                        for(var i=0; i<res.data.data.assistant.length;i++){
+                            that.dataList.push(res.data.data.assistant[i])
+                        }
+                        that.total_page=res.data.data.paginate.total_page
+                        if(that.currentPage==that.total_page){
+                            that.allLoaded = true;// 若数据已全部获取完毕
+                        }
+                    }else if(res.data.status==401){
+                        that.BaseSet.linkLogin(that)
+                    }else{
+                        that.$toast(res.data.message)
+                    }
+                })
+                .catch(function(err){
+                    that.$toast(err)
+                })
+            },
+        },
+        components: {headers},
+    }
+</script>
+<style lang="scss" scoped>
+a{
+    color:#fff;
+}
+    .choose-assistant{
+        display: flex;
+    	height: 100%;
+    	flex-direction: column;
+    	.contentScollr{
+    		flex: 1;
+    		overflow: scroll;
+    		-webkit-overflow-scrolling:touch;
+    	}
+        .order-list{
+            //margin-top: .5rem /* 20/40 */;
+            width: 100%;
+            overflow: hidden;
+            background: #fff;
+            li{
+                width: 100%;
+                border-bottom: #e5e5e5 1px solid;
+                overflow: hidden;
+                box-sizing: border-box;
+                padding: .75rem;
+                font-size: 0;
+                .left{
+                    float: left;
+                }
+                .right{
+                    float: right;
+                }
+                .img-box{
+                    position: relative;
+                    .head-img{
+                        width: 2.5rem /* 50/20 */;
+                        height: 2.5rem /* 50/20 */;
+                        border-radius: 50%;
+                    }
+                }
+                .info-box{
+                    margin-left: 0.5rem /* 10/20 */;
+                    .name{
+                        font-size: 0.7rem /* 14/20 */;
+                        color: #444;
+                        line-height: 1rem /* 20/20 */;
+                        margin-top: .2rem /* 4/20 */
+                    }
+                    .user-info{
+                        font-size: 0.6rem /* 12/20 */;
+                        color: #666;
+                        line-height: 0.8rem /* 17/20 */;
+                    }
+                    .status{
+                        font-size: 0.6rem /* 12/20 */;
+                        color:#ff4646;
+                        line-height: .9rem /* 18/20 */;
+                        margin-top: .2rem /* 4/20 */;
+                    }
+                }
+            }
+        }
+
+    }
+</style>

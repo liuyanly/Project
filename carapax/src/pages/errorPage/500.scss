@@ -1,0 +1,72 @@
+@keyframes error500animation {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    20% {
+        transform: rotateZ(-10deg);
+    }
+    40% {
+        transform: rotateZ(5deg);
+    }
+    60% {
+        transform: rotateZ(-5deg);
+    }
+    80% {
+        transform: rotateZ(10deg);
+    }
+    100% {
+        transform: rotateZ(0deg);
+    }
+}
+.error500{
+    height: 100%;
+    background: #f8f8f8;
+    .body-con{
+        width: 700px;
+        height: 500px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        .logo {
+            text-align: center;
+        }
+        .title{
+            text-align: center;
+            font-size: 140px;
+            font-weight: 700;
+            color: #2d8cf0;
+            height: 220px;
+            line-height: 220px;
+            margin-top: 40px;
+            .error500-0-span{
+                display: inline-block;
+                position: relative;
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                border: 10px solid #ed3f14;
+                color: #ed3f14;
+                margin-right: 10px;
+                i{
+                    display: inline-block;
+                    font-size: 60px;
+                    position: absolute;
+                    bottom: -10px;
+                    left: 10px;
+                    transform-origin: center bottom;
+                    animation: error500animation 3s ease 0s infinite alternate;
+                }
+            }
+        }
+        .message{
+            text-align: center;
+            font-size: 18px;
+        }
+    }
+    .btn-con{
+        text-align: center;
+        padding: 20px 0;
+        margin-bottom: 40px;
+    }
+}

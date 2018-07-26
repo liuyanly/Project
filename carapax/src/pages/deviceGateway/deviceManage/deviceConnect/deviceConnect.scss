@@ -1,0 +1,30 @@
+#device-connect {
+    .connectType {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        font-size: 18px;
+        color: #fff;
+        line-height: 30px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .unConnect {
+        background: inherit;
+        color: #bbbec4;
+    }
+    .connect-init {
+        background-color: #ccc;
+    }
+    .connect-online {
+        background: #19be6b;
+    }
+    .connect-offline {
+        background: #ed3f14;
+    }
+    .connect-split-line {
+        color:#ccc;
+        padding: 0 10px;
+    }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const url = this.$util.baseset.baseurl+'teacher/topic_lists';
+            // const params = {
+            //     'token': this.token
+            // }
+            const params = {
+                'token': this.$util.baseset.getInfo('token')
+            }
+            this.$ajax.post(url, params)
+            .then(function(res) {
+                var data = res.data;
+                console.log(data);
+                if(data.code === 200) {
+                    if(data.data.length == 0){
+                        that.$toast({
+                            message: data.message
+                        })
+                    }
+                    that.grade.data=[];
+                    that.teacherObj = data.data.teacher_details;
+                    console.log(that.teacherObj);
+                    var versionArr = data.data.version_info;
+                    for (var i = 0; i < versionArr.length; i++) {
+                        that.versionSlots[0].values.push({
+                            'picker_id': versionArr[i].id,
+                            'picker_name': versionArr[i].version_name,
+                        });
+                    }
+                    console.log(that.versionSlots[0].values);
+                    var arr = data.data.bookInfo;
+                    for (var i = 0; i < arr.length; i++) {
+                        that.grade.data.push({
+                            'name':arr[i].book_name,
+                            'id':arr[i].id
+                            });
+                    }
+                    that.$util.baseset.setInfo("courseId", data.data.user_info.course_id);
+                }
+            })
+            .catch(function(err) {
+                console.log(err)
+            });
+    </script>
+</body>
+</html>

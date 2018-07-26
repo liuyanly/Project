@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>立即评价</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/now_evaluation.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="73"></my-left-nav>
+                <div class="right right-box" style="min-height: 720px;">
+                    <p class="header-title" style="border-bottom: none">立即评价</p>
+                    <div class="evaluation-box">
+                        <div class="person-box doctor-box">
+                            <div class="person-info clearFix">
+                                <img class="left" :src="translates.avatar_img">
+                                <div class="left detail-info">
+                                    <p class="name">{{data.realname}}</p>
+                                    <p class="department">
+                                        <span>{{translates.department_title}}</span>
+                                        <span class="marginLeft">医师</span>
+                                    </p>
+                                    <p class="hospital">{{translates.hospital_title}}</p>
+                                </div>
+                            </div>
+                            <div class="text-box">
+                                <textarea maxlength="200" class="detail-word" v-model="detailWord" placeholder="请输入详细内容"></textarea>
+                            </div>
+                            <div class="evaluation-grade clearFix">
+                                <span class="title left">服务态度：</span>
+                                <el-rate v-model="value1"></el-rate>
+                            </div>
+                            <ul class="tag-list clearFix">
+                                <li v-for="(data,i) in tagList" :class="{active:liStatus.indexOf(data.id)>-1}" @click="changeStatus(data.id)">{{data.tag}}</li>
+                            </ul>
+                        </div>
+                        <!--<div class="person-box assistant-box" style="border-bottom: none">-->
+                        <!--<div class="person-info clearFix">-->
+                        <!--<img class="left" src="images/head.jpg">-->
+                        <!--<div class="left detail-info">-->
+                        <!--<p class="name">李晓峰</p>-->
+                        <!--<p class="hospital">医助</p>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="text-box">-->
+                        <!--<textarea maxlength="200" class="detail-word" v-model="detailWord1" placeholder="请输入详细内容"></textarea>-->
+                        <!--</div>-->
+                        <!--<div class="evaluation-grade clearFix">-->
+                        <!--<span class="title left">服务态度：</span>-->
+                        <!--<el-rate v-model="value2"></el-rate>-->
+                        <!--</div>-->
+                        <!--<ul class="tag-list clearFix">-->
+                        <!--<li :class="{active:liStatus1.indexOf(0)>-1}" @click="changeStatus1(0)">服务好</li>-->
+                        <!--<li :class="{active:liStatus1.indexOf(1)>-1}" @click="changeStatus1(1)">态度好</li>-->
+                        <!--<li :class="{active:liStatus1.indexOf(2)>-1}" @click="changeStatus1(2)">服务好</li>-->
+                        <!--<li :class="{active:liStatus1.indexOf(3)>-1}" @click="changeStatus1(3)">服务好</li>-->
+                        <!--</ul>-->
+                        <!--</div>-->
+                        <p class="btn-p">
+                            <button type="button" class="sub-btn" @click="subEvaluation()" style="margin-top: 40px">提交</button>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    detailWord: '',
+                    detailWord1: '',
+                    value1: 0,
+                    value2: 0,
+                    liStatus: [],
+                    liStatus1: [],
+                    tagList: [],
+                    data: '',
+                    id: getparams('id'),
+                    serviceid: getparams('serviceid'),
+                    translates: '',
+                }
+            },
+            mounted: function() {
+                getToken(this)
+                this.getDetail()
+                this.getTag()
+            },
+            methods: {
+                nowPay: function() {
+                    location.href = "now_pay.html";
+                },
+                changeStatus: function(num) {
+                    if (this.liStatus.indexOf(num) > -1) {
+                        this.liStatus.splice(this.liStatus.indexOf(num), 1);
+                    } else {
+                        if (this.liStatus.length < 10) {
+                            this.liStatus.push(num);
+                        } else {
+                            this.$message({
+                                message: '最多只能选择10个标签哟',
+                                type: 'warning'
+                            });
+                        }
+
+                    }
+                },
+                getTag: function() {
+                    var that = this
+                    axios.get(userApi + '/comment/taglist')
+                        .then(function(res) {
+                            if (res.data.status == 200) {
+                                that.tagList = res.data.data
+                            }
+                        })
+                        .catch(function(err) {
+                            linkLogin(that)
+                        })
+                },
+                getDetail: function() {
+                    var that = this
+                    axios.get(userApi + '/service/' + that.serviceid)
+                        .then(function(res) {
+                            console.log(res.data)
+                            if (res.data.status == 200) {
+                                that.data = res.data.data.doctor
+                                that.translates = res.data.data.doctor.translates
+                            }
+                        })
+                        .catch(function(err) {
+                            linkLogin(that)
+                        })
+                },
+                changeStatus1: function(num) {
+                    if (this.liStatus1.indexOf(num) > -1) {
+                        this.liStatus1.splice(this.liStatus.indexOf(num), 1);
+                    } else {
+                        if (this.liStatus1.length < 10) {
+                            this.liStatus1.push(num);
+                        } else {
+                            this.$message({
+                                message: '最多只能选择3个标签哟',
+                                type: 'warning'
+                            });
+                        }
+
+                    }
+                },
+                subEvaluation: function() {
+                    if (this.liStatus.length == 0) {
+                        this.$alert('请对医生的服务进行评价！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return false;
+                    }
+                    //                if(this.liStatus.length==0){
+                    //                    this.$alert('请对医助服务态度进行评价！', '提示', {
+                    //                        confirmButtonText: '确定',
+                    //                    })
+                    //                    return false;
+                    //                }
+                    var that = this
+                    axios.post(userApi + '/comment', {
+                            _me: 'user-api',
+                            commentable_type: 'service',
+                            commentable_id: that.serviceid,
+                            stars: that.value1,
+                            tags: '[' + that.liStatus + ']',
+                            content: that.detailWord
+                        })
+                        .then(function(res) {
+                            if (res.data.status == 200) {
+                                that.$notify({
+                                    title: '成功',
+                                    message: '评价成功！',
+                                    type: 'success'
+                                });
+                                setTimeout(function() {
+                                    location.href = "my_evaluation.html";
+                                }, 1000)
+                            }
+                        })
+                        .catch(function(err) {
+                            linkLogin(that)
+                        })
+                        //location.href="my_evaluation.html";
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

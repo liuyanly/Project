@@ -1,0 +1,40 @@
+.device-data {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        .condition-container {
+            display: flex;
+            flex-direction: row;
+            .condition {
+                flex: 1;
+            }
+            .search-btn {
+                width: 200px;
+                text-align: center;
+                padding-top: 28px;
+            }
+            .flex-center {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .split-line {
+            height: 10px;
+            margin: 0 -15px;
+            background: #f0f0f0; 
+        }
+        .result {
+            flex: 1;
+            padding: 20px 10px;
+            #echarts {
+                height: 100%;
+            }
+        }
+
+    }
+}

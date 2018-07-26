@@ -1,0 +1,205 @@
+<template>
+    <div class="pay">
+        <headers headName="线上充值"></headers>
+        <div class="contentScollr">
+        <div class="top-div">
+            <p class="line1 clear">
+                <span class="name left">充值金额：</span>
+                <span class="unit left">¥</span>
+                <input type="number left" v-model="money"/>
+            </p>
+            <p class="tip-word">
+                单笔最高充值5000元
+            </p>
+        </div>
+        <div class="way-box">
+            <p class="title-p">
+                选择支付方式
+            </p>
+            <p class="pay-way clear">
+                <img class="left" src="../assets/images/c14_icon1.png" />
+                <span class="title left">支付宝支付</span>
+                <input class="one_sel" type="radio" name="payWay" value="1" v-model="payWay"/>
+                <img class="right" v-if="payWay==1" src="../assets/images/c14_xz.png" />
+            </p>
+            <!-- <p class="pay-way clear">
+                <img class="left" src="../assets/images/c14_icon2.png" />
+                <span class="title left">微信支付</span>
+                <input class="one_sel" type="radio" name="payWay" value="2" v-model="payWay"/>
+                <img class="right" v-if="payWay==2" src="../assets/images/c14_xz.png" />
+            </p> -->
+        </div>
+        <p class="pay-btn" @click="nowRecharge()">
+            充值
+        </p>
+    </div>
+    </div>
+</template>
+<script>
+    import headers from "../components/Header.vue";
+    export default {
+        data(){
+            return{
+                payWay:'1',
+                zfbData:'',
+                money:'',
+            }
+        },
+        mounted(){
+            this.BaseSet.getToken(this)
+
+        },
+        methods:{
+            nowRecharge(){
+                if(this.money>5000){
+                    this.$toast("单笔最高充值5000元");
+                    return false;
+                }
+                if(this.money==''){
+                    this.$toast("请填写充值金额");
+                    return false;
+                }
+                var that = this
+                that.$ajax.post('/order',{
+                    _me:'user-api',
+                    title:'充值',
+                    money:that.money,
+                    paytype:0,
+                    body:'充值',
+                })
+                .then(function(res){
+                    if(res.data.status == 200){
+                        that.zfbData = res.data.data
+                        that.$router.push({name:'PaySuccess',params:{money:that.money}})
+                    }else if(res.data.status == 401){
+                        that.BaseSet.linkLogin(that)
+                    }else{
+                        that.$toast(res.data.message)
+                        that.$router.push({name:'PayFail'})
+                    }
+                })
+                .catch(function(err){
+                    that.BaseSet.linkLogin(that)
+                })
+
+            }
+        },
+        components: {headers},
+    }
+</script>
+<style lang="scss" scoped>
+a{
+    color:#4CC6D8;
+}
+.pay{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    .contentScollr{
+        flex: 1;
+        overflow: scroll;
+        -webkit-overflow-scrolling:touch;
+    }
+    .top-div{
+        line-height: 1.2rem /* 48/40 */;
+        padding: 2.2rem /* 89/40 */ .6rem /* 24/40 */ .8rem /* 33/40 */ .6rem /* 24/40 */;
+        box-sizing: border-box;
+        //margin-bottom: 1.5rem /* 60/40 */;
+        background: #fff;
+        .left{
+            float: left;
+        }
+        .line1{
+            line-height: 1.2rem /* 48/40 */;
+        }
+        .name{
+            font-size: .7rem /* 28/40 */;
+            color: #999;
+            margin-right: .3rem /* 10/40 */;
+        }
+        .unit{
+            font-size: 1.2rem /* 48/40 */;
+            color: #333;
+        }
+        input{
+            width: 10rem /* 400/40 */;
+            line-height: 1.2rem /* 48/40 */;
+            color: #333;
+            font-size: .8rem /* 32/40 */;
+            margin-left: .5rem /* 20/40 */;
+        }
+        .tip-word{
+            font-size: .6rem /* 22/40 */;
+            color:#999;
+            margin-top: .3rem;
+            line-height: .6rem;
+        }
+    }
+    .title-p{
+        font-size: .7rem /* 28/40 */;
+        color:#999;
+        line-height: 2rem /* 80/40 */;
+        padding-left: .8rem /* 30/40 */;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    .pay-way,.borderBottom{
+        border-bottom: 1px solid #e5e5e5;
+    }
+    .pay-way{
+        line-height: 3rem /* 120/40 */;
+        padding: 0 .8rem /* 30/40 */;
+        position: relative;
+        &:last-child{
+            border-bottom: none;
+        }
+        &:nth-of-type(5){
+            border-bottom: none;
+        }
+        .one_sel,.more_sel{
+            width: 100% /* 52/40 */;
+            height: 100% /* 52/40 */;
+            position: absolute;
+            //top: .85rem;
+            right: .8rem /* 30/40 */;
+        }
+        .title{
+            font-size: .7rem /* 28/40 */;
+            color:#666;
+            span{
+                color:#4CC6D8;
+            }
+        }
+        .left{
+            float: left;
+        }
+        img:nth-of-type(1){
+            width:1.1rem /* 44/40 */;
+            height: auto;
+            margin-top: .9rem;
+            margin-right: .4rem /* 17/40 */;
+        }
+        .right{
+            float: right
+        }
+        img{
+            width: 1.3rem /* 50/40 */;
+            height: 1.3rem /* 50/40 */;
+            vertical-align: middle;
+            margin-top: 0.85rem;
+        }
+    }
+    .way-box{
+        background: #fff;
+        margin-top: .5rem /* 20/40 */;
+    }
+    .pay-btn{
+        margin: 1.5rem /* 60/40 */ .8rem /* 30/40 */;
+        background: #4CC6D8;
+        text-align: center;
+        color:#fff;
+        font-size: .8rem /* 32/40 */;
+        line-height: 2rem /* 82/40 */;
+        border-radius: .3rem /* 10/40 */;
+    }
+}
+</style>

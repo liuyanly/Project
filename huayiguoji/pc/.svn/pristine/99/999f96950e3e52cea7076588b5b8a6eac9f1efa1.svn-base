@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>我的钱包</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/my_wallet.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="6"></my-left-nav>
+                <div class="right right-box">
+                    <p class="header-title clearFix">我的钱包</p>
+                    <section class="head-top">
+                        <div class="head-content clearFix">
+                            <span class="left name">账户余额：</span>
+                            <span class="left money">¥{{money}}</span>
+                            <span class="left withdrawals" @click="nowWithdrawals()">提现</span>
+                            <span class="left recharge" @click="nowRecharge()">充值</span>
+                        </div>
+                    </section>
+                    <p class="header-title clearFix small-title">交易明细</p>
+                    <ul class="bill-list">
+                        <li class="clearFix" v-for="(item,index) in logData" :key="index">
+                            <div class="left">
+                                <p class="purpose">{{item.title}}</p>
+                                <p class="info">
+                                    <span>{{item.created_at}}</span>
+                                    <!--<span class="marginLeft">{{item.paytype!=1?'线上充值':'线下充值'}}</span>-->
+                                    <span class="marginLeft">{{payWay(item.paytype)}}</span>
+                                </p>
+                            </div>
+                            <p class="right status add" v-if="item.status==1">{{'+'+item.money}}</p>
+                            <p class="right status reduce" v-if="item.status==0">{{'-'+item.money}}</p>
+                        </li>
+                    </ul>
+                    <div v-if="logData.length<=0" style="color: #999;text-align: center">暂无消息</div>
+                    <div class="page" style="margin-top: 31px;margin-bottom: 25px;">
+                        <el-pagination layout="prev, pager, next" :total=total v-if="logData.length>0">
+                        </el-pagination>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+    <script src="js/public.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+
+    <script>
+        var $this = ''
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    total: 10,
+                    money: '',
+                    logData: []
+                }
+            },
+            directives: {},
+            mounted: function() {
+                var _this = this;
+                getToken(this);
+                axios.get(userApi + '/user/mywallet')
+                    .then(function(res) {
+                        console.log('余额:', res)
+                        _this.money = res.data.data.money;
+                    })
+                    .catch(function(err) {
+                        _this.$message.error("查询余额失败")
+                    })
+                _this.getList(1);
+            },
+            methods: {
+                getList(page) {
+                    var _this = this;
+                    axios.get(userApi + '/user/billlog?per_page=8&page=' + page)
+                        .then(function(res) {
+                            console.log(res);
+                            //status 0支出,1收入
+                            _this.logData = res.data.data.bill_log;
+                        })
+                },
+                nowRecharge: function() {
+                    location.href = "recharge.html";
+                },
+                nowWithdrawals: function() {
+                    location.href = "withdrawals.html";
+                },
+                payWay(state) {
+                    // 0:支付宝 1:线下支付 2：微信 3：余额 4：个人vip 5:家庭vip 6：企业vip
+                    var way = '';
+                    switch (state) {
+                        case 0:
+                            way = '支付宝支付';
+                            break;
+                        case 1:
+                            way = '线下支付';
+                            break;
+                        case 2:
+                            way = '微信支付';
+                            break;
+                        case 3:
+                            way = '余额支付';
+                            break;
+                        case 4:
+                            way = '个人vip支付';
+                            break;
+                        case 5:
+                            way = '家庭vip支付';
+                            break;
+                        case 6:
+                            way = '企业vip支付';
+                            break;
+                    }
+                    return way
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

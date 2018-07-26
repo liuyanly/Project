@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>上传体检报告</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/imgUp.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/edit_data.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="21"></my-left-nav>
+                <div class="right right-box">
+                    <p class="header-title">上传档案</p>
+                    <div class="content-box" style="margin-top: 42px;margin-left: 48px;padding:0">
+                        <form class="demoform" name="formDate">
+                            <div class="choose-box form-box clearFix">
+                                <label class="name left">机构地址:</label>
+                                <p class="left pos date-select">
+                                    <select name="province" class="province" @change="getCity()" v-model="province" @click="changeXia1(4)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择省</option>
+                                    <option v-for="data in provinceArr" :value="data.id">{{data.title}}</option>
+                                </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=4">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==4">
+                                </p>
+                                <p class="left pos date-select">
+                                    <select name="city" class="city" v-model="city" @change="getArea()" @click="changeXia1(5)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择市</option>
+                                    <option v-for="data in cityArr" :value="data.id">{{data.title}}</option>
+                                </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=5">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==5">
+                                </p>
+                                <p class="left pos date-select">
+                                    <select name="area" class="area" v-model="area" @change="changeArea()" @click="changeXia1(6)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择区</option>
+                                    <option v-for="data in areaArr" :value="data.id">{{data.title}}</option>
+                                </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=6">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==6">
+                                </p>
+                            </div>
+                            <div class="input-p form-box clearFix">
+                                <label class="name name-label left">检查机构:</label>
+                                <p class="left pos date-select" style="width: 236px;">
+                                    <select name="province" style="width: 236px;" class="province" v-model="mechanismName" @click="changeXia1(7)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择检查机构</option>
+                                    <option :value="data.id" v-for="data in hospitalArr">{{data.title}}</option>
+                                </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=7">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==7">
+                                </p>
+                            </div>
+                            <div class="input-p form-box clearFix">
+                                <label class="name left">检查日期:</label>
+                                <p class="left pos date-select">
+                                    <select name="year" class="year" onChange="YYYYDD(this.value)" @click="changeXia1(1)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择年</option>
+                                </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=1">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==1">
+                                </p>
+                                <p class="left pos date-select">
+                                    <select name="month" class="month" onChange="MMDD(this.value)" @click="changeXia1(2)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择月</option>
+                                </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=2">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==2">
+                                </p>
+                                <p class="left pos date-select">
+                                    <select name="day" class="day" onChange="DDD(this.value)" @click="changeXia1(3)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择日</option>
+                                </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=3">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==3">
+                                </p>
+                            </div>
+                            <div class="choose-box form-box clearFix">
+                                <label class="name left">上传图片:</label>
+                                <div class="pic-box">
+                                    <form id="upBox">
+                                        <div id="imgBox"></div>
+                                        <div id="inputBox"><input type="file" title="请选择图片" id="file" accept="image/png,image/jpg,image/gif,image/JPEG" /><img src="images/f1_icon2.png"></div>
+                                    </form>
+                                </div>
+                            </div>
+                            <p class="btn-p"><button type="button" class="save-btn" @click="saveBtn()">保存</button></p>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/uploadImg.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/date.js"></script>
+    <script>
+        var $this = ''
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    mechanismName: '选择检查机构',
+                    typeName: '选择类型',
+                    sex: 1,
+                    monthValue: '',
+                    yearValue: '',
+                    province: '选择省',
+                    city: '选择市',
+                    area: '选择区',
+                    elements: '',
+                    imgUrl: '',
+                    hospitalArr: [],
+                    headPic: 'images/head.jpg',
+                    xiaType1: 0,
+                    provinceArr: [],
+                    cityArr: [],
+                    areaArr: [],
+                    check_date: '',
+                }
+            },
+            directives: {
+
+            },
+            mounted: function() {
+                $this = this;
+                imgUpload({
+                    inputId: 'file', //input框id
+                    imgBox: 'imgBox', //图片容器id
+                    buttonId: 'btn', //提交按钮id
+                    upUrl: picApi, //提交地址
+                    data: 'files', //参数名
+                    num: "30" //上传个数
+                });
+                $(".demoform").Validform({
+                    tiptype: 3,
+                });
+                this.getProvince()
+            },
+            methods: {
+                changeXia1: function(num) {
+                    if (this.xiaType1 == 0) {
+                        this.xiaType1 = num;
+                        if (num == 7 && (this.area == '' || this.area == '选择区')) {
+                            $this.$alert('请先选择机构地址！', '提示', {
+                                confirmButtonText: '确定',
+                            })
+                            return;
+                        } else {
+                            this.getHospital()
+                        }
+                    } else {
+                        this.xiaType1 = 0;
+                    }
+                },
+                getHospital: function() {
+                    var that = this
+                    axios.get(userApi + '/hospital?e_s[area_id]=' + that.area)
+                        .then(function(res) {
+                            if (res.data.status == 200) {
+                                that.hospitalArr = res.data.data
+                            }
+                        })
+                        .catch(function(err) {
+
+                        })
+                },
+                getProvince: function() {
+                    var that = this
+                    axios.get(userApi + '/regionlist?status=0')
+                        .then(function(res) {
+                            if (res.data.status == 200) {
+                                that.provinceArr = res.data.data
+                            }
+                        })
+                        .catch(function(err) {
+
+                        })
+                },
+                getCity: function() {
+                    var that = this
+                    if (this.province) {
+                        axios.get(userApi + '/regionlist?status=0&pid=' + this.province)
+                            .then(function(res) {
+                                if (res.data.status == 200) {
+                                    that.cityArr = res.data.data
+                                }
+                            })
+                            .catch(function(err) {
+
+                            })
+                    }
+
+                },
+                getArea: function() {
+                    var that = this
+                    if (this.city) {
+                        axios.get(userApi + '/regionlist?status=0&pid=' + this.city)
+                            .then(function(res) {
+                                if (res.data.status == 200) {
+                                    that.areaArr = res.data.data
+                                }
+                            })
+                            .catch(function(err) {
+
+                            })
+                    }
+                },
+                changeArea: function() {
+                    if (this.area != '' || this.area != '选择区') {
+                        this.getHospital()
+                    }
+                },
+                saveBtn: function() {
+                    console.log(this.province, this.city, this.area);
+                    if (this.mechanismName == '') {
+                        this.$alert('请选择检查机构', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return;
+                    }
+                    if ($(".year").val() == '' || $(".year").val() == '选择年') {
+                        $this.$alert('请选择年份！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return;
+                    }
+                    if ($(".month").val() == '' || $(".month").val() == '选择月') {
+                        $this.$alert('请选择月份！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return;
+                    }
+                    if ($(".day").val() == '' || $(".day").val() == '选择日') {
+                        $this.$alert('请选择日期！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return;
+                    }
+                    if (this.province == '选择省' || this.province == '') {
+                        this.$alert('请选择省份！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return;
+                    }
+                    if (this.city == '选择市' || this.city == '') {
+                        this.$alert('请选择城市！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return;
+                    }
+                    if (this.area == '选择区' || this.area == '') {
+                        this.$alert('请选择区县！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return;
+                    }
+                    if (imgIds.length == 0) {
+                        this.$alert('请上传图片！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return;
+                    }
+                    var that = this
+
+                    that.check_date = $(".year").val() + '-' + ($(".month").val() < 10 ? '0' + $(".month").val() : $(".month").val()) + '-' + ($(".day").val() < 10 ? '0' + $(".day").val() : $(".day").val())
+                    getToken(this)
+                    axios.post(userApi + '/archive', {
+                            hospital_id: that.mechanismName,
+                            _me: 'user-api',
+                            report_id: 2,
+                            checked_at: that.check_date,
+                            image_files: imgIds,
+                            title: '体检报告',
+                        })
+                        .then(function(res) {
+                            console.log(res.data)
+                            if (res.data.status == 200) {
+                                that.$notify({
+                                    title: '成功',
+                                    message: '上传成功！',
+                                    type: 'success'
+                                });
+                                setTimeout(function() {
+                                    location.href = "health_control.html";
+                                }, 1000)
+                            }
+                        })
+                        .catch(function(err) {
+                            linkLogin(that)
+                        })
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

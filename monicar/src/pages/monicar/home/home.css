@@ -1,0 +1,42 @@
+.wrapper {
+  color: #ffffff;
+  background:url("../../../assets/imgs/bg.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+     -moz-background-size: cover;
+       -o-background-size: cover;
+          background-size: cover;
+}
+.dataBox {
+  margin: 30px;
+  background: rgba(28,54,89,.35);
+  border-radius: 4px;
+}
+.data-con {
+  padding:10px;
+}
+.data-total {
+  display: flex;
+  justify-content: flex-start;
+}
+.data-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+.data-count {
+  padding-left: 10px;
+}
+.data-num {
+  margin-right: 3px;
+  background-color: #525e68;
+  color: rgb(255, 246, 0);
+  font-size: 50px;
+  text-shadow: 0 1px 1px #555;
+  border-radius: 6px;
+}
+.data-separate {
+  margin-right: 3px;
+  color: rgb(255, 246, 0);
+  font-size: 50px;
+  text-shadow: 0 1px 1px #555;
+  border-radius: 6px;
+}

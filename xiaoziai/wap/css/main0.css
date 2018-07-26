@@ -1,0 +1,338 @@
+html,body{
+    height: 100%;
+    font-family: '微软雅黑', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif;
+    background: #ffffff;
+    color: #999999;
+    font-size: 14px;
+}
+[data-dpr="2"] html,body{
+    font-size: 28px
+}
+[data-dpr="3"] html,body{
+    font-size: 42px
+}
+img {
+    max-width: 100%;
+    vertical-align: top;
+}
+.clearfix{
+    display: inline-block;
+}
+.clearfix:after{
+    display: block;
+    content: ".";
+    height: 0;
+    line-height: 0;
+    clear: both;
+    visibility: hidden
+}
+.show{
+    display:block !important;
+}
+.hide{
+    display:none !important;
+}
+/*按钮*/
+.btn {
+    display: inline-block;
+    padding: 4px 16px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 2px;
+}
+.btn-primary {
+    background: #2EA2FD;
+    border-color: #2EA2FD;
+    color: #fff;
+}
+.btn-default {
+    background: #fff;
+    border-color: #666;
+    color: #333;
+}
+.btn-warning {
+    background: #FCB14F;
+    border-color: #FCB14F;
+    color: #fff;
+}
+.btn-disabled {
+    background: #999;
+    border-color: #999;
+    color: #fff;
+}
+.flex-item{
+    display: -webkit-flex;  /* 新版本语法: Chrome 21+ */
+    display: flex;          /* 新版本语法: Opera 12.1, Firefox 22+ */
+    display: -webkit-box;   /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+}
+.flex-item .flex{
+  -webkit-flex: 1;        /* Chrome */
+  flex: 1;                /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -webkit-box-flex: 1;     /* OLD - iOS 6-, Safari 3.1-6 */
+}
+/* 健康数据 */
+.container {
+   width: 100%;
+   height: 100%;
+}
+.nav {
+    height: 1.07rem; /*40*2/75*/
+    background-color: #fff;
+}
+.nav ul {
+ height: 1.07rem; /*40*2/75*/
+ border-bottom: #eeeeee 1px solid;
+}
+.nav li {
+  height:1.01rem; /*38*2/75*/
+  line-height: 1.01rem; /*38*2/75*/
+  color: #999999;
+  font-size: 16px;
+  text-align: center;
+}
+[data-dpr="2"] .nav li{
+    font-size: 32px
+}
+[data-dpr="3"] .nav li{
+    font-size: 48px
+}
+.nav li.active {
+  font-weight: bold;
+  color: #607D8B;
+  border-bottom: #607D8B 2px solid;
+}
+.energy {
+    padding: 0.27rem 0.2rem; /*10*2/75   15*2/75*/
+}
+.energy .title {
+  height: 0.8rem; /*30*2/75*/
+}
+.energy .title span{
+  display: block;
+  height: 0.8rem; /*30*2/75*/
+  background: #607D8B;
+  line-height: 0.8rem; /*30*2/75*/
+  color: #ffffff;
+  font-size: 14px;
+  text-align: center;
+}
+[data-dpr="2"] .energy .title span{
+    font-size: 28px
+}
+[data-dpr="3"] .energy .title span{
+    font-size: 42px
+}
+.energy .title span:first-child{
+    border-radius: 6px 0 0 0;
+}
+.energy .title span:last-child{
+    border-radius: 0 6px 0 0;
+}
+.energy .title span.active{
+    background: #84CCCA;
+}
+.energy .conbox {
+    height: 3.2rem; /*120*2/75*/
+    padding: 0.27rem; /*10*2/75*/
+    background: rgba(96,125,139,0.10);
+    border-radius: 0 0 6px 6px;
+}
+.energy .day {
+    line-height: 3.2rem;/*120*2/75*/
+    font-size: 16px;
+    text-align: center;
+    color: #607D8B;
+}
+[data-dpr="2"] .energy .day{
+    font-size: 32px
+}
+[data-dpr="3"] .energy .day{
+    font-size: 48px
+}
+.energy .day span{
+    font-size: 36px;
+}
+[data-dpr="2"] .energy .day span{
+    font-size: 72px
+}
+[data-dpr="3"] .energy .day span{
+    font-size: 108px
+}
+.energy #foodWeek{
+    width: 100%;
+    height: 3.2rem;/*120*2/75*/
+}
+.date {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 1.07rem;  /*40*2/75*/
+    margin-bottom: 0.53rem;/*20*2/75*/
+    color: #607D8B;
+    font-size: 15px;
+    border-top: 1px solid #DDE7EC;
+    border-bottom: 1px solid #DDE7EC;
+}
+[data-dpr="2"] .date{
+    font-size: 30px
+}
+[data-dpr="3"] .date{
+    font-size: 45px
+}
+.date .pre{
+    width: 0.8rem; /*30*2/75*/
+    border-right: 1px solid #DDE7EC;
+    cursor: pointer;
+    background-image: url('../images/d8_icon1@2x.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 0.19rem 0.32rem; /*7*2/75 12*2/75*/
+}
+.date .next{
+    width:0.8rem; /*30*2/75*/
+    border-left: 1px solid #DDE7EC;
+    cursor: pointer;
+    background-image: url('../images/d8_icon2@2x.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 0.19rem 0.32rem; /*7*2/75 12*2/75*/
+}
+@media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3) {
+    .date .pre{
+        background-image: url('../images/d8_icon1@3x.png');
+    }
+    .date .next{
+        background-image: url('../images/d8_icon2@3x.png');
+    }
+}
+.date .datebox{
+    flex-grow: 1;
+    overflow: hidden;
+}
+.date .datebox li{
+   -webkit-flex: 1;        /* Chrome */
+   flex: 1;                /* NEW, Spec - Opera 12.1, Firefox 20+ */
+   -webkit-box-flex: 1;     /* OLD - iOS 6-, Safari 3.1-6 */
+   height: 1.07rem; /*40*2/75*/
+    border-left: 1px solid #DDE7EC;
+    text-align: center;
+}
+.date .datebox li:first-child{
+    border-left: 0 none;
+}
+.date .datebox li span,
+.date .datebox li small{
+    display: block;
+}
+.date .datebox li span{
+    line-height: 0.56rem; /*21*2/75*/
+}
+.date .datebox li small {
+    font-size: 12px;
+    line-height: 0.45rem; /*17*2/75*/
+}
+[data-dpr="2"] .date .datebox li small{
+    font-size: 24px
+}
+[data-dpr="3"] .date .datebox li small{
+    font-size: 36px
+}
+.date .datebox li.active{
+    background: #84CCCA;
+    color: #ffffff;
+}
+.food .nav ul{
+    border-top: #eeeeee 1px solid;
+}
+.food .conbox {
+    padding:0.2rem; /*15*2/75*/
+}
+.food .fooditem {
+    padding: 0 0.2rem; /*15*2/75*/
+    background: rgba(96,125,139,0.70);
+    border-radius: 6px;
+}
+.food .fooditem .title {
+    height: 1.07rem;/*40*2/75*/
+    line-height: 1.07rem;
+    text-align: center;
+    color: #ffffff;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.20);
+}
+[data-dpr="2"] .food .fooditem .title{
+    font-size: 32px
+}
+[data-dpr="3"] .food .fooditem .title{
+    font-size: 48px
+}
+.food .fooditem .box{
+    padding: 0.27rem; /*10*2/75*/
+}
+.food .fooditem .footeChat {
+    width: 2.93rem; /*110*2/75*/
+}
+.food .fooditem .epie{
+    margin: 0.53rem 0 0 1.07rem; /*20*2/75 40*2/75 */
+}
+.food .fooditem .footinfo {
+    font-size: 12px;
+    line-height: 0.45rem; /*17*2/75*/
+    color: #ffffff;
+}
+[data-dpr="2"] .food .fooditem .footinfo{
+    font-size: 24px
+}
+[data-dpr="3"] .food .fooditem .footinfo{
+    font-size: 36px
+}
+.food .fooditem .footlabel{
+    width:2.27rem; /*85*2/75*/
+    margin-right: 0.13rem; /*5*2/75*/
+    text-align: right;
+}
+.food .fooditem .footval li{
+    height: 0.27rem; /*10*2/75*/
+    padding-top: 0.19rem; /*7*2/75*/
+}
+/*进度条*/
+.progress {
+    width: 1.92rem; /*72*2/75*/
+    height: 0.11rem;/*4*2/75*/
+    overflow: hidden;
+    background: #84CCCA;
+    border-radius: 100px;
+}
+.progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    line-height: 0.11rem;/*4*2/75*/
+    background-color: #FFFFFF;
+    border-radius: 100px;
+}
+.food .fooditem .afoot{
+    margin-top: 0.53rem; /*20*2/75*/
+    font-size: 14px;
+    color: #ffffff;
+}
+[data-dpr="2"] .food .fooditem .footinfo{
+    font-size: 28px
+}
+[data-dpr="3"] .food .fooditem .footinfo{
+    font-size: 42px
+}
+.food .fooditem .num{
+    color: #84CCCA;
+    margin-right: 0.53rem; /*20*2/75*/
+}
+.food .fooditem .afootName{
+    margin-left: 0.67rem; /*25*2/75*/
+}
+.food .fooditem .afootVal{
+    margin-right: 0.67rem; /*25*2/75*/
+    text-align: right;
+    border-left: 1px solid #ffffff;
+}

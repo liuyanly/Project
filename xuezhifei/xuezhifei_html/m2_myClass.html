@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的管理</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="js/assets/css/amazeui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/font_icon/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="js/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+		
+		<link rel="stylesheet" type="text/css" href="css/y_public.css" />
+<style type="text/css">
+			.y_header_yonghu span {
+				position: relative;
+				top: 2px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!--头部-->
+		<div class="header">
+			<div class="header_inner y_clear">
+				<div class="header_logo y_f_l"><img src="images/logo.png" /></div>
+				<ul class="header_nav y_f_l y_font_14">
+					<li>
+						<a href="h3_index.html" class="y_a_n ">首页</a>
+					</li>
+					<li class="cj y_p_r">
+						<a href="h5_createClass.html" class="y_a_n ">创建</a>
+						<div class="cj_inner">
+							<a href="javascript:video(0)">校园班级</a>
+							<a href="javascript:video(0)">辅导机构</a>
+						</div>
+					</li>
+					<li>
+						<a href="l1_wenjiao.html" class="y_a_n ">文教中心</a>
+					</li>
+					<li>
+						<a href="m1_myManagement.html" class="y_a_n y_a_s">我的管理</a>
+					</li>
+				</ul>
+				<div class="y_header_yonghu y_color_lan y_font_14 y_f_r">
+					<img src="images/huang.png" />
+					<span>阿拉丁</span>
+					<span><a href="" class="y_color_lan">【退出】</a></span>
+				</div>
+			</div>
+		</div>
+		<div class="y_clear y_inner_back_none ">
+			<div class="h5_createClass ">
+				<div class="h5_createClass_title_border_none y_f_l y_text_c">
+					<div class="y_p_t_15 y_p_b_15">
+						<span class=""></span><b class="y_font_18 y_color_lan">我的班级</b>
+					</div>
+					<ul class="banjiNav">
+						<li class="li_s y_overflow_1">一年级(2)班</li>
+						<li class="y_overflow_1">高一(3)班</li>
+						<li class="y_overflow_1">一年级(23)班</li>
+						<li class="y_overflow_1">一年级(22)班</li>
+					</ul>
+				</div>
+				<div class="banjiBox y_f_l">
+					<div class="banjiInner">
+						<div class="y_border_b y_clear yinianji y_p_t_20 y_p_b_20 y_font_16 y_color_00" style="width: 844px;">
+							<h3 class=" y_f_l y_margin_l_25">一年级(2)班</h3>
+							<a href="javascript:void(0);" class="y_f_r y_margin_r_35">创建班级</a>
+						</div>
+						<ul class="banjiInner_nav y_margin_l_25 y_clear">
+							<li class="li_s">班级信息</li>
+							<li>成绩发布</li>
+							<li>班级表格</li>
+							<li>学生档案</li>
+						</ul>
+						<div class="banjiInner_inner">
+							<!--班级信息-->
+							<div class="divInner">
+								<div class="y_border_b y_p_b_30 ">
+									<div class="y_font_14 y_color_00 y_p_t_25  y_margin_l_25">
+										<span class="y_f_l y_p_t_5 y_margin_b_20">我的课表</span>
+										<a class="y_f_r y_margin_r_35 bianji">
+											<i class="icon iconfont icon-bianji y_color_lan y_font_20"></i><span class="y_color_57 y_p_l_10">编辑</span>
+										</a>
+									</div>
+
+									<div class="studentsData_table  y_margin_l_25 y_margin_r_35">
+										<table class='public-jy-table  gd-td-table-kb'>
+											<tr>
+												<th class="biaotou-th">
+													<p>星期</p>
+													<p>节数</p>
+												</th>
+												<th>星期一</th>
+												<th>星期二</th>
+												<th>星期三</th>
+												<th>星期四</th>
+												<th>星期五</th>
+												<th>星期六</th>
+												<th>星期日</th>
+											</tr>
+											<tr>
+												<th>第一节</th>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第二节</th>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<th>第三节</th>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第四节</th>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第五节</th>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第六节</th>
+												<td></td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第七节</th>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+											</tr>
+											<tr>
+												<th>第八节</th>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第九节</th>
+												<td></td>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第十节</th>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第十一节</th>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+
+								<div class=" y_p_b_40">
+									<div class="y_font_14 y_color_00 y_p_t_25  y_margin_l_25">
+										<span class="y_f_l y_p_t_5 y_margin_b_20">学生资料</span>
+										<a class="y_f_r y_margin_r_35 bianji">
+											<i class="icon iconfont icon-bianji y_color_lan y_font_20"></i><span class="y_color_57 y_p_l_10">编辑</span>
+										</a>
+										<span class="y_margin_l_30 y_margin_r_30 y_f_r y_color_a3" style="position: relative; top: 6px;">|</span>
+										<a class="y_f_r delXuesheng" style="position: relative;
+    top: -8px;">
+											<i class="icon iconfont icon-shanchu y_color_lan y_font_28"></i><span class="y_color_57 y_p_l_5">删除</span>
+										</a>
+									</div>
+
+									<div class="studentsData_table mCustomScrollbar y_margin_l_25 y_margin_r_35 m2_myclass_table_box" data-mcs-axis="x">
+										<table class='public-jy-table  m2_myclass_table'>
+											<tr class='disnone'>
+												<th>姓名</th>
+												<th>学号</th>
+												<th>出生日期</th>
+												<th>父亲姓名</th>
+												<th>父亲学历</th>
+												<th>父亲电话</th>
+												<th>父亲职业</th>
+												<th>母亲姓名</th>
+												<th>母亲学历</th>
+												<th>母亲电话</th>
+												<th>母亲职业</th>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											
+										</table>
+									</div>
+								</div>
+								<div class="y_btn y_p_b_40">
+									<a data-am-modal="{target: '#my-alert'}" href="javascript:void(0);" onclick="addTr()">添加学生</a>
+								</div>
+							</div>
+							<!--成绩发布-->
+							<div class="divInner">
+								<div class=" y_p_b_40">
+									<div class="y_font_14 y_color_00 y_p_t_25  y_margin_l_25">
+										<span class="y_f_l y_p_t_5 y_margin_b_20">班级成绩</span>
+
+										<a class="y_f_r delXuesheng y_margin_r_35" style="position: relative;
+    top: -8px;">
+											<i class="icon iconfont icon-shangchuan y_color_lan y_font_20"></i><span class="y_color_57 y_p_l_5">导入成绩单</span>
+										</a>
+									</div>
+
+									<div class="studentsData_table mCustomScrollbar y_margin_l_25 y_margin_r_35 m2_myclass_table_box" data-mcs-axis="x">
+										<table style="width: 900px;" class='public-jy-table  m2_myclass_table'>
+											<tr class='disnone'>
+												<th>姓名</th>
+												<th>学号</th>
+												<th>总分</th>
+												<th>科目</th>
+												<th>成绩</th>
+												<th>科目</th>
+												<th>成绩</th>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>13455676578</td>
+												<td class="y_color_huang">652</td>
+												<td>数学</td>
+												<td>322</td>
+												<td>数学</td>
+												<td>322</td>
+
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>13455676578</td>
+												<td class="y_color_huang">652</td>
+												<td>数学</td>
+												<td>322</td>
+												<td>数学</td>
+												<td>322</td>
+
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>13455676578</td>
+												<td class="y_color_huang">652</td>
+												<td>数学</td>
+												<td>322</td>
+												<td>数学</td>
+												<td>322</td>
+
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="y_btn y_p_b_40">
+									<a href="javascript:void(0);" onclick="addTr()">发送</a>
+								</div>
+							</div>
+							<!--班级表格-->
+							<div class="divInner">
+								<div class="y_border_b y_p_b_30 ">
+									<div class="y_font_14 y_color_00 y_p_t_25  y_margin_l_25">
+										<span class="y_f_l y_p_t_5 y_margin_b_20">班级课表</span>
+										<a class="y_f_r y_margin_r_35 bianji">
+											<i class="icon iconfont icon-bianji y_color_lan y_font_20"></i><span class="y_color_57 y_p_l_10">编辑</span>
+										</a>
+									</div>
+
+									<div class="studentsData_table  y_margin_l_25 y_margin_r_35">
+										<table class='public-jy-table  gd-td-table-kb'>
+											<tr>
+												<th class="biaotou-th">
+													<p>星期</p>
+													<p>节数</p>
+												</th>
+												<th>星期一</th>
+												<th>星期二</th>
+												<th>星期三</th>
+												<th>星期四</th>
+												<th>星期五</th>
+												<th>星期六</th>
+												<th>星期日</th>
+											</tr>
+											<tr>
+												<th>第一节</th>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第二节</th>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<th>第三节</th>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第四节</th>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第五节</th>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第六节</th>
+												<td></td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第七节</th>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+											</tr>
+											<tr>
+												<th>第八节</th>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第九节</th>
+												<td></td>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第十节</th>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+											</tr>
+											<tr>
+												<th>第十一节</th>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+												<td></td>
+												<td>语文课</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="y_border_b y_p_b_30 ">
+									<div class="y_font_14 y_color_00 y_p_t_25  y_margin_l_25">
+										<span class="y_f_l y_p_t_5 y_margin_b_20">值日表</span>
+										<a class="y_f_r y_margin_r_35 bianji">
+											<i class="icon iconfont icon-bianji y_color_lan y_font_20"></i><span class="y_color_57 y_p_l_10">编辑</span>
+										</a>
+									</div>
+
+									<div class="studentsData_table  y_margin_l_25 y_margin_r_35">
+										<table class='public-jy-table  gd-td-table-kb'>
+											<tr>
+												<th class="biaotou-th">
+													<p>星期</p>
+													<p>节数</p>
+												</th>
+												<th>星期一</th>
+												<th>星期二</th>
+												<th>星期三</th>
+												<th>星期四</th>
+												<th>星期五</th>
+												<th>星期六</th>
+												<th>星期日</th>
+											</tr>
+											<tr>
+												<th>擦黑板</th>
+												<td></td>
+												<td></td>
+												<td>张丹丹</td>
+												<td></td>
+												<td></td>
+												<td>小菜闹</td>
+												<td></td>
+											</tr>
+											<tr>
+												<th>扫地</th>
+												<td></td>
+												<td></td>
+												<td>张丹丹</td>
+												<td></td>
+												<td></td>
+												<td>小菜闹</td>
+												<td></td>
+											</tr>
+											<tr>
+												<th>擦桌子</th>
+												<td></td>
+												<td></td>
+												<td>张丹丹</td>
+												<td></td>
+												<td></td>
+												<td>小菜闹</td>
+												<td></td>
+											</tr>
+											<tr>
+												<th>扫地</th>
+												<td></td>
+												<td></td>
+												<td>张丹丹</td>
+												<td></td>
+												<td></td>
+												<td>小菜闹</td>
+												<td></td>
+											</tr>
+											<tr>
+												<th>擦桌子</th>
+												<td></td>
+												<td></td>
+												<td>张丹丹</td>
+												<td></td>
+												<td></td>
+												<td>小菜闹</td>
+												<td></td>
+											</tr>
+
+										</table>
+									</div>
+								</div>
+
+								<div class="y_btn y_p_b_30 y_p_t_40">
+									<a href="javascript:void(0);" id="doc-prompt-toggle">创建表格</a>
+								</div>
+							</div>
+							<!--学生档案-->
+							<div class="divInner">
+								<div class="divInner">
+								<div class=" y_p_b_40">
+									<div class="y_font_14 y_color_00 y_p_t_25  y_margin_l_25">
+										<span class="y_f_l y_p_t_5 y_margin_b_20">学生资料</span>
+
+										<a class="y_f_r y_margin_r_35 bianji">
+											<i class="icon iconfont icon-bianji y_color_lan y_font_20"></i><span class="y_color_57 y_p_l_10">编辑</span>
+										</a>
+									</div>
+
+									<div class="studentsData_table mCustomScrollbar y_margin_l_25 y_margin_r_35 m2_myclass_table_box" data-mcs-axis="x">
+										<table style="width: 1300px;" class='public-jy-table  m2_myclass_table'>
+											<tr class='disnone'>
+												<th>姓名</th>
+												<th>学号</th>
+												<th>出生日期</th>
+												<th>父亲姓名</th>
+												<th>父亲学历</th>
+												<th>父亲电话</th>
+												<th>父亲职业</th>
+												<th>母亲姓名</th>
+												<th>母亲学历</th>
+												<th>母亲电话</th>
+												<th>母亲职业</th>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+											<tr>
+												<td>张三</td>
+												<td>1314</td>
+												<td>1994-12-22</td>
+												<td>张爸爸</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+												<td>张妈妈</td>
+												<td>本科</td>
+												<td>13455676578</td>
+												<td>工作</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="y_btn y_p_b_40">
+									<a href="javascript:void(0);" onclick="addTr()">发送</a>
+								</div>
+							</div>
+							
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!--底部-->
+		<footer class="">
+			<div class="footer_inner">
+				<p>·免费声明·友情链接·网站地图·通讯录服务热线：400-080-9180</p>
+				<p>2008 学知非公司版权所有 闵 ICP 备05007286号 design by Clh</p>
+			</div>
+		</footer>
+		<!--添加学生弹框-->
+		<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+			<div class="am-modal-dialog" style="background: #fff;">
+				<div class="h5_addxuesheng">添加学生</div>
+				<div class="y_p_b_25 y_p_t_10"><span class="y_font_14 y_color_huang txt_huangse">黄色</span>
+					<span class="y_font_14 y_color_hong">字体为已注册号码，黑色字体为未注册号码，需要为其设置初始登陆密码，登陆后家长可更改密码）</span></div>
+				<div class="studentsData_table y_border_b studentsData_table_pop">
+					<table class='public-jy-table gd-td-table '>
+						<tr>
+							<th>姓名</th>
+							<th>学号</th>
+							<th>父亲电话</th>
+							<th>母亲电话</th>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+						</tr>
+
+					</table>
+				</div>
+				<div class="y_color_00 y_font_14 y_text_l y_p_l_45 y_p_t_30 y_p_b_25">设置初始密码<span class="y_color_hong y_font_12">（未注册的家长需要初始密码，登陆后家长可以更改密码）</span></div>
+				<form class=" formValidator">
+
+					<div class="y_color_57 y_font_14 y_text_l y_p_l_45 y_p_b_60">初始密码<input datatype="*6-6" nullmsg="请输入6位初始密码" errormsg="请输入6位初始密码！" placeholder="请输入6位初始密码" class="h5_tankaung_input y_border" maxlength="6" /></div>
+					<div class="y_btn y_p_b_30 ">
+						<button type="submit">确认添加</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+		<!--创建表格弹窗-->
+		<form class="formValidator">
+			<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+				<div class="am-modal-dialog zidingyibiaoge">
+					<div class="am-modal-hd pop_title y_p_b_40 y_p_t_40">创建表格</div>
+					<div class="am-form-group  y_color_21 y_font_14 banji_radio">
+						<label class="am-radio-inline y_p_r_40 y_p_l_30">
+								<input type="radio" name="radio10" value="qiu" data-am-ucheck  >班级课表</label>
+						<label class="am-radio-inline  y_p_l_30">
+    								<input type="radio" name="radio10" value="chun" data-am-ucheck>值日表</label>
+						<label class="am-radio-inline y_p_r_30 y_p_l_30 y_p_b_20" style="position: relative;left: -46px;top: 20px;">
+    							<input type="radio" name="radio10" value="shujia" checked="checked" data-am-ucheck>自定义表格</label>
+					</div>
+					<div class="am-modal-bd y_p_b_30 ">
+						<input type="text" class="y_background_input y_border am-modal-prompt-input" placeholder="请输入自定义表格名称" datatype="*" nullmsg="请输入自定义模块名称">
+					</div>
+					<div class="am-modal-footer">
+						<span class="am-modal-btn y-am-modal-btn" data-am-modal-cancel>取消</span>
+						<button type="submit" class=" y-am-modal-btn">提交</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<script src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/Validform_v5.1_min.js"></script>
+		<script type="text/javascript" src="js/layer/layer.js"></script>
+		<script type="text/javascript" src="js/jquery.mCustomScrollbar.js"></script>
+		<script src="js/assets/js/amazeui.min.js"></script>
+		<script src="js/y_public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/area.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/ueditor.all.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/lang/zh-cn/zh-cn.js"></script>
+		<script type="text/javascript">
+			//删除学生
+			$('.delXuesheng').click(function() {
+				$('.remove-tr').remove();
+				$('.delXuesheng').find('span').text('删除');
+			});
+
+			$(".m2_myclass_table").find("tr").toggle(function() {
+
+				if(!$(this).hasClass('disnone')) {
+					$(this).addClass('remove-tr');
+					$('.delXuesheng').find('span').text('确认删除');
+				}
+
+			}, function() {
+				if(!$(this).hasClass('disnone')) {
+					$(this).removeClass('remove-tr');
+					if($('.m2_myclass_table .remove-tr').length == 0) {
+						$('.delXuesheng').find('span').text('删除');
+					}
+				}
+			});
+
+			//编辑
+			$('.bianji').toggle(function() {
+				$(this).find('span').text('保存');
+				$(this).find('i').addClass('icon-baocun').removeClass('icon-bianji');
+			}, function() {
+				$(this).find('span').text('编辑');
+				$(this).find('i').addClass('icon-bianji').removeClass('icon-baocun');
+			})
+
+			//班级信息选项卡
+			$('.banjiInner_nav li').each(function(i) {
+				$(this).click(function() {
+					$(this).addClass('li_s').siblings().removeClass('li_s');
+					$('.banjiInner_inner').find('.divInner').eq(i).show().siblings().hide();
+				});
+			});
+			//创建表格
+			$(function() {
+				$('#doc-prompt-toggle').on('click', function() {
+					$('#my-prompt').modal({
+						relatedTarget: this,
+						onConfirm: function(e) {
+							//							
+						},
+						onCancel: function(e) {
+							//							
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+
+</html>

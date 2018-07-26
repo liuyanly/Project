@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>推送消息</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/personal.css"/>
+    <link rel="stylesheet" href="css/health_evaluation.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="6"></my-header>
+    </div>
+    <div class="main">
+        <section class="container clearFix">
+            <my-left-nav :active="type"></my-left-nav>
+            <div class="right right-box" style="min-height: 585px;height: auto;width: 884px;">
+                <p class="header-title" v-if="type==4">{{realname}}</p>
+                <p class="header-title" v-if="type==5">系统消息</p>
+                <div class="clearFix">
+                    <div class="head-img-box left">
+                        <img v-if="type == 4" :src="headImg"/>
+                        <img v-if="type == 5" src="images/b1_icon4.png"/>
+                    </div>
+                    <div class="analysis-content msg-content left">
+                        <p class="analysis-title clearFix"><span class="left" v-if="type == 4">{{realname}}</span><span class="left" v-if="type == 5">系统消息</span><span class="right">{{date}}</span></p>
+                        <div class="content-word" v-html="content">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/login.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/msg_leftNav.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data:{
+            id:getparams('id'),
+            type:getparams('type'),
+            headImg:'',
+            realname:'',
+            date:'',
+            content:'',
+        },
+        mounted:function () {
+            getToken(this)
+//            if(this.type == 1){
+//                this.active == '5'
+//            }else{
+//                this.acitve == '4'
+//            }
+            this.getDetail()
+        },
+        methods:{
+            getDetail:function () {
+                var that = this
+                axios.get(assistantApi+'/user/notifications/'+that.id)
+                    .then(function (res) {
+                        console.log(res.data)
+                        if(res.data.status == 200){
+                            if(that.type == 4){
+                                that.headImg = res.data.data.sender.translates.avatar_img
+                                that.realname = res.data.data.sender.realname
+                            }
+                            that.date = res.data.data.created_at.substring(0,10)
+                            that.content = res.data.data.data.content
+                        }
+                    })
+                    .catch(function (err) {
+                        linkLogin(that)
+                    })
+            },
+        }
+    })
+</script>
+</body>
+</html>

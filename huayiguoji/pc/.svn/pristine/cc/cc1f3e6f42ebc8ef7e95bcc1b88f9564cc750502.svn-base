@@ -1,0 +1,251 @@
+@import "variable";
+
+.left-nav{
+  height: 750px!important;
+}
+.header-title{
+  line-height: 50px;
+  .borderBottom(1px,solid,#eff1fa);
+  padding:0 20px;
+  .color999(14px,#333);
+}
+.placeholder{
+  display: none;
+}
+.form-box{
+  padding: 20px;
+  margin-bottom: 0;
+  .name{
+    width: 84px;
+    margin-right: 10px;
+    float: left;
+    text-align: left;
+    .color999(14px,#333);
+    line-height: 30px;
+  }
+  .select-p{
+    position: relative;
+    margin-bottom: 20px;
+    .color999(14px,#333);
+    >img{
+      position: absolute;
+      right:20px;
+      top: 12px;
+    }
+    select{
+      width:750px;
+      height:30px;
+      background:rgba(249,249,249,1);
+      border-radius: 6px ;
+      border:1px solid #eee;
+      padding: 0 20px;
+      line-height: 30px;
+      outline: none;
+      box-sizing: border-box;
+      .color999(14px,#333);
+    }
+  }
+  .text-p{
+    margin-bottom: 20px;
+    textarea{
+      width: 750px;
+      height: 60px;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      box-sizing: border-box;
+      resize: none;
+      outline: none;
+      .color999(14px,#333);
+    }
+  }
+  .choose-box{
+    margin-bottom: 20px;
+    .pos{
+      width: 236px;
+      margin-right: 21px;
+      &:nth-of-type(3){
+        margin-right: 0;
+      }
+      .xiaLa{
+        right: 20px;
+      }
+    }
+    select{
+      width:236px;
+      height:30px;
+      .color999(14px,#333);
+      background:rgba(249,249,249,1);
+      border-radius: 6px ;
+      border: 1px solid #eee;
+      padding: 0 20px;
+      box-sizing: border-box;
+
+    }
+  }
+  .pic-box{
+    .inner-box{
+      width: 750px;
+      border: 1px solid #eee;
+      box-sizing: border-box;
+      padding:8px 20px;
+      textarea{
+        height: 50px;
+        margin-bottom: 7px;
+        .color999(14px,#999);
+        width: 100%;
+        border: none;
+        resize: none;
+        .color999(14px,#333);
+      }
+      .img-box{
+        margin-bottom: 16px;
+      }
+        .imgContainer{
+        width: 55px;
+        height: 55px;
+        >img{
+          width: 100%;
+          height: 55px;
+          border-radius: 0;
+        }
+      }
+      #inputBox{
+        width: 55px;
+        height: 55px;
+        border-radius: 0;
+        input{
+          width: 100%;
+          height: 55px;
+        }
+        img{
+          margin-top: 16px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+  .btn-p{
+    .up-btn{
+      width:136px;
+      height:40px;
+      background:rgba(76,198,216,1);
+      border-radius: 3px ;
+      text-align: center;
+      line-height: 30px;
+      .color999(14px,#fff);
+      border: none;
+      margin-left: 95px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+  }
+}
+.publish-msg{
+  .name{
+    width: auto;
+    margin-right:20px ;
+  }
+  .select-p{
+    float: left;
+    select{
+      float: left;
+    }
+  }
+  .select-box{
+    .select-p{
+      width: 236px;
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
+    select{
+      width: 236px;
+
+    }
+    .department{
+      margin-left: 76px;
+    }
+    .doctor-select{
+      width: 492px;
+      select{
+        width: 492px;
+      }
+    }
+  }
+  .choose-box{
+    .pos{
+      width: 134px;
+      margin-right: 20px;
+      &:nth-of-type(3){
+        margin-right: 20px;
+      }
+      &:nth-of-type(5){
+        margin-right: 0;
+      }
+    }
+    select{
+      width: 134px;
+    }
+  }
+  .pic-box {
+    position: relative;
+    .model{
+      width:44px;
+      height:20px;
+      border: 1px solid #2748ab;
+      border-radius: 3px ;
+      color:#2748ab;
+      line-height: 20px;
+      text-align: center;
+      position: absolute;
+      right: 32px;
+      bottom: 9px;
+      cursor: pointer;
+    }
+    .inner-box {
+      height: 144px;
+      textarea {
+        height: 100px;
+      }
+    }
+  }
+  .btn-p .up-btn{
+    margin-left: 76px;
+  }
+}
+.publish .left-nav{
+  height: 585px!important;
+}
+.head-top{
+  padding: 10px 22px;
+  border-bottom: 1px solid #eff1fa;
+  img{
+    width:40px;
+    height:40px;
+    margin-right: 14px;
+    border-radius: 50%;
+  }
+  .line1{
+    .color999(14px,#666);
+    line-height: 22px;
+    span{
+      font-size: 14px;
+    }
+    .name{
+      color:#4CC6D8;
+      margin-right: 18px;
+    }
+  }
+  .line2{
+    .color999(12px,#999);
+    margin-top: 6px;
+    line-height: 12px;
+    .sex{
+      margin-right: 15px;
+    }
+  }
+}
+.msg-type{
+  margin-left: 77px;
+  margin-top: 15px;
+}

@@ -1,0 +1,41 @@
+@import "variable";
+.filter-box{
+  margin-top: 28px;
+  padding-left: 14px;
+  padding-bottom: 27px;
+  .borderBottom();
+  .filter-btn{
+    width: 80px;
+    height: 30px;
+    text-align: center;
+    background: #4CC6D8;
+    border-radius: 3px;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+  }
+}
+.report-list{
+  li{
+    padding: 0 20px 0 12px;
+    line-height: 58px;
+    height: 58px;
+    cursor: pointer;
+    .borderBottom(1px,solid,#EFF1FA);
+    span{
+      .color999(14px,#000);
+      width: 136px;
+    }
+    .date{
+      width: 156px;
+    }
+    .hospital-name{
+      width: auto;
+    }
+    img{
+      margin-top: 22px;
+      cursor: pointer;
+    }
+  }
+}

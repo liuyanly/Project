@@ -1,0 +1,234 @@
+<template>
+    <div class="pay">
+        <headers headName="支付"></headers>
+        <div class="contentScollr">
+        <div class="top-div">
+            <p class="clear">
+                <span class="title left" v-if='id!=0'>{{dataInfo.title}}</span>
+                <span class="title left" v-if='id==0'>会员续费</span>
+                <span class="money right"><span>{{money}}</span>元</span>
+            </p>
+            <p class="all-money">
+                <span class="title">共需支付:</span>
+                <span class="money">{{money}}元</span>
+            </p>
+        </div>
+        <div class="way-box">
+            <p class="title-p">
+                选择支付方式
+            </p>
+            <p class="pay-way clear">
+                <img class="left" src="../assets/images/c14_icon1.png" />
+                <span class="title left">支付宝支付</span>
+                <input class="one_sel" type="radio" name="payWay" value="1" v-model="payWay"/>
+                <img class="right" v-if="payWay==1" src="../assets/images/c14_xz.png" />
+            </p>
+            <!-- <p class="pay-way clear">
+                <img class="left" src="../assets/images/c14_icon2.png" />
+                <span class="title left">微信支付</span>
+                <input class="one_sel" type="radio" name="payWay" value="2" v-model="payWay"/>
+                <img class="right" v-if="payWay==2" src="../assets/images/c14_xz.png" />
+            </p> -->
+            <p class="pay-way clear" v-show="dataInfo.title!='充值'&&id!=0">
+                <img class="left" src="../assets/images/c14_icon3.png" />
+                <span class="title left">会员<span class="tip">(支付1次,剩余9次)</span></span>
+                <input class="one_sel" type="radio" name="payWay" value="2" v-model="payWay"/>
+                <img class="right" v-if="payWay==2" src="../assets/images/c14_xz.png" />
+            </p>
+            <p class="pay-way clear" v-show="dataInfo.title!='充值'">
+                <img class="left" src="../assets/images/c14_icon4.png" />
+                <span class="title left">余额支付</span>
+                <input class="one_sel" type="radio" name="payWay" value="3" v-model="payWay"/>
+                <img class="right" v-if="payWay==3" src="../assets/images/c14_xz.png" />
+            </p>
+        </div>
+        <p class="pay-btn" @click='pay()'>
+            确认支付
+        </p>
+    </div>
+    </div>
+</template>
+<script>
+    import headers from "../components/Header.vue";
+    export default {
+        data(){
+            return{
+                payWay:'1',
+                agree:'0',
+                id:this.$route.params.id,
+                money:this.$route.params.money,
+                dataInfo:{},
+            }
+        },
+        mounted(){
+            this.BaseSet.getToken(this)
+            this.getData()
+            //console.log(this.$route.params.id);
+        },
+        methods:{
+            getData(){
+                if(this.id!=undefined && this.id!=0){
+                    var that = this
+                    that.$ajax.get('/order/'+that.id)
+                    .then(function(res){
+                        if(res.data.status == 200){
+                            that.dataInfo = res.data.data
+                        }else if(res.data.status == 401){
+                            that.BaseSet.linkLogin(that)
+                        }else{
+                            that.$toast(res.data.message)
+                        }
+                    })
+                    .catch(function(err){
+                        that.BaseSet.linkLogin(that)
+                    })
+                }
+            },
+            pay(){
+                if(this.payWay==1){
+                    var that = this
+                    var data = {
+                        _me:'user-api',
+                        title:that.dataInfo.title,
+                        money:that.dataInfo.money,
+                        paytype:0,
+                        body:that.dataInfo.title,
+                    }
+                    if(this.id == 0){
+                        data.title = "会员续费"
+                        data.body = "会员续费"
+                        data.money = this.money
+                    }
+                    that.$ajax.post('/order',data)
+                    .then(function(res){
+                        if(res.data.status == 200){
+                            that.zfbData = res.data.data
+                            that.$router.push({name:'PaySuccess',params:{money:that.money}})
+                        }else if(res.data.status == 401){
+                            that.BaseSet.linkLogin(that)
+                        }else{
+                            that.$toast(res.data.message)
+                            that.$router.push({name:'PayFail'})
+                        }
+                    })
+                    .catch(function(err){
+                        that.BaseSet.linkLogin(that)
+                    })
+                }
+            },
+        },
+        components: {headers},
+    }
+</script>
+<style lang="scss">
+a{
+    color:#4CC6D8;
+}
+.pay{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    .contentScollr{
+        flex: 1;
+        overflow: scroll;
+        -webkit-overflow-scrolling:touch;
+    }
+    .top-div{
+        background: #fff;
+        //padding: .8rem /* 30/40 */;
+        .clear{
+            font-size: .7rem /* 28/40 */;
+            color:#333;
+            line-height: 3.5rem /* 140/40 */;
+            padding: 0 .8rem /* 30/40 */;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .left{
+            float: left;
+        }
+        .right{
+            float: right;
+        }
+        .money{
+            color:#999;
+            font-size: .6rem /* 24/40 */;
+            span{
+                font-size: .7rem /* 28/40 */;
+                color:#4CC6D8;
+            }
+        }
+        .all-money{
+            line-height: 2.3rem /* 90/40 */;
+            text-align: right;
+            padding: 0 .8rem /* 30/40 */;
+            font-size: .7rem /* 28/40 */;
+            color:#333;
+            .money{
+                color: #FC4F4F;
+            }
+        }
+    }
+    .title-p{
+        font-size: .7rem /* 28/40 */;
+        color:#999;
+        line-height: 2rem /* 80/40 */;
+        padding-left: .8rem /* 30/40 */;
+    }
+    .pay-way,.borderBottom{
+        border-bottom: 1px solid #e5e5e5;
+    }
+    .pay-way{
+        line-height: 3rem /* 120/40 */;
+        padding: 0 .8rem /* 30/40 */;
+        position: relative;
+        &:nth-of-type(5){
+            border-bottom: none;
+        }
+        .one_sel,.more_sel{
+            width: 100% /* 52/40 */;
+            height: 100% /* 52/40 */;
+            position: absolute;
+            top: .85rem;
+            right: .8rem /* 30/40 */;
+        }
+        .title{
+            font-size: .7rem /* 28/40 */;
+            color:#666;
+            span{
+                color:#4CC6D8;
+            }
+        }
+        .left{
+            float: left;
+        }
+        img:nth-of-type(1){
+            width:1.1rem /* 44/40 */;
+            height: auto;
+            margin-top: .9rem;
+            margin-right: .4rem /* 17/40 */;
+        }
+        .right{
+            float: right
+        }
+        img{
+            width: 1.3rem /* 50/40 */;
+            height: 1.3rem /* 50/40 */;
+            vertical-align: middle;
+            margin-top: 0.85rem;
+        }
+    }
+    .way-box{
+        background: #fff;
+        margin-top: .5rem /* 20/40 */;
+    }
+    .pay-btn{
+        margin: 1.5rem /* 60/40 */ .8rem /* 30/40 */;
+        background: #4CC6D8;
+        text-align: center;
+        color:#fff;
+        font-size: .8rem /* 32/40 */;
+        line-height: 2rem /* 82/40 */;
+        border-radius: .3rem /* 10/40 */;
+    }
+}
+</style>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!-- 禁止百度转码 -->
+    <title>对话消息</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/personal.css"/>
+    <link rel="stylesheet" href="css/pic_consult.css"/>
+    <!--[if IE]>
+      <link rel="stylesheet" href="css/ie9.css" />
+    ![endif]-->
+</head>
+<style>
+    .footer-bottom {
+        border-top: 1px solid #EFF1FA;
+        padding: 10px 15px;
+        line-height: 30px;
+    }
+
+    .main .container .right-box .footer-bottom .input-p textarea {
+        background: none;
+        outline: none;
+        border: none;
+        width: 844px;
+        padding: 0;
+        height: 40px;
+        margin: 8px 0;
+        font-size: 14px;
+        color: #333;
+        resize: none;
+    }
+
+    .main .container .right-box .footer-bottom .send-btn {
+        width: 136px;
+        height: 40px;
+        margin-bottom: 15px;
+    }
+</style>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="0"></my-header>
+    </div>
+    <div class="main">
+        <section class="container clearFix">
+            <div class="right right-box" style="width: 884px">
+                <section class="header-top clearFix">
+                    <div class="left">
+                        <p class="header-name">{{name}}</p>
+                    </div>
+                </section>
+                <section class="chat-content" ref="chat" id="chat">
+                    <!-- <section class="chat" ref="chat" id="chat"> -->
+                    <p class="time">2017-05-23</p>
+                    <div class="content-body clearFix">
+                        <div v-for="(item,index) in receiveData" :key="index">
+                            <div class="line left" v-if="item.isReceive">
+                                <img class="left" :src="item.img">
+                                <p class="word-p left">
+                                    {{item.title}}
+                                    <img :src="item.imgMsg" style="width: 100%;" v-if="item.isImg">
+                                </p>
+                            </div>
+                            <div class="line2 right" v-if="!item.isReceive">
+                                <p class="word-p right">{{item.title}}
+                                    <img :src="item.imgMsg" style="width: 100%" v-if="item.isImg">
+                                </p>
+                                <img class="right" :src="item.img">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="footer-bottom clearFix">
+                    <p class="clearFix" style="position: relative">
+                        <img class="left" src="images/h6_icon1.png">
+                        <input type="file" value="aa" id="upd_pic" accept="image/*" @change="upload"
+                               style="position: absolute;left:0; opacity: 0;width: 20px; overflow:hidden;">
+                        <!-- <img class="left" src="images/h6_icon2.png"> -->
+                    </p>
+                    <p class="input-p">
+                        <textarea v-model="msg" placeholder="请输入..." @keyup.enter="sendMsg"></textarea>
+                    </p>
+                    <button type="button" class="send-btn right" @click="sendMsg">发送</button>
+                </section>
+            </div>
+        </section>
+    </div>
+    <my-footer></my-footer>
+    <login-box></login-box>
+    <div class="msgflow"></div>
+</div>
+<script type="text/javascript" src="./js/vue.js"></script>
+<script type="text/javascript" src="./js/axios.min.js"></script>
+<script type="text/javascript" src="./js/jquery-3.1.0.js"></script>
+<script type="text/javascript" src="./js/Validform_v5.3.2.js"></script>
+<script type="text/javascript" src="element/element-ui.min.js"></script>
+<script type="text/javascript" src="swiper/swiper-3.4.2.min.js"></script>
+<script type="text/javascript" src="./js/header.js"></script>
+<script src="js/user_login.js"></script>
+<script type="text/javascript" src="./js/footer.js"></script>
+<script type="text/javascript" src="./js/public.js"></script>
+<!--引入webim sdk-->
+<script type="text/javascript" src="./js/im/webim.js"></script>
+<script type="text/javascript" src="./js/im/json2.js"></script>
+<!--用于获取文件MD5 js api(发送图片时用到)-->
+<script type="text/javascript" src="./js/im/spark-md5.js"></script>
+<!--发送消息-->
+<script type="text/javascript" src="./js/im/sendMsg.js"></script>
+<!--接收消息-->
+<script type="text/javascript" src="./js/im/receiveMsg.js"></script>
+<script type="text/javascript">
+    var sendMsg;
+    var receiveMsg;
+    var userInfo;
+    var content = new Vue({
+        el: '#page',
+        data: {
+            msg: '',
+            chatRecord: [],
+            name: '',
+            receiveData: []
+        },
+        mounted: function () {
+            var _this = this;
+            getToken(_this)
+            // axios.get(userApi + '/user/notificationslist/2')
+            //     .then(function (res) {
+            //         console.log(res)
+            //     })
+
+            // url传参解码
+            // this.name = decodeURI(GetQueryString('name'), "utf-8")
+            // var friendId = decodeURI(GetQueryString('id'))
+            userInfo = JSON.parse(localStorage.userInfo);
+            console.log(userInfo);
+            //发送消息
+            sendMsg = new SendMsg(userInfo, 3, {
+                "onMsgNotify": _this.onMsgNotify //接收新消息
+            });
+            sendMsg.login();
+            sendMsg.initSend();
+        },
+        methods: {
+            upload: function ($event) {
+                var _this = this;
+                if (!window.File || !window.FileList || !window.FileReader) {
+                    alert("您的浏览器不支持File Api");
+                    return;
+                }
+                // 预览,自己给自己发
+                var reads = new FileReader();
+                var f = document.getElementById('upd_pic').files[0];
+                reads.readAsDataURL(f);
+                reads.onload = function (e) {
+                    // console.log(this.result);
+                    _this.receiveData.push({
+                        imgMsg: this.result,
+                        title: '',
+                        img: userInfo.translates.avatar_img,
+                        isReceive: false,
+                        isImg: true
+                    })
+                };
+                sendMsg.uploadPic();
+                setTimeout(function () {
+                    scrollBottom(_this)
+                }, 500)
+            },
+            sendMsg: function () {
+                var _this = this;
+                if (_this.msg == '' || _this.msg.trim().length <= 0 || _this.msg == null) {
+                    this.$message.error('发送消息不能为空');
+                    return;
+                }
+                sendMsg.initSend();
+                sendMsg.sendTxt({
+                    title: this.msg,
+                    img: userInfo.translates.avatar_img
+                }, function (res) {
+                    console.log(res);
+                    if (res.ActionStatus == "OK") {
+                        _this.receiveData.push({
+                            img: userInfo.translates.avatar_img,
+                            title: _this.msg,
+                            isReceive: false,
+                            isImg: false
+                            // selfUploadImg: res.URL_INFO[0].DownUrl
+                        });
+                        _this.msg = '';
+                        scrollBottom(_this)
+                    }
+                });
+            },
+            onMsgNotify: function (data) {
+                console.log(data)
+                var _this = this;
+                var _data = data[0].elems[0]
+                //接收文字消息
+
+                if (_data.type == "TIMCustomElem") {
+                    if (_data.content.ext != "CallNotification") {
+                        _this.receiveData.push({
+                            img: _data.content.ext,
+                            title: _data.content.data,
+                            isReceive: true,
+                            isImg: false
+                        })
+                    } else {
+                        // this.receiveData.push('激活消息')
+                    }
+                }
+                //接收图片消息
+                if (_data.type == "TIMImageElem") {
+                    this.receiveData.push({
+                        imgMsg: _data.content.ImageInfoArray[0].url,
+                        title: '',
+                        isReceive: true,
+                        isImg: true
+                    })
+                }
+                setTimeout(function () {
+                    scrollBottom(_this)
+                }, 500)
+            }
+        }
+    })
+</script>
+</body>
+
+</html>

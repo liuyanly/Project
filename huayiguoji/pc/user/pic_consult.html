@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>图文咨询</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/pic_consult.css" />
+</head>
+<style>
+    .footer-bottom {
+        border-top: 1px solid #EFF1FA;
+        padding: 10px 15px;
+        line-height: 30px;
+    }
+
+    .main .container .right-box .footer-bottom .input-p textarea {
+        background: none;
+        outline: none;
+        border: none;
+        width: 844px;
+        padding: 0;
+        height: 40px;
+        margin: 8px 0;
+        font-size: 14px;
+        color: #333;
+        resize: none;
+    }
+
+    .main .container .right-box .footer-bottom .send-btn {
+        width: 136px;
+        height: 40px;
+        margin-bottom: 15px;
+    }
+</style>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="41"></my-left-nav>
+                <div class="right right-box">
+                    <section class="header-top clearFix" v-if='doctorInfo.translates'>
+                        <p class="left">
+                            <img :src="doctorInfo.translates.avatar_img">
+                        </p>
+                        <div class="left">
+                            <p class="header-name">{{doctorInfo.realname}}
+                                <span>({{doctorInfo.translates.department_title}}&nbsp;医师)</span>
+                            </p>
+                            <p class="hospital-name">{{doctorInfo.translates.hospital_title}}</p>
+                        </div>
+                        <!-- <div class="right info-div">
+                            <p class="right-title left">病情描述：</p>
+                            <div class="right-content left" v-if="title.length>65">
+                                {{title.substring(0,65)+"..."}}
+                            </div>
+                            <div class="right-content" v-if="title.length<=65">
+                                {{title}}
+                            </div>
+                        </div> -->
+                    </section>
+                    <section class="chat-content" ref="chat" id="chat">
+                        <!-- <section class="chat" ref="chat" id="chat"> -->
+                        <!-- <p class="time">2017-05-23</p> -->
+                        <div class="content-body clearFix">
+                            <div v-for="(item,index) in receiveData" :key="index">
+                                <!-- <div class="line left" v-if="item.isReceive"> -->
+                                <div class="line left" v-if="item.id!=userId">
+                                    <img class="left" :src="item.img">
+                                    <p class="word-p left">
+                                        {{item.sound?'暂不支持音频':item.title}}
+                                        <img :src="item.imgMsg" style="width: 100%;" v-if="item.isImg">
+                                    </p>
+                                </div>
+                                <!-- <div class="line2 right" v-if="!item.isReceive"> -->
+                                <div class="line2 right" v-if="item.id==userId">
+                                    <p class="word-p right">{{item.title}}
+                                        <img :src="item.imgMsg" style="width: 100%" v-if="item.isImg">
+                                    </p>
+                                    <img class="right" :src="item.img">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="footer-bottom clearFix">
+                        <!-- <img class="left" src="images/f56_icon1.png"> -->
+                        <p class="clearFix" style="position: relative">
+                            <img class="left" src="images/f56_icon1.png">
+                            <input type="file" value="aa" id="upd_pic" accept="image/*" @change="upload" style="position: absolute;left:0; opacity: 0;width: 20px; overflow:hidden;">
+                            <!-- <img class="left" src="images/h6_icon2.png"> -->
+                        </p>
+                        <p class="input-p">
+                            <textarea v-model="msg" placeholder="请输入..." @keyup.enter="sendMsg"></textarea>
+                        </p>
+                        <button type="button" class="send-btn right" @click="sendMsg">发送</button>
+                    </section>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/public.js"></script>
+    <!--引入webim sdk-->
+    <script type="text/javascript" src="./js/im/webim.js"></script>
+    <script type="text/javascript" src="./js/im/json2.js"></script>
+    <!--用于获取文件MD5 js api(发送图片时用到)-->
+    <script type="text/javascript" src="./js/im/spark-md5.js"></script>
+    <!--发送消息-->
+    <script type="text/javascript" src="./js/im/sendMsg.js"></script>
+    <script>
+        var sendMsg;
+        var receiveMsg;
+        var userInfo;
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    contentData: '咳嗽严重，每天高烧不退 咳嗽严重，每有恶风、恶寒、畏寒之别。遇风觉冷，谓之恶风；自觉怕冷，多加衣被或近火取暖不能缓解者谓之恶寒谓之恶寒；自觉怕冷，多加衣被或近火取暖不能缓解者谓之恶寒谓之恶寒',
+                    msg: '',
+                    id: getparams('id'),
+                    doctor: '',
+                    headImg: '',
+                    translates: '',
+                    title: '',
+                    msg: '',
+                    receiveData: [],
+                    doctorInfo: [],
+                    userId: '',
+                    doctor_avatar_img: ''
+                }
+            },
+            mounted: function () {
+                var _this = this;
+                getToken(this);
+                this.getData();
+                userInfo = JSON.parse(localStorage.userInfo);
+                console.log(userInfo);
+                this.userId = userInfo.id;
+                var doctorId = getparams('id');
+                console.log('医生id：', doctorId);
+                //发送消息
+                sendMsg = new SendMsg(userInfo, doctorId, {
+                    "onMsgNotify": _this.onMsgNotify //接收新消息
+                });
+                sendMsg.login();
+                sendMsg.initSend();
+
+                setTimeout(function () {
+                    var options = {
+                        'Peer_Account': doctorId, //好友帐号
+                        'MaxCnt': 15, //拉取消息条数
+                        'LastMsgTime': 0, //最近的消息时间，即从这个时间点向前拉取历史消息
+                        'MsgKey': ''
+                    };
+                    webim.getC2CHistoryMsgs(
+                        options,
+                        function (resp) {
+                            var complete = resp.Complete; //是否还有历史消息可以拉取，1-表示没有，0-表示有
+                            var retMsgCount = resp.MsgCount; //返回的消息条数，小于或等于请求的消息条数，小于的时候，说明没有历史消息可拉取了
+
+                            if (resp.MsgList.length == 0) {
+                                webim.Log.error("没有历史消息了:data=" + JSON.stringify(options));
+                                return;
+                            }
+                            if (complete == 0) {
+                                var msgList = resp.MsgList;
+                                for (var key in msgList) {
+                                    // console.log(msgList[key])
+                                    console.log(msgList[key].isSend)
+                                    _this.onMsgNotify(msgList[key], 1, !msgList[key].isSend)
+                                }
+
+                            }
+                            // if (cbOk)
+                            //     cbOk(resp.MsgList);
+                        },
+                        function (err) {
+                            console.log(err)
+                        }
+                    );
+                }, 2000)
+                this.getDoctorInfo(getparams('id'))
+
+            },
+            methods: {
+                getDoctorInfo(id) {
+                    var _this = this;
+                    axios.get(userApi + '/doctor/' + id)
+                        .then(function (res) {
+                            console.log('医生信息：', res);
+                            if (res.data.status == 200) {
+                                _this.doctor_avatar_img = res.data.data.translates.avatar_img
+                            }
+                        }).catch(function (err) {
+                            console.log(err);
+                        })
+                },
+                upload: function ($event) {
+                    var _this = this;
+                    if (!window.File || !window.FileList || !window.FileReader) {
+                        alert("您的浏览器不支持File Api");
+                        return;
+                    }
+                    // 预览,自己给自己发
+                    var reads = new FileReader();
+                    var f = document.getElementById('upd_pic').files[0];
+                    reads.readAsDataURL(f);
+                    reads.onload = function (e) {
+                        // console.log(this.result);
+                        _this.receiveData.push({
+                            id: userInfo.id,
+                            imgMsg: this.result,
+                            title: '',
+                            img: userInfo.translates.avatar_img,
+                            isReceive: false,
+                            isImg: true
+                        })
+                    };
+                    sendMsg.uploadPic();
+                    setTimeout(function () {
+                        scrollBottom(_this)
+                    }, 500)
+                },
+                sendMsg: function () {
+                    var _this = this;
+                    if (_this.msg == '' || _this.msg.trim().length <= 0 || _this.msg == null) {
+                        this.$message.error('发送消息不能为空');
+                        return;
+                    }
+                    sendMsg.initSend();
+                    sendMsg.sendTxt(this.msg,
+                        function (res) {
+                            console.log(res);
+                            if (res.ActionStatus == "OK") {
+                                _this.receiveData.push({
+                                    id: userInfo.id,
+                                    img: userInfo.translates.avatar_img,
+                                    title: _this.msg,
+                                    isReceive: false,
+                                    isImg: false
+                                    // selfUploadImg: res.URL_INFO[0].DownUrl
+                                });
+                                _this.msg = '';
+                                scrollBottom(_this)
+                            }
+                        });
+                },
+                onMsgNotify: function (data, slecte, isSend) {
+                    console.log(data)
+                    var _this = this;
+                    var _data;
+                    var tmpIsReceive;
+                    if (slecte == 1) {
+                        _data = data.elems[0]
+                    } else {
+                        _data = data[0].elems[0]
+                    }
+                    // //接收文字消息
+                    // if (_data.type == "TIMCustomElem") {
+                    //     if (_data.content.ext != "CallNotification") {
+                    //         _this.receiveData.push({
+                    //             id: getparams('id'),
+                    //             img: _data.content.ext,
+                    //             title: _data.content.data,
+                    //             isReceive: isSend,
+                    //             isImg: false
+                    //         })
+                    //     }
+                    // }
+                    //接收文字消息
+                    if (_data.type == "TIMTextElem") {
+                        _this.receiveData.push({
+                            id: getparams('id'),
+                            img: _this.doctor_avatar_img,
+                            title: _data.content.text,
+                            isReceive: isSend,
+                            sound: false,
+                            isImg: false
+                        })
+                    }
+                    //接收图片消息
+                    if (_data.type == "TIMImageElem") {
+                        this.receiveData.push({
+                            id: getparams('id'),
+                            imgMsg: _data.content.ImageInfoArray[0].url,
+                            img: _this.doctorInfo.translates.avatar_img,
+                            title: '',
+                            sound: false,
+                            isReceive: isSend,
+                            isImg: true
+                        })
+                    }
+                    // 接收音频
+                    if (_data.type == "TIMSoundElem") {
+                        this.receiveData.push({
+                            id: getparams('id'),
+                            img: _this.doctorInfo.translates.avatar_img,
+                            sound: true,
+                            title: '',
+                            isReceive: isSend,
+
+                        })
+                    }
+                    setTimeout(function () {
+                        scrollBottom(_this)
+                    }, 500)
+                },
+                getData: function () {
+                    var that = this
+                    axios.get(userApi + '/user/' + that.id)
+                        .then(function (res) {
+                            if (res.data.status == 200) {
+                                console.log('用户信息：', res.data.data)
+                                that.doctorInfo = res.data.data;
+                                // that.doctor = res.data.data.doctor
+                                // that.headImg = res.data.data.doctor.translates.avatar_img
+                                // that.translates = res.data.data.doctor.translates
+                                // that.title = res.data.data.title
+                            }
+                        })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

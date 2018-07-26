@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>首页</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/health_evaluation.css" />
+</head>
+<style>
+    .tdHead {
+        width: 396px;
+        height: 38px;
+        background: #EEEEEE;
+        font-size: 16px;
+        line-height: 38px;
+        text-indent: 6px;
+    }
+
+    .tdSubHead {
+        width: 198px;
+        height: 48px;
+        background: rgba(249, 246, 246, 1);
+        font-size: 14px;
+        color: #666;
+        line-height: 48px;
+        text-indent: 12px;
+    }
+
+    .tdSubHeadShort {
+        width: 80px;
+        height: 48px;
+        background: rgba(249, 246, 246, 1);
+        font-size: 14px;
+        color: #666;
+        text-indent: 12px;
+        line-height: 48px;
+    }
+
+    .fontColor {
+        color: #999;
+
+    }
+
+    .pTable {
+        border-collapse: collapse;
+    }
+
+    .pTable td {
+        border: 1px solid #E5E5E5;
+    }
+
+    .tdText {
+        width: 347px;
+        color: rgba(76, 198, 216, 1);
+        font-size: 14px;
+        line-height: 30px;
+        text-align: left;
+        padding: 0 40px 30px 10px;
+    }
+
+    .displayInline {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .marginLeft35 {
+        margin-left: 35px;
+    }
+
+    .content_box {
+        padding-top: 30px;
+        padding-left: 14px;
+    }
+
+    .divWidth {
+        width: 100px;
+        text-align: center;
+        line-height: 18px;
+        margin: 4px 20px 0 20px;
+    }
+
+    .lineHeight75 {
+        vertical-align: middle;
+        line-height: 20px;
+        text-indent: 0;
+        padding-left: 12px;
+        padding-right: 12px;
+
+    }
+
+    .imgPosition {
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    .marginTop24 {
+        margin-top: 24px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+    }
+
+    .aim-title {
+        display: inline-block;
+        font-size: 12px;
+        color: #999;
+        vertical-align: middle;
+    }
+
+    .circular {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 12px;
+        vertical-align: middle;
+    }
+
+    .bgBlue {
+        background: rgba(76, 198, 216, 1);
+    }
+
+    .bgYellow {
+        background: rgba(255, 213, 46, 1);
+    }
+
+    .marginLeftM {
+        margin-left: 100px;
+    }
+
+    .alignment {
+        display: inline-block;
+        vertical-align: middle;
+        text-indent: 0;
+    }
+
+    .me {
+        display: none;
+        text-align: center;
+    }
+
+    .display {
+        border: 4px solid #4cc6d8 !important;
+    }
+
+    .imgPosition>div {
+        text-align: center;
+        padding: 2px 0;
+    }
+</style>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="0"></my-header>
+        </div>
+        <my-slider></my-slider>
+        <div class="container relative" style="height:310px;">
+            <div class="intro-div absolute clearFix">
+                <div class="one pub">
+                    <p class="img-p">
+                        <img src="images/a1_icon1.png">
+                    </p>
+                    <p class="title-p">智能分诊</p>
+                    <div class="content-word">
+                        患者诊前指导的绝佳助手，继承梅奥分诊知识内容体系，获取权威指导及诊前护理建议。
+                    </div>
+                </div>
+                <div class="two pub">
+                    <p class="img-p">
+                        <img src="images/a1_icon2.png">
+                    </p>
+                    <p class="title-p">在线咨询</p>
+                    <div class="content-word">
+                        支持图文、电话、视频三种咨询形式与专家便捷沟通，获得基干病情的专家建议。家庭医生做朋友，呵护全家健康。
+                    </div>
+                </div>
+                <div class="three pub">
+                    <p class="img-p">
+                        <img src="images/a1_icon3.png">
+                    </p>
+                    <p class="title-p">健康管理</p>
+                    <div class="content-word">
+                        采集基础健康医疗信息， 建立私人健康档案，对 体检报告进行深度解读， 并由临床专家团队跟踪 服务，提供健康风险预 警及针对性的健康管理 方案。
+                    </div>
+                </div>
+                <div class="four pub">
+                    <p class="img-p">
+                        <img src="images/a1_icon4.png">
+                    </p>
+                    <p class="title-p">就医策划</p>
+                    <div class="content-word">
+                        让就医更高效、便捷、 省时、省心。诊前采集 信息，精准分诊；诊中 全程陪同，住院手术安 排；诊后康复指导，建 立私人健康档案。
+                    </div>
+                </div>
+                <div class="five pub">
+                    <p class="img-p">
+                        <img src="images/a1_icon5.png">
+                    </p>
+                    <p class="title-p">疾病管理</p>
+                    <div class="content-word">
+                        就医病历电子化存储， 清晰展示，随时查看， 永久保存，为您建立专 属的、连续的健康医疗 档案。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="container clearFix" v-if="userId!=''&&userId!=null">
+            <p class="chart-allTitle">我的健康数据</p>
+            <div class="left">
+                <div class="title-head">
+                    <span class="left">动脉硬化性心血管疾病（ASCVD）</span>
+                    <a href="health_evaluation.html?id=1&order=1">
+                        <span class="right">详细></span>
+                    </a>
+                </div>
+                <!-- 心血管疾病 -->
+                <p v-if="cvd_10yearRisk==''" style="text-align: center;padding: 10px">
+                    暂无数据
+                </p>
+                <div class=" list content_box " v-if="cvd_10yearRisk!='' ">
+                    <p class="header-title small-title clearFix " style="border-top: none ">动脉硬化性心血管疾病（ASCVD）</p>
+                    <div class="chart-box " v-show="cvd_10yearRisk!='-' ">
+                        <div class="word-box ">
+                            <p class="title ">10年ASCVD风险</p>
+                            <p class="marBot ">
+                                <span>{{cvd_10yearRisk}}%</span>(你的10年DSCVD风险)</p>
+                            <p>同龄人最佳的10年ASCVD危险因素水平：{{opt_10yearRisk}}%</p>
+                            <p>（同龄最佳值）</p>
+                        </div>
+                        <div id="myChart3" ref='myChart3' style="width: 100%;height: 400px;margin: 0 auto; "></div>
+                    </div>
+                    <div v-show="cvd_10yearRisk=='-' " style="text-align: center;color: #999 ">暂无10年ASCVD风险数据</div>
+                    <div class="chart-box " v-show="cvd_LifetimeRisk!='-' ">
+                        <div class="word-box ">
+                            <p class="title ">终身ASCVD风险</p>
+                            <p class="marBot ">
+                                <span>{{cvd_LifetimeRisk}}%</span>%</span>(你的终身DSCVD风险)</p>
+                            <p>同龄人最佳的10年ASCVD危险因素水平：{{opt_LifetimeRisk}}%</p>
+                            <p>（同龄最佳值）</p>
+                        </div>
+                        <div id="myChart4" style="width: 100%;height: 400px;margin: 0 auto; "></div>
+                    </div>
+                    <div v-show="cvd_LifetimeRisk=='-' " style="text-align: center;color: #999 ">暂无终身ASCVD风险数据</div>
+                </div>
+                <!-- 心血管疾病end -->
+            </div>
+            <div class="right ">
+                <div class="title-head ">
+                    <span class="left ">血脂风险</span>
+                    <a href="health_evaluation.html?id=3 ">
+                        <span class="right ">详细></span>
+                    </a>
+                </div>
+                <div class="content ">
+                    <p v-if="xuezhi.bl==null" style="text-align: center;padding: 10px">
+                        暂无数据
+                    </p>
+                    <div class="content-box " v-if="xuezhi.bl!=null">
+                        <p class="sec-title ">我的危险分级：
+                            <!-- <span>低危</span>（10年危险性
+                            <span>
+                                <5%</span>） -->
+                            {{bl.risk_stratification_str!=null?bl.risk_stratification_str:'-'}}
+                        </p>
+                        <div class="thermometer-chart relative ">
+                            <img src="images/a1_zhu.png ">
+                            <span class="best absolute ">极高危</span>
+                            <span class="high absolute ">高危</span>
+                            <span class="middle absolute ">中危</span>
+                            <span class="low absolute ">低危</span>
+                            <div class="current absolute clearFix " :style="{bottom: bl.risk_stratification*0.185*5 + '%' } ">
+                                <span class="me left ">
+                                    <span>我</span>
+                                </span>
+                                <span class="num left ">{{bl.risk_stratification||0}}</span>
+                                <span class="status left ">(低危)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="left maxWidth ">
+                <div class="title-head ">
+                    <span class="left ">血压-危险因素</span>
+                    <a href="health_evaluation.html?id=2 ">
+                        <span class="right ">详细></span>
+                    </a>
+                </div>
+                <p v-if="dataBp.position==undefined" style="text-align: center;padding: 10px">
+                    暂无数据
+                </p>
+                <table class="content" v-if="dataBp.position!=undefined">
+                    <tbody>
+                        <tr class="firstTr ">
+                            <td class="firstTd ">其他危险因素和病史</td>
+                            <td>
+                                <p>正常值</p>
+                                <p class="title ">SBP:130-139</p>
+                                <P class="title ">DBP:85-89</P>
+                            </td>
+                            <td>
+                                <p>1级高血压</p>
+                                <p class="title ">SBP:140-159</p>
+                                <P class="title ">DBP:90-99</P>
+                            </td>
+                            <td>
+                                <p>2级高血压</p>
+                                <p class="title ">SBP:160-179</p>
+                                <P class="title ">DBP:100-109</P>
+                            </td>
+                            <td>
+                                <p>3级高血压</p>
+                                <p class="title ">SBP:≧180</p>
+                                <P class="title ">DBP:≧110</P>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=" tdSubHead lineHeight75 fontColor">无危险因素</td>
+                            <td :class="[dataBp.position == 0 ? 'display':'']"></td>
+                            <td :class="[dataBp.position == 1 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w1.png" />
+                                    <div :class="[dataBp.position == 1 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 2 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w2.png" />
+                                    <div :class="[dataBp.position == 2 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 3 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w3.png" />
+                                    <div :class="[dataBp.position == 3 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=" tdSubHead lineHeight75 fontColor">1-2其他危险因素</td>
+                            <td :class="[dataBp.position == 4 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w1.png" />
+                                    <div :class="[dataBp.position == 4 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 5 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w2.png" />
+                                    <div :class="[dataBp.position == 5 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 6 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w3.png" />
+                                    <div :class="[dataBp.position == 6 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 7 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w3.png" />
+                                    <div :class="[dataBp.position == 7 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=" tdSubHead lineHeight75 fontColor">3个及以上危险因素</td>
+                            <td :class="[dataBp.position == 8 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w2.png" />
+                                    <div :class="[dataBp.position == 8 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 9 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w3.png" />
+                                    <div :class="[dataBp.position == 9 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 10 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w3.png" />
+                                    <div :class="[dataBp.position == 10 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 11 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w4.png" />
+                                    <div :class="[dataBp.position == 11 ? '':'me']" class="">我</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=" tdSubHead lineHeight75 fontColor">靶器官损害、糖尿病</td>
+                            <td :class="[dataBp.position == 12 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w3.png" />
+                                    <div :class="[dataBp.position == 12 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 13 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w3.png" />
+                                    <div :class="[dataBp.position == 13 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 14 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w3.png" />
+                                    <div :class="[dataBp.position == 14 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 15 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w4.png" />
+                                    <div :class="[dataBp.position == 15 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=" tdSubHead lineHeight75 fontColor">有症状CVD、CKD4期以上糖尿病合并靶器官损害或危险因素</td>
+                            <td :class="[dataBp.position == 16 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w4.png" />
+                                    <div :class="[dataBp.position == 16 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 17 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w4.png" />
+                                    <div :class="[dataBp.position == 17 ? '':'me']" class="me">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 18 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w4.png" />
+                                    <div :class="[dataBp.position == 18 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                            <td :class="[dataBp.position == 19 ? 'display':'']">
+                                <div class="imgPosition">
+                                    <img src="./images/a1_w4.png" />
+                                    <div :class="[dataBp.position == 19 ? '':'me']">我</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="right minWidth " v-if="userId!='' ||userId==null ">
+                <div class="title-head ">
+                    <span class="left ">糖代谢状态</span>
+                    <a href="health_evaluation.html?id=2 ">
+                        <span class="right ">详细></span>
+                    </a>
+                </div>
+
+                <div class="content" style="height: 100px">
+                    <p v-if="comprehensive_str==''" style="text-align: center;padding: 10px;color: #666;font-size: 14px">
+                        暂无数据
+                    </p>
+                    <p class="conclusion " v-if="comprehensive_str!=''">{{comprehensive_str}}</p>
+                </div>
+                <!--血糖风险评估因素 -->
+                <table class="pTable displayInline marginTop24" style="padding-bottom: 20px">
+                    <tr>
+                        <td colspan="2" class="cc tdHead" style="width: 284px">血糖风险评估
+                            <a href="health_evaluation.html?id=4" style="padding-right: 20px;color: #666;font-size: 14px">
+                                <span class="right" style="margin-right: 12px">详细></span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="tdSubHead lineHeight75" v-if="bloodSugarBg.score==null" style="text-align: center">暂无数据</td>
+                    </tr>
+                    <tbody v-if="bloodSugarBg.score!=null">
+                        <tr>
+                            <td class="tdSubHead lineHeight75">项目</td>
+                            <td class="lineHeight75">内容</td>
+                        </tr>
+                        <!-- <p <" style="text-align: center;padding: 10px">
+                        暂无数据
+                    </p> -->
+
+                        <tr>
+                            <td class="tdSubHead lineHeight75 fontColor">风险评分</td>
+                            <td class="lineHeight75 fontColor">
+                                {{bloodSugarBg.score==null?'-':bloodSugarBg.score}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdSubHead lineHeight75 fontColor">风险分层</td>
+                            <td class="lineHeight75 fontColor">
+                                {{bloodSugarBg.diabetes_risk==null?'-':bloodSugarBg.diabetes_risk}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdSubHead lineHeight75 fontColor">建议</td>
+                            <td class="lineHeight75 fontColor">
+                                {{bloodSugarBg.glucose_tolerance_advice==null?'-':bloodSugarBg.glucose_tolerance_advice}}
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </section>
+        <div class="last-box " v-if="userId!='' &&userId!=null ">
+            <section class="container chart-div relative ">
+                <div class="title-head ">
+                    <span class="left chart-change " v-bind:class="{active:chartType==2 } " @click="changeChartType(2) ">血压趋势图</span>
+                    <span class="left chart-change " v-bind:class="{active:chartType==3 } " @click="changeChartType(3) ">血糖趋势图</span>
+                    <span class="left chart-change " v-bind:class="{active:chartType==4 } " @click="changeChartType(4) ">血脂趋势图</span>
+                    <a href="sign_detection.html?id=2 ">
+                        <span class="right ">详细></span>
+                    </a>
+                </div>
+                <div class="time-filter ">
+                    <span v-bind:class="{active:chartDate==0 }" @click="changeChartDate(0)">周</span>
+                    <span v-bind:class="{active:chartDate==1 }" @click="changeChartDate(1)">月</span>
+                    <span v-bind:class="{active:chartDate==2 }" @click="changeChartDate(2)">日</span>
+                </div>
+                <div id="myChart" style="width: 1000px;height: 600px;margin: 0 auto;margin-top: 55px "></div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js "></script>
+    <script src="js/axios.min.js "></script>
+    <script src="js/jquery-3.1.0.js "></script>
+    <script src="js/Validform_v5.3.2.js "></script>
+    <script src="element/element-ui.min.js "></script>
+    <script src="swiper/swiper-3.4.2.min.js "></script>
+    <script src="js/header.js "></script>
+    <script src="js/user_login.js "></script>
+    <script src="js/slider.js "></script>
+    <script src="js/footer.js "></script>
+    <script src="js/echarts.min.js "></script>
+    <script src="js/chart.js "></script>
+    <script src="js/public.js "></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    x_data: ['12-18 2014', '04-05 2015', '10-12 2016', '04-19 2016', '10-28 2017'],
+                    line1: [100, 40, 60, 44, 88],
+                    line2: [60, 50, 80, 65, 54],
+                    chartDate: 0,
+                    userId: localStorage.getItem('userId') ? localStorage.getItem('userId') : null,
+                    twoBar_data: [1.8, 0.75],
+                    nameData: ["10年风险", "10年最优值"],
+                    nameData2: ["终身风险", "终身最优值"],
+                    barName: '10年ASCVD风险',
+                    barName2: '终身ASCVD风险',
+                    situation_model: [], //生活方式
+                    bloodSugarCondition: [], //血糖情况
+                    bloodSugarBg: [], //血糖风险评估
+                    health_model: [], //血脂状况
+                    bl: {}, //血脂风险
+                    ascvd: {}, //ascv风险
+                    opt_10yearRisk: '', //10年dscvd风险
+                    cvd_10yearRisk: '', //同龄10年dscvd风险
+                    opt_LifetimeRisk: '',
+                    cvd_LifetimeRisk: '',
+                    is_ha: '', //降糖药服用
+                    imgTitle: '一般',
+                    chartType: 2,
+                    dataList: [],
+                    detailList: [],
+                    titleFields: '',
+                    healthModel: [],
+                    dataBp: {},
+                    comprehensive_str: '',
+                    xuezhi: []
+                }
+            },
+            mounted: function () {
+                var _this = this;
+                var that = this;
+                getToken(this)
+                // 血压，血糖，血脂趋势图 
+                this.getBlsData(this.getBeforeDate(7), this.getBeforeDate(1))
+                // axios.get(userApi + '/archive/showdetection?category=血压') // .then(function (res) { // console.log('血压', res) // })
+                if (this.userId != '' && this.userId != null) {
+                    // 心血疾病 
+                    axios.get(userApi + '/check/ascvd').then(function (res) {
+                        if (typeof res.data.data == 'string') {
+                            return;
+                        }
+                        if (res.status == 200) {
+                            // console.log('心血疾病', res);
+                            _this.ascvd = res.data.data;
+                            _this.cvd_10yearRisk = _this.ascvd.cvd_10yearRisk >= 0 ? _this.ascvd.cvd_10yearRisk
+                                .toFixed(2) : '-';
+                            _this.opt_10yearRisk = _this.ascvd.opt_10yearRisk >= 0 ? _this.ascvd.opt_10yearRisk
+                                .toFixed(2) : '-';
+                            _this.cvd_LifetimeRisk = _this.ascvd.cvd_LifetimeRisk >= 0 ? _this.ascvd
+                                .cvd_LifetimeRisk.toFixed(2) : '-';
+                            _this.opt_LifetimeRisk = _this.ascvd.opt_LifetimeRisk >= 0 ? _this.ascvd
+                                .opt_LifetimeRisk.toFixed(2) : '-';
+                            // twoBar([_this.opt_10yearRisk, _this.cvd_10yearRisk],
+                            //     "myChart3", _this.nameData, _this.barName); //图表,ascvd风险 
+                            _this.$nextTick(function () {
+                                twoBar([_this.opt_10yearRisk, _this.cvd_10yearRisk],
+                                    'myChart3', _this.nameData, _this.barName);
+                                twoBar([_this.opt_LifetimeRisk, _this.cvd_LifetimeRisk],
+                                    "myChart4", _this.nameData2, _this.barName2); //图表,终身
+                            }) //图表,ascvd风险
+
+                        }
+                    })
+                    // 血脂 
+                    axios.get(userApi + '/check/bloodfat').then(function (res) {
+                        if (res.status == 200) {
+                            var data = res.data.data;
+                            console.log(data);
+                            _this.health_model = data.health_model; //血脂状况
+                            _this.situation_model = data.situation_model; //生活方式
+                            _this.bl = data.bl;
+                            _this.xuezhi = data;
+                            console.log('b1s', _this.bl);
+                        }
+                    })
+
+                    //血压 
+                    axios.get(userApi + '/check/bloodpressure').then(function (res) {
+                        if (typeof res.data.data == 'string') {
+                            _this.isShowBloodpressure = false;
+                            // _this.$alert('基础问卷未填写！', '提示', {
+                            //     confirmButtonText: '确定',
+                            // });
+                            return;
+                        }
+                        console.log(res);
+                        if (res.data.status == 200) {
+                            _this.healthModel = res.data.data.health_model;
+                            _this.dataBp = res.data.data.bp;
+                            console.log('ada', _this.dataBp)
+                            _this.comprehensive_str = _this.showMsg(res.data.data.bp.comprehensive);
+                        }
+                    }).catch(function () {
+                        console.log(err)
+                    })
+                    axios.get(userApi + '/check/bloodglucose').then(function (res) {
+                        if (res.status == 200) {
+                            if (typeof res.data.data == 'string') {
+                                _this.isNullData = true; //提示无数据判断 
+
+                                return;
+                            }
+                            console.log(res);
+                            var data = res.data.data;
+                            _this.bloodSugarCondition = data.bloodglucose;
+                            _this.bloodSugarBg = data.bg;
+                            _this.is_ha = data.is_ha;
+                        }
+                    })
+
+                }
+            },
+            methods: {
+                showMsg(comprehensive) {
+                    console.log(comprehensive);
+                    switch (comprehensive) {
+                        case 1:
+                            return '您的血压处于正常范围之内，目前无需特殊干预，请继续保持健康生活方式及定期监测血压；';
+                            break;
+                        case 2:
+                            return '您的血压处于正常范围之内，鉴于您同时合并有其他代谢相关问题，建议您开始改善生活方式，定期监测血压；';
+                            break;
+                        case 3:
+                            return '本次体检发现您的血压升高，建议您开始改善生活方式，并监测并记录血压；2-4周后心内科就诊；';
+                            break;
+                        case 4:
+                            return '本次体检发现您的血压升高，建议您开始改善生活方式，并监测并记录血压；1周内心内科门诊就诊评估是否监测；';
+                            break;
+                        case 5:
+                            return '本次体检发现您的血压明显升高，建议您开始改善生活方式，并尽快医院就诊，必要时开始药物治疗；';
+                            break;
+                        case 6:
+                            return '您有高血压病史，目前血压控制达标，请继续保持健康生活方式并维持目前药物治疗';
+                            break;
+                        case 7:
+                            return '您有高血压病史，目前血压控制未达标，请密切监测血压，如持续不达标请心内科门诊就诊。';
+                            break;
+                        default:
+                            return '';
+                            break;
+                    }
+                },
+                getBeforeDate(n) {
+                    var date = new Date();
+                    var year, month, day;
+                    date.setDate(date.getDate() - n);
+                    year = date.getFullYear();
+                    month = date.getMonth() + 1;
+                    day = date.getDate();
+                    s = year + '-' + (month < 10 ? ('0' + month) : month) + '-' + (day <
+                        10 ? ('0' + day) : day);
+                    return s;
+                },
+                getBlsData: function (startDate, endDate) {
+                    var that = this;
+                    // 血压，血糖，血脂趋势图;
+                    var params = {};
+                    axios.get(userApi + '/checks/' + that.chartType + "?start_time=" + startDate +
+                        "&end_time=" + endDate, {
+                            params: params
+                        }).then(function (dt) {
+                        var tmpdate = []
+                        if (dt.data.data.data == undefined) {
+                            for (var i = 0; i < 5; i++) {
+                                tmpdate.push(that.getBeforeDate(i + 1))
+                            }
+                            twoLine([{
+                                date: tmpdate
+                            }], 'myChart');
+                        }
+
+                        // console.log('血压，血糖，血脂趋势图:', dt.data.data.data);
+                        that.imgTitle = dt.data.data.data[0].translates.checktemp_title;
+                        if (dt.data.data.data == undefined) {
+
+                        }
+                        if (dt.data.status ==
+                            200 && !(dt.data.data instanceof Array)) {
+
+                            if (dt.data.data.data instanceof Array) {
+                                that.detailList = dt.data.data.data;
+                                that.titleFields = dt.data.data.data[0].fields;
+                            }
+                            var data = []
+                            var name = []
+                            for (var i = 0; i < dt.data.data.fields.length; i++) {
+                                var dta = dt.data.data.fields[i];
+                                var tem = {
+                                    title: dta[0].title,
+                                    data: [],
+                                    color: '#4CC6D8',
+                                    legendDot: 'image://images/a1_q_dian_p.png',
+                                    bgPic: 'images/a1_cheng1.png',
+                                    date: []
+                                }
+                                for (var j = 0; j < dta.length; j++) {
+                                    var item = dta[j];
+                                    tem.date.push(dt.data.data.fields[0][j].check_at
+                                        .substring(
+                                            0,
+                                            10));
+                                    tem.data.push(item.pivot.value)
+                                }
+                                data.push(tem);
+                            }
+                            twoLine(data, 'myChart');
+
+                        } else if (dt.data.data instanceof Array &&
+                            dt.data.data.length == 0) {
+                            that.$alert('该患者暂未上传数据！', '提示', {
+                                confirmButtonText: '确定',
+                            });
+                        }
+                    }).catch(function (err) {
+                        //linkLogin(that);
+                    })
+                    // 血压，血糖，血脂趋势图end
+                },
+                changeChartType: function (type) {
+                    console.log('1:', type)
+                    this.chartType = type;
+                    this.chartDate = 0;
+                    this.getBlsData(this.getBlsData(this.getBeforeDate(7), this.getBeforeDate(1)))
+                },
+                changeChartDate: function (type) {
+                    console.log('2:', type)
+                    this.chartDate = type;
+                    if (type == 0) {
+                        this.getBlsData(this.getBlsData(this.getBeforeDate(7), this.getBeforeDate(1)))
+                    } else if (type == 1) {
+                        this.getBlsData(this.getBlsData(this.getBeforeDate(30), this.getBeforeDate(1)))
+                    } else {
+                        this.getBlsData(this.getBlsData(this.getBeforeDate(2), this.getBeforeDate(1)))
+                    }
+                },
+                getData: function () {
+                    var that = this
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

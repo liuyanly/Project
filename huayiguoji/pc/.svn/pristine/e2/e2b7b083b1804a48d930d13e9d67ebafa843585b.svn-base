@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>填写问卷调查</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/pic_word_pay.css" />
+    <link rel="stylesheet" href="css/question_surver.css" />
+    <link rel="stylesheet" href="css/edit_questionnaire.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="22"></my-left-nav>
+                <div class="right right-box" style="margin-bottom: 78px">
+                    <p class="header-title clearFix" style="border-bottom: none" v-if="status == 0">填写问卷</p>
+                    <p class="header-title clearFix" style="border-bottom: none" v-else>修改问卷调查</p>
+                    <form class="demoform">
+                        <div class="list" style="margin-bottom: 176px">
+                            <div v-for="data in dataList">
+                                <p class="header-title small-title clearFix">{{data.title}}</p>
+                                <div class="questionnaire-content">
+                                    <div class="clearFix que-type" v-for="(item,i) in data.data">
+                                        <p class="que-title">{{i+1}}、{{item.title}}</p>
+                                        <!--<p class="left line">-->
+                                        <!--<select class="que-select" v-model="questionValue" value="" @click="changeType()">-->
+                                        <!--<option>不吸烟者</option>-->
+                                        <!--<option>吸烟者</option>-->
+                                        <!--</select>-->
+                                        <!--<img class="xiaLa" v-if="questionType==1" src="images/e1_xiala_p.png">-->
+                                        <!--<img class="xiaLa" v-if="questionType==0" src="images/e1_xiala.png">-->
+                                        <!--</p>-->
+                                        <p class="pay-p" v-if="item.type=='radio'" v-for="dt in item.options">
+                                            <input type="radio" class="in-radio" name="" v-model="item.value" :value="dt" />
+                                            <img src="images/f2_xz_p.png" v-if="item.value==dt">
+                                            <img src="images/f2_xz.png" v-else>
+                                            <label>{{dt}}</label>
+                                        </p>
+                                        <p class="textArea-p" v-if="item.type=='textarea'">
+                                            <textarea maxlength="200" v-model="item.value"></textarea>
+                                        </p>
+                                        <p class="pay-p" v-if="item.type=='checkbox'" v-for="dt in item.options">
+                                            <input type="checkbox" class="in-radio" name="" v-model="item.value" :value="dt" />
+                                            <img src="images/f2_xz_p.png" v-if="item.value.indexOf(dt) > -1">
+                                            <img src="images/f2_xz.png" v-if="values.indexOf(dt) == -1">
+                                            <label>{{dt}}</label>
+                                        </p>
+                                        <p class="left input-p" v-if="item.type=='text'">
+                                            <input type="text" v-model="item.value" name="" />
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-box">
+                                <button type="button" class="save-btn" @click="sureBtn()">确定</button>
+                                <span id="msgdemo2" style="margin-left:30px;"></span>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    wineType: 1,
+                    wineStatus: [],
+                    gxStatus: 0,
+                    xxStatus: 0,
+                    questionValue: '',
+                    questionType: 0,
+                    id: getparams('id'),
+                    status: getparams('status'),
+                    dataList: [],
+                }
+            },
+            mounted: function() {
+                getToken(this)
+                $(".demoform").Validform({
+                    tiptype: function(msg, o, cssctl) {
+                        var objtip = $("#msgdemo2");
+                        cssctl(objtip, o.type);
+                        objtip.text(msg);
+                    }
+                });
+
+                if (this.status == 0) {
+                    this.getTem()
+                } else {
+                    this.getAnswer()
+                }
+            },
+            methods: {
+                changeType: function() {
+                    if (this.questionType == 0) {
+                        this.questionType = 1;
+                    } else {
+                        this.questionType = 0;
+                    }
+                },
+                getAnswer: function() {
+                    var that = this
+                    axios.get(userApi + '/questionnaire/' + that.id)
+                        .then(function(res) {
+                            console.log(res.data)
+                            for (var i = 0; i < res.data.data.length; i++) {
+                                var dt = res.data.data[i]
+                                var te = {
+                                    data: [],
+                                    title: dt.title
+                                }
+                                for (var j = 0; j < dt.data.length; j++) {
+                                    var item = dt.data[j]
+                                    te.data.push(item)
+                                }
+                                that.dataList.push(te)
+                                console.log(that.dataList)
+                            }
+                        })
+                        .catch(function(err) {
+
+                        })
+                },
+                getTem: function() {
+                    var that = this
+                    axios.get(userApi + '/questionnaire/category/' + that.id)
+                        .then(function(res) {
+                            console.log(res.data)
+                            if (res.data.status == 200) {
+                                for (var i = 0; i < res.data.data.data.length; i++) {
+                                    var dt = res.data.data.data[i]
+                                    var te = {
+                                        data: [],
+                                        title: dt.title
+                                    }
+                                    for (var j = 0; j < dt.data.length; j++) {
+                                        var item = dt.data[j]
+                                        var temp = {
+                                            id: item.id,
+                                            type: item.type,
+                                            title: item.title,
+                                            options: item.options,
+                                            category: item.category,
+                                            value: '',
+                                        }
+                                        if (temp.type == 'radio') {
+
+                                        }
+                                        if (temp.type == 'checkbox') {
+                                            temp.value = []
+                                        }
+                                        te.data.push(temp)
+                                    }
+                                    that.dataList.push(te)
+                                }
+                                console.log(that.dataList)
+                            }
+                        })
+                        .catch(function(err) {
+                            that.BaseSet.linkLogin(that)
+                        })
+                },
+                sureBtn: function() {
+                    var values = [];
+
+                    var that = this;
+                    for (var i = 0; i < that.dataList.length; i++) {
+                        var questions = that.dataList[i];
+                        for (var j = 0; j < questions.data.length; j++) {
+                            var question = questions.data[j];
+                            if (!question.value) {
+                                this.$message({
+                                    type: 'info',
+                                    message: '信息填写不完整'
+                                });
+                                return false;
+                                break;
+                            } else {
+                                values.push(question);
+                            }
+                        }
+                    }
+                    for (var i = 0; i < values.length; i++) {
+                        values[i].options = values[i].options == null ? "" : values[i].options.join();
+                    }
+                    var that = this
+                    if (this.status == 0) {
+                        axios.post(userApi + '/questionnaire', {
+                                _me: 'user-api',
+                                questionnaire_temp_id: that.id,
+                                data: values
+                            })
+                            .then(function(res) {
+                                if (res.data.status == 200) {
+                                    that.status = res.data.id
+                                    that.$message({
+                                        type: 'success',
+                                        message: '问卷填写成功！'
+                                    });
+                                    setTimeout(function() {
+                                        location.href = "question_survey.html"
+                                    }, 500)
+
+                                }
+                            })
+                            .catch(function(err) {
+                                linkLogin(that)
+                            })
+                    } else {
+                        axios.put(userApi + '/questionnaire/' + that.id, {
+                                data: data
+                            })
+                            .then(function(res) {
+                                if (res.data.status == 200) {
+                                    that.$message({
+                                        type: 'success',
+                                        message: '问卷修改成功！'
+                                    });
+                                    that.status = res.data.id;
+                                    // setTimeout(function () {
+                                    location.href = "question_survey.html"
+                                        // }, 500)
+                                }
+                            })
+                            .catch(function(err) {
+                                linkLogin(that)
+                            })
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>首页</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="./node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+</head>
+<!--[if IE 9]>
+<link rel="stylesheet" href="css/ie9.css"/>
+<![endif]-->
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="1"></my-header>
+        </div>
+        <div class="relative">
+
+        </div>
+        <my-slider></my-slider>
+        <div class="container relative" style="height:310px;">
+            <div class="intro-div absolute clearFix">
+                <div class="one pub">
+                    <p class="img-p">
+                        <img src="images/m1_icon1.png">
+                    </p>
+                    <p class="title-p">智能分诊</p>
+                    <div class="content-word">
+                        采集基础健康医疗信息， 建立私人健康档案，对 体检报告进行深度解读， 并由临床专家团队跟踪 服务，提供健康风险预 警及针对性的健康管理 方案.
+                    </div>
+                </div>
+                <div class="two pub">
+                    <p class="img-p">
+                        <img src="images/m1_icon2.png">
+                    </p>
+                    <p class="title-p">疾病管理</p>
+                    <div class="content-word">
+                        就医病历电子化存储， 清晰展示，随时查看， 为您建立专属的、连续 的健康医疗档案.
+                    </div>
+                </div>
+                <div class="three pub">
+                    <p class="img-p">
+                        <img src="images/m1_icon3.png">
+                    </p>
+                    <p class="title-p">预约申请</p>
+                    <div class="content-word">
+                        为患者确定服务项目， 并沟通确认服务的医生 及时间.
+                    </div>
+                </div>
+                <div class="four pub">
+                    <p class="img-p">
+                        <img src="images/m1_icon4.png">
+                    </p>
+                    <p class="title-p">我的服务</p>
+                    <div class="content-word">
+                        查看患者服务的全过程， 为患者做好全程导医服 务.
+                    </div>
+                </div>
+                <div class="five pub">
+                    <p class="img-p">
+                        <img src="images/m1_icon5.png">
+                    </p>
+                    <p class="title-p">上传档案</p>
+                    <div class="content-word">
+                        图片上传患者的就医档 案.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="container clearFix" style="margin-top: 39px;margin-bottom: 47px" v-if="doctorId!=''&&doctorId!=null">
+            <my-left-nav active="1"></my-left-nav>
+            <div class="right" style="width: 884px;">
+                <div class="content-list">
+                    <p class="header-title clearFix" style="border-top: 1px solid #eff1fa;">待处理</p>
+                    <ul class="server-list">
+                        <li class="clearFix" v-for="(item,index) in items" :key="index">
+                            <img :src="item.doctor.translates.avatar_img" class="left">
+                            <div class="left user-info">
+                                <p class="line1">
+                                    <span class="user-name">{{item.doctor.realname}}</span>
+                                    <span class="disease">病症：{{item.title}}</span>
+                                    <span class="tag">{{item.translates.type_desc}}</span>
+                                </p>
+                                <p class="line2">
+                                    <span class="sex">性别：{{item.doctor.translates.sex}}</span>
+                                    <span class="age">年龄：{{item.doctor.translates.age}}</span>
+                                </p>
+                            </div>
+                            <p class="btn-p right" @click="viewDetail(item.service_id,item)">查看详情</p>
+                        </li>
+                    </ul>
+                    <p style="text-align: center" v-if="items.length>0?0:1">暂无数据</p>
+                    <div class="page" style="margin-top: 40px;margin-bottom: 10px;" v-if="items.length>0?1:0">
+                        <el-pagination layout="prev, pager, next" :total=total @size-change="pageChange">
+                        </el-pagination>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/index1_leftNav.js"></script>
+    <script src="js/doctor_login.js"></script>
+    <script src="./js/slider.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data: {
+                total: 10,
+                doctorId: localStorage.getItem('doctorId') ? localStorage.getItem('doctorId') : null,
+                items: []
+            },
+            created: function() {
+
+            },
+            mounted: function() {
+                console.log(this.doctorId != undefined)
+                if (this.doctorId != undefined) {
+                    console.log('111111111111');
+                    getToken(this);
+                    this.getData('1');
+                }
+
+            },
+            methods: {
+                pageChange: function(page) {
+                    this.getData(page)
+                },
+                viewDetail: function(service_id, item) {
+                    localStorage.userItem = JSON.stringify(item);
+                    location.href = "non_server_info.html?service_id=" + service_id;
+                },
+                getData: function(page) {
+                    var _this = this;
+                    axios.get(doctorApi + '/service?per_page=8&page=' + page + '&status=' + 0)
+                        .then(function(res) {
+                            console.log('aaaa')
+                            console.log(res);
+                            if (res.status == 200) {
+                                console.log(res);
+                                var data = res.data.data;
+                                _this.items = data.data;
+                                _this.total = data.paginate.total_page * 10
+                            }
+
+                        }).catch(function(err) {
+                            console.log(err)
+                        })
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

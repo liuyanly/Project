@@ -1,0 +1,167 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.filter-box {
+  margin-top: 28px;
+  padding-left: 14px;
+  padding-bottom: 27px;
+  border-bottom: 1px solid #EFF1FA;
+}
+.pos {
+  position: relative;
+  width: 114px;
+  height: 30px;
+  margin-right: 9px;
+}
+.pos:last-child {
+  margin-right: 0;
+}
+.pos .xiaLa {
+  position: absolute;
+  right: 6px;
+  top: 11px;
+}
+.date-select select {
+  width: 114px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #eff1fa;
+  border-radius: 3px;
+  padding-left: 10px;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  font-size: 14px;
+  color: #999;
+  outline-width: 1px;
+  background: #FAFBFF;
+}
+.date-select select option {
+  font-size: 14px;
+  color: #999;
+  padding: 20px;
+  width: 114px;
+  text-align: center;
+  display: inline-block;
+  line-height: 34px;
+  height: 34px;
+  border-bottom: none;
+}
+.date-select select .placeholder {
+  display: none;
+  font-size: 14px;
+  color: #999;
+}
+.name-word {
+  font-size: 14px;
+  color: #999;
+  line-height: 30px;
+  margin-right: 6px;
+}
+.data-content .data-list {
+  padding: 42px 14px 20px 14px;
+}
+.data-content .data-list .input-name {
+  width: 127px;
+  height: 30px;
+  font-size: 14px;
+  color: #999;
+  text-align: right;
+  /*display: table-cell;
+      vertical-align: middle;
+      line-height: 15px;*/
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-items: flex-end;
+  justify-content: flex-end;
+  align-content: center;
+  -webkit-align-content: center;
+  -webkit-justify-content: flex-end;
+  -webkit-justify-items: flex-end;
+  -webkit-align-items: center;
+  -ms-flex-align-content: center;
+  -ms-flex-justify-content: flex-end;
+  -ms-flex-justify-items: flex-end;
+  -ms-flex-align-items: center;
+}
+.data-content .data-list .input-name span {
+  display: inline-block;
+  line-height: 15px;
+}
+.data-content .data-list .input-p {
+  margin-bottom: 20px;
+  margin-left: 15px;
+  margin-right: 47px;
+}
+.data-content .data-list .input-p input {
+  width: 214px;
+  height: 28px;
+  line-height: 28px;
+  border: 1px solid #EFF1FA ;
+  background: #FAFBFF;
+  padding: 0 10px;
+  border-radius: 3px;
+}
+.btn-box {
+  margin-left: 160px;
+}
+.btn-box .save-btn {
+  width: 136px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #4CC6D8;
+  border: none;
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.el-input__inner::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #999;
+}
+.el-input__inner:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #999;
+}
+.el-input__inner::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #999;
+}
+.el-input__inner:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #999;
+}
+.el-input__prefix {
+  display: none;
+}
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+  width: 114px;
+}
+.el-input--prefix .el-input__inner {
+  padding-left: 10px;
+}
+.el-input__inner {
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid #eff1fa;
+  background: #FAFBFF;
+}
+.el-input--suffix .el-input__inner {
+  padding-right: 0;
+}
+.el-input__suffix {
+  display: none;
+}

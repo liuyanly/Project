@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>按医院找医生</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/online_ask.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="3"></my-header>
+    </div>
+    <div class="main" style="padding-top: 10px;">
+        <section class="container">
+            <div class="content-box">
+                <ul class="top-filter clearFix">
+                    <li :class="{active:cityId == data.id}" @click="changeCity(data.id,data.name)" v-for="data in cityData">{{data.name}}</li>
+                </ul>
+                <div class="top-title doctor-search clearFix">
+                    <span class="left">已选择</span>
+                    <span class="left name">{{cityName}}</span>
+                    <span class="right">共找到{{cityName}}全部类型<span class="num">{{hospitalNum}}</span>家</span>
+                </div>
+                <ul class="area-list">
+                    <li class="clearFix" v-for="data in hospitalData">
+                        <p class="area-title">{{data.title}}</p>
+                        <ul class="hospital-list">
+                            <li @click="hospitalInfo(item.id,item.title)" :class="{active:item.id == hospitalId}" v-for="item in data.data"><p class="clearFix"><span class="name">{{item.title}}</span></p></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="swiper/swiper-3.4.2.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/user_login.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data:{
+            cityId:'',
+            cityName:'',
+            cityData:[],
+            hospitalData:[],
+            hospitalId:'',
+            hospitalNum:0,
+        },
+        mounted:function () {
+            this.getCity()
+        },
+        methods:{
+            hospitalInfo:function (id,name) {
+                location.href='hospital_info.html?id='+id+'&title='+name;
+            },
+            changeCity:function (id,name) {
+                this.cityId = id;
+                this.cityName = name;
+                this.getHospital()
+            },
+            //获取城市
+            getCity:function () {
+                var that = this
+                axios.get(userApi+'/region?status=0')
+                    .then(function (res) {
+                        console.log(res.data)
+                        if(res.data.status == 200){
+                            for(var i = 0;i<res.data.data.length;i++){
+                                var dt = res.data.data[i].city;
+                                for(var j = 0;j<dt.length;j++){
+                                    var tem = {
+                                        name:dt[j].title,
+                                        id:dt[j].id,
+                                    }
+                                    if(tem.name == '市辖区'){
+                                        tem.name = res.data.data[i].title
+                                    }
+                                    that.cityData.push(tem)
+                                }
+                            }
+                            that.cityId = res.data.data[0].city[0].id
+                            that.cityName = res.data.data[0].city[0].title == '市辖区'?res.data.data[0].title:res.data.data[0].city[0].title == '市辖区'
+                            that.getHospital()
+                        }
+                    })
+                    .catch(function (err) {
+
+                    })
+            },
+            //获取医院
+            getHospital:function () {
+                var that = this;
+                axios.get(userApi + '/hospital/list/'+that.cityId)
+                    .then(function (res) {
+                        if(res.data.status == 200){
+                            that.hospitalData = res.data.data;
+                            that.hospitalNum = 0;
+                            for(var i=0;i<res.data.data.length;i++){
+                                that.hospitalNum +=res.data.data[i].data.length;
+                            }
+                        }
+                    })
+                    .catch(function (err) {
+
+                    })
+            },
+        }
+    })
+</script>
+</body>
+</html>

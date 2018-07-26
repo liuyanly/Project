@@ -1,0 +1,53 @@
+.device-connect {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .statistics {
+        height: 100px;
+        margin-bottom: 15px;
+    }
+    .connect {
+        flex: 1;
+        overflow: auto;
+        .title {
+            position: absolute;
+            width: calc(100% - 17px);
+            padding: 5px;
+            font-size: 14px;
+            background-color: #000;
+            z-index: 99;
+            span {color: #fff;}
+            a {margin-left: 10px;}
+        }
+        .content {
+            height: 100%;
+            padding: 40px 10px 10px 10px;
+            background: #000;
+            overflow-y: auto;
+            p {
+                display: flex;
+                color: #fff;
+                margin-bottom: 2px;
+                span {
+                    display: inline-block;
+                    margin-right: 12px;
+                }
+            }
+            .connect-time { width: 150px }
+            .connect-data {
+                flex: 1;
+                overflow: hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
+                cursor: pointer;
+                &:hover { color: #29cee9 }
+            }
+            .connect-data-show {
+                flex: 1;
+                cursor: pointer;
+                color: #29cee9;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

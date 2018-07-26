@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>评价</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/online_ask.css" />
+    <link rel="stylesheet" href="css/doctor_info.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="3"></my-header>
+        </div>
+        <div class="main">
+            <div class="header-top">
+                <span>{{hospital}}>{{department}}>{{title}}></span>
+                <span class="hospital-name">评价</span>
+            </div>
+            <section class="container">
+                <div class="content-box">
+                    <div class="content-list">
+                        <p class="top-title clearFix" style="padding-top: 0">
+                            <span class="left">评价（<span class="cc">{{count}}</span>）</span>
+                            <!--<span class="right" onclick="window.location.href=''">查看更多》</span>-->
+                        </p>
+                        <p class="none-tip" v-if="tip == 1">该医生暂无评价</p>
+                        <ul class="evaluate-list">
+                            <li class="clearFix" v-for="data in list">
+                                <img class="left head-img" :src="data.translates.avatar_img">
+                                <div class="left">
+                                    <p class="user-name clearFix">
+                                        <span class="left name">{{data.translates.realname}}</span>
+                                        <img class="left" src="images/f88_xing.png" v-for="i in data.stars">
+                                        <img class="left" src="images/f88_xing1.png" v-for="i in (5-data.stars)">
+                                    </p>
+                                    <p class="evaluate-word" v-if="data.content.length>40">
+                                        {{data.content.substring(0,40)+"..."}}
+                                    </p>
+                                    <p class="evaluate-word" v-if="data.content.length<=40">
+                                        {{data.content}}
+                                    </p>
+                                    <p class="tag-list clearFix">
+                                        <span v-for="dt in data.translates.tags_desc">{{dt}}</span>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="page" v-if="total > 1">
+                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="prev, pager, next" :current-page="currentPage" :page-size="per_page" :page-count="total">
+                        </el-pagination>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    contentData: '某某与公益的橄榄枝，就像一只和平鸽飞翔于世界民族之林，在不同肤色的人群中飞越五某某与公益的橄榄枝，就像一只和平鸽飞翔于和平鸽飞翔于和平鸽飞翔于世界,在不同肤色的人群中飞越五某某与公益的橄榄枝，',
+                    total: 0,
+                    currentPage: 1,
+                    per_page: 20,
+                    hospital: getparams('hospital'),
+                    title: getparams('title'),
+                    department: getparams('department'),
+                    id: getparams('id'),
+                    dataInfo: '',
+                    headImg: '',
+                    translates: '',
+                    list: [],
+                    tip: 0,
+                    count: 0,
+                }
+            },
+            mounted: function() {
+                this.getEvaluate()
+            },
+            methods: {
+                handleSizeChange: function(val) {
+
+                },
+                handleCurrentChange: function(val) {
+                    this.currentPage = val;
+                    this.getEvaluate()
+                },
+                getEvaluate: function() {
+                    var that = this;
+                    axios.get(userApi + '/comment/doctorcomment/' + that.id + '?per_page=' + that.per_page + '&page=' + that.currentPage)
+                        .then(function(res) {
+                            if (res.data.status == 200) {
+                                that.count = res.data.data.paginate.count;
+                                if (res.data.data.comment.length == 0) {
+                                    that.tip = 1
+                                    that.list = []
+                                } else {
+                                    that.list = res.data.data.comment
+                                    that.total = res.data.data.paginate.total_page
+                                }
+                            }
+                        })
+                        .catch(function(err) {
+
+                        })
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

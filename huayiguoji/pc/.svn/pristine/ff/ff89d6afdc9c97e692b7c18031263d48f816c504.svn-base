@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>修改问卷调查</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/personal.css"/>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/pic_word_pay.css"/>
+    <link rel="stylesheet" href="css/question_surver.css"/>
+    <link rel="stylesheet" href="css/edit_questionnaire.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="3"></my-header>
+    </div>
+    <div class="main">
+        <section class="container assistant-patient clearFix">
+            <my-left-nav active="12"></my-left-nav>
+            <div class="right right-box" style="margin-bottom: 78px">
+                <p class="header-title clearFix" style="border-bottom: none">问卷调查修改</p>
+                <form class="demoform">
+                    <div class="list" style="margin-bottom: 176px">
+                        <p class="header-title small-title clearFix">生活习惯</p>
+                        <div class="questionnaire-content">
+                            <div class="clearFix que-type">
+                                <p class="que-title left">1、您是否吸烟？吸烟有害健康！</p>
+                                <p class="left line">
+                                    <select class="que-select" v-model="questionValue" value="" @click="changeType()" @blur="changeType()">
+                                        <option>不吸烟者</option>
+                                        <option>吸烟者</option>
+                                    </select>
+                                    <img class="xiaLa" v-if="questionType==1" src="images/e1_xiala_p.png">
+                                    <img class="xiaLa" v-if="questionType==0" src="images/e1_xiala.png">
+                                </p>
+                                <p class="left son-title">累积抽烟年数：</p>
+                                <p class="left input-p"><input type="number" value="1" name="yearNum"/> </p>
+                            </div>
+                            <div class="clearFix que-type">
+                                <p class="que-title marBot">2、您是否饮酒？</p>
+                                <p class="pay-p">
+                                    <input type="radio" class="in-radio" name="wineStatus" value="1" v-model="wineStatus"/>
+                                    <img src="images/f2_xz_p.png" v-if="wineStatus==1">
+                                    <img src="images/f2_xz.png" v-else="wineStatus!=1">
+                                    <label>基本不饮酒</label>
+                                </p>
+                                <p class="pay-p">
+                                    <input type="radio" class="in-radio" name="wineStatus" value="2" v-model="wineStatus"/>
+                                    <img src="images/f2_xz_p.png" v-if="wineStatus==2">
+                                    <img src="images/f2_xz.png" v-else="wineStatus!=2">
+                                    <label>偶尔饮酒</label>
+                                </p>
+                                <p class="pay-p">
+                                    <input type="radio" class="in-radio" name="wineStatus" value="3" v-model="wineStatus"/>
+                                    <img src="images/f2_xz_p.png" v-if="wineStatus==3">
+                                    <img src="images/f2_xz.png" v-else="wineStatus!=3">
+                                    <label>经常喝酒（每周至少1次）</label>
+                                </p>
+                                <p class="pay-p">
+                                    <input type="radio" class="in-radio" name="wineStatus" value="4" v-model="wineStatus"/>
+                                    <img src="images/f2_xz_p.png" v-if="wineStatus==4">
+                                    <img src="images/f2_xz.png" v-else="wineStatus!=4">
+                                    <label>非常喜欢喝酒（每天都喝）</label>
+                                </p>
+                            </div>
+                            <div class="clearFix que-type">
+                                <p class="que-title marBot">饮酒种类</p>
+                                <p class="pay-p">
+                                    <input type="radio" class="in-radio" name="pay-way" value="1" v-model="wineType"/>
+                                    <img src="images/f2_xz_p.png" v-if="wineType==1">
+                                    <img src="images/f2_xz.png" v-else="wineType!=1">
+                                    <label>啤酒</label>
+                                </p>
+                                <p class="pay-p">
+                                    <input type="radio" class="in-radio" name="pay-way" value="2" v-model="wineType"/>
+                                    <img src="images/f2_xz_p.png" v-if="wineType==2">
+                                    <img src="images/f2_xz.png" v-else="wineType!=2">
+                                    <label>白酒</label>
+                                </p>
+                                <p class="pay-p">
+                                    <input type="radio" class="in-radio" name="wineName" value="3" v-model="wineType"/>
+                                    <img src="images/f2_xz_p.png" v-if="wineType==3">
+                                    <img src="images/f2_xz.png" v-else="wineType!=3">
+                                    <label>红酒</label>
+                                </p>
+                                <p class="pay-p">
+                                    <input type="radio" class="in-radio" value="4" name="wineName" v-model="wineType"/>
+                                    <img src="images/f2_xz_p.png" v-if="wineType==4">
+                                    <img src="images/f2_xz.png" v-else="wineType!=4">
+                                    <label>什么酒都喝</label>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="header-title small-title clearFix">疾病史</p>
+                        <div class="questionnaire-content" style="padding-bottom: 5px">
+                            <div class="clearFix que-type">
+                                <p class="que-title left">1、您是否有心血管疾病史？</p>
+                                <p class="pay-p left">
+                                    <input type="radio" class="in-radio" value="1" name="xxStatus" v-model="xxStatus"/>
+                                    <img src="images/f2_xz_p.png" v-if="xxStatus==1">
+                                    <img src="images/f2_xz.png" v-else="xxStatus!=1">
+                                    <label>是</label>
+                                </p>
+                                <p class="pay-p left">
+                                    <input type="radio" class="in-radio" value="0" name="xxStatus" v-model="xxStatus"/>
+                                    <img src="images/f2_xz_p.png" v-if="xxStatus==0">
+                                    <img src="images/f2_xz.png" v-else="xxStatus!=0">
+                                    <label>否</label>
+                                </p>
+                            </div>
+                            <div class="textArea-box" v-if="xxStatus==1">
+                                <p class="textArea-title">心血管疾病史详细</p>
+                                <p class="textArea-p">
+                                    <textarea maxlength="200"></textarea>
+                                </p>
+                            </div>
+
+                            <div class="clearFix que-type">
+                                <p class="que-title left">1、您是否有高血压疾病史？</p>
+                                <p class="pay-p left">
+                                    <input type="radio" class="in-radio" value="1" name="gxStatus" v-model="gxStatus"/>
+                                    <img src="images/f2_xz_p.png" v-if="gxStatus==1">
+                                    <img src="images/f2_xz.png" v-else="gxStatus!=1">
+                                    <label>是</label>
+                                </p>
+                                <p class="pay-p left">
+                                    <input type="radio" class="in-radio" value="0" name="gxStatus" v-model="gxStatus"/>
+                                    <img src="images/f2_xz_p.png" v-if="gxStatus==0">
+                                    <img src="images/f2_xz.png" v-else="gxStatus!=0">
+                                    <label>否</label>
+                                </p>
+                            </div>
+                            <div class="textArea-box" v-if="gxStatus==1">
+                                <p class="textArea-title">高血压疾病史详细</p>
+                                <p class="textArea-p">
+                                    <textarea maxlength="200"></textarea>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <button type="button" class="save-btn" @click="saveForm()">保存</button>
+                            <span id="msgdemo2" style="margin-left:30px;"></span>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+    </div>
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/login.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/patient_leftNav.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data:{
+            wineType:1,
+            wineStatus:4,
+            gxStatus:0,
+            xxStatus:0,
+            questionValue:'',
+            questionType:0,
+        },
+        mounted:function () {
+            $(".demoform").Validform({
+                tiptype:function(msg,o,cssctl){
+                    var objtip=$("#msgdemo2");
+                    cssctl(objtip,o.type);
+                    objtip.text(msg);
+                }
+            });
+        },
+        methods:{
+            changeType:function () {
+                if(this.questionType==0){
+                    this.questionType=1;
+                }else{
+                    this.questionType=0;
+                }
+            },
+            saveForm:function () {
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

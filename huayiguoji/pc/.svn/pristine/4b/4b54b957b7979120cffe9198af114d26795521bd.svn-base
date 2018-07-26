@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>个人中心</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/personal.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="6"></my-header>
+    </div>
+    <div class="main">
+        <section class="container clearFix">
+            <my-left-nav active="1"></my-left-nav>
+            <div class="right right-box">
+                <p class="header-title">个人资料</p>
+                <div class="user-info clearFix">
+                    <div class="left head-box">
+                        <img class="head-pic" :src="headImg">
+                        <img :src="iconImg" class="vip">
+                    </div>
+
+                    <div class="left left-info-box">
+                        <p class="user-name clearFix"><span class="left marginRight">{{userName}}</span><span class="left">ID:</span><span class="left">{{userId}}</span></p>
+                        <p class="user-sex clearFix"><span class="left marginRight">{{sex}}</span><span class="left">{{age}}岁</span></p>
+                        <p class="user-ad clearFix"><span class="left marginRight">{{address}}</span><span class="left">{{phoneNum}}</span></p>
+                    </div>
+                    <img class="right edit-btn" @click="editData()" src="images/f1_icon1.png">
+                </div>
+                <div class="list-box">
+                    <p class="header-title clearFix"><span class="left">家庭成员</span><img class="right add-btn" @click="openMsgBox()" src="images/f1_icon2.png"></p>
+                    <ul class="ul-box">
+                        <li class="clearFix" v-for="data in memberList">
+                            <img class="left" :src="data.translates.avatar_img">
+                            <div class="left info-box">
+                                <p class="name">{{data.realname}}</p>
+                                <p class="sex clearFix"><span class="left marginRight">{{data.translates.sex}}</span><span class="left">{{data.translates.age}}岁</span> </p>
+                            </div>
+                            <p class="left telNum">
+                                {{data.phone_no}}
+                            </p>
+                            <p class="right del-btn" @click="delMember(data.id)"><img src="images/a4_shanchu.png"></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <div class="fade" v-if="msgBoxStatus==1">
+            <form class="demoform">
+                <div class="msg-box">
+                    <div class="content-box">
+                        <p class="title clearFix"><span class="left">输入手机号码</span><span class="close-btn right" @click="cancelChoose()">×</span></p>
+                        <p class="input-p">
+                            <input type="number" v-model="telNum" datatype="m" placeholder="请输入手机号码" nullmsg="请输入手机号码" errormsg="手机号码格式不正确">
+                            <span class="Validform_checktip"></span>
+                        </p>
+                        <p class="btn-p">
+                            <button type="button" class="sure" @click="sureChoose">确定</button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="swiper/swiper-3.4.2.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/user_login.js"></script>
+<script src="js/slider.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/leftNav.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data:{
+            msgBoxStatus:0,
+            telNum:'',
+            headImg:'',
+            iconImg:'',
+            userName:'',
+            userId:'',
+            sex:'',
+            age:'',
+            address:'',
+            phoneNum:'',
+            memberList:[],
+            id:'',
+        },
+        mounted:function () {
+            $(".demoform").Validform({
+                tiptype:3
+            });
+            getToken(this)
+            this.getData()
+            this.getMemberList()
+        },
+        methods:{
+            openMsgBox:function () {
+                this.msgBoxStatus=1;
+            },
+            cancelChoose:function () {
+                this.msgBoxStatus=0;
+            },
+            sureChoose:function () {
+//                this.msgBoxStatus=0;
+                var myreg=/^((13[0-9])|(14[5,7])|(15[^4,\D])|(18[0-9])|(17[0,3,7]))\d{8}$/;
+                if(this.telNum == ''){
+                    this.$alert('请输入手机号码', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return false;
+                }else if(this.telNum.length != 11){
+                    this.$alert('手机号码格式不正确', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return false;
+                }else if(!myreg.test(this.telNum)){
+                    this.$alert('手机号码格式不正确', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return false;
+                }else{
+                    var that = this
+                    getToken(that)
+                    axios.post(userApi+'/user/addfamilies',{username:that.telNum,family_id:that.id})
+                        .then(function (res) {
+                            if(res.data.status == 200){
+                                that.msgBoxStatus=0;
+                                that.$message({
+                                    type: 'success',
+                                    message: '成员添加成功!'
+                                });
+                                setTimeout(function () {
+                                    window.location.reload()
+                                },1000)
+                            }
+                        })
+                        .catch(function (err) {
+                            linkLogin(that)
+                        })
+                }
+            },
+            delMember:function (id) {
+                var that=this;
+                this.$confirm('确认删除该成员, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function(){
+                    axios.delete(userApi+'/user/delfamilies/'+id)
+                        .then(function (res) {
+                            that.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                            setTimeout(function () {
+                                window.location.reload()
+                            },1000)
+                        })
+                        .catch(function (err) {
+                            linkLogin(that)
+                        })
+                }).catch(function (){
+                    console.log(13)
+                    that.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            getData:function () {
+                var that = this
+                axios.get(userApi+'/user/me')
+                    .then(function (res) {
+                        if(res.data.status == 200){
+                            that.headImg = res.data.data.translates.avatar_img
+                            if(res.data.data.vips != null){
+                                that.iconImg = res.data.data.vips.translates.icon
+                            }
+                            that.userName = res.data.data.realname
+                            that.userId = res.data.data.id
+                            that.sex = res.data.data.translates.sex
+                            that.age = res.data.data.translates.age
+                            that.address = res.data.data.translates.province_title+res.data.data.translates.city_title+res.data.data.translates.area_title
+                            that.phoneNum = res.data.data.phone_no
+
+                        }
+                    })
+                    .catch(function (err) {
+                        linkLogin(that)
+                    })
+            },
+            getMemberList:function () {
+                var that = this
+                axios.get(userApi+'/user/myfamilies')
+                    .then(function (res) {
+                        console.log(res.data)
+                        if(res.data.status == 200){
+                            if(res.data.data != []){
+                                that.memberList = res.data.data.member
+                                that.id = res.data.data.id
+                            }
+                        }
+                    })
+                    .catch(function (err) {
+                        linkLogin(that)
+                    })
+            },
+            editData:function () {
+                location.href="edit_data.html";
+            }
+        }
+    })
+</script>
+</body>
+</html>

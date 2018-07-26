@@ -1,0 +1,348 @@
+/*---reset start ---*/
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, pre,
+dl, dt, dd, ul, ol, li, th, td, div, span, img,
+fieldset, lengend, button, input, select, textarea{
+  margin: 0;
+  padding: 0;
+}
+ul,
+li {
+  list-style: none;
+}
+*:focus {
+  outline: none;
+}
+/* img border */
+fieldset,
+img {
+  border: 0;
+}
+img {
+  vertical-align: middle;
+}
+/* table */
+table {
+  /*border-collapse: collapse;border-spacing: 0;*/
+  font: inherit;
+}
+th {
+  text-align: left;
+}
+input,
+textarea,
+select {
+  font-size: 100%;
+}
+input,
+textarea,
+select {
+  *font-size: 100%;
+}
+legend {
+  color: #000;
+}
+/* html5 */
+article,aside,dialog,footer,header,section,footer,nav,figure,menu{ display:block }
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+body,
+button,
+input,
+select,
+textarea {
+  /* for ie */
+  font: 12px/1.5 'Hiragino Sans GB W3', 'STHeiti', '微软雅黑', '黑体';
+}
+
+body {
+  font-family: 'Hiragino Sans GB W3', 'STHeiti', '微软雅黑', '黑体';
+  font-size: 14px;
+  line-height: 1.5;
+  color: #ffffff;
+  background: #101731;
+}
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  color: #ffffff;
+  text-decoration: none;
+}
+a:focus {
+  outline: none;
+}
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  font-size: 0;
+  clear: both;
+  visibility: hidden;
+}
+.clearfix {
+  display: inline-table;
+}
+* html.clearfix {
+  *zoom: 1;
+}
+*:first-child + html .clearfix {
+  zoom: 1;
+}
+/* Hides from IE-mac */
+* html .clearfix {
+  height: 1%;
+}
+.clearfix {
+  display: block;
+}
+/* End hide from IE-mac */
+* + html .clearfix {
+  min-height: 1%;
+}
+/*---reset end ---*/
+.warpper {
+  width: 1000px;
+  margin: 0 auto;
+  color: #ffffff;
+}
+.left {
+  float: left;
+}
+.banner {
+  height: 870px;
+  padding-top: 250px;
+  background: #101731 url("../images/xiaoziai_bj1.png") no-repeat center center;
+  /*background-size: cover;*/
+}
+#particles-js {
+    width: 100%;
+    height: 870px;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+}
+.banner h1{
+  margin-left: 421px;
+  font-size: 42px;
+  font-weight: 500;
+  text-shadow: 0 1px 5px #0454A4;
+}
+.banner p{
+  margin-top: 100px;
+  margin-left: 364px;
+  font-size: 20px;
+}
+.dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  vertical-align: middle;
+  margin-left: 10px;
+  margin-right: 10px;
+  background: rgba(255,255,255,0.60);
+  border-radius: 6px;
+}
+.main1 {
+  height: 600px;
+  padding-top: 260px;
+  background: #101731 url("../images/xiaoziai_bj2.png") no-repeat center center;
+  /*background-size: cover;*/
+}
+.main1 p{
+  width: 1000px;
+  margin:0 auto 40px;
+  font-size: 20px;
+  color: #BCC4E0;
+}
+.main2 {
+  height: 950px;
+  background: #101731 url("../images/xiaoziai_bj3.png") no-repeat center center;
+  /*background-size: cover;*/
+}
+.content {
+  padding-top: 14px;
+}
+.title {
+  margin-bottom: 120px;
+  font-size: 22px;
+  color: #0B83FA;
+  text-align: center;
+}
+.title .line{
+   display: inline-block;
+   width: 105px;
+   height: 8px;
+   vertical-align: middle;
+   margin-left: 20px;
+   background: url("../images/xiaoziai_line2.png") no-repeat center center;
+}
+.title .line:first-child{
+  margin-right: 20px;
+  margin-left: 0;
+  background: url("../images/xiaoziai_line1.png") no-repeat center center;
+}
+.solution li{
+  float: left;
+  width: 230px;
+  margin-bottom: 80px;
+  text-align: center;
+}
+.mr27 {
+  margin-right: 27px;
+}
+.mr26 {
+  margin-right: 26px;
+}
+.solution .shape {
+  width: 230px;
+  height: 230px;
+  margin: 0 auto 20px;
+  padding-top: 64px;
+}
+.solution .shape.odd{
+  background: url("../images/xiaoziai_polygon1.png") no-repeat;
+}
+.solution .shape.even{
+  background: url("../images/xiaoziai_polygon2.png") no-repeat;
+}
+.solution .shape.unodd{
+  background: url("../images/xiaoziai_polygon3.png") no-repeat;
+}
+.solution .shape.uneven{
+  background: url("../images/xiaoziai_polygon4.png") no-repeat;
+}
+.solution .shape .icon{
+  display: inline-block;
+  width: 64px;
+  height: 54px;
+  margin-bottom: 18px;
+  line-height: 54px;
+}
+.solution .shape .text {
+  font-size: 20px;
+}
+.solution .info {
+  width: 126px;
+  margin: 0 auto;
+  text-align: left;
+  color: #C4CCE8;
+}
+.main3 {
+  height: 1050px;
+  background: #101731 url("../images/xiaoziai_bj4.png") no-repeat center center;
+  /*background-size: cover;*/
+}
+.framework .list {
+  width: 180px;
+}
+.framework .list li{
+  width: 150px;
+  height: 120px;
+  margin-bottom: 40px;
+  line-height: 120px;
+  font-size: 16px;
+  text-align: center;
+  background: url("../images/xiaoziai_polygon_2bj.png") no-repeat;
+}
+.framework .category li{
+  float: left;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+  font-size: 15px;
+  color: #C8D0EC;
+  background: rgba(202,209,228,0.10);
+  margin-left: 20px;
+}
+.framework .category li:first-child{
+  margin-left: 0;
+}
+.framework .category1 {
+  margin-top: 30px;
+}
+.framework .category1 li{
+  width: 120px;
+}
+
+.framework .arrow {
+  height: 100px;
+  background: url("../images/xiaoziai_jiantou1.png") no-repeat center center;
+}
+.framework .category2 li{
+  width: 148px;
+}
+.framework .category2,
+.framework .category3 {
+  margin-bottom: 100px;
+}
+.framework .category3 li{
+  width: 100%;
+}
+.framework .category4 li{
+  width: 260px;
+}
+.framework .arrowitem {
+  height: 100px;
+}
+.framework .arrowitem li{
+  float: left;
+  width: 25%;
+}
+.framework .arrowitem .arrowlist {
+  width: 100px;
+  height: 50px;
+  margin: 25px auto;
+  text-align: center;
+  line-height: 50px;
+  font-size: 13px;
+  background: url("../images/xiaoziai_jiantou2.png") no-repeat;
+}
+.framework .category5 li{
+  width: 190px;
+  border-radius: 100px;
+}
+.main4 {
+  height: 730px;
+  background: #101731 url("../images/xiaoziai_bj5.png") no-repeat center center;
+  /*background-size: cover;*/
+}
+.case {
+  width: 920px;
+  margin: 0 auto;
+}
+.case li{
+  float: left;
+  width: 440px;
+  margin-left: 40px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.case li.first{
+  margin-left: 0;
+}
+.case .caseitem {
+   width: 440px;
+   height: 170px;
+   padding-top: 30px;
+   background: rgba(171,178,198,0.10);
+   text-align: center;
+}
+.case .caseitem .brand {
+  margin-bottom: 16px;
+}
+.case .caseitem  p {
+  font-size: 18px;
+  color: #FAFAFA;
+  font-weight: bold;
+}

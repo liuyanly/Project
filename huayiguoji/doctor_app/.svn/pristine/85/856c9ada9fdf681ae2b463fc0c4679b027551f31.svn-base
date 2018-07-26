@@ -1,0 +1,456 @@
+<template>
+	<div class="monitoring_detail">
+		<headers headName="体征监测"></headers>
+		<div class="contentScollr">
+		<div class="nav">
+            <ul id="nav">
+				<li v-for="(nav,index) in navItem" :key="index" @click="SubCates(nav.title,nav.id)" :class="{'active': isActive == nav.id}">
+                    {{nav.title}}
+                </li>
+            </ul>
+        </div>
+        <div class="time_search">
+            <div class="time"><span class="txt" @click="openPicker(1)">{{pickerValue}}</span><img src="../assets/images/c12_xiala.png" /></div>
+            ~
+            <div class="time"><span class="txt" @click="openPicker(2)">{{pickerValue1}}</span><img src="../assets/images/c12_xiala.png" /></div>
+            <div class="btn" @click="filterData()">查询</div>
+        </div>
+		<div class="chart-box">
+			<p class="chart-name">
+				{{this.content}}变化趋势
+			</p>
+			<ul class="chart-date clear">
+				<li :class="{current:currentDate==0}" @click="changeCurrentDate(0)">
+					周
+				</li>
+				<li :class="{current:currentDate==1}" @click="changeCurrentDate(1)">
+					月
+				</li>
+				<li :class="{current:currentDate==2}" @click="changeCurrentDate(2)">
+					年
+				</li>
+			</ul>
+			<div id="main"></div>
+			<!-- <div id="two-bar1"></div> -->
+		</div>
+		<div class="table-box" v-if="titleFields!=''">
+			<table>
+				<tr class="theadTr">
+					<td>测量时间</td>
+					<td v-for="data in titleFields">{{data.title}}({{data.unit}})</td>
+					<td>结果</td>
+				</tr>
+				<tr v-for="data in dataList">
+					<td><span class="tag"><img src="../assets/images/c20_1bq.png" /></span><span>{{data.check_at}}</span></td>
+					<td v-for="dt in data.fields"><span>{{dt.pivot.value}}</span></td>
+					<td><span>{{data.result}}</span></td>
+				</tr>
+			</table>
+			<!-- <ul>
+				<li>
+					<dl>
+						<dd class="time">测量时间</dd>
+						<dd class="miaosu">收缩压(mmHg)</dd>
+						<dd class="ziliao">舒张压(mmHg)</dd>
+						<dd class="hospital">心率(次/分)</dd>
+						<dd class="hospital">结果</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dd class="time"><span class="tag"><img src="../assets/images/c20_1bq.png" /></span><span>2016-01-18 9:00</span></dd>
+						<dd class="miaosu"><span>110</span></dd>
+						<dd class="ziliao"><span>65</span></dd>
+						<dd class="hospital"><span>72</span></dd>
+						<dd class="hospital"><span>正常</span></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dd class="time"><span class="tag"><img src="../assets/images/c20_1bq.png" /></span><span>2017-02-25 10:00</span></dd>
+						<dd class="miaosu"><span>125</span></dd>
+						<dd class="ziliao"><span>78</span></dd>
+						<dd class="hospital"><span>69</span></dd>
+						<dd class="hospital"><span>正常</span></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dd class="time"><span class="tag"><img src="../assets/images/c20_1bq.png" /></span><span>2018-01-05 9:00</span></dd>
+						<dd class="miaosu"><span>141</span></dd>
+						<dd class="ziliao"><span>75</span></dd>
+						<dd class="hospital"><span>66</span></dd>
+						<dd class="hospital"><span>一级高血压</span></dd>
+					</dl>
+				</li>
+			</ul> -->
+		</div>
+        <mt-datetime-picker
+            ref="picker"
+            type="date"
+            year-format="{value}"
+  month-format="{value}"
+  date-format="{value}"
+  @confirm="handleConfirm">
+        </mt-datetime-picker>
+		<mt-datetime-picker
+            ref="picker1"
+            type="date"
+			:endDate="endDate"
+            year-format="{value}"
+  month-format="{value}"
+  date-format="{value}"
+  @confirm="handleConfirm1">
+        </mt-datetime-picker>
+	</div>
+	</div>
+</template>
+
+<script>
+import headers from "../components/Header.vue"
+let d = new Date(),
+today = (d.getFullYear())+'-'+((d.getMonth()+1)>9?d.getMonth()+1:'0'+(d.getMonth()+1))+'-'+(d.getDate()>9?d.getDate():'0'+d.getDate());
+
+export default {
+  data () {
+    return {
+		isActive:this.$route.params.id,
+  	  content:'一般',
+  	  pickerValue:'开始时间',
+  	  pickerValue1:'结束时间',
+  	  currentDate: 0,
+  	  dataList:[],
+  	  titleFields:'',
+  	  xData:['01-18 2016','02-25 2017','01-05 2018'],
+  	  line1:[110,125,141],
+  	  line2:[65,78,75],
+  	  twoBar_data: [1.8, 0.75],
+  	  nameData:["10年风险","10年最优值"],
+  	  barName:'10年ASCVD风险',
+  	  navItem:[],
+	  endDate: new Date(),
+  	  vipId:this.BaseSet.getInfo('vipId'),
+    }
+  },
+  methods:{
+	  filterData(){
+  		if(this.pickerValue != '开始时间' && this.pickerValue1 != '结束时间'){
+  			this.getData('/check/'+this.isActive+'/user/'+this.patientId+'?start_time='+this.pickerValue+' 00:00:00'+'&end_time='+this.pickerValue1+' 00:00:00')
+  		}else if(this.pickerValue == '开始时间'){
+  			this.$toast('请选择开始时间')
+  		}else if(this.pickerValue1 == '结束时间'){
+  			this.$toast('请选择结束时间')
+  		}
+  	},
+  	getData(url){
+  		var that=this
+  		that.$ajax.get(url)
+  		.then(function(res){
+  			if(res.data.status==200 && !(res.data.data instanceof Array)){
+  				if(res.data.data.data instanceof Array){
+  					that.dataList = res.data.data.data
+  					that.titleFields = res.data.data.data[0].fields
+  				}
+  				var data = []
+  				var name = []
+  			  for(var i = 0;i<res.data.data.fields.length;i++){
+  				  var dt = res.data.data.fields[i]
+  				  var tem = {
+  					  title:dt[0].title,
+  					  data:[],
+  					  color:'#4CC6D8',
+  					  legendDot:'../src/assets/images/c20_1dian1.png',
+  					  bgPic:'../src/assets/images/c20_1bg2.png',
+  					  date:[]
+  				  }
+  				  for(var j = 0;j<dt.length;j++){
+  					  var item = dt[j]
+  					  tem.date.push(res.data.data.fields[0][j].check_at)
+  					  tem.data.push(item.pivot.value)
+  				  }
+  				  data.push(tem)
+  			  }
+  			  that.myChart.twoLine(data)
+  			  // that.myChart.twoBar(that.twoBar_data,"two-bar1",that.nameData,that.barName)
+  			}else if(res.data.status==401){
+  				that.BaseSet.linkLogin(that)
+  			}else if(res.data.status == 200&&res.data.data instanceof Array){
+  				//that.getData('/check/'+that.isActive+'/user/'+that.vipId)
+  				that.$toast('暂无数据')
+  			}else{
+  				that.$toast(res.data.message)
+  			}
+  		})
+  		.catch(function(err){
+  			//that.BaseSet.linkLogin(that)
+  		})
+  	},
+  	getHeadData(){
+  		var that=this
+  		that.$ajax.get('/check')
+  		.then(function(res){
+  			if(res.data.status==200){
+  				if(res.data.data instanceof Array){
+					  that.navItem=res.data.data
+  				}
+  			}else if(res.data.status==401){
+  				that.BaseSet.linkLogin(that)
+  			}else{
+  				that.$toast(res.data.message)
+  			}
+  		})
+  		.catch(function(err){
+  			//that.$toast(err)
+  			that.BaseSet.linkLogin(that)
+  		})
+  	},
+    Back(){
+  	  this.$router.go(-1)
+    },
+    link(){
+  	  this.$router.push({ name: 'DataInput'})
+    },
+    changeCurrentDate(num){
+  	  this.currentDate=num;
+    },
+    SubCates(val,index){
+  		this.content = val;
+  		this.isActive = index;
+  	},
+    openPicker(num) {
+  	  if(num==1){
+  		  this.$refs.picker.open();
+  	  }else{
+  		  this.$refs.picker1.open();
+  	  }
+    },
+    handleConfirm(res){
+  	  let d=new Date(res);
+  	  this.pickerValue=(d.getFullYear())+'-'+((d.getMonth()+1)>9?d.getMonth()+1:'0'+(d.getMonth()+1))+'-'+(d.getDate()>9?d.getDate():'0'+d.getDate());
+    },
+    handleConfirm1(res){
+  	  let d=new Date(res);
+  	  this.pickerValue1=(d.getFullYear())+'-'+((d.getMonth()+1)>9?d.getMonth()+1:'0'+(d.getMonth()+1))+'-'+(d.getDate()>9?d.getDate():'0'+d.getDate());
+    },
+},
+  created:function(){
+
+  },
+  mounted:function(){
+	  this.BaseSet.getToken(this)
+	  this.getHeadData()
+	  this.vipId = this.BaseSet.getInfo('vipId')
+	  this.getData('/check/'+this.isActive+'/user/'+this.vipId)
+	  //根据导航个数计算长度
+	  var Lilength = this.navItem.length;
+	  var Navlength = document.getElementById('nav');
+	  if (Lilength<6) {
+		 Navlength.style.width = "100%"
+	  } else {
+		  var Navwidth = Lilength * 3.5
+		  Navlength.style.width = Navwidth+'rem'
+	  }
+ },
+ components:{headers}
+}
+</script>
+
+<style lang="scss">
+.monitoring_detail{
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	.contentScollr{
+		flex: 1;
+		overflow: scroll;
+		-webkit-overflow-scrolling:touch;
+		position: relative;
+	}
+    .nav{
+        width:auto;
+        height: 2rem;
+        overflow: scroll;
+        background-color: #fff;
+        ul{
+            height: 2rem;
+			white-space: nowrap;
+            overflow-x: scroll;
+			overflow-y: hidden; 
+			-webkit-backface-visibility: hidden;
+			-webkit-perspective: 1000;
+			-webkit-overflow-scrolling: touch; /* 2 */
+			text-align: justify; /* 3 */
+			&::-webkit-scrollbar{
+				display: none;
+			}
+        }
+        li{
+            margin: 0 1rem;
+            // float: left;
+			display: inline;
+            line-height: 1.9rem;
+            font-size: .7rem;
+            color: #666666;
+        }
+        li.active{
+            border-bottom:#4CC6D8 2px solid;
+        }
+    }
+    .time_search{
+        width: 100%;
+        background-color: #fff;
+        height: 2rem;
+        overflow: hidden;
+        font-size:.7rem;
+        text-align: center;
+        line-height: 2rem;
+		color: #666;
+        border-top: #e5e5e5 1px solid;
+		border-bottom: .5rem solid #f5f5f5;
+        .time{
+            display: inline-block;
+            vertical-align: middle;
+            font-size: .7rem;
+            color: #999;
+            margin: 0 .25rem;
+			img{
+				width: .5rem;
+				height: .275rem;
+				vertical-align: middle;
+			}
+            .txt{
+                color: #4CC6D8;
+                margin-right: .25rem;
+            }
+        }
+        .btn{
+            width: 3rem;
+            height: 1.25rem;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1.25rem;
+            background-color: #4DC6D8;
+            text-align: center;
+            border-radius:.25rem;
+            color: #ffffff;
+            font-size: .7rem;
+            margin-left: .5rem;
+        }
+    }
+	.chart-box{
+		.chart-name{
+			font-size: .7rem;
+			color: #4cc6d8;
+			padding: .75rem;
+			line-height: .7rem;
+		}
+		.chart-date{
+			margin-left: .75rem;
+			li{
+				float: left;
+				width: 2.1rem;
+				height: 1.25rem;
+				line-height: 1.25rem;
+				border: 1px solid #999;
+				border-radius: .625rem;
+				text-align: center;
+				margin-right: .35rem;
+				font-size: .7rem;
+				color: #999;
+			}
+			.current{
+				background: #4cc6d8;
+				color: #fff;
+				border-color: #4cc6d8;
+			}
+		}
+	}
+	.table-box{
+		width: 100%;
+		overflow: hidden;
+		//border-top: #e5e5e5 1px solid;
+		table{
+			width: 100%;
+			tr,td{
+				border:1px solid #e6e6e6;
+				min-height: 2.2rem /* 88/40 */;
+				text-align: center;
+			}
+			tr:nth-of-type(2n){
+				background: #F9F6F6;
+			}
+			td{
+				padding: .5rem /* 20/40 */.5rem .5rem .5rem;
+				font-size: .6rem /* 24/40 */;
+				color: #666;
+			}
+			.theadTr{
+				td{
+					font-size: .6rem /* 24/40 */;
+					color: #333;
+				}
+			}
+			.tag{
+				position: absolute;
+				img{
+					width: .6rem;
+					height: 1.2rem;
+				}
+				left: 0;
+			}
+		}
+		li{
+			width: 100%;
+			overflow: hidden;
+			border-bottom: #e5e5e5 1px solid;
+			dd{
+				height: 2.25rem;
+				float: left;
+				display: flex;
+				display: -webkit-flex;
+				justify-content: center;
+				align-items: center;
+				color: #666666;
+				font-size: .6rem;
+				text-align: center;
+				border-right: #e5e5e5 1px solid;
+				box-sizing: border-box;
+				width: 3.75rem;
+				padding: 0 .75rem 0 .75rem;
+				position: relative;
+			}
+			.tag{
+				position: absolute;
+				img{
+					width: .6rem;
+					height: 1.2rem;
+				}
+				left: 0;
+			}
+			.time{
+				padding: 0 .4rem 0 .6rem;
+			}
+			.hospital{
+				padding: .0 .3rem 0 .3rem;
+			}
+		}
+		li:first-child dd{
+			color: #333333;
+			font-size: .65rem;
+		}
+		li:nth-child(even){
+			background-color: #F9F6F6;
+		}
+	}
+    #main{
+        width: 100%;
+        height: 17rem;
+		padding-bottom: .75rem;
+		border-bottom: .5rem solid #f5f5f5;
+    }
+	#two-bar1{
+		width: 100%;
+        height: 17rem;
+	}
+}
+</style>

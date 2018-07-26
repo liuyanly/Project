@@ -1,0 +1,47 @@
+/**
+ * Created by Administrator on 2018/1/10.
+ */
+var userApi = "http://api-hygjuser.zpftech.com",
+    doctorApi = "http://api-hygjdoctor.zpftech.com",
+    assistantApi = "http://api-hygjassistant.zpftech.com",
+    picApi = "http://api-hygjuser.zpftech.com/file";
+
+//获取localStorage中的用户信息
+function getUserInfo() {
+    if(localStorage.getItem('userInfo')!=''&&localStorage.getItem('userInfo')!=null){
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        return userInfo;
+    }
+}
+//获取token
+function getToken(el){
+    if(getUserInfo()){
+        axios.defaults.headers.common["Authorization"] ='Bearer '+getUserInfo().api_token
+    }else{
+        linkLogin(el)
+    }
+}
+//登录
+function linkLogin(el) {
+    localStorage.setItem('userInfo','')
+    location.href="index.html"
+    // if(!localStorage.getItem('userInfo')){
+    //     el.loginType = 1
+    // }
+}
+// 获取url参数
+function getparams(name) {
+    var reg = new RegExp("(^|&)"+name+"=([^&]*)(&|$)");
+    var result = window.location.search.substr(1).match(reg);
+    return result?decodeURIComponent(result[2]):null;
+}
+
+var userInstance = axios.create({
+        baseURL: 'http://api-hygjuser.zpftech.com'
+    }),
+    doctorInstance = axios.create({
+        baseURL: 'http://api-hygjdoctor.zpftech.com'
+    }),
+    assistantInstance = axios.create({
+        baseURL: 'http://api-hygjassistant.zpftech.com'
+    });

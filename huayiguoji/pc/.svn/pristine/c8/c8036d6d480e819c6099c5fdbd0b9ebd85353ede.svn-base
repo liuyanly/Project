@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>问卷调查</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/question_surver.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main" style="padding-bottom: 40px">
+            <section class="container clearFix">
+                <my-left-nav active="22"></my-left-nav>
+                <div class="right right-box" style="min-height: 720px">
+                    <p class="header-title clearFix">
+                        <span class="left">问卷调查</span>
+                        <span class="right cursor" @click="addQuestion()">
+                            <img class="add-btn" src="images/f10_icon1.png">填写问卷</span>
+                    </p>
+                    <ul class="question-list clearFix">
+                        <li :class="{active:currentLi==data.id}" @click="changeLi(data.id,data.status,data.title)" v-for="data in dataList">{{data.title}}</li>
+                    </ul>
+                    <div class="list">
+                        <p class="header-title small-title clearFix">
+                            <span class="left">{{name}}</span>
+                            <img @click="editSurvey()" class="right" src="images/f1_icon1.png">
+                        </p>
+                        <div class="type-list" v-for="data in detailList">
+                            <p class="type-title">{{data.title}}</p>
+                            <table>
+                                <tr v-for="item in data.data">
+                                    <td>{{item.title}}</td>
+                                    <td>{{item.value}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+        <div class="fade" v-if="msgBoxStatus==1">
+            <div class="msg-box">
+                <div class="content-box">
+                    <p class="title clearFix">
+                        <span class="left">选择问卷</span>
+                        <span class="close-btn right" @click="cancelChoose()">×</span>
+                    </p>
+                    <p class="tip">请选择所要填写的问卷类型</p>
+                    <p class="select-p">
+                        <select name="questionType" v-model="questionValue" @click="changeType()" @blur="changeType()">
+                            <option :value="data" v-for="data in dataList">{{data.title}}</option>
+                        </select>
+                        <img v-if="questionType==1" src="images/e1_xiala_p.png">
+                        <img v-if="questionType==0" src="images/e1_xiala.png">
+                    </p>
+                    <p class="btn-p">
+                        <button type="button" class="cancel" @click="cancelChoose()">取消</button>
+                        <button type="button" class="sure" @click="sureChoose">确定</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    currentLi: 0,
+                    questionType: 0,
+                    questionValue: '',
+                    msgBoxStatus: 0,
+                    dataList: [],
+                    name: '',
+                    detail: '',
+                    detailList: [],
+                    status: '',
+                }
+            },
+            mounted: function() {
+                getToken(this)
+                this.getData()
+            },
+            methods: {
+                //切换问卷类型
+                changeLi: function(num, status, name) {
+                    // if(status != 0){
+                    this.currentLi = num;
+                    console.log(this.currentLi)
+                    this.name = name;
+                    this.status = status;
+                    this.getDetail(this, num, status)
+                        // }else{
+                        //     var that = this
+                        //     this.$confirm('该问卷暂未填写，立即去填写！', '提示', {
+                        //         confirmButtonText: '确定',
+                        //         cancelButtonText: '取消',
+                        //         type: 'warning'
+                        //     }).then(function () {
+                        //         location.href = "add_questionnaire.html?id="+num+'&status='+status
+                        //     }).catch(function (){
+
+                    //     });
+                    // }
+
+                },
+                //修改问卷
+                editSurvey: function() {
+                    console.log(this.status)
+                    if (this.status == 0) {
+                        this.$message({
+                            type: 'error',
+                            message: '请先填写问卷'
+                        });
+                        return;
+                    } else {
+                        // location.href = "add_questionnaire.html?id=" + this.currentLi + '&status=' + this.status
+                        location.href = "add_questionnaire.html?id=" + this.status + '&status=' + this.currentLi
+                    }
+
+                },
+                changeType: function() {
+                    if (this.questionType == 0) {
+                        this.questionType = 1;
+                    } else {
+                        this.questionType = 0;
+                    }
+                },
+                cancelChoose: function() {
+                    this.msgBoxStatus = 0;
+                },
+                sureChoose: function() {
+                    this.msgBoxStatus = 0;
+                    location.href = "add_questionnaire.html?id=" + this.questionValue.id + '&status=' +
+                        this.questionValue.status
+                },
+                addQuestion: function() {
+                    this.msgBoxStatus = 1;
+                },
+                //获取问卷类型
+                getData: function() {
+                    var that = this
+                    axios.get(userApi + '/questionnaire/category')
+                        .then(function(res) {
+                            console.log('====', res.data)
+                            if (res.data.status == 200) {
+                                that.dataList = res.data.data
+                                that.currentLi = res.data.data[0].id
+                                that.name = res.data.data[0].title
+                                that.status = res.data.data[0].status
+                                if (that.status != 0) {
+                                    that.getDetail(that, res.data.data[0].id, res.data.data[0].status)
+                                } else {
+
+                                }
+                            }
+                        })
+                        .catch(function(err) {
+                            linkLogin(that)
+                        })
+                },
+                //获取问卷类型问题及答案
+                getDetail: function(el, num, status) {
+                    //status 如果是0没有答案，不是0，status就是该问卷的答案id
+                    var that = el;
+                    that.detailList = []
+                    if (status == 0) {
+                        that.$message({
+                            type: 'error',
+                            message: '请先填写问卷'
+                        });
+                        return;
+                    }
+                    axios.get(userApi + '/questionnaire/' + status)
+                        .then(function(res) {
+                            console.log('对应问卷内容：', res.data)
+                            that.detail = res.data.translates
+                            that.detailList = res.data.data
+                        })
+                        .catch(function(err) {
+                            // linkLogin(that)
+
+                            console.log(err)
+                        })
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

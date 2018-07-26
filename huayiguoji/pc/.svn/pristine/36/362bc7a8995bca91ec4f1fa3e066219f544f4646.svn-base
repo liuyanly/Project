@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>视频咨询-进行中</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/personal.css"/>
+    <link rel="stylesheet" href="css/pic_consult.css"/>
+    <link rel="stylesheet" href="css/tel_consult.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="2"></my-header>
+    </div>
+    <div class="main">
+        <section class="container clearFix">
+            <my-left-nav active="3"></my-left-nav>
+            <div class="right right-box" style="width: 884px">
+                <section class="header-top clearFix">
+                    <p class="left"><img src="images/head.jpg"></p>
+                    <div class="left">
+                        <p class="header-name" style="color:#4CC6D8;">孙悟本</p>
+                        <p class="hospital-name" style="color: #999;"><span class="sex" style="margin-right: 15px;">性别：男</span><span class="age">年龄：42</span></p>
+                    </div>
+                </section>
+                <section class="consult-box relative">
+                    <div class="another-person absolute">
+
+                    </div>
+                    <div class="hang-up absolute">
+                        <p class="time">12:00:01</p>
+                        <img @click="hangUp()" src="images/f64_icon1.png">
+                        <p class="word">挂断</p>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+<script src="./node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="swiper/swiper-3.4.2.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/doctor_login.js"></script>
+<script src="js/slider.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/task_leftNav.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/chart.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data() {
+            return {
+                msg:'',
+                type:1,
+            }
+        },
+        mounted:function () {
+
+        },
+        methods:{
+            hangUp:function () {
+                location.href="task_going.html"
+            }
+        }
+    })
+</script>
+</body>
+</html>

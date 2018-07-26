@@ -1,0 +1,116 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.header-title .right img {
+  margin-right: 9px;
+}
+.user-top {
+  padding: 22px;
+  padding-bottom: 29px;
+  border-bottom: 1px solid #EFF1FA;
+}
+.user-top .img-p {
+  width: 82px;
+  height: 82px;
+  background-image: -webkit-linear-gradient(right, #E57A22 0%, #EDA455 20%, #DA8E3D 40%, #FDBE7A 60%, #DA8F3E 80%);
+  background-image: -moz-linear-gradient(right, #E57A22 0%, #EDA455 20%, #DA8E3D 40%, #FDBE7A 60%, #DA8F3E 80%);
+  background-image: -o-linear-gradient(right, #E57A22 0%, #EDA455 20%, #DA8E3D 40%, #FDBE7A 60%, #DA8F3E 80%);
+  background-image: -ms-linear-gradient(right, #E57A22 0%, #EDA455 20%, #DA8E3D 40%, #FDBE7A 60%, #DA8F3E 80%);
+  background-image: linear-gradient(right, #E57A22 0%, #EDA455 20%, #DA8E3D 40%, #FDBE7A 60%, #DA8F3E 80%);
+  border-radius: 50%;
+  box-shadow: 0 5px 5px #F3C49D;
+}
+.user-top .img-p .head-pic {
+  width: 70px;
+  height: 70px;
+  margin-top: 6px;
+  margin-left: 6px;
+  border-radius: 50%;
+}
+.user-top .img-p .absolute {
+  bottom: 3px;
+  right: 0;
+}
+.user-top .user-info-box {
+  margin-left: 22px;
+}
+.user-top .user-info-box .vip-name {
+  margin-top: 11px;
+  font-size: 14px;
+  color: #e19747;
+  margin-bottom: 6px;
+  line-height: 15px;
+}
+.user-top .user-info-box .info-p {
+  line-height: 22px;
+  font-size: 12px;
+  color: #666;
+}
+.user-top .renew-btn {
+  width: 108px;
+  height: 30px;
+  background: #4cc6d8;
+  border-radius: 3px ;
+  text-align: center;
+  color: #fff;
+  line-height: 30px;
+  margin-top: 30px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.user-bottom {
+  padding: 21px 24px;
+}
+.user-bottom .box .title {
+  font-size: 14px;
+  color: #4cc6d8;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.user-bottom .box .info-box {
+  padding: 20px 15px;
+  background: #eee;
+  border-radius: 10px;
+  width: 386px;
+  height: 110px;
+  box-sizing: border-box;
+}
+.user-bottom .box .info-box .head-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 16px;
+}
+.user-bottom .box .info-box .name {
+  font-size: 14px;
+  color: #000;
+  margin-top: 16px;
+  margin-bottom: 10px;
+  line-height: 15px;
+}
+.user-bottom .box .info-box .department {
+  font-size: 14px;
+  color: #4cc6d8;
+  line-height: 15px;
+}
+.user-bottom .box .info-box .msg-img {
+  margin-top: 29px;
+  margin-right: 27px;
+  cursor: pointer;
+}
+.user-bottom .box-type2 {
+  margin-top: 27px;
+}
+.user-bottom .box-type2 .word {
+  line-height: 70px;
+  font-size: 16px;
+  color: #000;
+}

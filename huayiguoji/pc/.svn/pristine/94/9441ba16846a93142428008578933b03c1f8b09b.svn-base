@@ -1,0 +1,112 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.pay-p {
+  position: relative;
+  padding: 20px 14px 21px 14px;
+  border-bottom: 1px solid #EFF1FA;
+}
+.pay-p input[type="radio"] {
+  position: absolute;
+  left: 14px;
+  top: 23px;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+}
+.pay-p label {
+  font-size: 14px;
+  color: #000;
+}
+.pay-p .type-img {
+  margin-right: 8px;
+  margin-left: 21px;
+}
+.pay-p .tip {
+  font-size: 12px;
+  color: #666;
+}
+.son-box {
+  padding-left: 43px;
+  margin-top: 19px;
+}
+.son-box .money-input {
+  margin-bottom: 20px;
+}
+.son-box .money-input .title {
+  font-size: 14px;
+  color: #999;
+  margin-right: 17px;
+}
+.son-box .money-input input {
+  padding: 0 11px;
+  width: 214px;
+  height: 28px;
+  line-height: 28px;
+  border-radius: 3px;
+  border: 1px solid #eff1fa;
+  color: #333;
+  font-size: 14px;
+}
+.son-box .pay-p {
+  padding: 0;
+  border-bottom: none;
+  margin-bottom: 24px;
+}
+.son-box .pay-p input[type="radio"] {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+}
+.son-box .recharge-info {
+  margin-left: 85px;
+  width: 216px;
+  height: 167px;
+  border: 1px solid #eff1fa;
+  background: #FAFBFF;
+  padding: 8px 9px;
+  border-radius: 3px;
+}
+.son-box .recharge-info p {
+  line-height: 20px;
+  color: #333;
+  font-size: 14px;
+}
+.son-box .pic-box {
+  margin-top: 20px;
+}
+.son-box .pic-box .pic-word {
+  text-align: right;
+  width: 70px;
+  font-size: 14px;
+  color: #999;
+  margin-right: 15px;
+}
+.btn-p .pay-btn {
+  width: 136px;
+  height: 40px;
+  background: #4cc6d8;
+  border-radius: 3px ;
+  font-size: 14px;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+  border: none;
+  margin-top: 30px;
+  margin-left: 14px;
+  cursor: pointer;
+}
+.btn-p .marginLeft {
+  margin-left: 112px;
+}

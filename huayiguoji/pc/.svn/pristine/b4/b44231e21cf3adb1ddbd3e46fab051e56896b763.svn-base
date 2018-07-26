@@ -1,0 +1,70 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.ul-list li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eff1fa;
+  cursor: pointer;
+}
+.ul-list li > img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 13px;
+}
+.ul-list li .name {
+  font-size: 14px;
+  color: #000;
+  line-height: 40px;
+  width: 140px;
+  margin-left: 16px;
+}
+.ul-list li .num {
+  line-height: 40px;
+  font-size: 12px;
+  color: #666;
+  width: 180px;
+  margin-left: 12px;
+}
+.ul-list li .c1 {
+  color: #4CC6D8;
+}
+.ul-list li .class-table {
+  padding: 4px 0;
+}
+.ul-list li .class-table p {
+  line-height: 16px;
+}
+.ul-list li .right {
+  line-height: 40px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.chooseList li .user-info-box {
+  width: 166px;
+  margin-right: 10px;
+}
+.chooseList li .user-info-box .name {
+  line-height: 24px;
+  margin-bottom: 3px;
+}
+.chooseList li .user-info-box .info {
+  font-size: 12px;
+  color: #999;
+  margin-left: 16px;
+  line-height: 12px;
+}
+.chooseList li .user-info-box .info .sex {
+  margin-right: 20px ;
+}
+.chooseList li .disease {
+  line-height: 40px;
+}

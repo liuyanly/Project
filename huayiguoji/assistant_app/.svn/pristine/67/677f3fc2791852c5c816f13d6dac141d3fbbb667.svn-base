@@ -1,0 +1,200 @@
+<template>
+  <div class="service-assistant-box">
+      <TopHeader headName='服务' NoBack="true"/>
+      <div class="contentScollr">
+      <smallHeader @changeView="changeTypeView" :parentType='editType' :smallData='smallHeaderData'/>
+      <div>
+          <!-- 进行中 -->
+          <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :autoFill='false' ref="loadmore">
+          <ul class="inProgress" v-if='editType==0'>
+              <li class="items clear" v-for="data in dataList" @click='toDetails(data.service_id,data.user.id,data.translates.type_desc,0)'>
+                  <div class="patientInfo">
+                      <div class="userHeader">
+                          <img :src="data.user.translates.avatar_img" alt="">
+                      </div>
+                      <div class="info">
+                          <p class="name">{{data.user.realname}}</p>
+                          <p class="age">
+                              <span>性别:{{data.user.translates.sex}}</span>
+                              <span>年龄:{{data.user.translates.age}}</span>
+                          </p>
+                          <p class="illness">病症: {{data.user.illness}}</p>
+                      </div>
+                  </div>
+                  <div class="type">
+                      {{data.translates.type_desc}}
+                  </div>
+              </li>
+          </ul>
+          <ul class="inProgress" v-else>
+              <li class="items clear" v-for="data in dataList" @click='toDetails(data.service_id,data.user.id,data.translates.type_desc,1)'>
+                  <div class="patientInfo">
+                      <div class="userHeader">
+                          <img :src="data.user.translates.avatar_img" alt="">
+                      </div>
+                      <div class="info">
+                          <p class="name">{{data.user.realname}}</p>
+                          <p class="age">
+                              <span>性别:{{data.user.translates.sex}}</span>
+                              <span>年龄:{{data.user.translates.age}}</span>
+                          </p>
+                          <p class="illness">病症: {{data.user.illness}}</p>
+                      </div>
+                  </div>
+                  <div class="type">
+                      {{data.translates.type_desc}}
+                  </div>
+              </li>
+          </ul>
+          </mt-loadmore>
+      </div>
+  </div>
+      <Footer foot-on='service'/>
+  </div>
+</template>
+<script>
+import TopHeader from '../components/Header';
+import smallHeader from './serviceComponents/ServiceHeader';
+import InProgress from './serviceComponents/ServiceInProgress';
+import Done from './serviceComponents/ServiceDone';
+import Footer from '../components/Footer';
+
+export default {
+  components: { smallHeader, InProgress, Done, Footer, TopHeader},
+  data: function () {
+      return {
+          type: 0,
+          allLoaded:false,//是否为最后一页
+          page:1,
+          per_page:6,//每页最大数
+          last:false,
+          dataList:[],
+          status:2,
+          smallHeaderData: ['进行中','已完成'],
+          editType:0,
+      }
+  },
+  mounted(){
+      this.BaseSet.getToken(this)
+      this.getDataList()
+  },
+  methods: {
+      // 跳转到患者详情
+      toDetails: function (userId) {
+          //this.$router.push({name: 'patientDetails', params: {userId: userId}});
+      },
+      changeTypeView(num){
+          this.editType=num;
+          this.page = 1
+          this.allLoaded = false
+          this.last = false
+          this.dataList = []
+          this.getDataList()
+      },
+      loadBottom() {
+          this.allLoaded = false;
+          setTimeout(() => {
+              if (!this.last) {
+                  this.getDataList()
+              } else {
+                  this.allLoaded = true;
+              }
+              this.$refs.loadmore.onBottomLoaded();
+          }, 500)
+      },
+      getDataList(){
+          var that = this
+          if(this.editType == 1){
+              this.status = 1
+          }else{
+              this.status = 2
+          }
+          this.$ajax.get('/service?per_page='+this.per_page+'&page='+this.page+'&status='+this.status)
+          .then((res)=>{
+              if(res.data.status==200){
+                  let data = res.data.data;
+                  this.page++
+                  if(data.data.length){
+                      this.last = false
+                      for(let i = 0;i < data.data.length;i++){
+                          this.dataList.push(data.data[i])
+                      }
+                  }else{
+                      this.last = true;
+                  }
+              }
+
+          })
+          .catch((err)=>{
+
+          })
+      },
+  }
+}
+</script>
+<style lang="scss">
+.service-assistant-box{
+    display: flex;
+	height: 100%;
+	flex-direction: column;
+	.contentScollr{
+		flex: 1;
+		overflow: scroll;
+		-webkit-overflow-scrolling:touch;
+	}
+}
+.inProgress{
+    width: 100%;
+    .items{
+        width: 100%;
+        border-bottom: 1px solid #dcdcdc;
+        background-color: white;
+        box-sizing: border-box;
+        padding: .75rem;
+        .patientInfo{
+            width: 70%;
+            height: 100%;
+            float: left;
+            .userHeader{
+                float: left;
+                width: 2.5rem;
+                height: 2.5rem;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    vertical-align: middle;
+                }
+            }
+            .info{
+                float: left;
+                margin-left: .525rem;
+                .name{
+                    font-size: .7rem;
+                    color: #333;
+                }
+                .age{
+                    font-size: .6rem;
+                    color: #666;
+                    //display: inline-block;
+                    vertical-align: middle;
+                }
+                .illness{
+                    font-size: .6rem;
+                    color: #EB4C4E;
+                }
+            }
+        }
+        .type{
+            width: 30%;
+            height: 100%;
+            font-size: .6rem;
+            color: #666;
+            float: left;
+            box-sizing: border-box;
+            padding: 1rem 0;
+            text-align: right;
+        }
+    }
+}
+</style>

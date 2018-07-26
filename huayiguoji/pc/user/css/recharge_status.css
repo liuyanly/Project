@@ -1,0 +1,47 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.pay-box p {
+  text-align: center;
+}
+.pay-box .status-img {
+  margin-top: 70px;
+  margin-bottom: 19px;
+}
+.pay-box .btn-p button {
+  width: 136px;
+  height: 40px;
+  background: #4cc6d8;
+  border-radius: 3px ;
+  text-align: center;
+  line-height: 40px;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+.pay-success .status-word {
+  font-size: 16px;
+  color: #333;
+  line-height: 17px;
+  margin-bottom: 12px;
+}
+.pay-success .pay-money {
+  font-size: 16px;
+  color: #4CC6D8;
+  margin-bottom: 26px;
+}
+.pay-fail .status-word {
+  font-size: 16px;
+  color: #ee774d;
+  line-height: 17px;
+  margin-bottom: 55px;
+}

@@ -1,0 +1,128 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.header-top {
+  width: 1000px;
+  margin: 0 auto;
+  line-height: 52px;
+  font-size: 14px;
+  color: #999;
+}
+.header-top .hospital-name {
+  color: #4CC6D8;
+}
+.top-box {
+  background: #fff;
+  padding: 20px 30px;
+  margin-bottom: 10px;
+}
+.top-box img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 21px;
+}
+.top-box .doctor-info .doctor-name {
+  font-size: 14px;
+  color: #333;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+.top-box .doctor-info .doctor-name .name {
+  font-size: 18px;
+  color: #333;
+  margin-right: 10px;
+}
+.top-box .doctor-info .hospital-name {
+  font-size: 14px;
+  color: #333;
+}
+.top-box > .right p > span {
+  float: left;
+}
+.top-box > .right .title {
+  text-align: right;
+  line-height: 31px;
+  margin-bottom: 10px;
+  width: 56px;
+  font-size: 14px;
+  color: #333;
+}
+.top-box > .right .ask-type,
+.top-box > .right .doctor-type {
+  width: 129px;
+  line-height: 31px;
+  height: 31px;
+  text-align: center;
+  color: #fff;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.top-box > .right .ask-type {
+  background: #4CC6D8;
+}
+.top-box > .right .doctor-type {
+  background: #40CD6F;
+}
+.content-box .top-title {
+  padding-top: 19px;
+  color: #000;
+}
+.content-box .word-div {
+  padding: 20px 0 9px 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 18px;
+  height: 18px;
+}
+.evaluate-list {
+  margin-bottom: 4px;
+}
+.evaluate-list li {
+  padding: 20px 10px;
+  border-bottom: 1px dotted #ccc;
+}
+.evaluate-list li .head-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.evaluate-list li .user-name {
+  line-height: 16px;
+  height: 16px;
+}
+.evaluate-list li .user-name .name {
+  font-size: 14px;
+  color: #000;
+  margin-right: 9px;
+}
+.evaluate-list li .user-name img {
+  width: 16px;
+  height: 16px;
+}
+.evaluate-list li .evaluate-word {
+  line-height: 30px;
+  height: 30px;
+  font-size: 12px;
+  color: #999;
+}
+.evaluate-list .tag-list span {
+  float: left;
+  margin-right: 10px;
+  width: 62px;
+  border-radius: 10px ;
+  text-align: center;
+  line-height: 20px;
+  height: 20px;
+  border: 1px solid #999;
+  color: #4CC6D8;
+}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="MobileOptimized" content="750">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="format-detection" content="telephone=no">
+    <title>碳云</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+  <body>
+    <div id="healthData" class="container">
+      <my-header active="1"></my-header>
+      <div class="content">
+          <!-- 运动 -->
+            <div class="energy">
+                <div class="title flex-item">
+                  <span menu="c10" class="flex active">日</span>
+                  <span menu="c11" class="flex">周</span>
+                </div>
+                <div class="conbox">
+                  <div id="c10" class="day"><span>{{dayTotal}}</span>千卡</div>
+                  <div id="c11" class="hide">
+                      <div id="sprotWeek" style="width: 87vw; height:9rem;">
+
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <div class="date">
+              <div class="pre" @click="pre()"></div>
+              <div id="datebox" class="datebox">
+                <ul class="flex-item">
+                  <li v-for="(item,index) in temp" class="foo" :data-val="item.getFullYear()
+                              +'-'+(((item.getMonth() + 1) <=9 )? '0' + (item.getMonth() + 1) : (item.getMonth() + 1))
+                              +'-'+((item.getDate() <=9) ? '0' + item.getDate() : item.getDate())" 
+                              @click="add(index)" 
+                              :class="currentnow.getTime()==item.getTime()?'active':''">
+                    <span>{{item.getDate()}}</span>
+                    <small>{{item.getMonth()+1}}月</small>
+                  </li>
+                </ul>
+              </div>
+              <div class="next" @click="next()"></div>
+            </div>
+            <div class="food">
+                <div class="conbox">
+                      <div class="record flex-item">
+                        <div class="flex">
+                          <p>总共运动</p>
+                          <p class="h4">{{count}}</p>
+                          <p>次</p>
+                        </div>
+                        <div class="flex">
+                          <p>总消耗</p>
+                          <p class="h4">{{dayTotal}}</p>
+                          <p>千卡</p>
+                        </div>
+                        <div class="flex">
+                          <p>最大运动量</p>
+                          <p class="h4">{{max}}</p>
+                          <p>千卡</p>
+                        </div>
+                      </div>
+                      <div class="fooditem">
+                         <div class="title">今日运动消耗</div>
+                         <div class="box">
+                          <div class="list active">
+                            <div class="flex-item">
+                              <div class="footeChat">
+                                  <div class="epie">
+                                    <div class="circleInfo"><img src="images/Run_48px1.png"></div>
+                                    <div id="circle4" class="circle">
+
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="flex footinfo">
+                                  <div class="sportInfo">
+                                    <p>燃烧{{dayTotal}}千卡</p>
+                                    <p><small>相当于{{step}}步</small></p>
+                                  </div>
+                              </div>
+                            </div>
+                            <div class="afoot">
+                              <div class="flex-item" v-for="item in sportData">
+                                  <div class="flex afootName">
+                                     {{item.name}}
+                                  </div>
+                                  <div class="flex afootVal">
+                                    <span class="num">{{item.duration}}</span>分钟
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+      </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/mychart.js"></script>
+    <script src="js/healthData.js"></script>
+    <script>
+      new Vue({
+        el: '#healthData',
+        data() {
+          return {
+            id: '',
+            dayTotal: '',
+            lineDataLabel: [],
+            lineDataVal: [],
+            count: '',
+            max: '',
+            step: '',
+            sportData: [],
+            pieData: [
+                    { value: 80, name: '', selected: true },
+                    { value: 20, name: '' },
+                ],
+            currentnow: new Date(),
+            now: new Date(),
+            clickNum: 1,
+            temp: [],
+            nowDate: '',
+          }
+        },
+        created() {
+          this.nowDate = getFormat(this.currentnow.getTime());
+          console.log(this.nowDate);
+          this.id = 28;
+          this.calendar();
+          this.getData();
+        },
+        mounted() {
+          
+        },
+        methods: {
+          calendar() {
+            var firstTime = new Date(this.now.setDate(this.now.getDate() - (this.now.getDay() + 1) * this.clickNum));
+            this.temp = [];
+            for (var i = 0; i < 7; i++) {
+              this.temp.push(new Date(firstTime.setDate(firstTime.getDate() + 1)));
+            }
+          },
+          pre() {
+            this.clickNum += 1;
+            this.calendar();
+          },
+          next() {
+            this.clickNum -= 1;
+            this.calendar();
+          },
+          add(index) {
+            $('.foo').removeClass('active');
+            $('.foo')[index].classList.add('active');
+            console.log($('.foo')[index].getAttribute('data-val'));
+            this.nowDate = $('.foo')[index].getAttribute('data-val');
+            this.getData();
+          },
+          getData() {
+            var that = this;
+            axios.get(baseurl + '/mobileapi.php?action=healthy&type=sport&date=' + this.nowDate +'&id='+this.id)
+              .then(function (res) {
+                console.log(res);
+                var data = res.data;
+                if (data.code == 200) {
+                  that.dayTotal = data.data.kcal;
+                  // var weekEnergy = data.data.kcal_1 + "," + data.data.kcal_2 + "," + data.data.kcal_3 + "," + data.data.kcal_4
+                  //   + "," + data.data.kcal_5 + "," + data.data.kcal_6 + "," + data.data.kcal_7;
+                  // that.lineData = weekEnergy.split(',');
+                  that.lineDataLabel = [];
+                  that.lineDataVal = [];
+                  for (var i = 0; i < data.data.week.length; i++) {
+                    that.lineDataLabel.push(data.data.week[i].date)
+                    that.lineDataVal.push(data.data.week[i].val)
+                  }
+                  chartLine(that.lineDataLabel, that.lineDataVal, 'sprotWeek'); //运功 周 折线图
+                  that.count = data.data.count;
+                  that.max = data.data.max;
+                  that.step = data.data.step;
+                  that.sportData = data.data.items;
+                  chartpie(that.pieData,'circle4')
+                }
+              })
+              .catch(function (err) {
+                console.log(err);
+              })
+          },
+        }
+      })  
+    </script>
+  </body>
+</html>

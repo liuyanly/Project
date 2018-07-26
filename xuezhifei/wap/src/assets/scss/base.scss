@@ -1,0 +1,237 @@
+@import "./mixin.scss";
+html,body{
+    height: 100%;
+    font-family: '微软雅黑', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif;
+    background: #f7f7f7;
+    color: #333;
+    font-size: 14px;
+}
+img {
+    max-width: 100%;
+    vertical-align: top;
+}
+.clearfix{
+    display: inline-block;
+    &:after{
+        display: block;
+        content: ".";
+        height: 0;
+        line-height: 0;
+        clear: both;
+        visibility: hidden
+    }
+}
+.show{
+    display:block !important;
+}
+.hide{
+    display:none !important;
+}
+// 字体大小
+.h4 {
+    font-size: 18px;
+}
+.h6 {
+    font-size: 15px;
+}
+// 按钮
+.btn {
+    display: inline-block;
+    padding: 4px 16px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    &.btn-primary{
+        background: #2EA2FD;
+        border-color: #2EA2FD;
+        color: #fff;
+    }
+    &.btn-default {
+        background: #fff;
+        border-color: #666;
+        color: #333;
+    }
+    &.btn-warning {
+        background: #FCB14F;
+        border-color: #FCB14F;
+        color: #fff;
+    }
+    &.btn-disabled {
+        background: #999;
+        border-color: #999;
+        color: #fff;
+    }
+}
+
+// 1像素边框
+@media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5) {
+    .border-bottom1px{
+        &:after{
+            -webkit-transform: scaleY(0.7);
+            transform: scaleY(0.7);
+        }
+    }
+    .border-top1px{
+        &:after{
+            -webkit-transform: scaleY(0.7);
+            transform: scaleY(0.7);
+        }
+    }
+}
+@media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2) {
+    .border-bottom1px{
+        &:after{
+            -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+        }
+    }
+    .border-top1px{
+        &:after{
+            -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+        }
+    }
+}
+// mint-ui reset picker css
+.picker-toolbar {
+    height: 50px;
+    padding: 0 25px;
+    background: #F7F7F7;
+}
+.mint-datetime-action {
+    display: inline-block;
+    width: 50%;
+    line-height: 50px;
+    font-size: 17px;
+}
+.mint-datetime-cancel {
+    color: #666;
+    text-align: left;
+}
+.mint-datetime-confirm {
+    color: #333;
+    text-align: right;
+}
+.picker-slot {
+  font-size: 15px;
+  color: #333;
+}
+.picker-item {
+  color: #707274;
+}
+.picker-item.picker-selected {
+  font-size: 17px;
+  color: #333;
+}
+// mint-ui reset checklist css
+.mint-checklist-title {
+    margin: 0;
+}
+.mint-cell {
+    min-height: 20px;
+}
+.mint-checkbox-core {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #bbb;
+}
+.mint-cell-wrapper {
+    font-size: 14px;
+    padding: 0;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+.mint-checklist-label {
+    padding: 0;
+}
+.mint-checkbox-label {
+
+}
+.mint-checklist.is-limit .mint-checkbox-core:not(:checked) {
+    background-color: #bbb;
+    border-color: #bbb;
+}
+.mint-checkbox-input:checked + .mint-checkbox-core::after {
+    border-color: transparent;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    @include bg-image(f30_icon2);
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    -webkit-transform: rotate(0deg) scale(1);
+    transform: rotate(0deg) scale(1);
+}
+.mint-checkbox-core::after {
+    top: -1px;
+    left: -1px;
+    -webkit-transform: rotate(0deg) scale(0);
+    transform: rotate(0deg) scale(0);
+}
+// mint-ui reset messagebox css
+.mint-msgbox {
+    min-height: 168px;
+    top: 50%;
+    left: 50%;
+    margin-left: -42.5%;
+    margin-top: -84px;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    // min-width: 270px;
+    // width: auto;
+    border-radius: 12px;
+    font-size: 17px;
+}
+.mint-msgbox-content {
+    padding: 45px 15px;
+    // border-bottom: none 0;
+}
+.mint-msgbox-message {
+    color: #242424;
+}
+.mint-msgbox-btns {
+    display: -webkit-flex;
+}
+// .mint-msgbox-btn {
+//     height: 43px;
+//     border-top: 1px solid #ddd;
+//     line-height: 43px;
+//     font-size: 17px;
+// }
+.mint-msgbox-confirm {
+    width: auto;
+    -webkit-flex:1;
+    text-align: center;
+    color: #2EA2FD;
+}
+.mint-msgbox-cancel {
+    width: auto;
+    -webkit-flex:1;
+    text-align: center;
+    color: #8a8a8a;
+}
+// iphone5兼容问题 定位到屏幕外去了
+.mint-popup-bottom {
+    left: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+// iphone5 位置不居中
+.mint-indicator-wrapper {
+    margin-left: -50px;
+    margin-top: -55px;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+.mint-toast {
+    min-height: 40px;
+}
+.mint-toast.is-placemiddle {
+    // margin-left: -50%;
+    // margin-top: -20px;
+    // -webkit-transform: translate3d(50%, 0, 0);
+    // transform: translate3d(50%, 0, 0);
+}

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>已成为会员</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/already_vip.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="5"></my-left-nav>
+                <div class="right right-box">
+                    <p class="header-title clearFix"><span class="left">会员信息</span><span class="right cursor" @click="upgradeVip()"><img src="images/f70_icon1.png"/>升级会员</span></p>
+                    <section class="user-top clearFix">
+                        <p class="left img-p relative" :style="{'background-image':'url('+bgImg+')'}">
+                            <img class="head-pic" :src="headImg" />
+                            <img class="absolute" style="width: 18px" :src="vipIcon" />
+                        </p>
+                        <div class="left user-info-box">
+                            <p class="vip-name">{{vipInfo.title}}({{info.realname}})</p>
+                            <p class="info-p">账号注册时间：{{registerDate}}</p>
+                            <p class="info-p">成为会员时间：{{vipDate}} &emsp;会员有效期：{{validDate}}</p>
+                        </div>
+                        <p class="renew-btn right">会员续费</p>
+                    </section>
+                    <section class="user-bottom clearFix">
+                        <div class="left doctor-box box">
+                            <p class="title">私人医生</p>
+                            <div class="info-box clearFix" v-if="doctorId != 0">
+                                <img :src="doctorHeadImg" class="left head-img">
+                                <div class="left">
+                                    <p class="name">{{doctorInfo.realname}}</p>
+                                    <p class="department">{{doctorDepartment}}</p>
+                                </div>
+                                <img src="images/f70_liuyan.png" class="right msg-img">
+                            </div>
+                        </div>
+                        <div class="left doctor-box box box-type2" v-if="doctorId == 0">
+                            <div class="info-box clearFix">
+                                <img src="images/f71_icon1.png" class="left head-img">
+                                <div class="left">
+                                    <p class="word">我的签约医生</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right assistant-box box">
+                            <p class="title">私人健康助理</p>
+                            <div class="info-box clearFix">
+                                <img :src="assistantHeadImg" class="left head-img">
+                                <div class="left">
+                                    <p class="name">{{assistantInfo.realname}}</p>
+                                    <p class="department">医助</p>
+                                </div>
+                                <img src="images/f70_liuyan.png" class="right msg-img">
+                            </div>
+                        </div>
+                        <!--<div class="right assistant-box box box-type2">-->
+                        <!--<div class="info-box clearFix">-->
+                        <!--<img src="images/f71_icon2.png" class="left head-img">-->
+                        <!--<div class="left">-->
+                        <!--<p class="word">我的健康助理</p>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </section>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var $this = '';
+        var type = getUrlParam('type');
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    type: type,
+                    headImg: '',
+                    info: '',
+                    vipIcon: '',
+                    vipInfo: '',
+                    bgImg: '',
+                    registerDate: '', //注册时间
+                    vipDate: '', //成为会员时间
+                    validDate: '', //会员有效时间
+                    assistantInfo: '',
+                    assistantHeadImg: '',
+                    telNum: '',
+                    doctorInfo: '',
+                    doctorHeadImg: '',
+                    doctorDepartment: '',
+                    assistantId: '',
+                    doctorId: '',
+                }
+
+            },
+            mounted: function() {
+                getToken(this);
+                this.getVipInfo()
+            },
+            methods: {
+                upgradeVip: function() {
+                    location.href = "vip_info.html";
+                },
+                getVipInfo: function() {
+                    var that = this
+                    axios.get(userApi + '/user/myvip')
+                        .then(function(res) {
+                            if (res.data.status == 200) {
+                                console.log('vip数据:', res)
+                                that.headImg = res.data.data.translates.avatar_img
+                                that.info = res.data.data
+                                that.vipIcon = res.data.data.vip.translates.icon
+                                that.bgImg = res.data.data.vip.translates.background
+                                that.vipInfo = res.data.data.vip
+                                that.registerDate = res.data.data.created_at.substring(0, 10)
+                                that.vipDate = res.data.data.vip.pivot.started_at.substring(0, 10)
+                                that.validDate = res.data.data.vip.pivot.ended_at.substring(0, 10)
+                                that.assistantId = res.data.data.myassistant
+                                that.doctorId = res.data.data.mydoctor
+                                if (res.data.data.myassistant) {
+                                    that.getAssistantInfo(that)
+                                }
+                                if (res.data.data.mydoctor) {
+                                    that.getDoctorInfo(that)
+                                }
+                            }
+                        })
+                        // .catch(function (err) {
+                        //     linkLogin(that)
+                        // })
+                },
+                //获取医助信息
+                getAssistantInfo: function(el) {
+                    var that = el
+                    axios.get(userApi + '/user/myassistant')
+                        .then(function(res) {
+                            if (res.data.status == 200) {
+                                that.assistantInfo = res.data.data.assistant.user
+                                that.assistantHeadImg = res.data.data.assistant.user.translates.avatar_img
+                                that.telNum = res.data.data.assistant.username
+                            }
+                        })
+                        .catch(function(err) {
+                            linkLogin(that)
+                        })
+                },
+                getDoctorInfo: function(el) {
+                    var that = el
+                    axios.get(userApi + '/user/mydoctor')
+                        .then(function(res) {
+                            console.log(res.data)
+                            if (res.data.status == 200) {
+                                that.doctorInfo = res.data.data.user
+                                that.doctorHeadImg = res.data.data.user.translates.avatar_img
+                                that.doctorDepartment = res.data.data.user.translates.department_title
+                            }
+                        })
+                        .catch(function(err) {
+                            linkLogin(that)
+                        })
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

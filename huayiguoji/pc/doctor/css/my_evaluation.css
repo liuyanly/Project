@@ -1,0 +1,59 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.evaluation-list li {
+  padding: 11px 14px 14px 14px;
+  border-bottom: 1px solid #eff1fa;
+}
+.evaluation-list li .word-content .word {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #333;
+  line-height: 20px;
+  width: 710px;
+}
+.evaluation-list li .word-content .date {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 15px;
+}
+.evaluation-list li .word-content .person-info {
+  height: 50px;
+  width: 413px;
+  border-radius: 25px;
+  background: #eee;
+}
+.evaluation-list li .word-content .person-info > img {
+  width: 49px;
+  height: 50px;
+  border-radius: 50%;
+}
+.evaluation-list li .word-content .person-info p {
+  line-height: 50px;
+}
+.evaluation-list li .word-content .person-info .name {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #333;
+}
+.evaluation-list li .word-content .person-info .department {
+  font-size: 14px;
+  color: #6fc3d5;
+  margin-left: 10px;
+}
+.evaluation-list li .word-content .person-info .type {
+  margin-right: 33px;
+  font-size: 14px;
+  color: #666;
+}
+.evaluation-list li .evaluation-grade {
+  margin-left: 8px;
+}

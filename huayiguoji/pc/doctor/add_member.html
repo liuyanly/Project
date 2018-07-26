@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>添加成员</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/edit_data.css"/>
+    <link rel="stylesheet" href="css/msg_center.css"/>
+    <script src="./node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="0"></my-header>
+    </div>
+    <div class="main-box" style="padding-top: 15px;padding-bottom: 61px">
+        <section class="container clearFix">
+            <my-left-nav active="4"></my-left-nav>
+           <div class="right-box right" style="background: #fff;width: 884px">
+               <p class="header-title">添加成员</p>
+               <div class="msg-box">
+                   <ul class="msg-list">
+                       <li class="clearFix">
+                           <img class="left" src="images/head.jpg">
+                           <div class="left content-word">
+                               <p class="line1 clearFix"><span class="left" style="color: #4CC6D8;">毛杜拉</span></p>
+                               <p class="line2"><span class="sex marginRight">性别：男</span><span class="age">年龄：42</span></p>
+                           </div>
+                           <p class="del-btn right" @click="addMember(1)">
+                               <img src="images/m7_xz.png" v-show="memberArr.indexOf(1)==-1"/>
+                               <img src="images/m7_xz_p.png" v-show="memberArr.indexOf(1)>-1"/>
+                           </p>
+                       </li>
+                       <li class="clearFix">
+                           <img class="left" src="images/head.jpg">
+                           <div class="left content-word">
+                               <p class="line1 clearFix"><span class="left" style="color: #4CC6D8;">毛杜拉</span></p>
+                               <p class="line2"><span class="sex marginRight">性别：男</span><span class="age">年龄：42</span></p>
+                           </div>
+                           <p class="del-btn right" @click="addMember(2)">
+                               <img src="images/m7_xz.png" v-show="memberArr.indexOf(2)==-1"/>
+                               <img src="images/m7_xz_p.png" v-show="memberArr.indexOf(2)>-1"/>
+                           </p>
+                       </li>
+                       <li class="clearFix">
+                           <img class="left" src="images/head.jpg">
+                           <div class="left content-word">
+                               <p class="line1 clearFix"><span class="left" style="color: #4CC6D8;">毛杜拉</span></p>
+                               <p class="line2"><span class="sex marginRight">性别：男</span><span class="age">年龄：42</span></p>
+                           </div>
+                           <p class="del-btn right" @click="addMember(3)">
+                               <img src="images/m7_xz.png" v-show="memberArr.indexOf(3)==-1"/>
+                               <img src="images/m7_xz_p.png" v-show="memberArr.indexOf(3)>-1"/>
+                           </p>
+                       </li>
+                       <li class="clearFix">
+                           <img class="left" src="images/head.jpg">
+                           <div class="left content-word">
+                               <p class="line1 clearFix"><span class="left" style="color: #4CC6D8;">毛杜拉</span></p>
+                               <p class="line2"><span class="sex marginRight">性别：男</span><span class="age">年龄：42</span></p>
+                           </div>
+                           <p class="del-btn right" @click="addMember(4)">
+                               <img src="images/m7_xz.png" v-show="memberArr.indexOf(4)==-1"/>
+                               <img src="images/m7_xz_p.png" v-show="memberArr.indexOf(4)>-1"/>
+                           </p>
+                       </li>
+                       <li class="clearFix">
+                           <img class="left" src="images/head.jpg">
+                           <div class="left content-word">
+                               <p class="line1 clearFix"><span class="left" style="color: #4CC6D8;">毛杜拉</span></p>
+                               <p class="line2"><span class="sex marginRight">性别：男</span><span class="age">年龄：42</span></p>
+                           </div>
+                           <p class="del-btn right" @click="addMember(5)">
+                               <img src="images/m7_xz.png" v-show="memberArr.indexOf(5)==-1"/>
+                               <img src="images/m7_xz_p.png" v-show="memberArr.indexOf(5)>-1"/>
+                           </p>
+                       </li>
+                       <li class="clearFix">
+                           <img class="left" src="images/head.jpg">
+                           <div class="left content-word">
+                               <p class="line1 clearFix"><span class="left" style="color: #4CC6D8;">毛杜拉</span></p>
+                               <p class="line2"><span class="sex marginRight">性别：男</span><span class="age">年龄：42</span></p>
+                           </div>
+                           <p class="del-btn right" @click="addMember(6)">
+                               <img src="images/m7_xz.png" v-show="memberArr.indexOf(6)==-1"/>
+                               <img src="images/m7_xz_p.png" v-show="memberArr.indexOf(6)>-1"/>
+                           </p>
+                       </li>
+                       <li class="clearFix">
+                           <img class="left" src="images/head.jpg">
+                           <div class="left content-word">
+                               <p class="line1 clearFix"><span class="left" style="color: #4CC6D8;">毛杜拉</span></p>
+                               <p class="line2"><span class="sex marginRight">性别：男</span><span class="age">年龄：42</span></p>
+                           </div>
+                           <p class="del-btn right" @click="addMember(7)">
+                               <img src="images/m7_xz.png" v-show="memberArr.indexOf(7)==-1"/>
+                               <img src="images/m7_xz_p.png" v-show="memberArr.indexOf(7)>-1"/>
+                           </p>
+                       </li>
+                   </ul>
+                   <div class="bottom-div clearFix">
+                       <div class="page left" style="margin-top: 40px;width:728px;margin-bottom: 25px;">
+                           <el-pagination
+                                   layout="prev, pager, next"
+                                   :total=total>
+                           </el-pagination>
+                       </div>
+                       <p class="btn-p right" style="margin-top: 40px;margin-bottom: 25px;margin-right: 20px;">
+                           <button type="button" @click="sendMsg()">发起</button>
+                       </p>
+                   </div>
+               </div>
+           </div>
+        </section>
+    </div>
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="swiper/swiper-3.4.2.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/doctor_login.js"></script>
+<script src="js/msg_leftNav.js"></script>
+<script src="js/footer.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data() {
+            return {
+                total:30,
+                memberArr:[],
+            }
+        },
+        created:function () {
+
+        },
+        mounted:function () {
+
+        },
+        methods:{
+            link:function (type) {
+                if(type==1){
+                    location.href="push_msg.html";
+                }else if(type==2){
+                    location.href="dialogue_msg.html";
+                }else{
+                    location.href="group_msg.html";
+                }
+            },
+            addMember:function (num) {
+                if(this.memberArr.indexOf(num)>-1){
+                    this.memberArr.splice(this.memberArr.indexOf(num),1);
+                }else{
+                    this.memberArr.push(num);
+                }
+            },
+            sendMsg:function () {
+                if(this.memberArr.length==0){
+                    $this.$alert('请选择患者！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return;
+                }else{
+                    location.href="group_msg.html";
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

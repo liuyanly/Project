@@ -1,0 +1,302 @@
+@charset "utf-8";
+$baseFontSize:40;
+/*设置单位为rem的字体大小函数*/
+@function setRem($px) {
+    @return $px / $baseFontSize * 1rem;
+}
+
+/*********************************
+ * 标签初始化
+ * *****************************/
+/*全局字体缩放设置*/
+html{
+    font-size:40px;
+}
+#app{
+    background: #f5f5f5!important;
+    height: 100%!important;
+}
+.all_header{
+    position: relative!important;
+}
+.all_header .right{
+    z-index: 100;
+}
+//无数据样式
+.noTip{
+    font-size: .75rem;
+    text-align: center;
+    color: #444;
+    line-height: 2rem /* 40/40 */;
+}
+body {
+    font-family:Helvetica;
+    -webkit-user-select:none;
+    -webkit-text-size-adjust:none;
+    -webkit-tap-highlight-color:transparent;
+    overflow-y:auto;
+    background-color: #f5f5f5;
+    height: 100%!important;
+}
+html{
+    height: 100%!important;
+}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,
+blockquote,th,td,header,hgroup,nav,section,article,aside,footer,figure,figcaption,menu,button {
+    margin:0;
+    padding:0;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-style: normal;
+}
+ul, li, ol {
+    list-style: none;
+}
+table{
+    border-collapse: collapse;
+}
+/* 表单相关样式 */
+input ,textarea{
+    border:none;
+    background: none;
+    -webkit-user-select:auto;
+}
+button:focus,input:focus,textarea:focus{
+    outline: 0;
+}
+::-webkit-input-placeholder {
+    color:#AAA
+}
+
+img{
+    vertical-align: top;
+    border: none;
+}
+input[type="button"], input[type="submit"], input[type="reset"] {
+
+-webkit-appearance: none;
+
+}
+button{border: 0;}
+textarea {  -webkit-appearance: none;}
+em,i{
+    font-style: normal;
+}
+a {
+    -webkit-touch-callout:none;
+    text-decoration:none;
+    outline:0
+}
+button:active{opacity: 0.8 !important;outline: 0;}
+
+//第三方字体
+//@font-face
+//{
+//font-family:pingfang;
+//src: url(../font/PINGFANGMEDIUM.TTF);
+//}
+
+
+/* 具体内容区域  */
+#app{
+    background:#eeeeee;
+    width:100%;
+    max-width: 1024px;
+    display:none;
+    margin:0 auto;
+    position:relative;
+    padding:0px;
+    font-family:sans-serif;
+    line-height: normal;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+/*1px边框样式*/
+%border{
+    /*去掉元素原有的边框 */
+    position: relative;
+    border: none !important;
+     &:before{
+         /*通过设置伪元素放大到2倍的宽高，设置1px边框，再缩小1倍，以达到0.5px边框的效果*/
+        content: '';
+        display: block;
+        width: 200%;
+        height: 200%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        box-sizing: border-box;
+        -webkit-transform-origin: left top;
+        transform-origin: left top;
+        -webkit-transform: scale(.5);
+        transform: scale(.5);
+        pointer-events: none;/*防止点击不到元素 */
+     }
+}
+/*白色背景点击响应*/
+@mixin activeBg($color) {
+    &:active{
+        background: $color;
+    }
+}
+/* 调试按钮 */
+.debug{
+    background: #FF6A00;
+    color: #FFF;
+    position: fixed;
+    bottom: 120px;
+    right: 20px;
+    z-index: 99999;
+    font-size: 14px;
+    padding: 3px 6px;
+}
+.hide{
+    display:none !important;
+}
+/*清除浮动*/
+.clear::after{
+    content: '';
+    display:block;
+    width:0;
+    height:0;
+    visibility: hidden;
+    clear:both;
+}
+
+/*两端对齐*/
+.text_justify{
+    text-align: justify;
+    text-align-last:justify;
+    display: inline-block;
+    white-space: initial;
+}
+.text_justify:after{
+    content: "";
+    display: inline-block;
+    width:100%;
+    height:0;
+    overflow: hidden;
+}
+
+/*************************************
+    单选(one_sel)、复选(more_sel)、开关(switch_sel)
+*************************************/
+.more_sel,.switch_sel{
+    -webkit-appearance: none;
+    vertical-align: top;
+    position: relative;
+    width: setRem(34);
+    height: setRem(34);
+}
+.one_sel{
+    -webkit-appearance: none;
+    vertical-align: top;
+    position: relative;
+    width: setRem(30);
+    height: setRem(30);
+}
+// .more_sel:before{
+//     content: "";
+//     width: setRem(34);
+//     height: setRem(34);
+//     background:url(../images/1_04.png) no-repeat;
+//     background-size: 100% 100%;
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+// }
+// .more_sel:checked:before {
+//     content: "";
+//     width: setRem(34);
+//     height: setRem(34);
+//     background:url(../images/1_05.png) no-repeat;
+//     background-size: 100% 100%;
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+// }
+// .one_sel:before{
+//     content: "";
+//     width: setRem(30);
+//     height: setRem(30);
+//     background:url(../images/1_28.png) no-repeat;
+//     background-size: 100% 100%;
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+// }
+// .one_sel:checked::before{
+//     content: "";
+//     width: setRem(30);
+//     height: setRem(30);
+//     background:url(../images/1_29.png) no-repeat;
+//     background-size: 100% 100%;
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+// }
+
+/*单选*/
+//.one_sel:before,.one_sel:checked:before {
+//  font-family: iconfont;
+//  font-size:  setRem(50);
+//  vertical-align: top;
+//}
+//.one_sel:before{
+//  content: "\e63a";
+//  color: #999;
+//}
+//.one_sel:checked:before {
+// content: "\e63b";
+// color: #09f;
+//}
+//.one_sel:disabled:before {
+//  content: "\e63a";
+//  color: #E1E1E1;
+//}
+
+/*************************************
+                    三角形
+*************************************/
+@mixin Triangle($wid,$heig,$color,$fangxiang){
+    position:relative;
+    &:before{
+        content: "";
+        width:0;
+        position: absolute;
+        height:0;
+        border:$wid solid transparent;
+        border-left-width:$heig;
+        border-right-width: $heig;
+        @if $fangxiang == left{
+            border-right-color: $color;
+            left: 0;
+            margin-left: -$wid*2;
+            top: 50%;
+            margin-top: -$wid;
+        }@else if $fangxiang == right{
+            border-left-color: $color;
+            right: 0;
+            margin-right: -$wid*2;
+            top: 50%;
+            margin-top: -$wid;
+        }@else if $fangxiang == top{
+            border-bottom-color: $color;
+            left: 50%;
+            margin-left: -$wid;
+            top: 0;
+            margin-top: -$wid*2;
+        }@else if $fangxiang == bottom{
+            border-top-color: $color;
+            left: 50%;
+            margin-left: -$wid;
+            bottom: 0;
+            margin-bottom: -$wid*2;
+        }
+    }
+}

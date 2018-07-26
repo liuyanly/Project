@@ -1,0 +1,161 @@
+<template>
+    <div class="my-patient">
+        <headers headName='我的签约'></headers>
+        <ul class="order-list already-complete">
+            <mt-loadmore  :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :autoFill='false' ref="loadmore">
+                <li class="clear" v-for="content in content" @click="detail(content.id)">
+                    <div class="img-box left">
+                        <img v-bind:src="content.translates.avatar_img" class="head-img" />
+                        <img src="../images/a1_icon5.png" class="vip" v-if="content.vip && content.vip.id == '3'"/>
+                        <img src="../images/a1_icon7.png" class="vip" v-if="content.vip && content.vip.id == '2'"/>
+                        <img src="../images/a1_icon6.png" class="vip" v-if="content.vip && content.vip.id == '1'"/>
+                    </div>
+                    <div class="left info-box">
+                        <p class="name">
+                            {{content.nickname}}
+                        </p>
+                        <p class="user-info">
+                            性别：{{content.sex}}&emsp;年龄：{{content.translates.age}}岁
+                        </p>
+                        <p class="status">
+                            病症：{{content.illness}}
+                        </p>
+                    </div>
+                    <p class="right tag">
+                        分诊
+                    </p>
+                </li>
+             </mt-loadmore>
+        </ul>
+    </div>
+</template>
+<script>
+    //导入模板
+    import headers from "../components/Header.vue";
+    export default {
+        data (){
+            return{
+                allLoaded:false,//是否为最后一页
+                page:1,
+                per_page:8,//每页最大数
+                last:false,
+                content:[],
+            }
+        },
+          mounted(){
+            this.getDataList('/user/myuser?per_page='+this.per_page+'&page='+this.page)
+        },
+        methods:{
+            detail(id){
+                console.log(id)
+                this.$router.push({name:'userDetails',params:{id:id}});
+            },
+            loadBottom() {
+                this.allLoaded = false;
+                setTimeout(function() {
+                    if (!this.last) {
+                        this.getDataList('/user/myuser?per_page='+this.per_page+'&page='+this.page)
+                    } else {
+                        this.allLoaded = true;
+                    }
+                    this.$refs.loadmore.onBottomLoaded();
+                }, 500);
+            },
+             getDataList(url){
+                this.page++;
+                this.BaseSet.getToken(this) //用户端token
+                this.$ajax.get(url)
+                .then((res)=>{
+                    let data = res.data.data;
+                    if(res.data.status==200){
+                        if(data.user.length){
+                            console.log(data.user,'ttt')
+                            this.last = false;
+                            for(let i = 0;i < data.user.length;i++){
+                                this.content.push(data.user[i])
+                            };
+                        }else{
+                            this.last = true;
+                        }
+                    }
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+            },
+        },
+        components: {headers},
+    }
+</script>
+<style lang="scss">
+    a{
+        color:#fff;
+    }
+    .my-patient{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        .order-list{
+            flex: 1;
+            overflow: scroll;
+            -webkit-overflow-scrolling:touch;
+            background: #fff;
+            li{
+                width: 100%;
+                border-bottom: #e5e5e5 1px solid;
+                overflow: hidden;
+                box-sizing: border-box;
+                padding: .75rem;
+                font-size: 0;
+                .left{
+                    float: left;
+                }
+                .right{
+                    float: right;
+                }
+                .img-box{
+                    width: 14%;
+                    position: relative;
+                    .head-img{
+                        width: 2.5rem /* 50/20 */;
+                        height: 2.5rem /* 50/20 */;
+                        border-radius: 50%;
+                    }
+                    .vip{
+                        position: absolute;
+                        width: 0.9rem /* 18/20 */;
+                        height: 1.1rem /* 21/20 */;
+                        bottom:0.1rem /* 2/20 */;
+                        right: 1px;
+                    }
+                }
+                .info-box{
+                    padding-left: 0.5rem /* 10/20 */;
+                    box-sizing: border-box;
+                    width: 72%;
+                    .name{
+                        font-size: 0.7rem /* 14/20 */;
+                        color: #444;
+                        line-height: 1rem /* 20/20 */;
+                    }
+                    .user-info{
+                        font-size: 0.6rem /* 12/20 */;
+                        color: #666;
+                        line-height: 0.8rem /* 17/20 */;
+                    }
+                    .status{
+                        font-size: 0.6rem /* 12/20 */;
+                        color:#ff4646;
+                        line-height: 0.8rem /* 17/20 */;
+                    }
+                }
+                .right{
+                    width: 10%;
+                    font-size: 0.6rem /* 12/20 */;
+                    color: #666;
+                    line-height: 2.5rem /* 50/20 */;
+                }
+            }
+        }
+    }
+</style>

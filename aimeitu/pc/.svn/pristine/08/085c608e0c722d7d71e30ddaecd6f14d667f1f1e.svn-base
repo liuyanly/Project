@@ -1,0 +1,413 @@
+<template>
+    <div class="warpper">
+        <!-- 导航部分 -->
+        <div class="header">
+            <div class="container clearfix">
+                <div class="logo"><img src="../assets/images/logo.png" alt="爱美图"></div>
+                <div class="nav">
+                    <router-link to="home">首页</router-link><router-link to="picture"  class="active">图片</router-link><router-link to="video">视频</router-link><router-link to="about">关于我们</router-link><router-link to="download">下载APP</router-link>
+                </div>
+            </div>
+        </div>
+        <div class="crumbs">
+            <div class="container">
+                <a href="#">图片</a><a href="#">标签</a>
+            </div>
+        </div>
+        <div class="container">
+            <ul class="picture-items clearfix">
+                <li>
+                    <div class="picture">
+                        <router-link to="pictureDetail">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </router-link>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="picture">
+                        <a href="#">
+                            <img src="../assets/images/timg.jpg" alt="">
+                            <p>我的青春年少时光意境世界意境世界意境世界</p>
+                        </a>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like"></span>127</div>
+                        <div class="icon-item"><span class="icon heat"></span>52</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="pagebox">
+            <div class="container">
+                <div class="pagination">
+                    <span class="prev"><i></i>上一页</span><span class="first">首页</span><span class="active">1</span><span>2</span><span>3</span><span>…</span><span>100</span><span class="last">最后一页</span><span class="next">下一页<i></i></span>
+                </div>
+            </div>
+        </div>
+        <!-- 底部导航 -->
+        <div class="footer">
+            <div class="container">
+                <div class="nav"><a href="#">网站地图</a><span>|</span><router-link to="modelInJoin">模特加入</router-link><span>|</span><router-link to="copyright">版权说明</router-link></div>
+                <p>爱美图@版权所有</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+}
+</script>
+
+<style scoped lang="scss">
+// @import "../assets/scss/index.scss";
+.warpper {
+    .container {
+        width: 1040px;
+        margin: 0 auto;
+    }
+    .header {
+        height: 70px;
+        border-bottom: 1px solid #EEEEEE;
+        .logo {
+            float: left;
+            width: 80px;
+            height: 52px;
+            margin: 10px 26px 8px 0;
+        }
+        .nav {
+            float: left;
+            margin: 24px 0 17px;
+            font-size: 17px;
+            a{
+                display: inline-block;
+                height: 29px;
+                margin: 0 35px;
+                line-height: 22px;
+                font-weight: bold;
+                &.active,
+                &:hover{
+                    background: url("../assets/images/rectangle_13.png") no-repeat bottom center;
+                    color: #FF68C8;
+                }
+            }
+        }
+    }
+    .crumbs {
+        height: 50px;
+        padding-top: 15px;
+        margin-bottom: 40px;
+        background: #FCFAFB;
+        box-shadow: 0 2px 4px #F7F7F7;
+        .container {
+            line-height: 19px;
+            vertical-align: middle;
+            a{
+                display: inline-block;
+                padding-right: 20px;
+                margin-right: 10px;
+                color: #999999;
+                background: url("../assets/images/gengduo.png") no-repeat center right;
+                &:first-child{
+                    color: #333333;
+                }
+                &:last-child{
+                    background: transparent;
+                }
+            }
+        }
+    }
+    .icons {
+        .icon-item{
+            float: left;
+            min-width: 64px;
+            color: #666666;
+            .icon{
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                margin-right: 6px;
+                vertical-align: middle;
+                cursor: pointer;
+                &.like{
+                    background: url("../assets/images/dianzan.png") no-repeat center center;
+                }
+                &.heat{
+                    background: url("../assets/images/shoucang.png") no-repeat center center;
+                }
+            }
+        }
+    }
+    .picture-items {
+        margin: 0 -8px;
+        li{
+            float: left;
+            width: 250px;
+            margin:0 7px 22px;
+            .picture {
+                img{
+                    width: 250px;
+                    height: 353px;
+                    border-radius: 4px;
+                    margin-bottom: 10px;
+                }
+                p{
+                    width: 250px;
+                    line-height: 19px;
+                    margin-bottom: 12px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+    .pagebox {
+        height:30px;
+        margin:40px auto  42px;
+        .pagination{
+            text-align: center;
+            span{
+                display: inline-block;
+                width: 40px;
+                height: 30px;
+                margin-right: 5px;
+                line-height: 30px;
+                text-align: center;
+                border: 1px solid #DDDDDD;
+                cursor: pointer;
+                &.active,
+                &:hover{
+                    background: #EEEEEE;
+                }
+                &.first,
+                &.last{
+                    width: 70px;
+                    margin-right: 10px;
+                }
+                &.last{
+                    margin-left: 5px;
+                }
+                &.prev,
+                &.next{
+                    width: 90px;
+                    margin-right: 10px;
+                    i{
+                        display: inline-block;
+                        width: 14px;
+                        height: 12px;
+                        background: url("../assets/images/shangyiye.png") no-repeat;
+                        vertical-align: middle;
+
+                    }
+                }
+                &.prev{
+                    i{
+                        margin-right: 5px;
+                        background: url("../assets/images/shangyiye.png") no-repeat;
+                    }
+                }
+                &.next{
+                    i{
+                        margin-left: 5px;
+                        background: url("../assets/images/xiayiye.png") no-repeat;
+                    }
+                }
+            }
+        }
+    }
+    .footer {
+        min-height: 100px;
+        margin-top: 20px;
+        padding-top: 20px;
+        text-align: center;
+        background: #F7F7F7;
+        .nav {
+            margin-bottom: 25px;
+            line-height: 19px;
+            vertical-align: middle;
+            a{
+                display: inline-block;
+                margin: 0 20px;
+            }
+            span{
+                display: inline-block;
+                color: #dddddd;
+            }
+        }
+    }
+}
+</style>

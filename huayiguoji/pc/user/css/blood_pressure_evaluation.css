@@ -1,0 +1,136 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.section-box {
+  margin-top: 31px;
+  margin-left: 15px;
+}
+.section-box .head-title {
+  padding: 0 12px;
+  font-size: 16px;
+  color: #4cc6d8;
+  font-family: PingFangSC-Medium;
+  font-weight: 600;
+  line-height: 38px;
+  border: 1px solid #e5e5e5;
+  border-bottom: none;
+  background: #eee;
+}
+.section-box .head-title .right {
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
+}
+.section-box .head-title .right img {
+  margin-right: 7px;
+}
+.section-box .head-title .right span:nth-of-type(1) {
+  margin-right: 20px;
+}
+.section-box .table-box {
+  width: 100%;
+}
+.section-box .table-box tr,
+.section-box .table-box td {
+  border: 1px solid #e5e5e5;
+  font-size: 14px;
+  color: #666;
+  padding: 15px 10px;
+  line-height: 16px;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+.section-box .table-box thead td {
+  font-size: 14px;
+  color: #333;
+}
+.section-box .table-box tbody tr:nth-child(2n-1) {
+  background: #F9F6F6;
+}
+.section-box .table-box2 td:nth-of-type(1) {
+  width: 54px;
+}
+.section-box .s2 .content {
+  margin-bottom: 96px;
+}
+.section-box .s2 .table-box {
+  width: 828px;
+}
+.section-box .s2 td {
+  padding: 10px;
+  text-align: center;
+  line-height: 16px;
+  width: 160px;
+}
+.section-box .s2 td img {
+  width: 25px;
+  height: 25px;
+}
+.section-box .s2 tr td:last-of-type {
+  width: 170px;
+}
+.section-box .s2 .current {
+  position: relative;
+  border: 2px solid #4CC6D8;
+}
+.section-box .s2 .current .absolute {
+  top: 0;
+  left: 73px;
+  color: #4EC7D9;
+}
+.section-box .s2 .firstTd {
+  text-align: left;
+}
+.section-box .s2 td:nth-of-type(1) {
+  width: 160px;
+}
+.section-box .s2 .lastTr {
+  height: 82px;
+}
+.section-box .s2 .firstTr {
+  height: 58px;
+}
+.section-box .s2 .firstTr .title {
+  color: #999;
+  line-height: 16px;
+}
+.section-box .s1 {
+  width: 396px;
+  margin-bottom: 24px;
+}
+.section-box .s1 td {
+  width: 198px;
+}
+.section-box .s1 .content-word {
+  padding: 23px 11px;
+  line-height: 28px;
+  font-size: 14px;
+  color: #4cc6d8;
+  border: 1px solid #e5e5e5;
+  height: 188px;
+}
+.section-box .s1 .autoHeight {
+  height: auto;
+}
+.section-box .s1:nth-of-type(1) {
+  margin-right: 35px;
+}
+.thermometer-chart .best {
+  left: 143px;
+}
+.thermometer-chart .high,
+.thermometer-chart .middle,
+.thermometer-chart .low {
+  left: 156px;
+}
+.thermometer-chart .current {
+  left: 205px;
+}

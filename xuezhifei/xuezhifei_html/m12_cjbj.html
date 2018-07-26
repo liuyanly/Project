@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>创建班级</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="js/assets/css/amazeui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/font_icon/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="js/jquery.mCustomScrollbar.css" />
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+		
+		<link rel="stylesheet" type="text/css" href="css/y_public.css" />
+
+		<style type="text/css">
+			.y_header_yonghu span {
+				position: relative;
+				top: 2px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!--头部-->
+		<div class="header">
+			<div class="header_inner y_clear">
+				<div class="header_logo y_f_l"><img src="images/logo.png" /></div>
+				<ul class="header_nav y_f_l y_font_14">
+					<li>
+						<a href="h3_index.html" class="y_a_n ">首页</a>
+					</li>
+					<li class="cj y_p_r">
+						<a href="h5_createClass.html" class="y_a_n ">创建</a>
+						<div class="cj_inner">
+							<a href="javascript:video(0)">校园班级</a>
+							<a href="javascript:video(0)">辅导机构</a>
+						</div>
+					</li>
+					<li>
+						<a href="l1_wenjiao.html" class="y_a_n ">文教中心</a>
+					</li>
+					<li>
+						<a href="m1_myManagement.html" class="y_a_n y_a_s">我的管理</a>
+					</li>
+				</ul>
+				<div class="y_header_yonghu y_color_lan y_font_14 y_f_r">
+					<img src="images/huang.png" />
+					<span>阿拉丁</span>
+					<span><a href="" class="y_color_lan">【退出】</a></span>
+				</div>
+			</div>
+		</div>
+		<div class="y_clear y_inner_back_none ">
+			<div class="h5_createClass ">
+				<div class="h5_createClass_title_border_none y_f_l y_text_c">
+					<div class="y_p_t_15 y_p_b_15">
+						<span class=""></span><b class="y_font_18 y_color_lan">我的班级</b>
+					</div>
+					<ul class="banjiNav ">
+						<li class="li_s y_overflow_1">少年书法指导...</li>
+						<li class="y_overflow_1">钢琴机构</li>
+						<li class="y_overflow_1">舞蹈培训</li>
+						<li class="y_overflow_1">哈哈哈</li>
+					</ul>
+				</div>
+				<div class="banjiBox y_f_l">
+					<div class="banjiInner">
+						<form class=" formValidator">
+							<div class="y_border_b y_clear yinianji y_p_t_20 y_p_b_20 y_font_16 y_color_00" style="width: 844px;">
+								<h3 class=" y_f_l y_margin_l_25">少年书法指导机构<span class="you"></span><span>新增班级</span></h3>
+							</div>
+							<div class="y_margin_l_35 y_margin_r_35 y_clear y_p_t_20 y_font_14 y_color_hong">
+								<div class="y_f_l">费用说明：</div>
+								<ul class="y_f_l" style="width: 700px;">
+									<li>机构在本app上开设班级，费用为100元／班（一个开课时段，参考上方选项），2000元封顶（20个班以上费 用均为2000元，最多可以开设40个班）
+									</li>
+									<li>开课班级在15个以上的，通过本平台发布广告推广，可享受8折优惠；</li>
+									<li>开课班级在110-15个，通过本平台发布广告推广，可享受9折优惠；</li>
+
+								</ul>
+							</div>
+
+							<!--基本资料-->
+							<div class="h5_classData">
+								<div class="y_margin_t_15 y_margin_b_20 y_inner_padding">
+									<i class="icon iconfont icon-xuexiao y_color_00 y_font_20"></i>
+									<span class="y_font_14 y_color_00">基本资料</span>
+									<span class="y_font_14 y_color_hong">(必填)</span>
+								</div>
+								<div class="y_border_b h5_banji_inner">
+									<div class="h5_banji y_margin_l_26 y_inner_padding">
+										<span class="y_font_14 y_color_57">班级名称</span>
+										<input type="text" placeholder="请输入班级名称" class="banzhurenName y_border y_p_l_10 " style="width: 690px;" datatype="*" nullmsg="请输入班级名称" />
+
+									</div>
+									<div class="h5_banji y_margin_l_26 y_inner_padding">
+										<span class="y_font_14 y_color_57">教室名称</span>
+										<input type="text" placeholder="请输入教室名称" class="banzhurenName y_border y_p_l_10 " style="width: 690px;" datatype="*" nullmsg="请输入教室名称" />
+
+									</div>
+
+									<div class="h5_banji_10 y_margin_l_26 ">
+										<span class="y_font_14 y_color_57 y_p_l_20">授课类型</span>
+										<select data-am-selected="{ btnStyle: 'secondary'}">
+											<option value="a">艺术课</option>
+											<option value="b">Banana</option>
+											<option value="o">Orange</option>
+											<option value="m">Mango</option>
+										</select>
+										<select data-am-selected="{ btnStyle: 'secondary'}">
+											<option value="a">美术课</option>
+											<option value="b">Banana</option>
+											<option value="o">Orange</option>
+											<option value="m">Mango</option>
+										</select>
+										<a href="javascript:void(0);"><img src="images/jia_icon.png" class="y_p_l_15" /></a>
+									</div>
+									<div class="h5_banji_10 y_margin_l_26 ">
+										<span class="y_font_14 y_color_57 y_p_l_20">上课日期</span>
+										<select data-am-selected="{ btnStyle: 'secondary'}">
+											<option value="a">星期一</option>
+											<option value="b">Banana</option>
+											<option value="o">Orange</option>
+											<option value="m">Mango</option>
+										</select>
+									</div>
+									<div class="h5_banji_10 y_margin_l_26 ">
+										<span class="y_font_14 y_color_57 y_p_l_20">上课日期</span>
+										<select data-am-selected="{ btnStyle: 'secondary'}">
+											<option value="a">12:00</option>
+											<option value="b">Banana</option>
+											<option value="o">Orange</option>
+											<option value="m">Mango</option>
+										</select>
+										<select data-am-selected="{ btnStyle: 'secondary'}">
+											<option value="a">3</option>
+											<option value="b">Banana</option>
+											<option value="o">Orange</option>
+											<option value="m">Mango</option>
+										</select>
+									</div>
+									<div class="h5_banji_10 y_margin_l_26 ">
+										<span class="y_font_14 y_color_57 y_p_l_20">上课日期</span>
+										<select data-am-selected="{ btnStyle: 'secondary'}">
+											<option value="a">12:00</option>
+											<option value="b">Banana</option>
+											<option value="o">Orange</option>
+											<option value="m">Mango</option>
+										</select>
+										<select data-am-selected="{ btnStyle: 'secondary'}">
+											<option value="a">4</option>
+											<option value="b">Banana</option>
+											<option value="o">Orange</option>
+											<option value="m">Mango</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<!--班级宣传页-->
+							<div class="  y_inner_padding y_color_lan y_border_b y_margin_t_25 " style="padding-bottom: 25px;">
+								<i class="icon iconfont icon-diyxuanchuanye y_color_00 y_font_20"></i>
+								<span class="y_font_14 y_color_00 ">班级宣传页</span>
+								<span class="y_font_14 y_color_hong">(必填)</span>
+								<a data-am-modal="{target: '#my-alert'}" href="javascript:void(0);" class="addStudent addStudent_170 y_color_lan">制作班级宣传页</a>
+							</div>
+							<div class="studentsData y_border_b">
+								<div class="h5_classData_title y_inner_padding y_color_lan">
+									<i class="icon iconfont icon-banji y_color_00 y_font_20"></i>
+									<span class="y_font_14 y_color_00">班级学生列表</span>
+									<span class="y_font_12 y_color_huang txt_huangse">黄色</span>
+									<span class="y_font_12 y_color_hong">字体为已注册号码，黑色字体为未注册号码，需要为其设置初始登陆密码，登陆后家长可更改密码）</span>
+								</div>
+
+								<!--学生资料信息-->
+								<div class="studentsData_table y_inner_padding y_margin_l_26">
+									<table class='public-jy-table gd-td-table gd-td-table-kb-38'>
+										<tr>
+											<th>姓名</th>
+											<th>学号</th>
+											<th>父亲电话</th>
+											<th>母亲电话</th>
+										</tr>
+										<tr>
+											<td>张三</td>
+											<td>13455676578</td>
+											<td class="y_color_huang">13455676578</td>
+											<td>13455676578</td>
+										</tr>
+										<tr>
+											<td>张三</td>
+											<td>13455676578</td>
+											<td>13455676578</td>
+											<td>13455676578</td>
+										</tr>
+										<tr>
+											<td>张三</td>
+											<td>13455676578</td>
+											<td>13455676578</td>
+											<td>13455676578</td>
+										</tr>
+									</table>
+									<div class="y_btn_k y_p_b_0 y_p_t_40">
+										<a type="" data-am-modal="{target: '#my-alert'}">添加学生</a>
+									</div>
+								</div>
+
+							</div>
+							<div class="y_btn y_p_b_65 y_p_t_40">
+								<button type="submit">确认创建</button>
+							</div>
+						</form>
+					</div>
+
+				</div>
+	</div>
+			</div>
+
+			<!--底部-->
+			<footer class="">
+				<div class="footer_inner">
+					<p>·免费声明·友情链接·网站地图·通讯录服务热线：400-080-9180</p>
+					<p>2008 学知非公司版权所有 闵 ICP 备05007286号 design by Clh</p>
+				</div>
+			</footer>
+			<!--添加学生弹框-->
+					<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+						<div class="am-modal-dialog">
+							<div class="h5_addxuesheng">添加学生</div>
+							<div class="y_p_b_25 y_p_t_10"><span class="y_font_14 y_color_huang txt_huangse">黄色</span>
+								<span class="y_font_14 y_color_hong">字体为已注册号码，黑色字体为未注册号码，需要为其设置初始登陆密码，登陆后家长可更改密码）</span></div>
+							<div class="studentsData_table y_border_b studentsData_table_pop">
+								<table class='public-jy-table gd-td-table '>
+									<tr>
+										<th>姓名</th>
+										<th>学号</th>
+										<th>父亲电话</th>
+										<th>母亲电话</th>
+									</tr>
+									<tr>
+										<td>张三</td>
+										<td>13455676578</td>
+										<td>13455676578</td>
+										<td>13455676578</td>
+									</tr>
+									<tr>
+										<td>张三</td>
+										<td>13455676578</td>
+										<td>13455676578</td>
+										<td>13455676578</td>
+									</tr>
+									<tr>
+										<td>张三</td>
+										<td>13455676578</td>
+										<td>13455676578</td>
+										<td>13455676578</td>
+									</tr>
+									<tr>
+										<td>张三</td>
+										<td>13455676578</td>
+										<td>13455676578</td>
+										<td>13455676578</td>
+									</tr>
+									<tr>
+										<td>张三</td>
+										<td>13455676578</td>
+										<td>13455676578</td>
+										<td>13455676578</td>
+									</tr>
+									<tr>
+										<td>张三</td>
+										<td>13455676578</td>
+										<td>13455676578</td>
+										<td>13455676578</td>
+									</tr>
+
+								</table>
+							</div>
+							<div class="y_color_00 y_font_14 y_text_l y_p_l_45 y_p_t_30 y_p_b_25">设置初始密码<span class="y_color_hong y_font_12">（未注册的家长需要初始密码，登陆后家长可以更改密码）</span></div>
+							<form class=" formValidator">
+
+								<div class="y_color_57 y_font_14 y_text_l y_p_l_45 y_p_b_60">初始密码<input datatype="*6-6" nullmsg="请输入6位初始密码" errormsg="请输入6位初始密码！" placeholder="请输入6位初始密码" class="h5_tankaung_input y_border" maxlength="6" /></div>
+								<div class="y_btn y_p_b_30 ">
+									<button type="submit">确认添加</button>
+									<!--<a href="javascript:;" onclick="confirmAdd()" class="" >确认添加</a>-->
+								</div>
+
+							</form>
+						</div>
+					</div>
+			<script src="js/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="js/Validform_v5.1_min.js"></script>
+			<script type="text/javascript" src="js/layer/layer.js"></script>
+			<script type="text/javascript" src="js/jquery.mCustomScrollbar.js"></script>
+			<script src="js/assets/js/amazeui.min.js"></script>
+			<script src="js/y_public.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/area.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript" charset="utf-8" src="js/utf8-php/ueditor.config.js"></script>
+			<script type="text/javascript" charset="utf-8" src="js/utf8-php/ueditor.all.min.js"></script>
+			<script type="text/javascript" charset="utf-8" src="js/utf8-php/lang/zh-cn/zh-cn.js"></script>
+			<script type="text/javascript">
+			</script>
+	</body>
+
+</html>

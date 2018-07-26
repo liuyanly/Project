@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>电话咨询</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/imgUp.css" />
+    <link rel="stylesheet" href="css/online_ask.css" />
+    <link rel="stylesheet" href="css/pic_word_pay.css" />
+</head>
+<style>
+    #qrcode {
+        /*border: 1px solid red;*/
+        width: 128px;
+        height: 128px;
+        padding: 5px;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px #666;
+        background: #fff;
+    }
+
+    .fade2 {
+        position: fixed;
+        top: 0;
+        right: 0;
+        text-align: center;
+        vertical-align: middle;
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        z-index: 1001;
+    }
+
+    .fade2 .msg-box {
+        width: 100%;
+        height: 100vh;
+        overflow: auto;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 1002;
+        position: absolute;
+        display: -webkit-box;
+        display: flex;
+        display: -webkit-flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .fade2 .msg-box .detail-box {
+        width: 804px;
+        height: 542px;
+        background: #fff;
+        border-radius: 10px;
+        box-sizing: border-box;
+        padding: 22px 0;
+        position: relative;
+    }
+
+    .fade2 .msg-box .detail-box .title {
+        font-size: 18px;
+        color: #000;
+        font-family: PingFangSC-Medium;
+        text-align: center;
+        margin: 32px 0 50px 0;
+        line-height: 19px;
+    }
+
+    .fade2 .msg-box .detail-box .close-btn {
+        font-size: 36px;
+        color: #ccc;
+        position: absolute;
+        top: 2px;
+        cursor: pointer;
+        right: 24px;
+    }
+
+    .fade2 .msg-box .detail-box .content-word {
+        font-family: "PingFang SC";
+        width: 556px;
+        padding-right: 88px;
+        height: 328px;
+        margin-left: 127px;
+        overflow: auto;
+        font-size: 16px;
+    }
+
+    .fade2 .msg-box .detail-box .btn-p {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .fade2 .msg-box .detail-box .btn-p button {
+        width: 136px;
+        height: 40px;
+        background: #4cc6d8;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #fff;
+        border: none;
+    }
+</style>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="3" :navList="navList"></my-header>
+        </div>
+        <div class="main">
+            <div class="header-top">
+                <span>{{translates.department_title}}>{{dataInfo.realname}}医生></span>
+                <span class="cc">支付</span>
+            </div>
+            <section class="container">
+                <div class="content-box">
+                    <p class="top-title clearFix">
+                        <span class="left">立即支付</span>
+                    </p>
+                    <form class="demoform">
+                        <div class="price-pic pub-box">
+                            <p class="title">咨询病症</p>
+                            <div class="pic-box">
+                                <p class="content-input">
+                                    <textarea name="" v-model="textValue" placeholder="请填写您要咨询的病症" datatype="*" maxlength="200" nullmsg="请填写需咨询的病症"></textarea>
+                                    <span class="Validform_checktip"></span>
+                                </p>
+                                <div id="upBox">
+                                    <div id="imgBox"></div>
+                                    <div id="inputBox">
+                                        <input type="file" title="请选择图片" id="file" accept="image/png,image/jpg,image/gif,image/JPEG" />
+                                        <img src="images/f1_icon2.png">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="money-box clearFix">
+
+                                <div class="left">
+                                    <p class="name-p">
+                                        <span class="name">{{dataInfo.realname}}医生</span>
+                                        <span class="marginLeft">{{translates.department_title}}</span>
+                                        <span class="marginLeft">{{translates.hospital_title}}</span>
+                                    </p>
+                                    <p class="type tel-type" style="padding-top: 10px;">图文咨询
+                                        <span class="time" :class="{checked:timeType==1}" @click="chooseTime(1)">10分钟</span>
+                                        <span class="time" :class="{checked:timeType==2}" @click="chooseTime(2)">20分钟</span>
+                                        <span class="time" :class="{checked:timeType==3}" @click="chooseTime(3)">30分钟</span>
+                                    </p>
+                                    <!-- <p class="tel-input">
+                                    <span>联系电话</span>
+                                    <input type="number" id="telNum" maxlength="11" class="inputxt" datatype="m" nullmsg="请输入手机号码！" errormsg="手机号码格式不正确！" name=""
+                                        placeholder="输入您的联系号码" v-model="tel" />
+                                    <span class="Validform_checktip"></span>
+                                </p> -->
+                                </div>
+
+                                <div class="right tel-right">
+                                    <p class="money">
+                                        <span>{{dataInfo.price*timeType}}</span>￥</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="word-info pub-box">
+                        <p class="title">线上支付</p>
+                        <p class="content-word" v-html="contentData">
+
+                        </p>
+                        <div class="protocol-box">
+                            <input type="checkbox" class="in-radio" name="agree" value="1" v-model="protocolType" />
+                            <img src="images/f2_xz_p.png" v-if="protocolType==1">
+                            <img src="images/f2_xz.png" v-else="protocolType==0">
+                            <label>我已阅读并同意遵守
+                                <a href="#">
+                                    <span @click="viewInfo">《服务协议》</span>
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="choose-type pub-box">
+                        <p class="pay-p">
+                            <input type="radio" class="in-radio" name="pay-way" value="0" v-model="payType" />
+                            <img src="images/f2_xz_p.png" v-if="payType==0">
+                            <img src="images/f2_xz.png" v-else="payType!=0">
+                            <img class="type-img" src="images/f74_icon1.png" />
+                            <label>支付宝支付</label>
+                        </p>
+                        <p class="pay-p">
+                            <input type="radio" class="in-radio" name="pay-way" value="2" v-model="payType" />
+                            <img src="images/f2_xz_p.png" v-if="payType==2">
+                            <img src="images/f2_xz.png" v-else="payType!=2">
+                            <img class="type-img" src="images/f74_icon2.png" />
+                            <label>微信支付</label>
+                        </p>
+                        <!-- <p class="pay-p">
+                    <input type="radio" class="in-radio" name="pay-way" value="3" v-model="payType"/>
+                    <img src="images/f2_xz_p.png" v-if="payType==3">
+                    <img src="images/f2_xz.png" v-else="payType!=3">
+                    <img class="type-img" src="images/f74_icon3.png"/>
+                    <label>银行卡支付</label>
+                </p> -->
+                        <p class="pay-p">
+                            <input type="radio" class="in-radio" value="3" v-model="payType" />
+                            <img src="images/f2_xz_p.png" v-if="payType==3">
+                            <img src="images/f2_xz.png" v-else="payType!=3">
+                            <img class="type-img" src="images/f74_icon4.png" />
+                            <label>会员</label>
+                            <span class="tip">（支付1次，剩余{{vips}}次）</span>
+                        </p>
+                        <div id="qrcode" v-show="isCode"></div>
+                        <p style="margin-bottom: 0;">
+                            <button type="button" class="submit-btn" @click="payMoney">支付</button>
+                            <a href="my_order.html">
+                                <button type="button" class="submit-btn" style="border:#666;background: none;color:#666" @click="payMoney">返回我的订单
+                                </button>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+
+            </section>
+        </div>
+
+        <my-footer></my-footer>
+        <login-box></login-box>
+        <div class="fade2" v-show="msgBoxStatus==1">
+            <div class="msg-box">
+                <div class="detail-box">
+                    <p class="title">服务条款</p>
+                    <p class="close-btn" @click="cancelBtn()">
+                        <img src="images/f84_guanbi.png" />
+                    </p>
+                    <div class="content-word" v-html="explainContent">
+
+                    </div>
+                    <p class="btn-p">
+                        <button type="button" class="sure-btn" @click="cancelBtn()">确认</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/uploadImg.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/public.js"></script>
+    <script src="./js/qrcode.min.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data: {
+                navList: ["首页", "就医策划", "智能问诊", "在线咨询", "健康资讯", "论坛", "个人中心"],
+                contentData: '某某与公益的橄榄枝，就像一只和平鸽飞翔于世界民族之林，在不同肤色的人群中飞越五某某与公益的橄榄枝，就像一只和平鸽飞翔于和平鸽飞翔于和平鸽飞翔于世界,在不同肤色的人群中飞越五某某与公益的橄榄枝，',
+                payType: 10,
+                protocolType: 0,
+                tel: '',
+                timeType: 1,
+                textValue: '',
+                id: getparams('id'),
+                dataInfo: '',
+                headImg: '',
+                translates: '',
+                isCode: false,
+                vips: '0',
+                vip_id: "",
+                explainContent: '',
+                msgBoxStatus: 0
+            },
+            watch: {
+                payType(val) {
+                    if (val != 2) {
+                        this.isCode = false;
+                    }
+                }
+            },
+            mounted: function () {
+                var that = this;
+                imgUpload({
+                    inputId: 'file', //input框id
+                    imgBox: 'imgBox', //图片容器id
+                    buttonId: 'btn', //提交按钮id
+                    upUrl: picApi, //提交地址
+                    data: 'files', //参数名
+                    num: "6" //上传个数
+                });
+                $(".demoform").Validform({
+                    tiptype: 3
+                });
+                getToken(this);
+                this.getData();
+                //获取用户数据
+                axios.get(userApi + '/user/me')
+                    .then(function (res) {
+                        if (res.status == 200) {
+                            console.log(res)
+                            console.log(res.data.data.vips != null)
+                            that.userId = res.data.data.id;
+                            if (res.data.data.vips != null) {
+                                that.vips = res.data.data.vips.pivot.permissions[2]; //1图文,2.电话,3.视频
+                                that.vip_id = res.data.data.vips.pivot.vip_id;
+                                console.log(that.vips, that.vip_id)
+                            }
+
+                        }
+                    })
+                    .catch(function (reason) {
+                        that.$message.error('查询失败');
+                    });
+                //服务条款
+                axios.get(userApi + '/agreement?e_s[name]=user', {
+                    'e_s[name]': 'user'
+                }).then(function (res) {
+                    // console.log('服务条款:',res.data.data[0].content)
+                    that.contentData = res.data.data[0].content;
+                })
+            },
+            methods: {
+                chooseTime: function (num) {
+                    this.timeType = num;
+                },
+                getData: function () {
+                    var that = this;
+                    axios.get(userApi + '/doctor/' + that.id + '/advice/2')
+                        .then(function (res) {
+                            if (res.data.status == 200) {
+                                console.log(res);
+                                that.dataInfo = res.data.data;
+                                that.headImg = res.data.data.translates.avatar_img;
+                                that.translates = res.data.data.translates
+                            }
+                        })
+                        .catch(function (err) {
+                            linkLogin()
+                        })
+                },
+                payMoney: function () {
+                    var that = this;
+                    if (this.textValue == '') {
+                        this.$alert('请填写需要咨询的病症！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return false;
+                    }
+                    if (imgSrc == '') {
+                        this.$alert('请上传图片！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return false;
+                    }
+                    // if (this.tel == '') {
+                    //     this.$alert('联系方式格式不正确！', '提示', {
+                    //         confirmButtonText: '确定',
+                    //     })
+                    //     return false;
+                    // }
+                    // if (this.tel.length != 11) {
+                    //     this.$alert('请填写联系方式！', '提示', {
+                    //         confirmButtonText: '确定',
+                    //     })
+                    //     return false;
+                    // }
+                    if (this.protocolType == 0) {
+                        this.$alert('您未同意服务协议！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return false;
+                    }
+                    if (that.payType == 10) {
+                        this.$alert('请选择支付方式！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return false;
+                    }
+                    var time;
+                    if (that.timeType == 1 || that.timeType == 2 || that.timeType == 3) {
+                        time = that.timeType * 10;
+                    }
+                    var vipStatus;
+                    if (that.dataInfo.translates.vip_status == 1) {
+                        vipStatus = 'vip';
+                    } else {
+                        vipStatus = 'service';
+                    }
+                    //金额判断
+                    if (that.dataInfo.price <= 0) {
+                        that.dataInfo.price = 0.01
+                    }
+                    //that.payType 值: 0:支付宝 2：微信
+                    console.log('支付宝支付', that.payType, that.id, vipStatus, this.timeType)
+                    if (that.payType == 0) {
+                        axios.post(userApi + '/order', {
+                                _me: 'user-api',
+                                title: '电话咨询',
+                                money: that.dataInfo.price,
+                                paytype: that.payType,
+                                body: '电话咨询',
+                                type: 'service', //service:服务,vip:会员
+                                type_id: '1', //服务类型:0:图文、1:电话、2:视频、3:咨询、4:就近、5:策划) (vip 1：黄铜 2：白银 3：黄金 4：白金)
+                                doctor_id: that.id,
+                                duration: time, //电话咨询
+                                card_id: '', //线下支付卡号id
+                            })
+                            .then(function (res) {
+                                if (res.status == 200) {
+                                    console.log(res);
+                                    document.open();
+                                    document.write(res.data.data);
+                                }
+                            })
+                    }
+                    if (that.payType == 2) {
+                        console.log('微信支付')
+                        axios.post(userApi + '/order', {
+                                _me: 'user-api',
+                                title: '图文咨询',
+                                money: that.dataInfo.price,
+                                paytype: that.payType,
+                                body: '图文咨询',
+                                type: 'service', //service:服务,vip:会员
+                                type_id: '1', //服务类型:0:图文、1:电话、2:视频、3:咨询、4:就近、5:策划) (vip 1：黄铜 2：白银 3：黄金 4：白金)
+                                doctor_id: that.id,
+                                duration: '', //电话咨询
+                                card_id: '' //线下支付卡号id
+                            })
+                            .then(function (res) {
+                                if (res.status == 200) {
+                                    console.log(res);
+                                    // document.open();
+                                    // document.write(res.data.data);
+                                    that.isCode = true;
+                                    console.log(res);
+                                    // new QRCode(document.getElementById("qrcode"), res.data.data);
+                                    $('#qrcode').html('');
+                                    new QRCode("qrcode", {
+                                        width: 128,
+                                        height: 128
+                                    }).makeCode(res.data.data);
+                                }
+                            })
+                    }
+                    if (that.payType == 3) {
+                        if (that.vips > 0) {
+                            console.log('会员支付')
+                            axios.post(userApi + '/order', {
+                                    _me: 'user-api',
+                                    title: '图文咨询',
+                                    money: '',
+                                    paytype: '4',
+                                    body: '图文咨询',
+                                    type: 'vip', //service:服务,vip:会员
+                                    type_id: '1', //服务类型:0:图文、1:电话、2:视频、3:咨询、4:就近、5:策划) (vip 1：黄铜 2：白银 3：黄金 4：白金)
+                                    doctor_id: that.id,
+                                    duration: '', //电话咨询
+                                    card_id: '', //线下支付卡号id
+                                    payer_id: that.vip_id //付款会员id 支付方式5,6必传
+                                })
+                                .then(function (res) {
+                                    if (res.status == 200) {
+                                        console.log(res);
+                                        that.$message.success("支付成功")
+                                        setTimeout(function () {
+                                            location.href = 'my_order.html'
+                                        }, 2000)
+                                    }
+                                })
+                        } else {
+                            that.$message.error('会员支付次数不可用')
+                        }
+                    }
+                },
+                viewInfo: function () {
+                    this.getExplain()
+                    this.msgBoxStatus = 1;
+                },
+                cancelBtn: function () {
+                    this.msgBoxStatus = 0;
+                },
+                getExplain: function (url) {
+                    var that = this;
+                    axios.get(userApi + '/disclaimer')
+                        .then(function (res) {
+                            console.log('條款', res.data)
+                            if (res.data.status == 200) {
+                                that.explainContent = res.data.data.content
+                            }
+                        })
+                        .catch(function (err) {
+                            that.$message.error('查询失败');
+                        })
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

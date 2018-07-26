@@ -1,0 +1,104 @@
+.ivu-table table {
+    width: 100% !important;
+}
+.header {
+    min-height: 47px;
+    padding-bottom: 15px;
+    &:before, &:after {
+        display: table;
+        content: " ";
+    }
+    .toolbar {
+        float: right;
+    }
+    .title {
+        display: inline-block;
+        font-size: 14px;
+        border-left: 2px solid #88B7E0;
+        text-indent: 8px;
+        line-height: 20px;
+    }
+}
+.ivu-table-body {
+    a {
+        color: #06c;
+        &:hover {
+            color: #039;
+            text-decoration: underline;
+        }
+    }
+    .ivu-poptip-rel:hover {
+        text-decoration: underline;
+    }
+    .ivu-form {
+        padding: 0 70px 0 40px;
+    }
+}
+.layout-breadcrumb {
+    padding: 10px;
+    background: #f0f0f0;
+}
+.ivu-modal-body {
+    padding: 16px 50px;
+}
+.content {
+    padding: 15px;
+}
+.page {
+    padding: 20px 10px;
+    text-align: right;
+}
+
+
+
+@keyframes spin {
+    0%     { transform: rotate(0deg);}
+    50%    { transform: rotate(180deg);}
+    100%   { transform: rotate(360deg);}
+}
+
+.spin-icon-load {
+    animation: spin 1s infinite linear;
+}
+
+@keyframes twinkle
+{
+    0%   {background: #19be6b; box-shadow: #19be6b 0px 0px 5px 2px;}
+    50%  {background: #fff;    box-shadow: #fff 0px 0px 5px 2px;}
+    100% {background: #19be6b; box-shadow: #19be6b 0px 0px 5px 2px;}
+}
+
+.status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+}
+.init {
+    background-color: #ccc;
+    box-shadow: #ccc 0px 0px 5px 2px;
+}
+.online {   //在线(带动画)
+    animation: twinkle 3s infinite linear;
+    box-shadow: #19be6b 0px 0px 5px 2px;
+}
+.online-1 { //在线(不带动画)
+    background-color: #19be6b;
+    box-shadow: #19be6b 0px 0px 5px 2px;
+}
+.offline {
+    background-color: #ed3f14;
+    box-shadow: #ed3f14 0px 0px 5px 2px;
+}
+.vue-enable-icon {
+  display: inline-block;
+  vertical-align: bottom;
+}
+.table-name-column span,
+.table-dec-column span{
+    width: 153px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+

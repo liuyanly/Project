@@ -1,0 +1,108 @@
+@import "../../less/variable";
+input::-webkit-input-placeholder { /* WebKit browsers */
+  color:    #999;
+  font-size: 14px;
+}
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:    #999;
+  font-size: 14px;
+}
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:    #999;
+  font-size: 14px;
+}
+input:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color:    #999;
+  font-size: 14px;
+}
+.form-box{
+  padding: 30px 12px;
+  .text-box{
+    margin-bottom: 20px;
+    textarea{
+      width: 828px;
+      height: 170px;
+      border: 1px solid #eff1fa;
+      padding: 12px;
+      outline: none;
+      resize: none;
+      border-radius: 3px;
+    }
+  }
+  .title{
+    margin-left: 21px;
+    .color999(14px,#333);
+    span{
+      color: #999;
+    }
+  }
+  .pic-box{
+    margin-top: 17px;
+    margin-left: 100px;
+    margin-bottom: 20px;
+  }
+  .input-p{
+    margin-bottom: 32px;
+    margin-left: 21px;
+    span{
+      .color999(14px,#999);
+      margin-right: 9px;
+    }
+    input{
+      width: 214px;
+      height: 28px;
+      border: 1px solid #eff1fa;
+      padding: 0 10px;
+      line-height: 28px;
+      border-radius: 3px;
+    }
+  }
+  .btn-p{
+    margin-left: 100px;
+    button{
+      width:136px;
+      height:40px;
+      background:rgba(76,198,216,1);
+      border-radius: 3px ;
+      line-height: 40px;
+      text-align: center;
+      border: none;
+      .color999(14px,#fff);
+      cursor: pointer;
+    }
+  }
+}
+.edit-psw{
+  padding-top: 66px;
+  margin-left: 267px;
+  .input-p{
+    margin-bottom: 20px;
+  }
+  .name{
+    display: inline-block;
+    width: 98px;
+    text-align: right;
+  }
+  .btn-p{
+    margin-left: 0;
+    margin-top: 8px;
+    button{
+      margin-left: 132px;
+    }
+  }
+}
+.about-us{
+  padding: 0 68px;
+  .title{
+    .color999(16px,#333);
+    font-weight: 600;
+    text-align: center;
+    margin-top: 36px;
+    margin-bottom: 16px;
+  }
+  .content-word{
+    .color999(14px,#333);
+    line-height: 28px;
+    margin-bottom: 36px;
+  }
+}

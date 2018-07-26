@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>视频咨询</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/imgUp.css"/>
+    <link rel="stylesheet" href="css/online_ask.css"/>
+    <link rel="stylesheet" href="css/pic_word_pay.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="3"></my-header>
+    </div>
+    <div class="main">
+        <div class="header-top">
+            <span>{{translates.department_title}}>{{dataInfo.realname}}医生></span>
+            <span class="cc">支付</span>
+        </div>
+        <section class="container">
+            <div class="content-box">
+                <p class="top-title clearFix">
+                    <span class="left">立即支付</span>
+                </p>
+                <form class="demoform">
+                <div class="price-pic pub-box">
+                    <p class="title">咨询病症</p>
+                    <div class="pic-box">
+                        <p class="content-input"><textarea name="" v-model="textValue" placeholder="请填写您要咨询的病症" datatype="*" maxlength="200" nullmsg="请填写需咨询的病症"></textarea><span class="Validform_checktip"></span></p>
+                        <form id="upBox">
+                            <div id="imgBox"></div>
+                            <div id="inputBox"><input type="file" title="请选择图片" id="file" accept="image/png,image/jpg,image/gif,image/JPEG"/><img src="images/f1_icon2.png"></div>
+                        </form>
+                    </div>
+                    <div class="money-box clearFix">
+                        <div class="left">
+                            <p class="name-p"><span class="name">{{dataInfo.realname}}医生</span><span class="marginLeft">{{translates.department_title}}</span><span class="marginLeft">{{translates.hospital_title}}</span></p>
+                            <p class="type">视频咨询<span class="time" :class="{checked:timeType==1}" @click="chooseTime(1)">10分钟</span><span class="time" :class="{checked:timeType==2}" @click="chooseTime(2)">20分钟</span><span class="time" :class="{checked:timeType==3}" @click="chooseTime(3)">30分钟</span></p>
+                        </div>
+                        <div class="right">
+                            <p class="money"><span>{{dataInfo.price}}</span>￥</p>
+                        </div>
+                    </div>
+                </div>
+                </form>
+                <div class="word-info pub-box">
+                    <p class="title">线上支付</p>
+                    <p class="content-word">
+                        详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细
+                        内容详细内容详细内容详细内容详细内容详细内容
+                    </p>
+                    <div class="protocol-box">
+                        <input type="checkbox" class="in-radio" name="agree" value="1" v-model="protocolType"/>
+                        <img src="images/f2_xz_p.png" v-if="protocolType==1">
+                        <img src="images/f2_xz.png" v-else="protocolType==0">
+                        <label>我已阅读并同意遵守<a href="#">《服务协议》</a> </label>
+                    </div>
+                </div>
+                <div class="choose-type pub-box">
+                    <p class="pay-p">
+                        <input type="radio" class="in-radio" name="pay-way" value="1" v-model="payType"/>
+                        <img src="images/f2_xz_p.png" v-if="payType==1">
+                        <img src="images/f2_xz.png" v-else="payType!=1">
+                        <img class="type-img" src="images/f74_icon1.png"/>
+                        <label>支付宝支付</label>
+                    </p>
+                    <p class="pay-p">
+                        <input type="radio" class="in-radio" name="pay-way" value="2" v-model="payType"/>
+                        <img src="images/f2_xz_p.png" v-if="payType==2">
+                        <img src="images/f2_xz.png" v-else="payType!=2">
+                        <img class="type-img" src="images/f74_icon2.png"/>
+                        <label>微信支付</label>
+                    </p>
+                    <p class="pay-p">
+                        <input type="radio" class="in-radio" name="pay-way" value="3" v-model="payType"/>
+                        <img src="images/f2_xz_p.png" v-if="payType==3">
+                        <img src="images/f2_xz.png" v-else="payType!=3">
+                        <img class="type-img" src="images/f74_icon3.png"/>
+                        <label>银行卡支付</label>
+                    </p>
+                    <p class="pay-p">
+                        <input type="radio" class="in-radio" value="4" v-model="payType"/>
+                        <img src="images/f2_xz_p.png" v-if="payType==4">
+                        <img src="images/f2_xz.png" v-else="payType!=4">
+                        <img class="type-img" src="images/f74_icon4.png"/>
+                        <label>会员</label>
+                        <span class="tip">（支付1次，剩余9次）</span>
+                    </p>
+                    <p style="margin-bottom: 0;">
+                        <button type="button" class="submit-btn" @click="payMoney">支付</button>
+                    </p>
+                </div>
+            </div>
+
+
+        </section>
+    </div>
+
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/uploadImg.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="swiper/swiper-3.4.2.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/user_login.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data:{
+            contentData:'某某与公益的橄榄枝，就像一只和平鸽飞翔于世界民族之林，在不同肤色的人群中飞越五某某与公益的橄榄枝，就像一只和平鸽飞翔于和平鸽飞翔于和平鸽飞翔于世界,在不同肤色的人群中飞越五某某与公益的橄榄枝，',
+            payType:0,
+            protocolType:0,
+            timeType:1,
+            textValue:'',
+            id:getparams('id'),
+            dataInfo:'',
+            headImg:'',
+            translates:'',
+        },
+        mounted:function () {
+            imgUpload({
+                inputId:'file', //input框id
+                imgBox:'imgBox', //图片容器id
+                buttonId:'btn', //提交按钮id
+                upUrl:'',  //提交地址
+                data:'file1', //参数名
+                num:"6"//上传个数
+            })
+            $(".demoform").Validform({
+                tiptype:3
+            });
+            getToken()
+            this.getData()
+        },
+        methods: {
+            getData:function () {
+                var that = this;
+                axios.get(userApi+'/doctor/'+that.id+'/advice/3')
+                    .then(function (res) {
+                        if(res.data.status == 200){
+                            that.dataInfo=res.data.data
+                            that.headImg=res.data.data.translates.avatar_img
+                            that.translates=res.data.data.translates
+                        }
+                    })
+                    .catch(function (err) {
+                        linkLogin()
+                    })
+            },
+            chooseTime:function (num) {
+              this.timeType=num;
+            },
+            payMoney:function () {
+                var that=this;
+                if(this.textValue==''){
+                    this.$alert('请填写需要咨询的病症！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return false;
+                }
+                if(imgSrc==''){
+                    this.$alert('请上传图片！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return false;
+                }
+
+                if(this.protocolType==0){
+                    this.$alert('您未同意服务协议！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return false;
+                }
+                if(this.payType==0){
+                    this.$alert('请选择支付方式！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return false;
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

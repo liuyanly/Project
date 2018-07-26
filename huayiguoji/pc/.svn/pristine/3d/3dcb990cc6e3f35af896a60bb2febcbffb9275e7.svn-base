@@ -1,0 +1,112 @@
+@import "../../less/variable";
+
+.Withdrawals-box{
+  padding: 44px 14px;
+  .input-box{
+    margin-bottom: 20px;
+    .title{
+      .color999(14px,#999);
+      width: 85px;
+      text-align: right;
+      line-height: 30px;
+    }
+    .date-select{
+      margin-left: 16px;
+      width: 236px;
+      margin-right: 16px;
+    }
+    select,input{
+      width: 236px;
+      padding: 0 10px;
+      height: 30px;
+      line-height: 30px;
+      border: 1px solid #eff1fa;
+      .color999(14px,#333);
+    }
+    input{
+      width: 214px;
+      padding: 0 10px;
+      height: 28px;
+      line-height: 28px;
+      margin-left: 16px;
+    }
+    .add-card{
+      .color999(14px,#4cc6d8);
+      line-height: 30px;
+      cursor: pointer;
+      margin-left: 16px;
+    }
+  }
+  .pay-btn{
+    margin-left: 112px;
+    width:136px;
+    height:40px;
+    background:rgba(76,198,216,1);
+    border-radius: 3px ;
+    line-height: 40px;
+    text-align: center;
+    border: none;
+    .color999(14px,#fff);
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  .select-box{
+    width: 252px;
+    height: 30px;
+    cursor: pointer;
+    .date-select{
+      width: 214px;
+      padding: 7px 10px;
+      //height: 28px;
+      line-height: 15px;
+      border: 1px solid #eff1fa;
+      .color999(14px,#333);
+      img{
+        margin-right: 6px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+    .c1{
+      color:#2748ab;
+      margin-left: 5px;
+    }
+    .nothing{
+      color: #999;
+    }
+    .xiaLa{
+      right: 7px;
+      top:12px;
+    }
+    .select-ul{
+      background: #fff;
+      top:33px;
+      left: 16px;
+      border:1px solid #ddd;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      border-top: none;
+      li{
+        line-height: 39px;
+        height: 39px;
+        width: 214px;
+        padding: 0 10px;
+        //height: 28px;
+        .color999(14px,#333);
+        &:last-child{
+          border-bottom: none;
+        }
+        img{
+          margin-right: 6px;
+          width: 16px;
+          height: 16px;
+          margin-top: 12px;
+        }
+      }
+      .current,li:hover{
+        background: #4CC6D8;
+        color: #fff;
+      }
+    }
+  }
+}

@@ -1,0 +1,120 @@
+@import "variable";
+.main{
+  background: #F3F7FD;
+  .container{
+    padding-top: 15px;
+    padding-bottom: 49px;
+    .right-box{
+      width: 878px;
+      background: #fff;
+      height: 720px;
+      .header-title{
+        padding: 0 14px;
+        line-height: 50px;
+        .color999(14px,#333) ;
+        .borderBottom();
+        .add-btn{
+          margin-top: 17px;
+          margin-right: 14px;
+          cursor: pointer;
+        }
+        .right{
+          line-height: 50px;
+          .color999(14px,#4ec7d9);
+          margin-right: 24px;
+          cursor: pointer;
+        }
+      }
+      .small-title{
+        .color999(14px,#4ec7d9);
+        border-top: 1px solid #eff1fa;
+      }
+      .user-info{
+        padding:15px 16px;
+        background:rgba(239,241,250,1);
+        border-radius: 10px ;
+        margin: 14px 14px 17px 10px;
+        height: 68px;
+        .left-info-box{
+          margin-left: 28px;
+          margin-top: 5px;
+        }
+        .head-box{
+          position: relative;
+          .head-pic{
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+          }
+          .vip{
+            position: absolute;
+            bottom: 2px;
+            right:0;
+          }
+        }
+
+        .user-name{
+          .color999(14px,#000);
+          .marginRight{
+            margin-right: 20px;
+          }
+          .sex,.age{
+            .color999(14px,#999)
+          }
+        }
+        .user-sex,.user-ad{
+          .color999(12px,#999);
+          margin-top: 12px;
+          margin-bottom: 10px;
+          .marginRight{
+            margin-right: 30px;
+          }
+        }
+        .edit-btn{
+          margin: 22px 14px;
+          cursor: pointer;
+        }
+        .application-btn{
+          margin: 20px 14px;
+          .btn(108px,30px);
+        }
+      }
+    }
+  }
+  .ul-box{
+    li{
+      height: 38px;
+      .borderBottom();
+      padding:10px 15px;
+      >img{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      .info-box{
+        margin-left: 13px;
+        .name{
+          .color999(14px,#000);
+          margin-bottom: 8px;
+        }
+        .sex{
+          .color999(12px,#999);
+          .marginRight{
+            margin-right: 20px;
+          }
+        }
+      }
+      .telNum{
+        line-height: 34px;
+        height: 34px;
+        .color999(12px,#999);
+        margin-left: 170px;
+      }
+      .del-btn{
+        margin-right: 24px;
+        margin-top: 12px;
+        cursor: pointer;
+      }
+    }
+  }
+}

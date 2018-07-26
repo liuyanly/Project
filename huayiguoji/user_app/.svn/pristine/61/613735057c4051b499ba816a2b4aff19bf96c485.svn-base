@@ -1,0 +1,228 @@
+<template>
+	<div class="offline-remittance">
+		<headers headName='线下汇款'></headers>
+		<div class="contentScollr">
+        <div class="form_box">
+			<div class="account-info">
+				<p class="title-p">
+					汇款账号
+				</p>
+				<p class="info-p">
+					户名：李辛毅
+				</p>
+				<p class="info-p">
+					账号：6227003327090192334
+				</p>
+				<p class="info-p">
+					开户行：建行广州天寿路支行
+				</p>
+				<p class="info-p">
+				</p>
+				<p class="info-p">
+					户名：李辛毅
+				</p>
+				<p class="info-p">
+					账号：6227003327090192334
+				</p>
+				<p class="info-p">
+					开户行：建行广州天寿路支行
+				</p>
+			</div>
+            <div class="pic_box">
+                <div class="title">请上传汇款凭证</div>
+                <ul>
+                    <li>
+                        <img src="../assets/images/a_image1.png" alt="">
+                        <img src="../assets/images/c13_1guanbi.png" alt="" class="close">
+                    </li>
+                    <li>
+                        <img src="../assets/images/a_image1.png" alt="">
+                        <img src="../assets/images/c13_1guanbi.png" alt="" class="close">
+                    </li>
+                    <li>
+                        <img src="../assets/images/a_image1.png" alt="">
+                        <img src="../assets/images/c13_1guanbi.png" alt="" class="close">
+                    </li>
+                    <li>
+                        <img src="../assets/images/c37_tianjia.png" alt="">
+                    </li>
+                </ul>
+            </div>
+        </div>
+		<div class="top-div">
+            <p class="line1 clear">
+                <span class="name left">汇款金额：</span>
+                <span class="unit left">¥</span>
+                <input type="number left" v-model="money"/>
+            </p>
+        </div>
+        <div class="up_btn" @click="payComplete()">汇款完成</div>
+	</div>
+	</div>
+</template>
+<script>
+//导入模板
+import headers from "../components/Header.vue";
+export default {
+	data () {
+	    return {
+			money:this.$route.params.money,
+			zfbData:'',
+	    }
+  	},
+	mounted(){
+		this.BaseSet.getToken(this)
+	},
+  	methods: {
+        payComplete(){
+			if(this.money>5000){
+				this.$toast("单笔最高充值5000元");
+				return false;
+			}
+			if(this.money==''){
+				this.$toast("请填写充值金额");
+				return false;
+			}
+			var that = this
+			that.$ajax.post('/order',{
+				_me:'user-api',
+				title:'充值',
+				money:that.money,
+				paytype:1,
+				body:'充值',
+			})
+			.then(function(res){
+				if(res.data.status == 200){
+					that.zfbData = res.data.data
+					that.$router.push({name:'PaySuccess',params:{money:that.money}})
+				}else if(res.data.status == 401){
+					that.BaseSet.linkLogin(that)
+				}else{
+					that.$toast(res.data.message)
+					that.$router.push({name:'PayFail'})
+				}
+			})
+			.catch(function(err){
+				that.BaseSet.linkLogin(that)
+			})
+		},
+    },
+  	components: { headers},
+  	//请求数据接口
+}
+</script>
+
+<style lang="scss">
+.offline-remittance{
+    width: 100%;
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+	.contentScollr{
+		flex: 1;
+		overflow: scroll;
+		-webkit-overflow-scrolling:touch;
+	}
+	.account-info{
+		padding: .8rem /* 30/40 */;
+		.title-p{
+			font-size: .7rem /* 28/40 */;
+			color:#333;
+			margin-top: .6rem /* 23/40 */;
+			margin-bottom: 1.3rem /* 50/40 */;
+		}
+		.info-p{
+			line-height: .1rem /* 3/40 */;
+			height: .9rem /* 36/40 */;
+			font-size: .7rem /* 28/40 */;
+			color: #666;
+		}
+	}
+	.top-div{
+		margin-top: .5rem /* 20/40 */;
+        line-height: 1.2rem /* 48/40 */;
+        padding: 2.2rem /* 89/40 */ .6rem /* 24/40 */ 1.8rem /* 73/40 */ .6rem /* 24/40 */;
+        box-sizing: border-box;
+        //margin-bottom: 1.5rem /* 60/40 */;
+        background: #fff;
+        .left{
+            float: left;
+        }
+        .line1{
+            line-height: 1.2rem /* 48/40 */;
+        }
+        .name{
+            font-size: .7rem /* 28/40 */;
+            color: #999;
+            margin-right: .3rem /* 10/40 */;
+        }
+        .unit{
+            font-size: 1.2rem /* 48/40 */;
+            color: #333;
+        }
+        input{
+            width: 10rem /* 400/40 */;
+            line-height: 1.2rem /* 48/40 */;
+            color: #333;
+            font-size: .8rem /* 32/40 */;
+            margin-left: .5rem /* 20/40 */;
+        }
+        .tip-word{
+            font-size: .6rem /* 22/40 */;
+            color:#999;
+            margin-top: .3rem;
+            line-height: .6rem;
+        }
+    }
+    .form_box{
+        width: 100%;
+        overflow: hidden;
+        background-color: #fff;
+        .pic_box{
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 0 .75rem;
+            padding-bottom: 1.25rem;
+            .title{
+                width: 100%;
+                color: #999999;
+                font-size: .7rem;
+                margin-top: 1.35rem;
+            }
+            li{
+                width: 3.95rem;
+                height: 3.95rem;
+                overflow: hidden;
+                float: left;
+                margin-right: .2rem;
+                position: relative;
+                margin-top: .55rem;
+                img{
+                   width: 3.95rem;
+                    height: 3.95rem;
+                    object-fit: cover;
+                }
+                .close{
+                    position: absolute;
+                    width: 1.25rem;
+                    height: 1.25rem;
+                    right: .125rem;
+                    top: .125rem
+                }
+            }
+        }
+    }
+    .up_btn{
+        width: 17.2rem;
+        height: 2.05rem;
+        text-align: center;
+        margin:1.5rem auto;
+        background-color: #4DC6D8 ;
+        color: #ffffff;
+        line-height: 2.05rem;
+        font-size: .8rem;
+        border-radius:.25rem;
+    }
+}
+</style>

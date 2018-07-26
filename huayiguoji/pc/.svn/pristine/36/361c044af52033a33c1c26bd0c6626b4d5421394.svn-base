@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>医生意见</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/personal.css"/>
+    <link rel="stylesheet" href="css/health_evaluation.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="6"></my-header>
+    </div>
+    <div class="main">
+        <section class="container clearFix">
+            <my-left-nav active="25"></my-left-nav>
+            <div class="right right-box">
+                <p class="header-title">{{type}}</p>
+                <div class="user-info clearFix">
+                    <div class="left head-box">
+                        <img class="head-pic" :src="translates.avatar_img">
+                    </div>
+                    <div class="left left-info-box">
+                        <p class="user-name clearFix"><span class="left marginRight">{{doctor.realname}}</span></p>
+                        <p class="user-sex clearFix">{{translates.department_title}}</p>
+                        <p class="user-ad clearFix">{{translates.hospital_title}}</p>
+                    </div>
+                    <p class="right edit-btn">{{date}}</p>
+                </div>
+                <div class="analysis-content" v-html="content">
+                    <!--<p class="analysis-title">橄榄枝</p>-->
+                    <!--<div class="content-word">-->
+                        <!--某某与公益的橄榄枝，就像一只和平鸽飞翔于世界民族之林，在不同肤色的人群中飞越五洲，让全世界的少年儿童平等-->
+                        <!--地欣赏艺术。 某某与公益的橄榄枝，就像一只和平鸽飞翔于世界民族之林，在不同肤色的人群中飞越五洲，让全世界的-->
+                        <!--少年儿童平等地欣赏艺术。 某某与公益的橄榄枝，就像一只和平鸽飞翔于世界民族之林，在不同肤色的人群中飞越五洲，-->
+                        <!--让全世界的少年儿童平等地欣赏艺术。-->
+                    <!--</div>-->
+                    <!--<div class="img-box">-->
+                        <!--<img src="images/doctor.jpg"/>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </section>
+    </div>
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="swiper/swiper-3.4.2.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/user_login.js"></script>
+<script src="js/slider.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/leftNav.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data:{
+            id:getparams('id'),
+            translates:'',
+            doctor:'',
+            content:'',
+            date:'',
+            type:'',
+        },
+        mounted:function () {
+            getToken(this)
+            this.getDetail()
+        },
+        methods:{
+            getDetail:function () {
+                var that = this
+                axios.get(userApi+'/intervene/'+that.id)
+                    .then(function (res) {
+                        console.log(res.data)
+                        if(res.data.status == 200){
+                            that.translates = res.data.data.doctor.translates
+                            that.doctor = res.data.data.doctor
+                            that.content = res.data.data.content
+                            that.date = res.data.data.created_at.substring(0,10)
+                            that.type = res.data.data.translates.categorry_title
+                        }
+                    })
+                    .catch(function (err) {
+                        linkLogin(that)
+                    })
+            },
+        }
+    })
+</script>
+</body>
+</html>

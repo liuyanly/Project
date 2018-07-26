@@ -1,0 +1,84 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.filter-box {
+  padding-top: 28px;
+  border-top: 1px solid #EFF1FA;
+  padding-left: 14px;
+  padding-bottom: 27px;
+  border-bottom: 1px solid #EFF1FA;
+}
+.filter-box .filter-btn {
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  background: #4CC6D8;
+  border-radius: 3px;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+.center-word {
+  font-size: 14px;
+  color: #4cc6d8;
+  line-height: 30px;
+  text-align: center;
+  width: 9px;
+}
+.question-list li {
+  padding: 0 28px;
+  margin-right: 7px;
+}
+.main .container .right-box .header-title .add-btn {
+  width: 16px;
+  height: 16px;
+  margin-right: 7px;
+  margin-top: -2px;
+}
+.list {
+  margin-bottom: 136px;
+}
+.chart-div {
+  padding-bottom: 46px;
+}
+.data-table {
+  width: 100%;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+.data-table table {
+  width: 100%;
+}
+.data-table table tr,
+.data-table table td {
+  border: 1px solid #e5e5e5;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  height: 28px;
+  line-height: 28px;
+}
+.data-table table thead td {
+  font-size: 14px;
+  color: #000;
+}
+.data-table table tbody tr:nth-of-type(2n-1) {
+  background: #F9F6F6;
+}
+.data-table .w1 {
+  box-sizing: border-box;
+  width: 134px;
+}
+.data-table .w2 {
+  box-sizing: border-box;
+  width: 177px;
+}

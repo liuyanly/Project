@@ -1,0 +1,20 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+
+Vue.use(Router)
+// 首页
+const home = {
+    path: '/home',
+    name: 'home',
+    component: resolve => require(['../pages/home/home.vue'], resolve),
+}
+
+
+export default new Router({
+  routes: [
+    {
+      path: '/home',
+      redirect: '/home'
+    },
+  ]
+})

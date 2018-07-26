@@ -1,0 +1,108 @@
+// out: css/already_vip.css, sourcemap: true, compress: true
+@import "variable";
+
+.header-title{
+  .right{
+    img{
+      margin-right: 9px;
+    }
+  }
+}
+.user-top{
+  padding: 22px;
+  padding-bottom: 29px;
+  .borderBottom(1px,solid,#EFF1FA);
+  .img-p{
+  width:82px;
+  height:82px;
+    background-image: -webkit-linear-gradient(right,#E57A22 0%, #EDA455 20%, #DA8E3D 40%, #FDBE7A 60%,#DA8F3E 80%);
+    background-image: -moz-linear-gradient(right,#E57A22 0%, #EDA455 20%, #DA8E3D 40%, #FDBE7A 60%,#DA8F3E 80%);
+    background-image: -o-linear-gradient(right,#E57A22 0%, #EDA455 20%, #DA8E3D 40%, #FDBE7A 60%,#DA8F3E 80%);
+    background-image: -ms-linear-gradient(right,#E57A22 0%, #EDA455 20%, #DA8E3D 40%, #FDBE7A 60%,#DA8F3E 80%);
+    background-image: linear-gradient(right,#E57A22 0%, #EDA455 20%, #DA8E3D 40%, #FDBE7A 60%,#DA8F3E 80%);
+    border-radius: 50%;
+    box-shadow: 0 5px 5px #F3C49D;
+    .head-pic{
+      width: 70px;
+      height: 70px;
+      margin-top: 6px;
+      margin-left: 6px;
+      border-radius: 50%;
+    }
+    .absolute{
+      bottom: 3px;
+      right: 0;
+    }
+  }
+  .user-info-box{
+    margin-left: 22px;
+    .vip-name{
+      margin-top: 11px;
+      .color999(14px,#e19747);
+      margin-bottom: 6px;
+      line-height: 15px;
+    }
+    .info-p{
+      line-height: 22px;
+      .color999(12px,#666);
+    }
+  }
+  .renew-btn{
+    width:108px;
+    height:30px;
+    background:rgba(76,198,216,1);
+    border-radius: 3px ;
+    text-align: center;
+    color: #fff;
+    line-height: 30px;
+    margin-top: 30px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+}
+.user-bottom{
+  padding: 21px 24px;
+  .box{
+    .title{
+      .color999(14px,#4cc6d8);
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .info-box{
+      padding: 20px 15px;
+      background: #eee;
+      border-radius: 10px;
+      width: 386px;
+      height: 110px;
+      box-sizing: border-box;
+      .head-img{
+        width:70px;
+        height:70px;
+        border-radius: 50%;
+        margin-right: 16px;
+      }
+      .name{
+        .color999(14px,#000);
+        margin-top: 16px;
+        margin-bottom: 10px;
+        line-height: 15px;
+      }
+      .department{
+        .color999(14px,#4cc6d8);
+        line-height: 15px;
+      }
+      .msg-img{
+        margin-top: 29px;
+        margin-right: 27px;
+        cursor: pointer;
+      }
+    }
+  }
+  .box-type2{
+    margin-top: 27px;
+    .word{
+      line-height: 70px;
+      .color999(16px,#000);
+    }
+  }
+}

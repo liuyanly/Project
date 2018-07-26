@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="MobileOptimized" content="750">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="format-detection" content="telephone=no">
+    <title>碳云</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+  <body>
+    <div id="healthData" class="container">
+      <my-header active="3"></my-header>
+      <div class="content">
+            <!-- 情绪 -->
+            <div class="energy">
+                <div class="title flex-item">
+                  <span menu="c14" class="flex active">日</span>
+                  <span menu="c15" class="flex">周</span>
+                </div>
+                <div class="conbox">
+                  <div id="c14" class="day">
+                    <div class="moodDay">
+                          <img :src="dayTotal.url">
+                          <p>{{dayTotal.name}}</p>
+                    </div>
+                  </div>
+                  <div id="c15" class="hide">
+                     <div class="flex-item moodWeek">
+                       <div class="flex">
+                          <img :src="lineDataVal[0]">
+                          <p><small>{{lineDataLabel[0]}}</small></p>
+                       </div>
+                       <div class="flex">
+                          <img :src="lineDataVal[1]">
+                          <p><small>{{lineDataLabel[1]}}</small></p>
+                       </div>
+                       <div class="flex">
+                          <img :src="lineDataVal[2]">
+                          <p><small>{{lineDataLabel[2]}}</small></p>
+                       </div>
+                       <div class="flex">
+                          <img :src="lineDataVal[3]">
+                          <p><small>{{lineDataLabel[3]}}</small></p>
+                       </div>
+                       <div class="flex">
+                          <img :src="lineDataVal[4]">
+                          <p><small>{{lineDataLabel[4]}}</small></p>
+                       </div>
+                       <div class="flex">
+                          <img :src="lineDataVal[5]">
+                          <p><small>{{lineDataLabel[5]}}</small></p>
+                       </div>
+                       <div class="flex">
+                          <img :src="lineDataVal[6]">
+                          <p><small>{{lineDataLabel[6]}}</small></p>
+                       </div>
+                     </div>
+                  </div>
+                </div>
+            </div>
+            <div class="date">
+              <div class="pre" @click="pre()"></div>
+              <div id="datebox" class="datebox">
+                <ul class="flex-item">
+                  <li v-for="(item,index) in temp" class="foo" :data-val="item.getFullYear()
+                              +'-'+(((item.getMonth() + 1) <=9 )? '0' + (item.getMonth() + 1) : (item.getMonth() + 1))
+                              +'-'+((item.getDate() <=9) ? '0' + item.getDate() : item.getDate())" @click="add(index)" :class="currentnow.getTime()==item.getTime()?'active':''">
+                    <span>{{item.getDate()}}</span>
+                    <small>{{item.getMonth()+1}}月</small>
+                  </li>
+                </ul>
+              </div>
+              <div class="next" @click="next()"></div>
+            </div>
+            <div class="food">
+                <div class="conbox">
+                      <div class="record flex-item">
+                        <div class="flex">
+                          <p>记录情绪</p>
+                          <p class="h4">{{count}}</p>
+                          <p>次</p>
+                        </div>
+                        <div class="flex">
+                          <p>今日情绪</p>
+                          <p><img :src="dayTotal.url"></p>
+                        </div>
+                        <div class="flex">
+                          <p>最长纪录情绪</p>
+                          <p><img :src="max.url"></p>
+                        </div>
+                      </div>
+                      <div id="myPie" class="myPie" style="width: 87vw; height: 10rem;">
+                      </div>
+                </div>
+            </div>
+      </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/mychart.js"></script>
+    <script src="js/healthData.js"></script>
+    <script>
+      new Vue({
+        el: '#healthData',
+        data() {
+          return {
+            id: '',
+            dayTotal: {},
+            lineDataLabel: [],
+            lineDataVal: [],
+            count: '',
+            max: {},
+            emotionData: [],
+            currentnow: new Date(),
+            now: new Date(),
+            clickNum: 1,
+            temp: [],
+            nowDate: '',
+          }
+        },
+        created() {
+          this.nowDate = getFormat(this.currentnow.getTime());
+          console.log(this.nowDate);
+          this.id = 28;
+          this.calendar();
+          this.getData();
+        },
+        mounted() {
+
+        },
+        methods: {
+          calendar() {
+            var firstTime = new Date(this.now.setDate(this.now.getDate() - (this.now.getDay() + 1) * this.clickNum));
+            this.temp = [];
+            for (var i = 0; i < 7; i++) {
+              this.temp.push(new Date(firstTime.setDate(firstTime.getDate() + 1)));
+            }
+          },
+          pre() {
+            this.clickNum += 1;
+            this.calendar();
+          },
+          next() {
+            this.clickNum -= 1;
+            this.calendar();
+          },
+          add(index) {
+            $('.foo').removeClass('active');
+            $('.foo')[index].classList.add('active');
+            console.log($('.foo')[index].getAttribute('data-val'));
+            this.nowDate = $('.foo')[index].getAttribute('data-val');
+            this.getData();
+          },
+          getData() {
+            var that = this;
+            axios.get(baseurl + '/mobileapi.php?action=healthy&type=emotion&date=' + this.nowDate +'&id='+this.id)
+              .then(function (res) {
+                console.log(res);
+                var data = res.data;
+                if (data.code == 200) {
+                  that.dayTotal = data.data.today;
+                  // var weekEnergy = data.data.mood_1 + "," + data.data.mood_2 + "," + data.data.mood_3 + "," + data.data.mood_4
+                  //   + "," + data.data.mood_5 + "," + data.data.mood_6 + "," + data.data.mood_7;
+                  // that.lineData = weekEnergy.split(',');
+                  that.lineDataLabel = [];
+                  that.lineDataVal = [];
+                  for (var i = 0; i < data.data.week.length; i++) {
+                    that.lineDataLabel.push(data.data.week[i].date)
+                    that.lineDataVal.push(data.data.week[i].val)
+                  }
+                  that.count = data.data.count;
+                  that.max = data.data.max;
+                  // that.emotionData
+                  var emotionArr = objVal(data.data.items);
+                  console.log(emotionArr);
+                  that.emotionData = addAttr2(emotionArr, that.count)
+                  console.log(that.emotionData)
+                  chartPieLarge(that.emotionData, 'myPie'); //情绪  饼图 
+                }
+              })
+              .catch(function (err) {
+                console.log(err);
+              })
+          },
+        }
+      })  
+    </script>
+  </body>
+</html>

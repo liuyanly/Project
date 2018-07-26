@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>创建班级</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="js/assets/css/amazeui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/font_icon/iconfont.css" />
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+		<link rel="stylesheet" type="text/css" href="css/y_public.css" />
+		<style type="text/css">
+			.y_header_yonghu span {
+				position: relative;
+				top: 2px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="header_inner y_clear">
+				<div class="header_logo y_f_l"><img src="images/logo.png" /></div>
+				<ul class="header_nav y_f_l y_font_14">
+					<li>
+						<a href="h3_index.html" class="y_a_n ">首页</a>
+					</li>
+					<li class="cj y_p_r">
+						<a href="h5_createClass.html" class="y_a_n y_a_s">创建</a>
+						<div class="cj_inner">
+							<a href="javascript:video(0)">校园班级</a>
+							<a href="javascript:video(0)">辅导机构</a>
+						</div>
+					</li>
+					<li>
+						<a href="l1_wenjiao.html" class="y_a_n">文教中心</a>
+					</li>
+					<li>
+						<a href="m1_myManagement.html" class="y_a_n">我的管理</a>
+					</li>
+				</ul>
+				<div class="y_header_yonghu y_color_lan y_font_14 y_f_r">
+					<img src="images/huang.png" />
+					<span>阿拉丁</span>
+					<span><a href="" class="y_color_lan">【退出】</a></span>
+				</div>
+			</div>
+		</div>
+		<div class="y_clear"></div>
+		<form class="formValidator">
+			<div class="y_inner ">
+				<div class="h5_createClass">
+					<div class="h5_createClass_title"><span></span>创建班级</div>
+				</div>
+				<!--班级资料-->
+
+				<div class="h5_classData">
+					<div class="h5_classData_title y_inner_padding">
+						<i class="icon iconfont icon-xuexiao y_color_00 y_font_20"></i>
+						<span class="y_font_14 y_color_00">班级资料</span>
+						<span class="y_font_14 y_color_hong">(必填)</span>
+					</div>
+					<div class="y_border_b h5_banji_inner">
+
+						<div class="h5_dizhi info y_margin_l_26 y_inner_padding">
+							<div>
+								<span class="y_font_14 y_color_57">学校地址</span>
+								<select data-am-selected="{ btnStyle: 'secondary', maxHeight: 280}" id="s_province" name="s_province"></select>
+								<span class="y_font_14 y_color_lan sheng_txt">省／自治区</span>
+								<select data-am-selected="{ btnStyle: 'secondary', maxHeight: 280}" id="s_city" name="s_city"></select>
+								<span class="y_font_14 y_color_lan shi_txt">市</span>
+
+								<select data-am-selected="{ btnStyle: 'secondary', maxHeight:280}" id="s_county" name="s_county"></select>
+								<span class="y_font_14 y_color_lan">县/区</span>
+
+								<div id="show"></div>
+							</div>
+						</div>
+						<div class="h5_jiaoyu y_margin_l_26 y_inner_padding">
+							<span class="y_font_14 y_color_57">教育类型</span>
+							<select data-am-selected="{ btnStyle: 'secondary'}">
+								<option value="a">教育类型</option>
+								<option value="b">Banana</option>
+								<option value="o">Orange</option>
+								<option value="m">Mango</option>
+							</select>
+							<span class="y_font_14 y_color_57">学校名称</span>
+							<select data-am-selected="{ btnStyle: 'secondary'}">
+								<option value="a">学校名称</option>
+								<option value="b">Banana</option>
+								<option value="o">Orange</option>
+								<option value="m">Mango</option>
+							</select>
+							<span class="y_font_14 y_color_57">年级</span>
+							<select data-am-selected="{ btnStyle: 'secondary'}">
+								<option value="a">年级</option>
+								<option value="b">Banana</option>
+								<option value="o">Orange</option>
+								<option value="m">Mango</option>
+							</select>
+						</div>
+						<div class="h5_banji y_margin_l_26 y_inner_padding">
+							<span class="y_font_14 y_color_57">班　　级</span>
+							<select data-am-selected="{ btnStyle: 'secondary'}">
+								<option value="a">班级</option>
+								<option value="b">Banana</option>
+								<option value="o">Orange</option>
+								<option value="m">Mango</option>
+							</select>
+							<span class="y_font_14 y_color_57">班主任姓名</span>
+							<input type="text" placeholder="请输入班主任姓名" class="banzhurenName y_border y_p_l_10" datatype="*" nullmsg="请输入班主任姓名" />
+
+						</div>
+					</div>
+
+				</div>
+				<!--学生资料-->
+				<div class="studentsData y_border_b">
+					<div class="h5_classData_title y_inner_padding y_color_lan">
+						<i class="icon iconfont icon-banji y_color_00 y_font_20"></i>
+						<span class="y_font_14 y_color_00">学生资料</span>
+						<span class="y_font_14 y_color_hong">(必填)</span>
+						<span class="y_font_14 y_color_huang txt_huangse">黄色</span>
+						<span class="y_font_14 y_color_hong">字体为已注册号码，黑色字体为未注册号码，需要为其设置初始登陆密码，登陆后家长可更改密码）</span>
+						<a data-am-modal="{target: '#my-alert'}" href="javascript:void(0);" class="addStudent y_color_lan" onclick="addTr()">添加学生</a>
+
+					</div>
+
+					<!--学生资料信息-->
+					<div class="studentsData_table y_inner_padding y_margin_l_26">
+						<table class='public-jy-table gd-td-table'>
+							<tr>
+								<th>姓名</th>
+								<th>学号</th>
+								<th>父亲电话</th>
+								<th>母亲电话</th>
+							</tr>
+							<tr>
+								<td>张三</td>
+								<td>13455676578</td>
+								<td class="y_color_huang">13455676578</td>
+								<td>13455676578</td>
+							</tr>
+							<tr>
+								<td>张三</td>
+								<td>13455676578</td>
+								<td>13455676578</td>
+								<td>13455676578</td>
+							</tr>
+							<tr>
+								<td>张三</td>
+								<td>13455676578</td>
+								<td>13455676578</td>
+								<td>13455676578</td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+				<!--班级课表-->
+				<div class="studentsData ">
+					<div class="h5_classData_title y_inner_padding">
+						<i class="icon iconfont icon-kebiaohover y_color_00 y_font_20"></i>
+						<span class="y_font_14 y_color_00">班级课表</span>
+
+					</div>
+					<div class="studentsData_table y_inner_padding y_margin_l_26">
+						<table class='public-jy-table  gd-td-table-kb'>
+							<tr>
+								<th class="biaotou-th">
+									<p>星期</p>
+									<p>节数</p>
+								</th>
+								<th>星期一</th>
+								<th>星期二</th>
+								<th>星期三</th>
+								<th>星期四</th>
+								<th>星期五</th>
+								<th>星期六</th>
+								<th>星期日</th>
+							</tr>
+							<tr>
+								<th>第一节</th>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+							</tr>
+							<tr>
+								<th>第二节</th>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<th>第三节</th>
+								<td></td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+							</tr>
+							<tr>
+								<th>第四节</th>
+								<td></td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+							</tr>
+							<tr>
+								<th>第五节</th>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+							</tr>
+							<tr>
+								<th>第六节</th>
+								<td></td>
+								<td></td>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+							</tr>
+							<tr>
+								<th>第七节</th>
+								<td></td>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+								<td></td>
+							</tr>
+							<tr>
+								<th>第八节</th>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+								<td>语文课</td>
+							</tr>
+							<tr>
+								<th>第九节</th>
+								<td></td>
+								<td></td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+							</tr>
+							<tr>
+								<th>第十节</th>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+							</tr>
+							<tr>
+								<th>第十一节</th>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+								<td></td>
+								<td>语文课</td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+				<div class="h5_yhxy  y_margin_t_5 y_p_b_40 y_margin_l_26">
+					<input id='xuanze1' class="y_checkbox " type="checkbox" />
+					<label class="y_checkbox_label " for="xuanze1"></label>
+					<span class="y_color_a3 y_font_12">确认创建表示已阅读并同意《<a href="l6_userAgreement.html" class="y_color_lan y_public_a1">用户协议</a>》</span>
+				</div>
+				<div class="y_btn y_p_b_30">
+					<button type="submit">确认创建</button>
+					<!--<a href="javascript:;">确认创建</a>-->
+				</div>
+			</div>
+		</form>
+		<!--添加学生弹框-->
+		<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+			<div class="am-modal-dialog">
+				<div class="h5_addxuesheng">添加学生</div>
+				<div class="y_p_b_25 y_p_t_10"><span class="y_font_14 y_color_huang txt_huangse">黄色</span>
+					<span class="y_font_14 y_color_hong">字体为已注册号码，黑色字体为未注册号码，需要为其设置初始登陆密码，登陆后家长可更改密码）</span></div>
+				<div class="studentsData_table y_border_b studentsData_table_pop">
+					<table class='public-jy-table gd-td-table '>
+						<tr>
+							<th>姓名</th>
+							<th>学号</th>
+							<th>父亲电话</th>
+							<th>母亲电话</th>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+							<td>13455676578</td>
+						</tr>
+
+					</table>
+				</div>
+				<div class="y_color_00 y_font_14 y_text_l y_p_l_45 y_p_t_30 y_p_b_25">设置初始密码<span class="y_color_hong y_font_12">（未注册的家长需要初始密码，登陆后家长可以更改密码）</span></div>
+				<form class=" formValidator">
+
+					<div class="y_color_57 y_font_14 y_text_l y_p_l_45 y_p_b_60">初始密码<input datatype="*6-6" nullmsg="请输入6位初始密码" errormsg="请输入6位初始密码！" placeholder="请输入6位初始密码" class="h5_tankaung_input y_border" maxlength="6" /></div>
+					<div class="y_btn y_p_b_30 ">
+						<button type="submit">确认添加</button>
+						<!--<a href="javascript:;" onclick="confirmAdd()" class="" >确认添加</a>-->
+					</div>
+
+				</form>
+			</div>
+		</div>
+		<!--底部-->
+		<footer class="">
+			<div class="footer_inner">
+				<p>·免费声明·友情链接·网站地图·通讯录服务热线：400-080-9180</p>
+				<p>2008 学知非公司版权所有 闵 ICP 备05007286号 design by Clh</p>
+			</div>
+		</footer>
+
+		<script src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/Validform_v5.1_min.js"></script>
+		<script type="text/javascript" src="js/layer/layer.js"></script>
+		<script src="js/assets/js/amazeui.min.js"></script>
+		<script src="js/y_public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/area.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/ueditor.all.min.js">
+		</script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/lang/zh-cn/zh-cn.js"></script>
+		<script type="text/javascript">
+			//选择地区
+			_init_area();
+			var Gid = document.getElementById;
+			var showArea = function() {
+				Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" +
+					Gid('s_city').value + " - 县/区" +
+					Gid('s_county').value + "</h3>"
+			}
+			Gid('s_county').setAttribute('onchange', 'showArea()');
+			//确认添加学生
+			//			function confirmAdd(){
+			//				$('#my-alert').validator({
+			//					markValid: function(validity) {
+			//						var $modal = $('#my-alert');
+			//						$modal.modal('close');
+			//					},
+			//					inValidClass: 'am-field-error',
+			//				});
+			//				// ajax
+			//				
+			//			}
+		</script>
+	</body>
+
+</html>

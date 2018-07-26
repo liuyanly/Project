@@ -1,0 +1,527 @@
+*{
+  font-size: 14px;
+}@import "variable";
+.footer{
+  height: auto;
+}
+.noTip{
+  font-size: 14px;
+  color: #444;
+  text-align: center;
+  line-height: 80px;
+}
+.fade{
+  position: fixed;
+  top: 0;
+  right: 0;
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  z-index:1001;
+  .msg-box {
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.3);
+    z-index:1002;
+    position: absolute;
+    display: -webkit-box;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    align-items: center;
+    .detail-box {
+      width: 1000px;
+      height: 432px;
+      background: #fff;
+      border-radius: 6px;
+      box-sizing: border-box;
+      //padding:22px 0;
+      position: relative;
+      .content-box{
+        width: 500px;
+        height: 432px;
+        box-sizing: border-box;
+        padding: 65px 0 54px 135px;
+        .absolute{
+          top:11px;
+          right: 14px;
+          cursor: pointer;
+        }
+        .close-btn{
+          top:0;
+          line-height: 40px;
+          color: #fff;
+          font-size: 36px;
+        }
+        .login-title{
+          .color999(18px,#000);
+          text-align: center;
+          font-weight: 600;
+          margin-bottom: 32px;
+          width: 37px;
+          margin-left: 99px;
+        }
+        .input-p{
+          width: 230px;
+          height: 39px;
+          border: 1px solid #ededed;
+          background: #f6f6f6;
+          border-radius: 3px;
+          box-sizing: border-box;
+          line-height:39px;
+          margin-bottom: 15px;
+          position: relative;
+          img{
+            margin: 12px 13px 12px 10px;
+          }
+          input{
+            border: none;
+            outline: none;
+            line-height: 38px;
+            background: transparent;
+          }
+          .Validform_checktip{
+            position: absolute;
+            right: -105px;
+            top:10px;
+          }
+        }
+        .forget-psw{
+          .color999(16px,#444);
+          margin-bottom: 34px;
+          cursor: pointer;
+          width: 80px;
+        }
+        .btn-login-p{
+          margin-bottom: 58px;
+          button{
+            width: 230px;
+            height: 39px;
+            line-height: 39px;
+            text-align: center;
+            background: #4CC6D8;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+          }
+        }
+        .not-account{
+          text-align: center;
+          .color999(16px,#999);
+          width: 129px;
+          margin-left: 53px;
+          .c1{
+            color: #57c6d8;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .btn-box{
+      text-align: center;
+      button{
+        width: 140px;
+        height: 40px;
+        border-radius: 3px;
+        background: #4CC6D8;
+        text-align: center;
+        .color999(14px,#fff);
+        border: none;
+        cursor: pointer;
+      }
+      .sure-btn{
+        margin-right: 40px;
+      }
+
+    }
+    .choose-time{
+      width: 600px;
+      height: 230px;
+      .title-p{
+        line-height: 40px;
+        padding: 0 14px;
+        background: #4CC6D8;
+        .color999(14px,#fff);
+      }
+      .content-box{
+        width: 100%;
+        padding: 0;
+        height: 300px;
+      }
+      .name{
+        width: 84px;
+        margin-right: 10px;
+        float: left;
+        text-align: left;
+        .color999(14px,#333);
+        line-height: 30px;
+      }
+      .select-p{
+        position: relative;
+        margin-bottom: 20px;
+        .color999(14px,#333);
+        >img{
+          position: absolute;
+          right:20px;
+          top: 12px;
+        }
+      }
+      .choose-box{
+        margin-bottom: 0;
+        padding: 40px 30px;
+        .pos{
+          width: 92px;
+          margin-right: 20px;
+          &:nth-of-type(5){
+            margin-right: 0;
+          }
+          .xiaLa{
+            right: 10px;
+          }
+        }
+        select{
+          width:90px;
+          height:30px;
+          .color999(14px,#333);
+          background:rgba(249,249,249,1);
+          border-radius: 6px ;
+          border: 1px solid #eee;
+          padding: 0 10px;
+          box-sizing: border-box;
+
+        }
+      }
+    }
+  }
+}
+.content-list{
+  .header-title{
+    line-height: 43px;
+    border-bottom: 1px solid #eff1fa;
+    .name{
+      .color999(16px,#4cc6d8);
+      font-weight: 600;
+    }
+    .viewMore{
+      .color999(14px,#666);
+    }
+  }
+  .server-list{
+    margin-bottom: 26px;
+    li{
+      padding: 10px 0 10px 21px;
+      border-bottom: 1px solid #eff1fa;
+      >img{
+        width:40px;
+        height:40px;
+        border-radius: 50%;
+        margin-right:14px ;
+      }
+      .line1{
+        .color999(14px,#4cc6d8);
+        .user-name{
+          margin-right: 18px;
+        }
+        .disease{
+          color:#666;
+          margin-right: 10px;
+        }
+        .tag{
+          padding: 0 8px;
+          background: #4CC6D8;
+          line-height: 16px;
+          .color999(12px,#fff);
+          border-radius: 7px;
+        }
+      }
+      .line2{
+        .color999(12px,#999);
+        .sex{
+          margin-right: 14px;
+        }
+      }
+      .btn-p{
+        width:92px;
+        height:30px;
+        background:rgba(76,198,216,1);
+        border-radius: 3px ;
+        line-height: 30px;
+        text-align: center;
+        .color999(14px,#fff);
+        margin-top: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+*{
+  font-size: 14px;
+}@import "variable";
+.footer{
+  height: auto;
+}
+.fade2{
+  position: fixed;
+  top: 0;
+  right: 0;
+  vertical-align: middle;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  z-index:1001;
+  .login-box {
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.3);
+    z-index:1002;
+    position: absolute;
+    display: -webkit-box;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    align-items: center;
+    .detail-box {
+      width: 1000px;
+      height: 432px;
+      background: #fff;
+      border-radius: 6px;
+      box-sizing: border-box;
+      //padding:22px 0;
+      position: relative;
+      .content-box{
+        width: 500px;
+        height: 432px;
+        box-sizing: border-box;
+        padding: 65px 0 54px 135px;
+        .absolute{
+          top:11px;
+          right: 14px;
+          cursor: pointer;
+        }
+        .close-btn{
+          top:0;
+          line-height: 40px;
+          color: #fff;
+          font-size: 36px;
+        }
+        .login-title{
+          .color999(18px,#000);
+          text-align: center;
+          font-weight: 600;
+          margin-bottom: 32px;
+          width: 37px;
+          margin-left: 99px;
+        }
+        .input-p{
+          width: 230px;
+          height: 39px;
+          border: 1px solid #ededed;
+          background: #f6f6f6;
+          border-radius: 3px;
+          box-sizing: border-box;
+          line-height:39px;
+          margin-bottom: 15px;
+          position: relative;
+          img{
+            margin: 12px 13px 12px 10px;
+          }
+          input{
+            border: none;
+            outline: none;
+            line-height: 38px;
+            background: transparent;
+          }
+          .Validform_checktip{
+            position: absolute;
+            right: -105px;
+            top:10px;
+          }
+        }
+        .forget-psw{
+          .color999(16px,#444);
+          margin-bottom: 34px;
+          cursor: pointer;
+          width: 80px;
+        }
+        .btn-login-p{
+          margin-bottom: 58px;
+          button{
+            width: 230px;
+            height: 39px;
+            line-height: 39px;
+            text-align: center;
+            background: #4CC6D8;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+          }
+        }
+        .not-account{
+          text-align: center;
+          .color999(16px,#999);
+          width: 129px;
+          margin-left: 53px;
+          .c1{
+            color: #57c6d8;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .btn-box{
+      text-align: center;
+      button{
+        width: 140px;
+        height: 40px;
+        border-radius: 3px;
+        background: #4CC6D8;
+        text-align: center;
+        .color999(14px,#fff);
+        border: none;
+        cursor: pointer;
+      }
+      .sure-btn{
+        margin-right: 40px;
+      }
+
+    }
+    .choose-time{
+      width: 600px;
+      height: 230px;
+      .title-p{
+        line-height: 40px;
+        padding: 0 14px;
+        background: #4CC6D8;
+        .color999(14px,#fff);
+      }
+      .content-box{
+        width: 100%;
+        padding: 0;
+        height: 300px;
+      }
+      .name{
+        width: 84px;
+        margin-right: 10px;
+        float: left;
+        text-align: left;
+        .color999(14px,#333);
+        line-height: 30px;
+      }
+      .select-p{
+        position: relative;
+        margin-bottom: 20px;
+        .color999(14px,#333);
+        >img{
+          position: absolute;
+          right:20px;
+          top: 12px;
+        }
+      }
+      .choose-box{
+        margin-bottom: 0;
+        padding: 40px 30px;
+        .pos{
+          width: 92px;
+          margin-right: 20px;
+          &:nth-of-type(5){
+            margin-right: 0;
+          }
+          .xiaLa{
+            right: 10px;
+          }
+        }
+        select{
+          width:90px;
+          height:30px;
+          .color999(14px,#333);
+          background:rgba(249,249,249,1);
+          border-radius: 6px ;
+          border: 1px solid #eee;
+          padding: 0 10px;
+          box-sizing: border-box;
+
+        }
+      }
+    }
+  }
+}
+.content-list{
+  .header-title{
+    line-height: 43px;
+    border-bottom: 1px solid #eff1fa;
+    .name{
+      .color999(16px,#4cc6d8);
+      font-weight: 600;
+    }
+    .viewMore{
+      .color999(14px,#666);
+    }
+  }
+  .server-list{
+    margin-bottom: 26px;
+    li{
+      padding: 10px 0 10px 21px;
+      border-bottom: 1px solid #eff1fa;
+      >img{
+        width:40px;
+        height:40px;
+        border-radius: 50%;
+        margin-right:14px ;
+      }
+      .line1{
+        .color999(14px,#4cc6d8);
+        .user-name{
+          margin-right: 18px;
+        }
+        .disease{
+          color:#666;
+          margin-right: 10px;
+        }
+        .tag{
+          padding: 0 8px;
+          background: #4CC6D8;
+          line-height: 16px;
+          .color999(12px,#fff);
+          border-radius: 7px;
+        }
+      }
+      .line2{
+        .color999(12px,#999);
+        .sex{
+          margin-right: 14px;
+        }
+      }
+      .btn-p{
+        width:92px;
+        height:30px;
+        background:rgba(76,198,216,1);
+        border-radius: 3px ;
+        line-height: 30px;
+        text-align: center;
+        .color999(14px,#fff);
+        margin-top: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}

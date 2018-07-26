@@ -1,0 +1,210 @@
+<template>
+	<div class="message">
+		<headers headName="签约分配"></headers>
+		<div class="contentScollr">
+		<ul class="list-ul">
+			<li class="clear" @click="chooseUser()">
+				<div class="left img-box">
+					<img src="../assets/images/e22_icon1.png" />
+					<!-- <img :src="userHeadImg" /> -->
+				</div>
+				<div class="left word">
+					<p class="line1 clear">
+						{{userName}}
+					</p>
+				</div>
+			</li>
+			<li class="clear" @click="chooseAssistant()">
+				<div class="left img-box">
+					<img src="../assets/images/e22_icon2.png" />
+					<!-- <img :src="assistantHeadImg" /> -->
+					<!-- <span class="num">22</span> -->
+				</div>
+				<div class="left word">
+					<p class="line1 clear">
+						{{assistantName}}
+					</p>
+				</div>
+			</li>
+		</ul>
+		<p class="sure-btn" @click="signPost()">
+			确认
+		</p>
+	</div>
+	</div>
+</template>
+
+<script>
+//导入模板
+import headers from "../components/Header.vue";
+export default {
+  data () {
+    return {
+      articles:'',
+	  patientId:this.$route.params.patientId,
+	  userId:this.$route.params.userId,
+	  userName:'选择患者',
+	//   userHeadImg:'/src/assets/images/e22_icon1.png',
+	  assistantName:'选择医助',
+	//   assistantHeadImg:'/src/assets/images/e22_icon2.png',
+		vipStatus:'',
+    }
+  },
+  mounted(){
+	  if(this.userId>0){
+		  this.getAssistantData()
+	  }
+	  if(this.patientId>0){
+		  this.getUserData('/user/'+this.patientId)
+	  }
+  },
+  methods: {
+	  chooseUser(){
+		  this.$router.push({name:'ChooseUser',params:{type:3,patientId:this.patientId,userId:this.userId,title:'选择患者'}})
+	  },
+	  chooseAssistant(){
+		  this.$router.push({name:'ChooseAssistant',params:{type:2,patientId:this.patientId,userId:this.userId}})
+	  },
+	  getAssistantData(){
+		  var that=this
+		  that.$ajax.get('/assistant/'+that.userId)
+		  .then(function(res){
+			  if(res.data.status==200){
+				  that.assistantName=res.data.data.realname
+				  that.assistantHeadImg=res.data.data.translates.avatar_img
+			  }else if(res.data.status==401){
+				  that.BaseSet.linkLogin(that)
+			  }else{
+				  that.$toast(res.data.message)
+			  }
+		  })
+		  .catch(function(err){
+			  that.$toast(err)
+		  })
+	  },
+	  getUserData(url){
+		  var that=this
+		  that.$ajax.get(url)
+		  .then(function(res){
+			  if(res.data.status==200){
+				  that.userName=res.data.data.realname
+				  that.userHeadImg=res.data.data.translates.avatar_img
+					that.vipStatus = res.data.data.translates.vip_status
+			  }else if(res.data.status==401){
+				  that.BaseSet.linkLogin(that)
+			  }else{
+				  that.$toast(res.data.message)
+			  }
+		  })
+		  .catch(function(err){
+			  that.$toast(err)
+		  })
+	  },
+	  signPost(){
+		  var that=this
+		  if(this.patientId==0||this.patientId==''){
+			  this.$toast('请选择患者')
+			  return false
+		  }
+		  if(this.userId==0||this.userId==''){
+			  this.$toast('请选择医助')
+			  return false
+		  }
+			if(this.vipStatus == 0){
+				this.$toast('该患者还不是会员，请重新选择患者！')
+			  return false
+			}
+		  this.BaseSet.getToken(this)
+		  that.$ajax.post('/user/'+that.patientId+'/assistant/'+that.userId)
+		  .then(function(res){
+			  if(res.data.status==200){
+				  that.$toast('签约成功')
+				  setTimeout(function(){
+					  that.$router.push({name:'AssistantManage'})
+				  },1500)
+			  }else if(res.data.status==401){
+				  that.BaseSet.linkLogin(that)
+			  }else{
+				  that.$toast(res.data.message)
+			  }
+		  })
+		  .catch(function(err){
+			  that.$toast(err)
+		  })
+	  }
+  },
+  components: { headers},
+  //请求数据接口
+}
+</script>
+
+<style lang="scss" scoped>
+.message{
+	width: 100%;
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+	.contentScollr{
+		flex: 1;
+		overflow: scroll;
+		-webkit-overflow-scrolling:touch;
+	}
+	.sure-btn{
+		width: 100%;
+		height: 2.5rem /* 50/20 */;
+		line-height: 2.5rem;
+		background: #4cc6d8;
+		font-size: .8rem /* 15/20 */;
+		color: #fff;
+		text-align: center;;
+		line-height: 2.5rem;
+		margin-top: .5rem /* 10/20 */;
+		position:fixed;
+		bottom: 0;
+	}
+	.list-ul{
+		background: #fff;
+		li{
+			padding: 1rem /* 20/20 */ .8rem /* 15/20 */;
+			border-bottom: 1px solid #e5e5e5;
+			&:last-child{
+				border-bottom: none;
+			}
+			.left{
+				float:left;
+			}
+			.right{
+				float: right;
+			}
+			.img-box{
+				margin-right: .8rem /* 16/20 */;
+				position: relative;
+				>img{
+					width: 2.5rem /* 50/20 */;
+					height: 2.5rem /* 50/20 */;
+					border-radius: 50%;
+				}
+				.num{
+					font-size: .5rem /* 10/20 */;
+					color: #fff;
+					position: absolute;
+					width: .8rem /* 16/20 */;
+					height: .8rem /* 16/20 */;
+					text-align: center;
+					border-radius: 50%;
+					background: #ff2906;
+					top: -.1rem /* -2/20 */;
+					right: 0;
+				}
+			}
+			.word{
+				.line1{
+					font-size: .8rem /* 15/20 */;
+					line-height: 2.5rem;
+					color: #444;
+				}
+			}
+		}
+	}
+}
+</style>

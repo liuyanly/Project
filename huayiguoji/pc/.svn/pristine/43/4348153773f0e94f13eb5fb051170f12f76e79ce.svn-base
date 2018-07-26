@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>体检报告详情</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/report_info.css" />
+
+</head>
+
+<body>
+    <div id="page" class="relative">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="21"></my-left-nav>
+                <div class="right right-box">
+                    <p class="header-title clearFix"><span class="left">体检报告</span></p>
+                    <div class="user-info clearFix">
+                        <div class="left head-box">
+                            <img class="head-pic" v-if="userData!=''" :src="userData.translates.avatar_img">
+                        </div>
+
+                        <div class="left left-info-box">
+                            <p class="user-name clearFix" v-if="userData!=''"><span class="left">{{userData.realname}}</span><span class="left sex">（{{userData.translates.sex}}&emsp;</span><span class="left age">{{userData.translates.age}}岁）</span></p>
+                            <p class="user-sex clearFix" v-if="userData!=''"><span class="left">居住地：</span><span class="left">{{userData.translates.province_title}}{{userData.translates.city_title}}{{userData.translates.area_title}}</span></p>
+                            <p class="user-ad clearFix" v-if="userData!=''"><span class="left">联系电话：</span><span class="left">{{userData.phone_no}}</span></p>
+                        </div>
+                        <button class="right application-btn" @click="applicationBtn()">体检申请</button>
+                    </div>
+                    <div class="description-box">
+                        <div v-for="data in descri">
+                            <p class="header-title small-title clearFix">{{data.title}}</p>
+                            <div class="description-content">
+                                <div class="description-word clearFix">
+                                    <p class="title-name left">{{data.name}}：</p>
+                                    <p class="left content-word" v-html="data.pivot.value"></p>
+                                </div>
+                                <!--<div class="description-word clearFix">-->
+                                <!--<p class="title-name left">家族病史：</p>-->
+                                <!--<p class="left content-word">详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容。</p>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                        <!--<p class="header-title small-title clearFix">病情描述</p>-->
+                        <!--<div class="description-content">-->
+                        <!--<div class="description-word clearFix">-->
+                        <!--<p class="title-name left">现有结果检查、日期异常提示：</p>-->
+                        <!--<p class="left content-word">详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容。</p>-->
+                        <!--</div>-->
+                        <!--<div class="description-word clearFix">-->
+                        <!--<p class="title-name left">家族病史：</p>-->
+                        <!--<p class="left content-word">详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容。</p>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<table class="description-table">-->
+                        <!--<thead>-->
+                        <!--<tr class="th-tr">-->
+                        <!--<td class="w1">日期</td>-->
+                        <!--<td class="w2">既往症状描述</td>-->
+                        <!--<td class="w3">员外诊断或治疗</td>-->
+                        <!--<td class="w4">诊断医院</td>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--<tr>-->
+                        <!--<td>2017-02-13</td>-->
+                        <!--<td>恶吐发烧等症状</td>-->
+                        <!--<td>流行性感冒</td>-->
+                        <!--<td>北京协和医院</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                        <!--</table>-->
+                        <!--<div class="description-content" v-for="data in descri">-->
+                        <!--<div class="description-word clearFix">-->
+                        <!--<p class="title-name left">现用药、用药方式：</p>-->
+                        <!--<p class="left content-word">详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容。</p>-->
+                        <!--</div>-->
+                        <!--<div class="description-word clearFix">-->
+                        <!--<p class="title-name left">过敏史：</p>-->
+                        <!--<p class="left content-word">详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容详细内容。</p>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <p class="header-title small-title clearFix" v-if="archive_status != 0">检查数据</p>
+                        <ul class="data-list clearFix" v-if="archive_status != 0">
+                            <li @click="viewData(aId,id,data.name)" v-for="(data,index) in abnormalData"><span class="name left">{{data.name}}</span><span class="data left" v-if="data.count>0">{{data.count}}</span></li>
+                        </ul>
+                        <p class="header-title small-title clearFix">原始图片</p>
+                        <ul class="pic-list clearFix" v-if="imgList.length != 0">
+                            <li v-for="(data,index) in imgList" @click="viewArtwork(data,index)"><img v-bind:src="data"></li>
+                        </ul>
+                        <p class="noTip" v-else>
+                            暂无原始图片
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+        <div class="img-container" v-if="artworkStatus">
+            <div class="fade" @click="closeView()">
+
+            </div>
+            <div class="img-box">
+                <img class="left-img" @click="prevImg()" src="images/f9_icon2.png">
+                <img class="img" :src="currentSrc">
+                <img class="right-img" @click="nextImg()" src="images/f9_icon1.png">
+                <p class="pic-p" @click="closeView()">×</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    imgList: [],
+                    artworkStatus: false,
+                    currentSrc: 'images/5.jpg',
+                    index: '',
+                    id: getUrlParam('id'),
+                    userData: '',
+                    descri: [],
+                    aId: '',
+                    archive_status: '',
+                    abnormalData: [],
+                }
+            },
+            mounted: function() {
+                getToken(this)
+                this.getDetail()
+            },
+            methods: {
+                getDetail: function() {
+                    var that = this
+                    axios.get(userApi + '/archive/' + this.id)
+                        .then(function(res) {
+                            console.log(res.data)
+                            if (res.data.status == 200) {
+                                that.userData = res.data.data.user
+                                if (res.data.data.archivedatas instanceof Array && res.data.data.archivedatas.length > 0) {
+                                    if (res.data.data.archivedatas[0].translates.fields) {
+                                        for (var i = 0; i < res.data.data.archivedatas[0].translates.fields.length; i++) {
+                                            if (res.data.data.archivedatas[0].translates.fields[i].type == 0) {
+
+                                            } else {
+                                                that.descri.push(res.data.data.archivedatas[0].translates.fields[i])
+                                            }
+                                        }
+                                    }
+                                }
+                                that.aId = res.data.data.id
+                                that.archive_status = res.data.data.translates.archive_status
+                                    // that.abnormalData = res.data.data.detection
+                                    //重组检查数据
+                                for (var i = 0; i < res.data.data.detection.length; i++) {
+                                    var tem = {
+                                        name: res.data.data.detection[i].category,
+                                        count: 0,
+                                    }
+                                    for (var j = 0; j < res.data.data.detection[i].data.length; j++) {
+                                        tem.count += res.data.data.detection[i].data[j].abnormal_count
+                                    }
+                                    that.abnormalData.push(tem)
+                                }
+                                that.imgList = res.data.data.translates.images
+                            }
+                        })
+                        .catch(function(err) {
+                            linkLogin()
+                        })
+                },
+
+                viewArtwork: function(src, index) {
+                    this.currentSrc = src;
+                    this.artworkStatus = true;
+                    this.index = index;
+                },
+                prevImg: function() {
+                    if (this.index > 0) {
+                        this.index--;
+                        console.log(this.index);
+                        this.currentSrc = this.imgList[this.index];
+                    } else if (this.index == 0) {
+                        this.index = this.imgList.length - 1;
+                        console.log(this.index);
+                        this.currentSrc = this.imgList[this.index]
+                    }
+                },
+                nextImg: function() {
+                    if (this.index < this.imgList.length) {
+                        this.index++;
+                        this.currentSrc = this.imgList[this.index]
+                    }
+                    if (this.index == this.imgList.length) {
+                        this.index = 0;
+                        this.currentSrc = this.imgList[this.index]
+                    }
+                },
+                closeView: function() {
+                    this.artworkStatus = false;
+                },
+                viewData: function(id, aId, name) {
+                    location.href = "check_data.html?id=" + id + '&name=' + name + '&aId=' + aId;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

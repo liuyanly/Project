@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>立即支付</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/imgUp.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/recharge.css" />
+    <link rel="stylesheet" href="css/now_pay.css" />
+</head>
+<style>
+    #qrcode {
+        /*border: 1px solid red;*/
+        width: 128px;
+        height: 128px;
+        padding: 5px;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px #666;
+        background: #fff;
+        margin: 15px 0 0 15px;
+    }
+</style>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="71"></my-left-nav>
+                <div class="right right-box" style="min-height: 720px;height: auto">
+                    <p class="header-title clearFix">立即支付</p>
+                    <p class="sum-money clearFix">
+                        <span class="money left">¥{{moneyValue}}</span>
+                        <span class="name left">(服务费预交款)</span>
+                    </p>
+                    <p class="header-title clearFix small-title" style="border-top: none">请选择支付方式</p>
+                    <form class="demoform">
+                        <div class="pay-p">
+                            <input type="radio" class="in-radio" name="pay-way" value="1" v-model="payType" />
+                            <img src="images/f2_xz_p.png" v-if="payType==1">
+                            <img src="images/f2_xz.png" v-else="payType!=1">
+                            <label>线上支付</label>
+                        </div>
+                        <div class="son-box" v-show="payType==1" style="border-bottom: 1px solid #EFF1FA">
+                            <p class="pay-p">
+                                <input type="radio" class="in-radio" name="pay-way" value="1" v-model="payWay" />
+                                <img src="images/f2_xz_p.png" v-if="payWay==1">
+                                <img src="images/f2_xz.png" v-else="payWay!=1">
+                                <img class="type-img" src="images/f74_icon1.png" />
+                                <label>支付宝支付</label>
+                            </p>
+                            <p class="pay-p">
+                                <input type="radio" class="in-radio" name="pay-way" value="2" v-model="payWay" />
+                                <img src="images/f2_xz_p.png" v-if="payWay==2">
+                                <img src="images/f2_xz.png" v-else="payWay!=2">
+                                <img class="type-img" src="images/f74_icon2.png" />
+                                <label>微信支付</label>
+                            </p>
+                            <!-- <p class="pay-p">
+                        <input type="radio" class="in-radio" name="pay-way" value="3" v-model="payWay"/>
+                        <img src="images/f2_xz_p.png" v-if="payWay==3">
+                        <img src="images/f2_xz.png" v-else="payWay!=3">
+                        <img class="type-img" src="images/f74_icon3.png"/>
+                        <label>银行卡支付</label>
+                    </p> -->
+                        </div>
+                        <div class="pay-p">
+                            <input type="radio" class="in-radio" name="pay-way" value="3" v-model="payType" />
+                            <img src="images/f2_xz_p.png" v-if="payType==3">
+                            <img src="images/f2_xz.png" v-else="payType!=3">
+                            <label>线下支付</label>
+                        </div>
+                        <div class="son-box" v-show="payType==3">
+                            <p class="money-input">
+                                <span class="title">金额(¥)：</span>
+                                <input type="number" value="1" v-model="moneyValue" nullmsg="请填写充值金额" readonly>
+                                </span>
+                            </p>
+                            <div class="recharge-info">
+                                <p>汇款账号</p>
+                                <br>
+                                <div v-for="data in countList">
+                                    <p>户名：{{data.realname}}</p>
+                                    <p>账号：{{data.cardno}}</p>
+                                    <p>开户行：{{data.title}}</p>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="pic-box clearFix">
+                                <p class="pic-word left">请上传汇款凭证:</p>
+                                <form id="upBox">
+                                    <div id="imgBox"></div>
+                                    <div id="inputBox">
+                                        <input type="file" title="请选择图片" id="file" accept="image/png,image/jpg,image/gif,image/JPEG" />
+                                        <img src="images/f1_icon2.png">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="pay-p agree-p" style="border-bottom: none;margin-top: 22px;margin-bottom: 0; margin-left: 69px;">
+                                <input type="checkbox" class="in-radio" value="1" name="pay-way" v-model="readAgreement" />
+                                <img src="images/f2_xz_p.png" v-if="readAgreement==1">
+                                <img src="images/f2_xz.png" v-else="readAgreement==0">
+                                <label>我已阅读并同意遵守
+                                    <span class="agreement1" @click="viewInfo()">《免责声明》</span>
+                                    <span class="agreement2" @click="viewInfo()">《就诊安排预收费告知单》</span>
+                                    <span class="agreement3" @click="viewInfo()">《服务费告知单》</span>
+                                </label>
+                            </div>
+                        </div>
+                        <p class="tip" v-show="payType==1">(本平台只收取服务费，实际费用到时按实际情况支付)</p>
+                        <div class="pay-p agree-p" style="border-bottom: none;" v-show="payType==1">
+                            <input type="checkbox" class="in-radio" value="1" name="pay-way" v-model="readAgreement" style="left: 14px" />
+                            <img src="images/f2_xz_p.png" v-if="readAgreement==1">
+                            <img src="images/f2_xz.png" v-else="readAgreement==0">
+                            <label>我已阅读并同意遵守
+                                <span class="agreement1" @click="viewInfo(1)">《免责声明》</span>
+                                <span class="agreement2" @click="viewInfo(2)">《就诊安排预收费告知单》</span>
+                                <span class="agreement3" @click="viewInfo(3)">《服务费告知单》</span>
+                            </label>
+                        </div>
+                        <div id="qrcode" v-show="isCode"></div>
+                        <p class="btn-p">
+                            <button :class="{marginLeft:payType==2}" type="button" class="pay-btn" @click="payBtn()">支付
+                            </button>
+                            <a href="my_order.html">
+                                <button type="button" class="submit-btn" style="border:#666;background: none;color:#666;margin-left: 20px;">返回我的订单
+                                </button>
+                            </a>
+                        </p>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+        <div class="fade2" v-if="msgBoxStatus==1">
+            <div class="msg-box">
+                <div class="detail-box">
+                    <p class="title">服务条款</p>
+                    <p class="close-btn" @click="cancelBtn()">
+                        <img src="images/f84_guanbi.png" />
+                    </p>
+                    <div class="content-word" v-html="explainContent">
+
+                    </div>
+                    <p class="btn-p">
+                        <button type="button" class="sure-btn" @click="cancelBtn()">确认</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/uploadImg.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/public.js"></script>
+    <script src="./js/qrcode.min.js"></script>
+    <script>
+        var $this = ''
+        var content = new Vue({
+            el: '#page',
+            data: {
+                payType: 0,
+                payWay: 1,
+                textContent: '',
+                readAgreement: 0,
+                moneyValue: 0,
+                msgBoxStatus: 0,
+                explainContent: '',
+                id: getparams('id'),
+                money: '',
+                countList: [],
+                isCode: false,
+                doctorId: '',
+                rePay: getparams('rePay') || '',
+                orderno: getparams('orderno'),
+                type_id: getparams('type_id')
+            },
+            watch: {
+                payType: function (val) {
+                    console.log(val)
+                    if (val == 3) {
+                        this.isCode = false;
+                    }
+                }
+            },
+            mounted: function () {
+                var that = this;
+                imgUpload({
+                    inputId: 'file', //input框id
+                    imgBox: 'imgBox', //图片容器id
+                    buttonId: 'btn', //提交按钮id
+                    upUrl: userApi + '/file', //提交地址
+                    data: 'files', //参数名
+                    num: "1" //上传个数
+                });
+                // $(".demoform").Validform({
+                //     tiptype:3
+                // });
+                //             console.log()
+                getToken(this);
+                axios.get(userApi + '/service/' + getparams('serverId'))
+                    .then(function (res) {
+                        console.log('医生消息:', res);
+                        if (res.status == 200) {
+                            // res.data.data.user.vips=1
+                            console.log(res.data.data.user.vips != null);
+                            //vips 会员次数
+                            if (res.data.data.user.vips != null) {
+
+                            }
+                            that.doctorId = res.data.data.doctor.id;
+                        }
+                    })
+                    .catch(function (reason) {
+                        // that.$message.error('查询失败');
+                    });
+
+                getToken(this);
+                this.getOrderInfo();
+                this.getCollections();
+            },
+            methods: {
+                cancelBtn: function () {
+                    this.msgBoxStatus = 0;
+                },
+                viewInfo: function (num) {
+                    if (num == 1) {
+                        this.getExplain('/disclaimer')
+                    } else if (num == 2) {
+                        this.getExplain('/inform/1')
+                    } else {
+                        this.getExplain('/inform/2')
+                    }
+                    this.msgBoxStatus = 1;
+                },
+                getExplain: function (url) {
+                    var that = this;
+                    axios.get(userApi + url)
+                        .then(function (res) {
+                            console.log(res.data)
+                            if (res.data.status == 200) {
+                                that.explainContent = res.data.data.content
+                            }
+                        })
+                        .catch(function (err) {
+                            that.$message.error('查询失败');
+                        })
+                },
+                getOrderInfo: function () {
+                    var that = this
+                    axios.get(userApi + '/order/' + that.id)
+                        .then(function (res) {
+                            console.log(res.data)
+                            if (res.data.status == 200) {
+                                that.moneyValue = res.data.data.money
+                            }
+                        })
+                        .catch(function (err) {
+                            linkLogin(that)
+                        })
+                },
+                getCollections: function () {
+                    var that = this
+                    axios.get(userApi + '/collections')
+                        .then(function (res) {
+                            if (res.data.status == 200) {
+                                that.countList = res.data.data
+                            }
+                        })
+                        .catch(function (err) {
+                            linkLogin(that)
+                        })
+                },
+                payBtn: function () {
+                    var that = this;
+                    if (this.payType == 0) {
+                        this.$alert('请选择支付方式！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return false;
+                    } else if (this.payType == 1) {
+                        if (this.readAgreement == 0) {
+                            this.$alert('您还未同意相关协议', '提示', {
+                                confirmButtonText: '确定',
+                            })
+                            return false;
+                        }
+                    } else {
+                        if (this.moneyValue == '') {
+                            this.$alert('请填写支付金额！', '提示', {
+                                confirmButtonText: '确定',
+                            })
+                            return false;
+                        }
+                        if (imgSrc == '') {
+                            this.$alert('请上传汇款凭证！', '提示', {
+                                confirmButtonText: '确定',
+                            })
+                            return false;
+                        }
+                        if (this.readAgreement == 0) {
+                            this.$alert('您还未同意相关协议', '提示', {
+                                confirmButtonText: '确定',
+                            })
+                            return false;
+                        }
+                    }
+                    console.log(that.payWay);
+                    var _payType;
+                    //支付宝
+                    if (that.payWay == 1) {
+                        _payType = 0
+                    }
+                    //微信
+                    if (that.payWay == 2) {
+                        _payType = 2
+                    }
+                    //线下
+                    if (that.payType == 3) {
+                        _payType = 1;
+
+                    }
+                    //金额判断
+                    if (that.moneyValue <= 0) {
+                        that.moneyValue = 0.01
+                    }
+
+                    // 生成订单
+                    //that.payType 值: 0:支付宝 2：微信
+                    if (_payType == 0) {
+                        console.log('支付宝支付')
+                        if (that.rePay == 1) {
+                            console.log('支付宝再次支付');
+                            axios.post(userApi + '/order/repay', {
+                                orderno: that.orderno,
+                                paytype: '0',
+                                payer_id: ''
+                            }).then(function (res) {
+                                if (res.status == 200) {
+                                    console.log(res);
+                                    document.open();
+                                    document.write(res.data.data);
+                                }
+                            }).catch(function (err) {
+                                // that.$message.error('支付宝支付跳转失败')
+                            })
+                        }
+                        axios.post(userApi + '/order', {
+                                _me: 'user-api',
+                                title: '图文咨询',
+                                money: that.moneyValue,
+                                paytype: '0',
+                                body: '图文咨询',
+                                type: 'service', //service:服务,vip:会员
+                                type_id: '0', //服务类型:0:图文、1:电话、2:视频、3:咨询、4:就近、5:策划) (vip 1：黄铜 2：白银 3：黄金 4：白金)
+                                doctor_id: that.doctorId,
+                                duration: '', //电话咨询
+                                card_id: '' //线下支付卡号id
+                            })
+                            .then(function (res) {
+                                if (res.status == 200) {
+                                    console.log(res);
+                                    document.open();
+                                    document.write(res.data.data);
+                                }
+                            })
+                    }
+                    if (_payType == 2) {
+                        console.log('微信支付')
+                        if (that.rePay == 1) {
+                            console.log('微信线下再次支付')
+                            axios.post(userApi + '/order/repay', {
+                                orderno: that.orderno,
+                                paytype: '2',
+                                payer_id: ''
+                            }).then(function (res) {
+                                if (res.status == 200) {
+                                    that.isCode = true;
+                                    console.log(res);
+                                    $('#qrcode').html("");
+                                    new QRCode("qrcode", {
+                                        width: 128,
+                                        height: 128
+                                    }).makeCode(res.data.data);
+                                }
+                            }).catch(function (err) {
+                                // that.$message.error('微信支付二维码生成失败')
+                            })
+                            return;
+                        }
+                        axios.post(userApi + '/order', {
+                                _me: 'user-api',
+                                title: '图文咨询',
+                                money: that.moneyValue,
+                                paytype: that.payType,
+                                body: '图文咨询',
+                                type: 'service', //service:服务,vip:会员
+                                type_id: '0', //服务类型:0:图文、1:电话、2:视频、3:咨询、4:就近、5:策划) (vip 1：黄铜 2：白银 3：黄金 4：白金)
+                                doctor_id: that.doctorId,
+                                duration: '', //电话咨询
+                                card_id: '', //线下支付卡号id
+                            })
+                            .then(function (res) {
+                                if (res.status == 200) {
+                                    that.isCode = true;
+                                    console.log(res);
+                                    // new QRCode(document.getElementById("qrcode"), res.data.data);
+                                    $('#qrcode').html("");
+                                    new QRCode("qrcode", {
+                                        width: 128,
+                                        height: 128
+                                    }).makeCode(res.data.data);
+                                }
+                            })
+                    }
+                    if (_payType == 1) {
+                        // if (that.rePay == 1) {
+                        //线下再次支付订单
+
+                        // } else {
+                        //提交线下支付订单
+                        var postUrl = '';
+                        var tmpData = {};
+                        if (that.rePay == 1) {
+                            console.log('线下再次支付')
+                            // 再次支付
+                            postUrl = '/order/repay';
+                            // paytype_desc
+                            tmpData = {
+                                orderno: that.orderno,
+                                paytype: '1',
+                                payer_id: ''
+
+                            }
+                            axios.post(userApi + postUrl, tmpData).then(function (res) {
+                                if (res.status == 200) {
+                                    console.log('订单生成成功:', res)
+                                    axios.put(userApi + '/order/' + that.id, {
+                                        eventable_data: imgIds
+                                    }).then(function (res) {
+                                        that.$message.success('提交支付凭证成功!');
+                                        console.log(
+                                            '提交支付凭证成功:', res);
+                                        setTimeout(function () {
+                                            location.href = 'my_wallet.html'
+                                        }, 2000)
+                                    }).catch(function (reason) {
+                                        that.$message.error('提交支付凭证失败')
+                                    })
+                                }
+                            })
+                        } else {
+                            console.log('线下支付')
+                            // 线下支付
+                            postUrl = '/order';
+                            tmpData = {
+                                _me: 'user-api',
+                                title: '线下支付',
+                                money: that.moneyValue,
+                                paytype: _payType,
+                                body: '线下支付',
+                                type: 'service', //service:服务,vip:会员 //recharge 充值
+                                type_id: '0', //服务类型:0:图文、1:电话、2:视频、3:咨询、4:就近、5:策划) (vip 1：黄铜 2：白银 3：黄金 4：白金)
+                                doctor_id: that.doctorId,
+                                duration: '', //电话咨询
+                                card_id: '', //线下支付卡号id
+                            }
+                            axios.post(userApi + postUrl, tmpData).then(function (res) {
+                                if (res.status == 200) {
+                                    console.log('订单生成成功:', res)
+                                    axios.put(userApi +
+                                        '/order/' + res.data.data.id, {
+                                            eventable_data: imgIds
+                                        }).then(function (res) {
+                                        that.$message.success('提交支付凭证成功!')
+                                        console.log(
+                                            '提交支付凭证成功:',
+                                            res);
+                                        setTimeout(function () {
+                                            location.href = 'my_wallet.html'
+                                        }, 2000)
+                                    }).catch(function (reason) {
+                                        that.$message.error('提交支付凭证失败')
+                                    })
+                                }
+                            }).catch(function (reason) {
+                                that.$message.error('生成订单失败')
+                            })
+                        }
+                    }
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

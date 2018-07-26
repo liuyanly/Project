@@ -1,0 +1,107 @@
+<template>
+	<div class="my-info">
+		<headers headName="设置"></headers>
+		<ul class="menu-list">
+			<router-link :to="{ name: 'FindPassword', params: {} }">
+			<li class="clear">
+				<span class="name">修改密码</span>
+				<img src="../assets/images/c13_liebiao.png" class="link-img" />
+			</li>
+			</router-link>
+			<router-link :to="{ name: '', params: {} }">
+			<li class="clear">
+				<span class="name">清除缓存</span>
+				<img src="../assets/images/c13_liebiao.png" class="link-img" />
+			</li>
+			</router-link>
+		</ul>
+		<input type="button" name="" id="" value="退出账号" @click="quitLogin()" />
+	</div>
+</template>
+
+<script>
+	import headers from '../components/Header'
+	//导入模板
+	export default {
+		data() {
+			return {
+
+			}
+		},
+		methods: {
+			Back() {
+				//this.$toast('111')
+				this.$router.go(-1)
+			},
+			msgCenter() {
+
+			},
+			quitLogin(){
+				this.$toast('已退出,请重新登录')
+				this.$router.push({name:'Login'})
+			},
+			memberInfo(num) {
+				if(num) {
+					this.$router.push({
+						name: 'MemberInfo'
+					});
+				} else {
+					this.$router.push({
+						name: 'NotVip'
+					});
+				}
+			},
+		},
+		mounted: function() {
+
+		},
+		components: {
+			headers
+		},
+	}
+</script>
+
+<style lang="scss" scoped>
+a{
+	color: #444;
+}
+	.my-info {
+		ul{
+			padding-top: 2.7rem;
+		}
+		.menu-list {
+			li {
+				padding: .5rem/* 20/40 */
+				.8rem/* 30/40 */
+				;
+				background: #fff;
+				border-bottom: 1px solid #e5e5e5;
+				.name {
+					float: left;
+					font-size: .7rem/* 26/40 */
+					;
+					line-height: 1.5rem/* 60/40 */
+					;
+				}
+				.link-img {
+					vertical-align: middle;
+					width: .3rem/* 14/40 */
+					;
+					height: .7rem/* 26/40 */
+					;
+					float: right;
+					margin-top: .4rem/* 17/40 */
+					;
+				}
+			}
+		}
+		input{
+			width: 100%;
+			height: 2.25rem;
+			background: #fff;
+			margin-top: 1.25rem;
+			font-size: 0.7rem;
+			color: #FC4F4F;
+		}
+	}
+</style>

@@ -1,0 +1,36 @@
+.main .content-box .area-list {
+  border-bottom: 1px solid #ccc;
+  padding: 0;
+  padding-top: 18px;
+  margin-bottom: 21px;
+}
+.main .content-box .area-list > li > p {
+  padding-top: 4px;
+}
+.main .content-box .area-list > li .hospital-list {
+  width: 842px;
+}
+.main .content-box .area-list > li {
+  margin-bottom: 0;
+}
+.main .content-box .area-list > li .hospital-list li {
+  width: auto;
+  margin-right: 37px;
+  padding: 4px;
+  margin-bottom: 14px;
+  cursor: pointer;
+}
+.main .content-box .area-list > li .hospital-list li.current {
+  padding: 4px;
+  background: #4CC6D8;
+  color: #fff;
+}
+.main .content-box .area-list > li .hospital-list li:hover {
+  color: #4CC6D8;
+  background: #fff;
+  text-decoration: underline;
+}
+.content-box .doctor-list {
+  padding: 0 20px;
+  margin-bottom: 130px;
+}

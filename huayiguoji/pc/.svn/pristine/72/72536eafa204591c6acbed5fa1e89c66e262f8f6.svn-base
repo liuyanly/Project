@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>图文咨询-完成</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/personal.css"/>
+    <link rel="stylesheet" href="css/pic_consult.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="6"></my-header>
+    </div>
+    <div class="main">
+        <section class="container clearFix">
+            <my-left-nav active="41"></my-left-nav>
+            <div class="right right-box">
+                <section class="header-top clearFix">
+                    <p class="left"><img :src="headImg"></p>
+                    <div class="left">
+                        <p class="header-name">{{doctor.realname}}<span>({{translates.department_title}}&nbsp;医师)</span></p>
+                        <p class="hospital-name">{{translates.hospital_title}}</p>
+                    </div>
+                    <div class="right info-div">
+                        <p class="right-title left">病情描述：</p>
+                        <div class="right-content left" v-if="title.length>65" >
+                            {{title.substring(0,65)+"..."}}
+                        </div>
+                        <div class="right-content" v-if="title.length<=65" >
+                            {{title}}
+                        </div>
+                    </div>
+                </section>
+                <section class="chat-content">
+                    <p class="time">2017-05-23</p>
+                    <div class="content-body clearFix">
+                        <div class="line left">
+                            <img class="left" src="images/head.jpg">
+                            <p class="word-p left">你好，你发个图，我看看具体情况<img src=""></p>
+                        </div>
+                        <div class="line left">
+                            <img class="left" src="images/head.jpg">
+                            <p class="word-p left">你好，你发个图，我看看具体情况<img src=""></p>
+                        </div>
+                        <div class="line2 right">
+
+                            <p class="word-p right">手指脱皮是什么原因？每年的这个季节都会脱皮，是不是人们常说的血热，需要抹
+                                什么药膏，能治好不让脱皮吗？
+                                <img src="">
+                            </p>
+                            <img class="right" src="images/head.jpg">
+                        </div>
+                        <div class="line2 right">
+                            <p class="word-p right">手指脱皮是什么原因？每年的这个季节都会脱皮，是不是人们常说的血热，需要抹
+                                什么药膏，能治好不让脱皮吗？
+                                <img src="">
+                            </p>
+                            <img class="right" src="images/head.jpg">
+                        </div>
+                    </div>
+                </section>
+                <section class="footer-bottom btn-footer clearFix">
+                    <button type="button" @click="goEvaluation()" class="evaluation-btn right">评价</button>
+                    <button type="button" @click="goConsult()" class="go-consult right">继续咨询</button>
+                </section>
+            </div>
+        </section>
+    </div>
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="swiper/swiper-3.4.2.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/user_login.js"></script>
+<script src="js/slider.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/leftNav.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data:{
+            contentData:'咳嗽严重，每天高烧不退 咳嗽严重，每有恶风、恶寒、畏寒之别。遇风觉冷，谓之恶风；自觉怕冷，多加衣被或近火取暖不能缓解者谓之恶寒谓之恶寒；自觉怕冷，多加衣被或近火取暖不能缓解者谓之恶寒谓之恶寒',
+            msg:'',
+            id:getparams('id'),
+            doctor:'',
+            headImg:'',
+            translates:'',
+            title:'',
+        },
+        mounted:function () {
+            getToken(this)
+            this.getData()
+        },
+        methods:{
+            goConsult:function () {
+                location.href="pic_word_pay.html";
+            },
+            goEvaluation:function () {
+                location.href = "now_evaluation.html"
+            },
+            getData:function () {
+                var that = this
+                axios.get(userApi+'/service/'+that.id)
+                    .then(function (res) {
+                        console.log(res.data)
+                        if(res.data.status == 200){
+                            that.doctor = res.data.data.service_details.doctor
+                            that.headImg = res.data.data.service_details.doctor.translates.avatar_img
+                            that.translates = res.data.data.service_details.doctor.translates
+                            that.title = res.data.data.title
+                        }
+                    })
+                    .catch(function (err) {
+                        linkLogin(that)
+                    })
+            }
+        }
+    })
+</script>
+</body>
+</html>

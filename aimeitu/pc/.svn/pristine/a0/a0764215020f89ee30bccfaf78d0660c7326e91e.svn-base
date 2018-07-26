@@ -1,0 +1,89 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+
+Vue.use(Router)
+// 首页
+const home = {
+    path: '/home',
+    name: 'home',
+    component: resolve => require(['../pages/home.vue'], resolve),
+}
+// 图片
+const picture = {
+    path: '/picture',
+    name: 'picture',
+    component: resolve => require(['../pages/picture.vue'], resolve),
+}
+// 图片详情
+const pictureDetail = {
+    path: '/pictureDetail',
+    name: 'pictureDetail',
+    component: resolve => require(['../pages/pictureDetail.vue'], resolve),
+}
+// 图片标签
+const pictureTag = {
+    path: '/pictureTag',
+    name: 'pictureTag',
+    component: resolve => require(['../pages/pictureTag.vue'], resolve),
+}
+// 视频
+const video = {
+    path: '/video',
+    name: 'video',
+    component: resolve => require(['../pages/video.vue'], resolve),
+}
+// 视频详情
+const videoDetail = {
+    path: '/videoDetail',
+    name: 'videoDetail',
+    component: resolve => require(['../pages/videoDetail.vue'], resolve),
+}
+// 视频标签
+const videoTag = {
+    path: '/videoTag',
+    name: 'videoTag',
+    component: resolve => require(['../pages/videoTag.vue'], resolve),
+}
+// 关于我们
+const about = {
+    path: '/about',
+    name: 'about',
+    component: resolve => require(['../pages/about.vue'], resolve),
+}
+// 下载App
+const download = {
+    path: '/download',
+    name: 'download',
+    component: resolve => require(['../pages/download.vue'], resolve),
+}
+// 模特加入
+const modelInJoin = {
+   path: '/modelInJoin',
+   name: 'modelInJoin',
+   component: resolve => require(['../pages/modelInJoin.vue'], resolve),
+}
+// 版权说明
+const copyright = {
+   path: '/copyright',
+   name: 'copyright',
+   component: resolve => require(['../pages/copyright.vue'], resolve),
+}
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      redirect: '/home'
+    },
+    home,
+    picture,
+    pictureDetail,
+    pictureTag,
+    video,
+    videoDetail,
+    videoTag,
+    about,
+    download,
+    modelInJoin,
+    copyright
+  ]
+})

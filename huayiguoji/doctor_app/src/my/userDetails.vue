@@ -1,0 +1,236 @@
+<template>
+	<div class="d6">
+		<headers headName="患者信息"></headers>
+		<div class="contentScollr">
+			<div class="head-top">
+				<p class="bg-p">
+				</p>
+				<div class="user-box">
+					<img class="head-img" :src="headImg" />
+					<p class="name">
+						{{name}}
+					</p>
+					<p class="hospital">
+						{{illness}}
+					</p>
+					<p class="department">
+						性别:{{sex}}&emsp;年龄:{{age}}岁
+					</p>
+				</div>
+			</div>
+		<div>
+			<p class="y-x-title">症状</p>
+			<div class="y-x-fengexian"></div>
+			<div class="y-x-miaoshu" v-html="symptom">
+			</div>
+		</div>
+		<div>
+			<p class="y-x-title">档案</p>
+			<div class="y-x-fengexian"></div>
+			<div class="y-x-miaoshu" v-html="archives">
+			</div>
+		</div>
+		<div class="footer_2" v-if="signStatus == 0">
+			<div><router-link :to="{ name: 'refuseWhy', params: {id:id} }" class="y_color_lan">拒绝签约</router-link></div>
+
+			<div @click="accept()">接受签约</div>
+		</div>
+		<div class="footer_2" v-if="signStatus == 1">
+			<div style="width:100%;background:#4cc6d8;color:#fff">已签约</div>
+		</div>
+		<div class="footer_2" v-if="signStatus == 2">
+			<div style="width:100%;background:#4cc6d8;color:#fff">已拒绝</div>
+		</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	import headers from '../components/Header'
+
+	export default {
+		name: 'd4twxq',
+		data() {
+			return {
+				title: "",
+				name: '',
+				bing: '',
+				sex: '',
+				age: '',
+				footer1Txt: "立即咨询",
+				footer1TxtUsl: '/d5twzxxq',
+				headImg:'',
+				symptom:'',
+				archives:'',
+				id:this.$route.params.id,
+				signStatus:'',
+				illness:'',
+			}
+		},
+		mounted(){
+			this.BaseSet.getToken(this)
+			this.queryUserMeg()
+		},
+		methods:{
+			accept(){
+				var that = this;
+		        this.$messagebox.confirm('确定签约?').then(action => {
+		            this.BaseSet.getToken(this)
+		              	this.$ajax.put(`/user/myuser/${this.id}`,{
+		                  	status: 1,
+		              	} )
+		              	.then((res)=> {
+		                  	this.$toast('签约成功')
+		                  	setTimeout(function(){
+		                      	that.$router.push(`/SignPatient`)
+		                  	},1500)
+		              	})
+		              	.catch((err)=> {
+		                  	this.$toast(err)
+		              	});
+		          	})
+		    },
+			queryUserMeg(){
+	          let userId = this.$route.params.id;
+	          this.BaseSet.getToken(this) //用户端token
+	          this.$ajax.get(`user/patient/${userId}`)
+	          .then((res)=>{
+	              let data = res.data.data;
+	              if(res.data.status==200){
+					  this.headImg = res.data.data.translates.avatar_img
+					  this.name = res.data.data.realname
+					  this.sex = res.data.data.translates.sex
+					  this.age = res.data.data.translates.age
+					  this.illness = res.data.data.illness
+					  this.symptom = res.data.data.symptom
+					  this.archives = res.data.data.archives
+					  this.signStatus = res.data.data.sign_status
+	              }
+	          })
+	          .catch((err)=>{
+	              console.log(err)
+	          })
+		  },
+		},
+		components: {
+			headers,
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+.d6{
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+}
+.contentScollr{
+	flex: 1;
+	overflow: scroll;
+	-webkit-overflow-scrolling:touch;
+}
+.head-top{
+	position: relative;
+	background: #fff;
+	//height: 11.6rem /* 463/40 */;
+	margin-bottom: .5rem /* 20/40 */;
+	.bg-p{
+		height:2.1rem /* 173/40 */;
+		background: #4cc6d8;
+	}
+	.user-box{
+		text-align: center;
+		height: 3.6rem /* 224/40 */;
+		.head-img{
+			position: absolute;
+			top: 0.4rem /* 64/40 */;
+			left: 7.7rem /* 309/40 */;
+			width: 3rem /* 120/40 */;
+			height: 3rem /* 120/40 */;
+			border: .1rem /* 4/40 */ solid #fff ;
+			border-radius: 50%;
+		}
+		.vip-img{
+			position: absolute;
+			width: .9rem /* 37/40 */;
+			height: 1rem /* 40/40 */;
+			top: 2.5rem /* 64/40 */;
+			left: 10rem;
+		}
+		.name{
+			font-size: .8rem /* 30/40 */;
+			color: #333;
+			margin-top: 2rem /* 82/40 */;
+			line-height: .8rem /* 30/40 */;
+		}
+		.hospital,.department{
+			font-size: .6rem /* 24/40 */;
+			color: #666;
+			margin-top: .5rem /* 19/40 */;
+			line-height: .6rem /* 24/40 */;
+		}
+	}
+	.top-btn{
+		margin-top: 3.8rem /* 153/40 */;
+		padding-bottom: 1.2rem /* 48/40 */;
+		.title{
+			font-size: .7rem /* 26/40 */;
+			color: #666;
+			margin-top: .5rem /* 20/40 */;
+			line-height: .7rem;
+		}
+
+		.left{
+			float: left;
+			text-align: center;
+			img{
+				width: 1.2rem /* 49/40 */;
+				height: 1rem /* 40/40 */;
+			}
+			margin-left: 3.5rem /* 141/40 */;
+		}
+		.right{
+			float: right;
+			text-align: center;
+			margin-right: 3.6rem /* 144/40 */;
+			img{
+				width: 1.4rem /* 54/40 */;
+				height: 1.1rem /* 46/40 */;
+			}
+		}
+	}
+}
+.y-x-miaoshu{
+	font-size: .7rem /* 28/40 */;
+	color:#333;
+	padding: .8rem /* 30/40 */ .4rem /* 15/40 */;
+	line-height: 1.2rem /* 48/40 */;
+	p{
+		font-size: .7rem /* 28/40 */;
+		color:#333;
+		line-height: 1.2rem /* 48/40 */;
+	}
+	img{
+		width: 100%;
+	}
+}
+	.kong147 {
+		height: 1rem;
+		background: #fff;
+		margin-bottom: 2.95rem;
+	}
+	.dnInner{
+		background: #fff;
+		padding: 0.75rem;
+	}
+	.pic_box{
+		width: 100%;
+		margin-top: 1.2rem;
+	}
+	.pic_box img{
+		width: 100%;
+	}
+	.x-miaoshu{
+		padding: 0.75rem;
+	}
+</style>

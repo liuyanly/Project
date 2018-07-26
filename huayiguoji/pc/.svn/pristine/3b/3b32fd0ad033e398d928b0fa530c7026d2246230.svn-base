@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>医院搜索结果</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/online_ask.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="3"></my-header>
+        </div>
+        <div class="search-box">
+            <p class="clearFix">
+                <input type="text" id="search-input" placeholder="请输入..." v-model="keySearch">
+                <span class="search-pic" @click="getHospital" style="cursor: pointer;">
+                    <img src="images/e1_sousuo.png">
+                </span>
+            </p>
+        </div>
+        <div class="main" style="padding-top: 10px;">
+            <section class="container">
+                <div class="content-box" style="min-height: 219px">
+                    <p v-show="isShow" style="text-align: center">暂无数据</p>
+                    <ul class="area-list">
+                        <li class="clearFix">
+                            <ul class="hospital-list">
+                                <li v-for="data in hospitalData" @click="hospitalInfo(data.id,data.title)" :class="{active:data.id == hospitalId}">
+                                    <p class="clearFix">
+                                        <span class="name" style="display: inline-block;height: 20px">{{data.title}}</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data: {
+                hospitalData: [],
+                hospitalId: '',
+                keySearch: '',
+                isShow: false
+            },
+            mounted: function () {
+
+                if (getparams("key").length > 0) {
+                    this.keySearch = getparams("key") || '';
+                    this.getHospital();
+                }
+            },
+            methods: {
+                hospitalInfo: function (id, name) {
+                    location.href = 'hospital_info.html?id=' + id + '&title=' + name;
+                },
+                //获取医院
+                getHospital: function () {
+                    var that = this;
+                    if (that.keySearch.length <= 0) {
+                        that.$message({
+                            message: '请输入搜索的城市或者医院名字',
+                            type: 'error'
+                        });
+                        return;
+                    }
+                    axios.get(userApi + '/hospital?m_s[title]=' + that.keySearch)
+                        .then(function (res) {
+                            if (res.status == 200) {
+                                that.isShow = false;
+                                if (res.data.data.length <= 0) {
+                                    that.isShow = true;
+                                    return;
+                                }
+                                that.hospitalData = res.data.data;
+                                console.log(that.hospitalData);
+                            }
+                        })
+                        .catch(function (err) {
+
+                        })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

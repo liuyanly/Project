@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>发布一对一</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="js/assets/css/amazeui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/font_icon/iconfont.css" />
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+		
+		<link rel="stylesheet" type="text/css" href="css/y_public.css" />
+<style type="text/css">
+			.y_header_yonghu span {
+				position: relative;
+				top: 2px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!--头部-->
+		<div class="header">
+			<div class="header_inner y_clear">
+				<div class="header_logo y_f_l"><img src="images/logo.png" /></div>
+				<ul class="header_nav y_f_l y_font_14">
+					<li>
+						<a href="h3_index.html" class="y_a_n ">首页</a>
+					</li>
+					<li class="cj y_p_r">
+						<a href="h5_createClass.html" class="y_a_n y_a_s">创建</a>
+						<div class="cj_inner">
+							<a href="javascript:video(0)">校园班级</a>
+							<a href="javascript:video(0)">辅导机构</a>
+						</div>
+					</li>
+					<li>
+						<a href="l1_wenjiao.html" class="y_a_n">文教中心</a>
+					</li>
+					<li>
+						<a href="m1_myManagement.html" class="y_a_n">我的管理</a>
+					</li>
+				</ul>
+				<div class="y_header_yonghu y_color_lan y_font_14 y_f_r">
+					<img src="images/huang.png" />
+					<span>阿拉丁</span>
+					<span><a href="" class="y_color_lan">【退出】</a></span>
+				</div>
+			</div>
+		</div>
+		<form class="y_inner formValidator">
+			<div style="clear: both;"></div>
+			<div class="h5_createClass">
+				<div class="h5_createClass_title"><span></span>发布一对一</div>
+			</div>
+			<!--基本-->
+			<div class="h5_classData">
+				<div class="h5_classData_title y_inner_padding">
+					<i class="icon iconfont icon-laoshi y_color_00 y_font_20"></i>
+					<span class="y_font_14 y_color_00">基本资料</span>
+					<span class="y_font_14 y_color_hong">(必填)</span>
+				</div>
+				<div class="y_border_b h5_banji_inner">
+					<div class="h5_banji y_margin_l_26 y_inner_padding">
+						<span class="y_font_14 y_color_57">老师姓名</span>
+						<input type="text" placeholder="请输入机构联系人姓名" class="banzhurenName y_border y_p_l_10" datatype="*"  nullmsg="请输入机构联系人姓名"/>
+						<span class="y_font_14 y_color_57 y_p_l_50">联系电话</span>
+						<input type="text" placeholder="请输入联系人电话" class="banzhurenName y_border y_p_l_10" datatype="m"  nullmsg="请输入联系人电话" errormsg="请输入正确的联系人电话！"/>
+
+					</div>
+					<div class="h5_dizhi info y_margin_l_26 y_inner_padding">
+						<div>
+							<span class="y_font_14 y_color_57">所在地址</span>
+							<select data-am-selected="{ btnStyle: 'secondary', maxHeight: 280}" id="s_province" name="s_province"></select>
+							<span class="y_font_14 y_color_lan sheng_txt">省／自治区</span>
+							<select data-am-selected="{ btnStyle: 'secondary', maxHeight: 280}" id="s_city" name="s_city"></select>
+							<span class="y_font_14 y_color_lan shi_txt">市</span>
+						</div>
+					</div>
+					<div class="h5_jiaoyu y_margin_l_26 y_inner_padding">
+						<span class="y_font_14 y_color_57">所在学校</span>
+						<select data-am-selected="{ btnStyle: 'secondary'}">
+							<option value="a">教育类型</option>
+							<option value="b">Banana</option>
+							<option value="o">Orange</option>
+							<option value="m">Mango</option>
+						</select>
+						<span class="y_font_14 y_color_57 y_p_l_30">年级</span>
+						<select data-am-selected="{ btnStyle: 'secondary'}">
+							<option value="a">年级</option>
+							<option value="b">Banana</option>
+							<option value="o">Orange</option>
+							<option value="m">Mango</option>
+						</select>
+					</div>
+					<div class="h5_banji y_margin_l_26 y_inner_padding">
+						<span class="y_font_14 y_color_57">擅长科目</span>
+						<input type="text" placeholder="请输入擅长的科目" class="y_width_826  y_border y_p_l_10 y_width_826 y_height_34" datatype="*"  nullmsg="请输入擅长的科目"/>
+
+					</div>
+					<div class="y_clear y_color_57 y_font_14 y_p_l_45 y_margin_t_30" style="margin-top: -8px;">
+						<span class="y_f_l y_p_r_5 y_p_t_15">个人简介</span>
+						<div style="float: left;">
+							<script id="introduction" type="text/plain" style="width:826px;height:173px;"></script>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!--授课信息-->
+			<div class="y_border_b y_p_b_20">
+				<div class="h5_classData_title y_inner_padding">
+					<i class="icon iconfont icon-xinxi y_color_00 y_font_20"></i>
+					<span class="y_font_14 y_color_00">授课信息</span>
+					<span class="y_font_14 y_color_hong">(必填)</span>
+				</div>
+				<div class="h5_banji  y_inner_padding  y_clear">
+					<div class="y_font_14 y_color_57 y_f_l y_p_r_20 y_p_l_20">授课对象</div>
+
+					<div class="am-form-group y_f_l y_color_21 y_font_14 width720 youjianjudecg ">
+						<div>
+
+							<label class="am-checkbox-inline y_p_r_30 y_p_l_30">
+								<input  type="radio" name="radio11" value="qiu" data-am-ucheck checked="checked"> 小学</label>
+							<label class="am-checkbox-inline y_p_r_30 y_p_l_30">
+    								<input type="radio" name="radio11" value="chun" data-am-ucheck> 初中</label>
+							<label class="am-checkbox-inline y_p_r_30 y_p_l_30">
+    							<input type="radio" name="radio11" value="shujia" data-am-ucheck> 高中</label>
+						</div>
+					</div>
+					<div class="h5_banji   y_clear y_p_t_25 y_p_l_20 " >
+						<span class="y_font_14 y_color_57 y_p_r_10">授课内容</span>
+						<input type="text" placeholder="请输入授课内容" class="y_width_826 y_height_34  y_p_l_10 " datatype="*"  nullmsg="请输入授课内容"/>
+
+					</div>
+					<div class="y_clear y_color_57 y_font_14  y_margin_t_20 y_margin_l_20">
+						<span class="y_display_inline-block y_font_14 y_color_57 y_p_r_10 y_p_t_15">授课地点</span>
+						<textarea name="" rows="" cols="" placeholder="请输入授课地点" class="y_p_t_10 y_p_l_10 y_width_826 y_height_64" datatype="*"  nullmsg="请输入授课地点"></textarea>
+						
+					</div>
+					<span class="y_font_14 y_color_hong y_p_l_20 y_margin_t_15 y_display_inline-block">风险提示：与家长联系或者前往授课时，请务必注意人身安全！建议告知亲友并留下联系方式或结伴前往。</span>
+
+				</div>
+
+			</div>
+			<div class="h5_yhxy  y_margin_t_5 y_p_b_40 y_margin_l_26">
+				<input id='xuanze1' class="y_checkbox " type="checkbox" />
+				<label class="y_checkbox_label " for="xuanze1"></label>
+				<span class="y_color_a3 y_font_12">确认创建表示已阅读并同意《<a href="javascript:void(0);" class="y_color_lan">用户协议</a>》</span>
+			</div>
+			<div class="y_btn y_p_b_30">
+				<button type="submit">确定发布</button>
+			</div>
+		</form>
+		<!--底部-->
+		<footer class="">
+			<div class="footer_inner">
+				<p>·免费声明·友情链接·网站地图·通讯录服务热线：400-080-9180</p>
+				<p>2008 学知非公司版权所有 闵 ICP 备05007286号 design by Clh</p>
+			</div>
+		</footer>
+
+		
+
+		<script src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/Validform_v5.1_min.js"></script>
+		<script type="text/javascript" src="js/layer/layer.js"></script>
+		<script src="js/assets/js/amazeui.min.js"></script>
+		<script src="js/y_public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/area.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/ueditor.all.min.js">
+		</script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/lang/zh-cn/zh-cn.js"></script>
+
+		<script type="text/javascript">
+			
+
+			//配置富文本框
+			var config = {
+				maximumWords: 300,
+				toolbars: [
+					[
+						'fullscreen', 'source', '|', 'undo', 'redo', '|',
+						'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+						'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+
+					]
+				]
+			}
+			var ue = UE.getEditor('introduction', config);
+			
+			
+
+			//选择地区
+			_init_area();
+			var Gid = document.getElementById;
+			var showArea = function() {
+				Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" +
+					Gid('s_city').value + " - 县/区" +
+					Gid('s_county').value + "</h3>"
+			}
+			$('#s_county').attr('onchange', 'showArea()');
+		</script>
+	</body>
+
+</html>

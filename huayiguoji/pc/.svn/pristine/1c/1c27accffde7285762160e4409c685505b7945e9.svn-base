@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>血糖评估</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/personal.css"/>
+    <link rel="stylesheet" href="css/question_surver.css"/>
+    <link rel="stylesheet" href="css/sign_detection.css"/>
+    <link rel="stylesheet" href="css/health_evaluation.css"/>
+    <link rel="stylesheet" href="css/blood_pressure_evaluation.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="6"></my-header>
+    </div>
+    <div class="main">
+        <section class="container clearFix">
+            <my-left-nav active="14"></my-left-nav>
+            <div class="right right-box" style="margin-bottom: 93px;min-height: 851px;">
+                <p class="header-title clearFix">健康评估</p>
+                <ul class="question-list clearFix">
+                    <li :class="{active:currentLi==0}" @click="changeLi(0)"><img src="images/f15_icon1.png" v-if="currentLi!=0"><img src="images/f15_icon1_p.png" v-if="currentLi==0">心血管评估</li>
+                    <li :class="{active:currentLi==1}" @click="changeLi(1)"><img src="images/f15_icon2.png" v-if="currentLi!=1"><img src="images/f15_icon2_p.png" v-if="currentLi==1">血压评估</li>
+                    <li :class="{active:currentLi==2}" @click="changeLi(2)"><img src="images/f15_icon3.png" v-if="currentLi!=2"><img src="images/f15_icon3_p.png" v-if="currentLi==2">血脂评估</li>
+                    <li :class="{active:currentLi==3}" @click="changeLi(3)"><img src="images/f15_icon4.png" v-if="currentLi!=3"><img src="images/f15_icon4_p.png" v-if="currentLi==3">血糖评估</li>
+                    <li :class="{active:currentLi==4}" @click="changeLi(4)"><img src="images/f15_icon5.png" v-if="currentLi!=4"><img src="images/f15_icon5_p.png" v-if="currentLi==4">健康报告深度解读</li>
+                </ul>
+                <div class="filter-box clearFix">
+                    <form id="" name="formDate">
+                        <p class="left pos date-select">
+                            <select name="year" onChange="YYYYDD(this.value)" @click="changeXia1(1)" @foucs="changeXia(0)">
+                                <option class="placeholder">选择年</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=1">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==1">
+                        </p>
+                        <p class="left pos date-select">
+                            <select name="month" onChange="MMDD(this.value)" @click="changeXia1(2)" @foucs="changeXia(0)">
+                                <option class="placeholder">选择月</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=2">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==2">
+                        </p>
+                        <p class="left pos date-select">
+                            <select name="day" onChange="DDD(this.value)" @click="changeXia1(3)" @foucs="changeXia(0)">
+                                <option class="placeholder">选择日</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=3">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==3">
+                        </p>
+                        <p class="btn-p left"><button type="button" class="filter-btn">查询</button> </p>
+                    </form>
+                </div>
+                <div class="section-box clearFix">
+                    <div class="left">
+                        <section class="s1">
+                            <p class="head-title">血糖状况</p>
+                            <table class="table-box">
+                                <thead>
+                                <tr>
+                                    <td>项目</td>
+                                    <td>数值</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>空腹血糖(FBG)</td>
+                                    <td>6mmol/L</td>
+                                </tr>
+                                <tr>
+                                    <td>餐后血糖(PBG)</td>
+                                    <td>1.26mmol/L</td>
+                                </tr>
+                                <tr>
+                                    <td>糖化血红蛋白(LDLC)</td>
+                                    <td>5.5%</td>
+                                </tr>
+                                <tr>
+                                    <td>降糖药服用</td>
+                                    <td>-</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                        <section class="s1">
+                            <p class="head-title">血糖风险评估</p>
+                            <table class="table-box">
+                                <thead>
+                                <tr>
+                                    <td>项目</td>
+                                    <td>内容</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>风险评分</td>
+                                    <td>27</td>
+                                </tr>
+                                <tr>
+                                    <td>风险分层</td>
+                                    <td>糖尿病高风险，建议监测空
+                                        腹血糖、餐后血糖. 必要时口
+                                        服葡萄糖耐量试验明确诊断。
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>建议</td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                    <section class="left s1">
+                        <p class="head-title">糖代谢状态</p>
+                        <table class="table-box">
+                            <thead>
+                            <tr>
+                                <td>状态</td>
+                                <td>你的血糖位置</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>正常</td>
+                                <td><!--<img src="../images/f20_icon1.png"/>--></td>
+                            </tr>
+                            <tr>
+                                <td>偏高</td>
+                                <td><!--<img src="../images/f20_icon1.png"/>--></td>
+                            </tr>
+                            <tr>
+                                <td>空腹血糖受损</td>
+                                <td><!--<img src="../images/f20_icon1.png"/>--></td>
+                            </tr>
+                            <tr>
+                                <td>糖耐量递减</td>
+                                <td><!--<img src="../images/f20_icon1.png"/>--></td>
+                            </tr>
+                            <tr>
+                                <td>空腹血糖受损+糖耐量递减</td>
+                                <td><!--<img src="../images/f20_icon1.png"/>--></td>
+                            </tr>
+                            <tr>
+                                <td>糖尿病可能性大</td>
+                                <td><img src="../images/f20_icon1.png"/></td>
+                            </tr>
+                            <tr>
+                                <td>糖尿病</td>
+                                <td><!--<img src="../images/f20_icon1.png"/>--></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                </div>
+            </div>
+
+        </section>
+    </div>
+    <my-footer></my-footer>
+    <login-box></login-box>
+
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/doctor_login.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/patient_leftNav.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/date.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data:{
+            currentLi:3,
+            questionType:0,
+            questionValue:'',
+            xiaType1:0,
+        },
+        mounted:function () {
+
+        },
+        methods:{
+            changeLi:function (num) {
+                this.currentLi=num;
+                if(num==0){
+                    location.href="health_evaluation.html";
+                }else if(num==1){
+                    location.href="blood_pressure_evaluation.html";
+                }else if(num==2){
+                    location.href="blood_fat_evaluation.html";
+                }else if(num==3){
+                    location.href="blood_sugar_evaluation.html";
+                }else{
+                    location.href="depth_analysis.html";
+                }
+            },
+            changeType:function () {
+                if(this.questionType==0){
+                    this.questionType=1;
+                }else{
+                    this.questionType=0;
+                }
+            },
+            changeXia1:function(num){
+                if(this.xiaType1==0){
+                    this.xiaType1=num;
+                }else{
+                    this.xiaType1=0;
+                }
+            },
+            upFile:function () {
+
+            },
+            changeChartDate:function (type) {
+                this.chartDate=type;
+            },
+            viewInfo:function () {
+                location.href='depth_analysis_info.html';
+            }
+        }
+    })
+</script>
+</body>
+</html>

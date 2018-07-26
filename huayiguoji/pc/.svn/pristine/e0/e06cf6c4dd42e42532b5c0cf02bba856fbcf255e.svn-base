@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><!-- 禁止百度转码 -->
+    <title>Title</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="layer/layer.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+</head>
+<body>
+<div id="page">
+<!--<header class="container">
+    <div class="login-area clearFix">
+        <p class="msg-center right">消息中心</p>
+        <p class="login-p right">
+            <a v-if="userId ==''" href="#" class="login-btn">登录</a>
+            <span v-if="userId !=''" class="already-login">Hi！毛杜拉</span>
+            <a href="#" v-if="userId ==''" class="register-btn">注册</a>
+            <span v-if="userId !=''" class="exit-login">退出</span>
+        </p>
+    </div>
+    <nav class="nav clearFix">
+        <div class="logo-box left"><img class="logo" src=""></div>
+        <ul class="nav-list right">
+&lt;!&ndash;
+            <li v-for="(data,index) in navList" v-bind:class="{active: active == index}" onclick="window.location.href = 'index.html'">{{data}}</li>
+&ndash;&gt;
+            <li class="active" v-bind:class="{active: active == 1}" onclick="window.location.href = 'index.html'">首页</li>
+            <li v-bind:class="{active: active == 2}" @click="link(1)">就医策划</li>
+            <li v-bind:class="{active: active == 3}" @click="link(2)">智能问诊</li>
+            <li v-bind:class="{active: active == 4}" @click="link(3)">在线咨询</li>
+            <li v-bind:class="{active: active == 5}" @click="link(4)">健康资讯</li>
+            <li v-bind:class="{active: active == 6}" @click="link(5)">论坛</li>
+            <li v-bind:class="{active: active == 7}" @click="link(6)">个人中心</li>
+        </ul>
+    </nav>
+</header>-->
+    <my-header active="0" :dataList="dataList"></my-header>
+    <my-slider></my-slider>
+    <!--<div class="chart-bar">
+        <div class="thermometer clearFix">
+            <p class="pub first clearFix"><span class="word">极高危</span><span class="bar"></span></p>
+            <p class="pub sec clearFix"><span class="word">高危</span><span class="bar"><span class="line"></span></span></p>
+            <p class="pub third clearFix"><span class="word">中危</span><span class="bar"><span class="line"></span></span></p>
+            <p class="pub fourth clearFix"><span class="word">低危</span><span class="bar"><span class="line"></span></span></p>
+        </div>
+        <div class="current clearFix" style="top:80%">
+            <span class="name left">我</span>
+            <span class="num left">5</span>
+            <span class="grade right">(低危)</span>
+        </div>
+    </div>-->
+    <my-thermometer></my-thermometer>
+    <section class="chart-box container">
+        <div class="time-filter">
+            <span class="active">周</span>
+            <span>月</span>
+            <span>日</span>
+        </div>
+        <div id="myChart" style="width: 1000px;height: 600px;margin: 0 auto;margin-top: 100px"></div>
+    </section>
+    <div id="myChart2" style="width: 1000px;height: 600px;margin: 0 auto;margin-top: 100px"></div>
+    <div id="myChart3" style="width: 1000px;height: 600px;margin: 0 auto;margin-top: 100px"></div>
+    <div id="myChart4" style="width: 396px;height: 280px;margin: 0 auto;margin-top: 100px"></div>
+    <el-pagination
+            layout="prev, pager, next"
+            :total=total>
+    </el-pagination>
+    <el-date-picker
+            v-model="value1"
+            type="date"
+            placeholder="选择日期">
+    </el-date-picker>
+    <section class="footer">
+        <div class="container">
+            <div class="QR-code clearFix">
+                <div class="official left">
+                    <img src="images/a1_erweima.png">
+                    <p>官方微信</p>
+                </div>
+                <div class="android left">
+                    <img src="images/a1_erweima.png">
+                    <p>Android APP</p>
+                </div>
+                <div class="iphone left">
+                    <img src="images/a1_erweima.png">
+                    <p>iphone APP</p>
+                </div>
+            </div>
+            <p class="info-p"><img src="user/images/a1_icon8.png"><span>0235-5924785</span></p>
+            <p class="info-p"><img src="user/images/a1_icon9.png"><span>北京市海淀区中关村</span></p>
+            <p class="link-title">友情链接</p>
+            <ul class="link-list clearFix">
+                <li><a href="#"> 搜狐健康</a></li>
+                <li><a href="#"> 春雨国际</a></li>
+                <li><a href="#"> 就医160</a></li>
+                <li><a href="#"> 360健康</a></li>
+                <li><a href="#"> 健康新闻</a></li>
+                <li><a href="#"> 搜狐健康</a></li>
+                <li><a href="#"> 春雨国际</a></li>
+                <li><a href="#"> 就医160</a></li>
+                <li><a href="#"> 360健康</a></li>
+                <li><a href="#"> 健康新闻</a></li>
+                <li><a href="#"> 春雨国际</a></li>
+                <li><a href="#"> 就医160</a></li>
+                <li><a href="#"> 360健康</a></li>
+                <li><a href="#"> 健康新闻</a></li>
+                <li><a href="#"> 健康新闻</a></li>
+                <li><a href="#"> 健康新闻</a></li>
+            </ul>
+            <p class="bottom-info">©8888888888.com 京ICP证888888号 京ICP备888888号 京公网安备8888888888号</p>
+            <p class="bottom-info">违法和不良信息举报电话：888888888</p>
+        </div>
+    </section>
+</div>
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="js/components/header.js"></script>
+<script src="swiper/swiper-3.4.2.min.js"></script>
+<script src="js/components/slider.js"></script>
+<script src="js/components/thermometer.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/chart.js"></script>
+<script>
+
+
+    var content=new Vue({
+        el:"#page",
+        props:['active'],
+        data:{
+            dataList:["首页","就医策划","智能问诊","在线咨询","健康资讯","论坛","个人中心"],
+            userId:1,
+            x_data:['12-18 2014','04-05 2015','10-12 2016','04-19 2016','10-28 2017'],
+            line1:[93,40,60,44,88],
+            line2:[60,50,80,65,54],
+            oneLine_x:['00:00 12-18'],
+            lineData:[90],
+            twoBar_data: [1.8, 0.75],
+            nameData:["10年风险","10年最优值"],
+            barName:'10年ASCVD风险',
+            barData:[4.12,4.88],
+            lineBarData: [6.2,7.4],
+            total:800,
+        },
+        mounted:function () {
+            twoLine(this.x_data,this.line1,this.line2,'myChart');
+            var that=this;
+            oneLine(this.oneLine_x,this.lineData,'myChart2');
+            twoBar(this.twoBar_data,'myChart3',this.nameData,this.barName);
+            barLine(this.lineBarData,this.barData,'myChart4')
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(function(){
+                that.$message({
+                type: 'success',
+                message: '删除成功!'
+                });
+            }).catch(function (){
+                    that.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
+        },
+        methods:{
+            getUserId:function () {
+
+            },
+            link:function (num) {
+                if(this.userId != ''){
+                    if(num == 1){
+
+                    }else if(num == 2){
+
+                    }else if(num == 3){
+
+                    }else if(num == 4){
+
+                    }else if(num == 5){
+
+                    }else{
+
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

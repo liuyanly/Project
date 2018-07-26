@@ -1,0 +1,441 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+
+//底部
+import footer from '@/components/parts/footer'
+import ffooter from '@/components/parts/ffooter'
+//页面
+import graphicConsulting from '@/service/graphicConsulting' //d4图文咨询
+import graphicConsultingDetails from '@/service/graphicConsultingDetails' //d5图文咨询详情
+import service from '../service/Service' // d1 服务
+import im from '@/msg/im' //就诊消息
+//5699
+import feedback from '@/my/feedback' //f17意见反馈
+import setUp from '@/my/setUp' //f18设置
+import mySigning from '@/my/mySigning' //F20我的签约
+import userDetails from '@/my/userDetails' //F21用户详情
+import refuseWhy from '@/my/refuseWhy' //F22拒绝原因
+import refuseConsult from '@/OnlineConsult/refuseConsult' //A7拒绝原因
+import changePassword from '@/login/changePassword' //F19修改密码
+import Login from '@/login/Login' //g1登录
+import forgotPassword from '@/login/forgotPassword' //g2忘记密码
+import Home from '@/home/Home' //首页
+import MyPatient from '@/patientManage/MyPatient' //我的患者
+import HealthManage from '@/patientManage/HealthManage' //会员详情
+import Monitoring from '@/patientManage/Monitoring' //体征监测
+import MonitoringDetail from '@/patientManage/MonitoringDetail' //血压监测
+import Intervention from '@/patientManage/Intervention' //健康干预
+import InterventionDetail from '@/patientManage/InterventionDetail' //健康干预详情
+import HealthAssessment from '@/patientManage/HealthAssessment' //健康评估
+import RiskAssessment from '@/patientManage/RiskAssessment' //风险评估
+import CardiovascularProfile from '@/patientManage/CardiovascularProfile' //心血管病风险评估
+import ReportIntervention from '@/patientManage/ReportIntervention' //健康报告深度解读
+import ReportInterventionDetail from '@/patientManage/ReportInterventionDetail' //健康报告深度解读详情
+import CheckReport from '@/patientManage/CheckReport' //体检报告
+import ReportDetail from '@/patientManage/ReportDetail' //体检报告详情
+import TestData from '@/patientManage/TestData' //检验数据
+import TrendMap from '@/patientManage/TrendMap' //趋势图
+import Survey from '@/patientManage/Survey' //问卷调查
+import BaseQuestion from '@/patientManage/BaseQuestion' //基础问卷
+import Follow from '@/patientManage/Follow' //跟踪随访
+import FollowDetail from '@/patientManage/FollowDetail' //跟踪随访详情
+import PublishFollow from '@/patientManage/PublishFollow' //发布随访
+import PublishTip from '@/patientManage/PublishTip' //发布提醒
+import OnlineConsult from '@/onlineConsult/OnlineConsult' //在线咨询
+import NoAccept from '@/onlineConsult/NoAccept' //未接受详情
+import MyWallet from '@/my/MyWallet' //我的钱包
+import WithdrawalsHaveCard from '@/my/WithdrawalsHaveCard' //提现-有银行卡
+import ChooseCard from '@/my/ChooseCard' //选择银行卡
+import AddCard from '@/my/AddCard' //添加银行卡
+import MyData from '@/my/MyData' //我的资料
+import My from '@/my/My' //我的
+import TrueName from '@/my/TrueName' //姓名
+import Tel from '@/my/Tel' //联系电话
+import Hospital from '@/my/Hospital' //医院
+import Department from '@/my/Department' //科室
+import GoodAt from '@/my/GoodAt' //擅长
+import EducationalBackground from '@/my/EducationalBackground' //教育背景
+import Achievements from '@/my/Achievements' //教育背景
+import Address from '@/my/Address' //住址
+import PatientDetails from '../service/patientDetails' // 患者详情
+import ServiceProgress from '../service/ServiceProgress' // 服务进度
+import BasicMaterial from '../service/BasicMaterial' // 基本资料
+import PublishIntervention from '../patientManage/PublishIntervention' // 发布干预
+import ChooseTemplate from '../patientManage/ChooseTemplate' // 选择模板
+import PressureAssessment from '../patientManage/PressureAssessment' // 血压评估
+import BloodFatAssessment from '../patientManage/BloodFatAssessment' // 血脂风险评估
+import BloodSugarAssessment from '../patientManage/BloodSugarAssessment' // 血糖评估
+import OtherAssessment from '../patientManage/OtherAssessment' //其他风险评估
+import Triage from '../service/Triage'; // 分诊
+import ToConsult from '../consult/Consult'; // 电话咨询&视频咨询
+import Message from '@/msg/Message' //消息
+import DoctorMsg from '@/msg/DoctorMsg' //就诊消息
+import MsgDetail from '@/msg/MsgDetail' //消息详情
+import SignPatient from '@/my/SignPatient' //签约患者
+import PublishMsg from '@/msg/PublishMsg' //发布消息
+import ChoosePatient from '@/msg/ChoosePatient' //选择患者
+import MyHuimeiPatient from '@/huimei/MyPatient' //我的患者
+import HuimeiResult from '@/huimei/huimeiResult' //慧每决策结果
+
+
+Vue.use(Router)
+
+export default new Router({
+    routes: [{
+            path: '/footer',
+            name: 'footer',
+            component: footer
+        },
+        {
+            path: '/service',
+            name: 'service',
+            component: service
+        },
+        {
+            path: '/feedback',
+            name: 'feedback',
+            component: feedback
+        },
+        {
+            path: '/setUp',
+            name: 'setUp',
+            component: setUp
+        },
+        {
+            path: '/changePassword',
+            name: 'changePassword',
+            component: changePassword
+        },
+        {
+            path: '/forgotPassword',
+            name: 'forgotPassword',
+            component: forgotPassword
+        },
+        {
+            path: '/mySigning',
+            name: 'mySigning',
+            component: mySigning
+        },
+        {
+            path: '/userDetails/:id',
+            name: 'userDetails',
+            component: userDetails
+        },
+        {
+            path: '/Home',
+            name: 'Home',
+            component: Home
+        },
+        {
+            path: '/',
+            name: 'Login',
+            component: Login
+        },
+        {
+            path: '/MyPatient',
+            name: 'MyPatient',
+            component: MyPatient
+        },
+        {
+            path: '/HealthManage/:id',
+            name: 'HealthManage',
+            component: HealthManage
+        },
+        {
+            path: '/Monitoring',
+            name: 'Monitoring',
+            component: Monitoring
+        },
+        {
+            path: '/MonitoringDetail/:id',
+            name: 'MonitoringDetail',
+            component: MonitoringDetail
+        },
+        {
+            path: '/Intervention',
+            name: 'Intervention',
+            component: Intervention
+        },
+        {
+            path: '/InterventionDetail/:id/:title',
+            name: 'InterventionDetail',
+            component: InterventionDetail
+        },
+        {
+            path: '/HealthAssessment',
+            name: 'HealthAssessment',
+            component: HealthAssessment
+        },
+        {
+            path: '/RiskAssessment/:id/:title',
+            name: 'RiskAssessment',
+            component: RiskAssessment
+        },
+        {
+            path: '/ReportIntervention',
+            name: 'ReportIntervention',
+            component: ReportIntervention
+        },
+        {
+            path: '/ReportInterventionDetail/:id',
+            name: 'ReportInterventionDetail',
+            component: ReportInterventionDetail
+        },
+        {
+            path: '/CheckReport',
+            name: 'CheckReport',
+            component: CheckReport
+        },
+        {
+            path: '/ReportDetail/:id',
+            name: 'ReportDetail',
+            component: ReportDetail
+        },
+        {
+            path: '/TestData/:id/:fieldId/:title',
+            name: 'TestData',
+            component: TestData
+        },
+        {
+            path: '/TrendMap/:title/:reId',
+            name: 'TrendMap',
+            component: TrendMap
+        },
+        {
+            path: '/Survey',
+            name: 'Survey',
+            component: Survey
+        },
+        {
+            path: '/BaseQuestion',
+            name: 'BaseQuestion',
+            component: BaseQuestion
+        },
+        {
+            path: '/Follow',
+            name: 'Follow',
+            component: Follow
+        },
+        {
+            path: '/FollowDetail/:id/:type',
+            name: 'FollowDetail',
+            component: FollowDetail
+        },
+        {
+            path: '/PublishFollow',
+            name: 'PublishFollow',
+            component: PublishFollow
+        },
+        {
+            path: '/PublishTip/:id',
+            name: 'PublishTip',
+            component: PublishTip
+        },
+        {
+            path: '/OnlineConsult/:type',
+            name: 'OnlineConsult',
+            component: OnlineConsult
+        },
+        {
+            path: '/NoAccept/:id/:type',
+            name: 'NoAccept',
+            component: NoAccept
+        },
+        {
+            path: '/refuseWhy/:id',
+            name: 'refuseWhy',
+            component: refuseWhy
+        },
+        {
+            path: '/graphicConsulting/:id/:userId/:status',
+            name: 'graphicConsulting',
+            component: graphicConsulting
+        },
+        {
+            path: '/graphicConsultingDetails/:id',
+            name: 'graphicConsultingDetails',
+            component: graphicConsultingDetails
+        },
+        {
+            path: '/My',
+            name: 'My',
+            component: My
+        },
+        {
+            path: '/MyWallet',
+            name: 'MyWallet',
+            component: MyWallet
+        },
+        {
+            path: '/WithdrawalsHaveCard',
+            name: 'WithdrawalsHaveCard',
+            component: WithdrawalsHaveCard
+        },
+        {
+            path: '/ChooseCard',
+            name: 'ChooseCard',
+            component: ChooseCard
+        },
+        {
+            path: '/AddCard',
+            name: 'AddCard',
+            component: AddCard
+        },
+        {
+            path: '/MyData',
+            name: 'MyData',
+            component: MyData
+        },
+        {
+            path: '/TrueName',
+            name: 'TrueName',
+            component: TrueName
+        },
+        {
+            path: '/Tel',
+            name: 'Tel',
+            component: Tel
+        },
+        {
+            path: '/Hospital',
+            name: 'Hospital',
+            component: Hospital
+        },
+        {
+            path: '/Department',
+            name: 'Department',
+            component: Department
+        },
+        {
+            path: '/GoodAt',
+            name: 'GoodAt',
+            component: GoodAt
+        },
+        {
+            path: '/EducationalBackground',
+            name: 'EducationalBackground',
+            component: EducationalBackground
+        },
+        {
+            path: '/Achievements',
+            name: 'Achievements',
+            component: Achievements
+        },
+        {
+            path: '/Address',
+            name: 'Address',
+            component: Address
+        },
+        {
+            path: '/patientDetails/:id',
+            name: 'patientDetails',
+            component: PatientDetails
+        },
+        {
+            path: '/serviceProgress/:userId',
+            name: 'serviceProgress',
+            component: ServiceProgress
+        },
+        {
+            path: '/basicMaterial/:userId',
+            name: 'basicMaterial',
+            component: BasicMaterial
+        },
+        {
+            path: '/triage',
+            name: 'triage',
+            component: Triage
+        },
+        {
+            path: '/toConsult/:id/:userId/:type/:status',
+            name: 'toConsult',
+            component: ToConsult
+        },
+        {
+            path: '/PublishIntervention/:id/:title',
+            name: 'PublishIntervention',
+            component: PublishIntervention
+        },
+        {
+            path: '/ChooseTemplate/:id',
+            name: 'ChooseTemplate',
+            component: ChooseTemplate
+        },
+        {
+            path: '/PressureAssessment',
+            name: 'PressureAssessment',
+            component: PressureAssessment
+        },
+        {
+            path: '/OtherAssessment/:id/:title',
+            name: 'OtherAssessment',
+            component: OtherAssessment
+        },
+        {
+            path: '/BloodFatAssessment',
+            name: 'BloodFatAssessment',
+            component: BloodFatAssessment
+        },
+        {
+            path: '/BloodSugarAssessment',
+            name: 'BloodSugarAssessment',
+            component: BloodSugarAssessment
+        },
+        {
+            path: '/CardiovascularProfile',
+            name: 'CardiovascularProfile',
+            component: CardiovascularProfile
+        },
+        {
+            path: '/Message',
+            name: 'Message',
+            component: Message
+        },
+        {
+            path: '/im/:id',
+            name: 'im',
+            component: im
+        },
+        {
+            path: '/DoctorMsg/:id',
+            name: 'DoctorMsg',
+            component: DoctorMsg
+        },
+        {
+            path: '/MsgDetail/:id',
+            name: 'MsgDetail',
+            component: MsgDetail
+        },
+        {
+            path: '/SignPatient',
+            name: 'SignPatient',
+            component: SignPatient
+        },
+        {
+            path: '/refuseConsult/:id',
+            name: 'refuseConsult',
+            component: refuseConsult
+        },
+        {
+            path: '/PublishMsg/:patientId',
+            name: 'PublishMsg',
+            component: PublishMsg
+        },
+        {
+            path: '/ChoosePatient/:patientId',
+            name: 'ChoosePatient',
+            component: ChoosePatient
+        },
+        {
+            path: '/MyHuimeiPatient',
+            name: 'MyHuimeiPatient',
+            component: MyHuimeiPatient
+        },
+        {
+            path: '/HuimeiResult',
+            name: 'HuimeiResult',
+            component: HuimeiResult
+        }
+
+    ]
+})

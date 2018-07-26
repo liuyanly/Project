@@ -1,0 +1,254 @@
+export default {
+    install(Vue, options) {
+        //挂载全局变量
+        Vue.prototype.BaseSet = baseset;
+        Vue.prototype.native = native;
+        //设置动态计算rem
+        window.rootFont = function() {
+            var doc = document;
+            var win = window;
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = doc.body.clientWidth;
+                    /*clientWidth = $(window).width();*/
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 40 * (clientWidth / 750) + 'px';
+                    if (docEl.style.fontSize) {
+                        doc.getElementById('app').style.display = "block";
+                    } else {
+                        doc.getElementById('app').style.display = "block";
+                    }
+                };
+
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        }();
+
+    }
+}
+//全局变量与全局方法
+let baseset = {
+    //	baseurl:'http://api.lhzy.dev',
+    baseurl: 'http://api.larawos.com',
+    setInfo: function(key, value) {
+        localStorage.setItem(key, value);
+    },
+    getInfo: function(key) {
+        var result = localStorage.getItem(key);
+        if (result == null || result == "" || result == undefined || result == "null") {
+            result = localStorage.getItem(key);
+        }
+        return result;
+    },
+    //获取token
+    getToken: function(el) {
+        if (el.BaseSet.getInfo('userInfo')) {
+            el.$ajax.defaults.headers.common["Authorization"] = 'Bearer ' + JSON.parse(el.BaseSet.getInfo('userInfo')).api_token
+                //el.$ajax.defaults.headers.common["Authorization"] ='Bearer c04ef760f28fb98f3334d29f331947d2'
+        } else {
+            el.BaseSet.linkLogin(el)
+        }
+    },
+    //token失效跳登录
+    linkLogin: function(that) {
+        that.$toast('请重新登录')
+        setTimeout(function() {
+            that.$router.push({ 'name': 'Login' })
+        }, 1500)
+    },
+    //获取城市
+    getAddress(el) {
+        let that = el
+        that.$ajax.get('/region?status=0')
+            .then(function(res) {
+                if (res.data.status == 200) {
+                    that.cityArr[0].values = res.data.data;
+                    that.cityArr[1].values = res.data.data[0].city
+                    that.cityArr[2].values = res.data.data[0].city[0].area
+                } else {
+                    el.$toast(res.data.message)
+                }
+            })
+            .catch(function(err) {
+                that.$toast(err)
+            })
+    },
+    //城市赋值
+    setCity: function(el, picker, values) {
+        var that = el;
+        if (values[0] != undefined && values[1] != undefined) { //这个判断类似于v-if的效果（可以不加，但是vue会报错）
+            let index = that.cityArr[0].values.indexOf(values[0])
+            picker.setSlotValues(1, that.cityArr[0].values[index].city) //Object.keys()会返回一个数组，当前省的数组
+            let cityIndex = that.cityArr[0].values[index].city.indexOf(values[1])
+            if (cityIndex != -1) {
+                picker.setSlotValues(2, that.cityArr[0].values[index].city[cityIndex].area) //区/县数据就是一个数组
+            } else if (cityIndex == -1) {
+                picker.setSlotValues(2, that.cityArr[0].values[index].city[0].area) //区/县数据就是一个数组
+            }
+            if (values[2] == undefined) {
+                values[2] = that.cityArr[0].values[index].city[cityIndex].area[0]
+            }
+            that.changeCity = values
+        }
+    },
+    //选择城市并获取值
+    setCityVal: function(el) {
+        var that = el
+        that.popupStatus = false;
+        console.log(that.changeCity)
+        if (that.changeCity[1] != undefined && that.changeCity[2] != undefined) {
+            that.city = that.changeCity[0].title + ' ' + that.changeCity[1].title + ' ' + that.changeCity[2].title
+            that.areaId = that.changeCity[2].id
+            that.provinceId = that.changeCity[0].id
+            that.cityId = that.changeCity[1].id
+        }
+    }
+}
+window.back = function() {
+    var status = 0;
+    if (window.history.length > 0) {
+        window.history.go(-1);
+    } else {
+        this.native.exit();
+    }
+}
+var nativeWithinIOS = {
+    shared: function(params) {
+        window.parent.shared(JSON.stringify(params))
+    },
+    //上传头像
+    photo: function(params) {
+        window.parent.photo(JSON.stringify(params))
+    },
+    //多图上传
+    weChatPay: function(params) {
+        window.parent.weChatPay(JSON.stringify(params))
+    },
+    //微信支付
+    aliPay: function(params) {
+        window.parent.aliPay(JSON.stringify(params))
+    },
+    //语音搜索
+    Speak: function(params) {
+        window.parent.Speak(JSON.stringify(params))
+    },
+    SpeakEnd: function(params) {
+        window.parent.SpeakEnd(JSON.stringify(params))
+    },
+    SpeakCallback: function(params) {
+        window.parent.SpeakCallback(JSON.stringify(params))
+    },
+    gps: function() {
+        var val = window.parent.gps();
+    },
+    im: function(params) {
+        window.parent.im(JSON.stringify(params))
+    },
+    live: function(params) {
+        window.parent.live(JSON.stringify(params))
+    },
+    call: function(params) {
+        window.parent.call(JSON.stringify(params))
+    },
+    webView: function(params) {
+        window.parent.webView(JSON.stringify(params))
+    },
+    exit: function() {
+        window.parent.exit()
+    }
+}
+var nativeWithinAndroid = {
+    photo: function(params) {
+        window.parent.user_app.photo(JSON.stringify(params))
+    },
+    shared: function(params) {
+        window.parent.user_app.shared(JSON.stringify(params))
+    },
+    //上传头像
+    weChatPay: function(params) {
+        window.parent.user_app.weChatPay(JSON.stringify(params))
+    },
+    //多图
+    aliPay: function(params) {
+        window.parent.user_app.aliPay(JSON.stringify(params))
+    },
+    //微信支付
+    Speak: function(params) {
+        window.parent.user_app.Speak(JSON.stringify(params))
+    },
+    //语音搜索
+    SpeakEnd: function(params) {
+        window.parent.user_app.SpeakEnd(JSON.stringify(params))
+    },
+    gps: function() {
+        var val = window.parent.user_app.gps();
+    },
+    im: function(params) {
+        window.parent.user_app.im(JSON.stringify(params))
+    },
+    live: function(params) {
+        window.parent.user_app.live(JSON.stringify(params))
+    },
+    call: function(params) {
+        window.parent.user_app.call(params)
+    },
+    webView: function(params) {
+        window.parent.user_app.webView(params)
+    },
+    exit: function() {
+        window.parent.user_app.exit()
+    }
+
+}
+var nativeWithinPC = {
+    photo: function(params) {
+        console.log(params)
+    },
+    shared: function(params) {
+        console.log(params)
+    },
+    weChatPay: function(params) {
+        console.log(params)
+    },
+    //微信支付
+    weChatPay: function(params) {
+        console.log(params)
+    },
+    Speak: function(params) {
+        console.log(params)
+    },
+    SpeakEnd: function(params) {
+        console.log(params)
+    },
+    gps: function() {
+        console.log("隐藏")
+    },
+    im: function(params) {
+        console.log("隐藏")
+    },
+    live: function(params) {
+        console.log("隐藏")
+    },
+    call: function(params) {
+        console.log("隐藏")
+    },
+    webView: function(params) {
+        window.location.href = params.url;
+    },
+    exit: function() {
+        window.parent.user_app.exit()
+    }
+}
+
+let native;
+var userAgent = navigator.userAgent,
+    isAndroid = userAgent.indexOf('Android') > -1 || userAgent.indexOf('Adr') > -1,
+    isiOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+if (isiOS) {
+    native = nativeWithinIOS;
+} else if (isAndroid) {
+    native = nativeWithinAndroid;
+} else {
+    native = nativeWithinPC;
+}

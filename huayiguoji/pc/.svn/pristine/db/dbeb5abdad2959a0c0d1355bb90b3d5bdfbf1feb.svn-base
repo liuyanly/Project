@@ -1,0 +1,232 @@
+@import "variable";
+.main{
+  .input-p{
+    margin-bottom: 20px;
+    line-height: 30px;
+    input{
+      background: #FAFBFF;
+    }
+  }
+}
+.content-box{
+  padding: 0 221px;
+  .head-box{
+    margin-top: 28px;
+    .pic-box{
+      position: relative;
+      width: 70px;
+      height: 70px;
+      margin: 0 auto;
+    }
+    .head-img{
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      position: absolute;
+      top:0;
+      left: 0;
+      opacity: 0;
+      z-index: 100;
+    }
+    .head-pic{
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      position: absolute;
+      top:0;
+      left: 0;
+      z-index: 99;
+    }
+    .tip{
+      margin-top: 9px;
+      .color999(14px,#999);
+      text-align: center;
+      margin-bottom: 17px;
+    }
+  }
+}
+.form-box{
+  margin-bottom: 27px;
+  .name{
+    .color999(14px,#999);
+    width: 60px;
+    text-align: right;
+    margin-right: 15px;
+  }
+  input{
+
+  }
+  .sex-p{
+    position: relative;
+    input{
+      position: absolute;
+      width: 18px;
+      height: 18px;
+    }
+    img{
+
+    }
+    input[type = "radio"] {
+      position: absolute;
+      left: 0;
+      top:1px;
+      width: 18px;
+      height: 18px;
+      opacity: 0;
+    }
+    .sex-name{
+      margin-left: 5px;
+      .color999(14px,#333);
+    }
+  }
+}
+.input-p{
+  .name-label{
+    line-height: 36px;
+  }
+  .nickName{
+    width: 214px;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 10px;
+    border: 1px solid #eff1fa;
+    border-radius: 3px;
+  }
+}
+
+.choose-box{
+  .name{
+    line-height: 30px;
+  }
+}
+.btn-p{
+  .save-btn{
+    border: none;
+    width: 136px;
+    height: 40px;
+    line-height: 40px;
+    background: #4CC6D8;
+    .color999(14px,#fff);
+    text-align: center;
+    border-radius: 3px;
+    margin-left: 75px;
+  }
+}
+.pos{
+  position: relative;
+  width: 114px;
+  height: 30px;
+  margin-right: 9px;
+  &:last-child{
+    margin-right: 0;
+  }
+  .xiaLa{
+    position: absolute;
+    right:6px;
+    top:11px;
+  }
+}
+.date-select{
+  select{
+    width: 114px;
+    height:30px;
+    line-height: 30px;
+    border: 1px solid #eff1fa;
+    border-radius: 3px;
+    padding-left:10px ;
+    //opacity: 0;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    .color999(14px,#999);
+    outline-width: 1px;
+    background: #FAFBFF;
+    option{
+      .color999(14px,#999);
+      padding: 20px;
+      width: 114px;
+      text-align: center;
+      height: 34px;
+      display: inline-block;
+      line-height: 34px;
+      border-bottom: none;
+    }
+    .placeholder{
+      display: none;
+      .color999(14px,#999);
+    }
+  }
+  select::-ms-expand { display: none; }
+  select:focus {
+     border-color: #409EFF;
+  }
+  select:hover  {
+    border-color: #b4bccc;
+  }
+}
+
+.doctor-data{
+  padding:0 221px 0 178px ;
+  .name{
+    width: 102px;
+  }
+  .save-btn{
+    margin-left: 117px;
+    margin-bottom: 70px;
+  }
+  .text-p{
+    .Validform_checktip{
+      float: right;
+    }
+    .name{
+      line-height: 30px;
+    }
+    textarea{
+      width:362px;
+      height:100px;
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 3px;
+      .color999(14px,#333);
+      resize: none;
+      border: 1px solid #eff1fa;
+    }
+  }
+}
+.el-input__inner{
+
+}
+.el-input__inner::-webkit-input-placeholder { /* WebKit browsers */
+  color:    #999;
+}
+.el-input__inner:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:    #999;
+}
+.el-input__inner::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:    #999;
+}
+.el-input__inner:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color:    #999;
+}
+.el-input__prefix{
+  display: none;
+}
+.el-date-editor.el-input, .el-date-editor.el-input__inner {
+  width: 114px;
+}
+.el-input--prefix .el-input__inner {
+  padding-left: 10px;
+}
+.el-input__inner{
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid #eff1fa;
+  background: #FAFBFF;
+  //line-height: 28px;
+}
+.el-input--suffix .el-input__inner {
+  padding-right:0
+}
+.el-input__suffix {
+  display: none;
+}

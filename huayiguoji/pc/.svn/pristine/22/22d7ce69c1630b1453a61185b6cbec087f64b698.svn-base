@@ -1,0 +1,131 @@
+@import "variable";
+
+.section-box{
+  margin-top: 31px;
+  margin-left: 15px;
+  .head-title{
+    padding: 0 12px;
+    .color999(16px,#4cc6d8);
+    font-family: PingFangSC-Medium;
+    font-weight: 600;
+    line-height: 38px;
+    border: 1px solid #e5e5e5;
+    border-bottom: none;
+    background: #eee;
+    .right{
+      .color999(16px,#666);
+      font-weight: 500;
+      img{
+        margin-right: 7px;
+      }
+      span:nth-of-type(1){
+        margin-right: 20px;
+      }
+    }
+  }
+  .table-box{
+    width: 100%;
+    tr,td{
+      border: 1px solid #e5e5e5;
+      .color999(14px,#666);
+      padding:15px 10px;
+      //height: 47px;
+      line-height: 16px;
+      vertical-align: middle;
+      box-sizing: border-box;
+    }
+    thead{
+      td{
+        .color999(14px,#333);
+      }
+    }
+    tbody{
+      tr:nth-child(2n-1){
+        background: #F9F6F6;
+      }
+    }
+  }
+  .table-box2{
+    td:nth-of-type(1){
+      width: 54px;
+    }
+  }
+  .s2{
+    .content{
+      margin-bottom: 96px;
+    }
+    .table-box{
+      width: 828px;
+    }
+    td{
+      padding: 10px;
+      text-align: center;
+      line-height: 16px;
+      width: 160px;
+      img{
+        width: 25px;
+        height: 25px;
+      }
+    }
+    tr{
+      td:last-of-type{
+        width: 170px;
+      }
+    }
+    .current{
+      position: relative;
+      border: 2px solid #4CC6D8;
+      .absolute{
+        top:0;
+        left: 73px;
+        color: #4EC7D9;
+      }
+    }
+    .firstTd{
+      text-align: left;
+    }
+    td:nth-of-type(1){
+      width: 160px;
+    }
+    .lastTr{
+      height: 82px;
+    }
+    .firstTr{
+      height: 58px;
+      .title{
+        color: #999;
+        line-height: 16px;
+      }
+    }
+  }
+  .s1{
+    width: 396px;
+    margin-bottom: 24px;
+    td{
+      width: 198px;
+    }
+    .content-word{
+      padding: 23px 11px;
+      line-height: 28px;
+      .color999(14px,#4cc6d8);
+      border: 1px solid #e5e5e5;
+      height: 188px;
+    }
+    .autoHeight{
+      height: auto;
+    }
+    &:nth-of-type(1){
+      margin-right: 35px;
+    }
+
+  }
+}
+.thermometer-chart .best{
+  left: 143px;
+}
+.thermometer-chart .high,.thermometer-chart .middle,.thermometer-chart .low{
+  left: 156px;
+}
+.thermometer-chart .current{
+  left: 205px;
+}

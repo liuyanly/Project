@@ -1,0 +1,101 @@
+@import "../../less/variable";
+
+.pay-p{
+  position: relative;
+  padding: 20px 14px 21px 14px;
+  .borderBottom(1px,solid,#EFF1FA );
+  input[type = "radio"] {
+    position: absolute;
+    left: 14px;
+    top:23px;
+    width: 18px;
+    height: 18px;
+    opacity: 0;
+  }
+
+  label{
+    .color999(14px,#000);
+  }
+  .type-img{
+    margin-right: 8px;
+    margin-left: 21px;
+  }
+  .tip{
+    .color999(12px,#666)
+  }
+}
+.son-box{
+  padding-left: 43px;
+  margin-top: 19px;
+  .money-input{
+    margin-bottom: 20px;
+    .title{
+      .color999(14px,#999);
+      margin-right: 17px;
+    }
+    input{
+      padding: 0 11px;
+      width: 214px;
+      height: 28px;
+      line-height: 28px;
+      border-radius: 3px;
+      border: 1px solid #eff1fa;
+      color:#333;
+      font-size: 14px;
+    }
+  }
+  .pay-p{
+    padding: 0;
+    border-bottom: none;
+    margin-bottom: 24px;
+    input[type = "radio"] {
+      position: absolute;
+      left: 0;
+      top:4px;
+      width: 18px;
+      height: 18px;
+      opacity: 0;
+    }
+  }
+  .recharge-info{
+    margin-left: 85px;
+    width: 216px;
+    height: 167px;
+    border: 1px solid #eff1fa;
+    background: #FAFBFF;
+    padding: 8px 9px;
+    border-radius: 3px;
+    p{
+      line-height: 20px;
+      color: #333;
+      font-size: 14px;
+    }
+  }
+  .pic-box{
+    margin-top: 20px;
+    .pic-word{
+      text-align: right;
+      width: 70px;
+      .color999(14px,#999);
+      margin-right: 15px;
+    }
+  }
+}
+.btn-p{
+  .pay-btn{
+    width:136px;
+    height:40px;
+    background:rgba(76,198,216,1);
+    border-radius: 3px ;
+    .color999(14px,#fff);
+    line-height: 40px;
+    text-align: center;
+    border: none;
+    margin-top: 30px;
+    margin-left: 14px;
+    cursor: pointer;
+  }
+  .marginLeft{
+    margin-left: 112px;
+  }
+}

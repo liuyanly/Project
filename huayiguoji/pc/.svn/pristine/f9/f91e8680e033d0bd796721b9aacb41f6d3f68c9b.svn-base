@@ -1,0 +1,67 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.consult_list li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eff1fa;
+}
+.consult_list li .img-p {
+  margin-right: 14px;
+}
+.consult_list li .img-p img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.consult_list li .user-detail {
+  width: 253px;
+}
+.consult_list li .user-detail .person-name {
+  font-size: 14px;
+  color: #000;
+  margin-top: 5px;
+  margin-bottom: 7px;
+}
+.consult_list li .user-detail .person-name span {
+  color: #999;
+}
+.consult_list li .user-detail .hospital-name {
+  font-size: 12px;
+  color: #4cc6d8;
+}
+.consult_list li .user-detail .consult-status {
+  font-size: 12px;
+  color: #999;
+  line-height: 40px;
+}
+.consult_list li .time {
+  font-size: 12px;
+  color: #999;
+  margin-left: 116px;
+  line-height: 40px;
+}
+.consult_list li .operation {
+  margin-right: 16px;
+}
+.consult_list li .operation img {
+  margin-top: 13px;
+}
+.consult_list li .operation span {
+  display: inline-block;
+  width: 60px;
+  height: 24px;
+  background: #4cc6d8;
+  border-radius: 3px ;
+  color: #fff;
+  text-align: center;
+  line-height: 24px;
+  margin-top: 8px;
+}

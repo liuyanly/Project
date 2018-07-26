@@ -1,0 +1,116 @@
+@import "variable";
+
+.vip-box{
+  >li{
+    padding: 23px 14px;
+    .borderBottom(1px,solid,#EFF1FA);
+    .img-p{
+      width: 204px;
+      height: 93px;
+      border-radius: 6px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      text-align: center;
+      line-height: 93px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .v1{
+      background: url("../images/f69_v1.png");
+    }
+    .v2{
+      background: url("../images/f69_v2.png");
+    }
+    .v3{
+      background: url("../images/f69_v3.png");
+    }
+    .v4{
+      background: url("../images/f69_v4.png");
+    }
+    .c1,.c2{
+      margin-left: 13px;
+      height: 89px;
+      padding: 2px 0;
+      display: flex;
+      display:-webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction:column;
+      flex-wrap:wrap;
+      -webkit-flex-wrap:wrap;
+      -ms-flex-wrap: wrap;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items:center ;
+      li{
+        line-height: 22px;
+        width: 174px;
+        font-size: 14px;
+      }
+    }
+    .c1{
+      color: #883F03;
+    }
+    .c2{
+      color: #454545;
+    }
+  }
+  .money-box{
+
+  }
+  .money{
+    .color999(18px,#4cc6d8);
+    margin-right:18px ;
+    text-align: center;
+    line-height: 93px;
+    font-weight: 600;
+  }
+  .open-btn{
+    width:108px;
+    height:30px;
+    background:rgba(76,198,216,1);
+    border-radius: 3px ;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    line-height: 30px;
+    margin-top: 29px;
+    margin-right: 18px;
+    cursor: pointer;
+  }
+}
+.name{
+  width: 65px;
+  margin-right: 16px;
+  float: left;
+  text-align: left;
+  .color999(14px,#999);
+  line-height: 30px;
+}
+.select-p{
+  position: relative;
+  margin-bottom: 7px!important;
+  margin-left: 16px;
+  margin-top: 30px;
+  .color999(14px,#333);
+  >img{
+    position: absolute;
+    left:298px;
+    top: 12px;
+  }
+  select{
+    width:236px;
+    height:30px;
+    background:rgba(249,249,249,1);
+    border-radius: 3px ;
+    border:1px solid #eee;
+    padding: 0 20px;
+    line-height: 30px;
+    outline: none;
+    box-sizing: border-box;
+    .color999(14px,#333);
+  }
+}

@@ -1,0 +1,373 @@
+<template>
+    <div class="warpper">
+        <!-- 导航部分 -->
+        <div class="header">
+            <div class="container clearfix">
+                <div class="logo"><img src="../assets/images/logo.png" alt="爱美图"></div>
+                <div class="nav">
+                    <router-link to="home" class="active">首页</router-link><router-link to="picture">图片</router-link><router-link to="video">视频</router-link><router-link to="about">关于我们</router-link><router-link to="download">下载APP</router-link>
+                </div>
+            </div>
+        </div>
+        <!-- 大图部分 -->
+        <div class="banner">
+            <ul>
+                <li v-for="banner in banners">
+                    <img :src="banner.url" alt="">
+                </li>
+            </ul>
+        </div>
+        <!-- 精选套图 -->
+        <div class="container">
+            <div class="title clearfix">
+                <div class="fl">精选套图</div>
+                <div class="fr">更多</div>
+            </div>
+            <ul class="picture-items clearfix">
+                <li v-for="picture in pictures">
+                    <div class="picture">
+                        <router-link to="pictureDetail">
+                            <span>
+                                <img :src="picture.url" alt="">
+                            </span>
+                            <p>{{picture.title}}</p>
+                        </router-link>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like" @click="openDownloadLayer()"></span>{{picture.likeCount}}</div>
+                        <div class="icon-item"><span class="icon heat" @click="openDownloadLayer()"></span>{{picture.collectCount}}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- 精选视频 -->
+        <div class="container videos">
+            <div class="title clearfix">
+                <div class="fl">精选视频</div>
+                <div class="fr">更多</div>
+            </div>
+            <ul class="video-items clearfix">
+                <li v-for="video in videos">
+                    <div class="video">
+                        <router-link to="videoDetail">
+                            <div class="pr">
+                                <img :src="video.url" alt="">
+                                <span class="iconplay"></span>
+                            </div>
+                            <p>{{video.title}}</p>
+                        </router-link>
+                    </div>
+                    <div class="icons clearfix">
+                        <div class="icon-item"><span class="icon like" @click="openDownloadLayer()"></span>{{video.likeCount}}</div>
+                        <div class="icon-item"><span class="icon heat" @click="openDownloadLayer()"></span>{{video.collectCount}}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- 底部导航 -->
+        <div class="footer">
+            <div class="container">
+                <div class="nav"><a href="#">网站地图</a><span>|</span><router-link to="modelInJoin">模特加入</router-link><span>|</span><router-link to="copyright">版权说明</router-link></div>
+                <p>爱美图@版权所有</p>
+            </div>
+        </div>
+        <!-- 提示下载APP -->
+        <div class="modal">
+            <div class="modal-dialog">
+                <span class="close" @click="closeDownloadLayer()"></span>
+                <div class="modal-title">请扫描二维码下载爱美图官方APP</div>
+                <div class="modal-content">
+                    <div class="tips">
+                        <img src="../assets/images/wufafangwen.png" alt="">
+                    </div>
+                    <div class="codebox">
+                        <div class="code"><img src="../assets/images/code.jpg" alt=""></div>
+                        <p>扫码下载APP</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+require("../assets/js/jquery-1.11.0.min.js")
+export default {
+    data(){
+        return {
+            banners: [],
+            pictures: [],
+            videos: [],
+        }
+    },
+    created() {
+        this.getData();
+
+    },
+    methods: {
+        getData(){
+            var that = this;
+            let url = this.$util.baseset.baseurl+'/pc/getIndex';
+            this.$ajax.post(url)
+            .then(function(res) {
+                var data = res.data;
+                if(data.msg === "获取首页成功"){
+                        console.log(data.data);
+                        that.banners = data.data.banners;
+                        that.pictures = data.data.pictures;
+                        that.videos = data.data.videos;
+                }
+            })
+            .catch(function(err) {
+                console.log(err)
+            });
+        },
+        openDownloadLayer() {
+            $(".modal").css("display","block");
+        },
+        closeDownloadLayer(){
+            $(".modal").css("display","none");
+        }
+    }
+}
+</script>
+
+<style scoped lang="scss">
+// @import "../assets/scss/index.scss";
+.warpper {
+    .container {
+        width: 1040px;
+        margin: 0 auto;
+    }
+    .modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1050;
+            display: none;
+            overflow: hidden;
+            -webkit-overflow-scrolling: touch;
+            outline: 0;
+            background: rgba(0,0,0,0.40);
+    }
+    .modal-dialog {
+        position: relative;
+        width: 640px;
+        height: 440px;
+        margin: 240px auto;
+        padding-top: 70px;
+        text-align: center;
+        background: rgba(252,252,252,.95);
+        border-radius: 12px;
+    }
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        background: url(../assets/images/f3quxiao.png);
+        cursor: pointer;
+
+    }
+    .modal-title {
+        margin-bottom: 40px;
+        font-size: 25px;
+        color: #5AA4AE;
+    }
+    .modal-content {
+        .tips{
+            margin-top: 45px;
+            margin-right: 30px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .codebox {
+            display: inline-block;
+            width: 180px;
+           .code{
+                width: 180px;
+                height: 180px;
+                margin-bottom: 13px;
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+           p{
+             font-size: 24px;
+             color: #434C5C;
+             font-weight: bold;
+           }
+        }
+    }
+    .header {
+        height: 70px;
+        border-bottom: 1px solid #EEEEEE;
+        .logo {
+            float: left;
+            width: 80px;
+            height: 52px;
+            margin: 10px 26px 8px 0;
+        }
+        .nav {
+            float: left;
+            margin: 24px 0 17px;
+            font-size: 17px;
+            a{
+                display: inline-block;
+                height: 29px;
+                margin: 0 35px;
+                line-height: 22px;
+                font-weight: bold;
+                &.active,
+                &:hover{
+                    background: url("../assets/images/rectangle_13.png") no-repeat bottom center;
+                    color: #FF68C8;
+                }
+            }
+        }
+    }
+    .banner {
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        ul {
+            width: 100%;
+        }
+        li{
+           float: left;
+           width: 100%;
+           height: 400px;
+           background: #D3F1FF;
+           img{
+             width: 100%;
+           }
+        }
+    }
+    .title {
+        margin: 30px 0;
+        .fl{
+            padding-left: 15px;
+            font-size: 16px;
+            line-height: 21px;
+            font-weight: bold;
+            background: url("../assets/images/rectangle_5.png") no-repeat center left;
+        }
+        .fr {
+            padding-right: 12px;
+            line-height: 19px;
+            color: #999999;
+            background: url("../assets/images/gengduo.png") no-repeat center right;
+        }
+    }
+    .icons {
+        .icon-item{
+            float: left;
+            min-width: 64px;
+            color: #666666;
+            .icon{
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                margin-right: 6px;
+                vertical-align: middle;
+                cursor: pointer;
+                &.like{
+                    background: url("../assets/images/dianzan.png") no-repeat center center;
+                }
+                &.heat{
+                    background: url("../assets/images/shoucang.png") no-repeat center center;
+                }
+            }
+        }
+    }
+    .picture-items {
+        margin: 0 -8px;
+        li{
+            float: left;
+            width: 250px;
+            margin:0 7px 22px;
+            .picture {
+                span{
+                    display: inline-block;
+                    width: 250px;
+                    height: 353px;
+                    border-radius: 4px;
+                    margin-bottom: 10px;
+                }
+                img{
+                    width: 100%;
+                }
+                p{
+                    width: 250px;
+                    line-height: 19px;
+                    margin-bottom: 12px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+    .videos {
+        margin-top: -10px;
+    }
+    .video-items {
+        margin: 0 -12.5px;
+        li{
+            float: left;
+            width: 330px;
+            margin:0 12.5px 22px;
+            .video {
+                .iconplay {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    margin-top: -20px;
+                    margin-left: -20px;
+                    display: inline-block;
+                    width: 40px;
+                    height: 40px;
+                    background: url("../assets/images/bofang.png");
+                }
+                .pr{
+                    width: 330px;
+                    height: 188px;
+                    margin-bottom: 10px;
+                }
+                img{
+                   width: 100%;
+                }
+                p{
+                    line-height: 21px;
+                    margin-bottom: 12px;
+                }
+            }
+        }
+    }
+    .footer {
+        min-height: 100px;
+        margin-top: 20px;
+        padding-top: 20px;
+        text-align: center;
+        background: #F7F7F7;
+        .nav {
+            margin-bottom: 25px;
+            line-height: 19px;
+            vertical-align: middle;
+            a{
+                display: inline-block;
+                margin: 0 20px;
+            }
+            span{
+                display: inline-block;
+                color: #dddddd;
+            }
+        }
+    }
+}
+</style>

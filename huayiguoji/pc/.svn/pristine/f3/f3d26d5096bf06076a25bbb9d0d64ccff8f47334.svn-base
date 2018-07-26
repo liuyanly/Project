@@ -1,0 +1,81 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.head-top .head-content {
+  padding: 41px 14px 31px 14px;
+  border-bottom: 1px solid #EFF1FA;
+  font-size: 14px;
+}
+.head-top .head-content .name {
+  font-size: 14px;
+  color: #666;
+  margin-top: 15px;
+}
+.head-top .head-content .money {
+  font-size: 24px;
+  color: #2748AB;
+  margin-right: 21px;
+  margin-top: 7px;
+  font-weight: 600;
+}
+.head-top .head-content .withdrawals,
+.head-top .head-content .recharge {
+  width: 80px;
+  height: 30px;
+  background: #4cc6d8;
+  border-radius: 3px ;
+  color: #fff;
+  line-height: 30px;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.head-top .head-content .withdrawals {
+  background: #fff;
+  color: #4CC6D8;
+  border: 1px solid #4CC6D8;
+  margin-right: 12px;
+}
+.bill-list li {
+  padding: 11px 15px;
+  border-bottom: 1px solid #eff1fa;
+}
+.bill-list li .left .purpose {
+  font-size: 14px;
+  color: #000;
+  margin-top: 2px;
+  line-height: 15px;
+}
+.bill-list li .left .purpose span {
+  color: #4CC6D8;
+}
+.bill-list li .left .info {
+  font-size: 14px;
+  color: #999;
+  margin-top: 7px;
+  line-height: 13px;
+  font-size: 12px;
+}
+.bill-list li .left .info .marginLeft {
+  margin-left: 8px;
+}
+.bill-list li .status {
+  line-height: 37px;
+  font-size: 14px;
+  color: #4cc6d8;
+  margin-right: 9px;
+}
+.bill-list li .reduce {
+  color: #EE774D;
+}
+.el-pagination {
+  text-align: center;
+}

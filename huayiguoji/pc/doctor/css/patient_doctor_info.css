@@ -1,0 +1,54 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.sure-btn button {
+  width: 108px;
+  height: 30px;
+  background: #4cc6d8;
+  border-radius: 3px ;
+  cursor: pointer;
+  line-height: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  margin-top: 20px;
+  margin-right: 8px;
+  border: none;
+}
+.patient-info {
+  padding: 0;
+  width: 100%;
+}
+.patient-info .analysis-title {
+  font-size: 14px;
+  color: #4ec7d9;
+  line-height: 50px;
+  border-top: 1px solid #eff1fa;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 14px;
+}
+.patient-info .content-word {
+  padding: 0 14px;
+  margin-bottom: 28px;
+}
+.patient-info .content-word:nth-of-type(1) {
+  margin-bottom: 42px;
+}
+.patient-info .img-box {
+  width: 734px;
+  height: 297px;
+  margin: 0 auto;
+  margin-bottom: 89px;
+}
+.patient-info .img-box img {
+  width: 734px;
+  height: 297px;
+}

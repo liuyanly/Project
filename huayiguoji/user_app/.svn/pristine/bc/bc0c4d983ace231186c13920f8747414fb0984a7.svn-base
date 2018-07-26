@@ -1,0 +1,45 @@
+<template>
+  <div>
+        <div @click="callphone">打电话</div>
+      <div @click="shared">分享</div>
+      <div @click="openView">打开新窗口</div>
+      <div @click="uploadImg">上传图片</div>
+      <div @click="uploadMutliImg">上传多个图片</div>
+       <div @click="getgps">获取gps（回调方法名为gpsCallback）</div>
+  </div>
+</template>
+<script>
+export default {
+  name:'demo',
+  mounted:function(){
+        window.gpsCallback=this.gpsCallback;  },
+  methods:{
+      shared:function(){
+this.native.shared({
+    title:'测试标题',
+    content:'测试内容',
+    img:'http://xiangjianguwan.zpftech.com/uploads/user/images/2018/04/06/1522999429e9ea646f80fb9c655e1563006fe4870e.jpg'
+})
+      },
+      openView:function(){
+this.native.webView({url:"http://www.baidu.com"})
+      },
+      uploadImg:function(){
+this.native.photo({num:1,width:2,height:1,size:30})
+      },
+      uploadMutliImg:function(){
+this.native.photo({num:3,width:1,height:1,size:80})
+      },
+      getgps:function(){
+            this.native.gps()
+      },
+      gpsCallback:function(point){
+alert(point);
+      },
+      phone:function(){
+            this.native.photo({phone:'18908226515'})
+      }
+  }
+}
+</script>
+

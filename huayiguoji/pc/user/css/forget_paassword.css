@@ -1,0 +1,160 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+body {
+  background: #F3F7FD;
+}
+header {
+  height: 116px;
+  background: #fff;
+  margin-bottom: 15px;
+}
+header .logo-box img {
+  margin-top: 43px;
+  margin-right: 6px;
+}
+header .logo-box .logo-name {
+  width: 117px;
+  color: #2e368e;
+  font-size: 26px;
+  line-height: 116px;
+  font-weight: 600;
+}
+header .login-area {
+  margin-top: 0;
+}
+header .login-area .login-p {
+  margin-top: 51px;
+  line-height: 14px;
+  margin-right: 0;
+}
+header .login-area .login-p span {
+  display: inline-block;
+  width: 66px;
+  font-size: 14px;
+  color: #333;
+}
+header .login-area .login-p .login-btn {
+  color: #4CC6D8;
+  border-right: 1px solid #333;
+}
+.header-title {
+  padding: 0 18px;
+  line-height: 50px;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #EFF1FA;
+}
+.forget-content .title {
+  font-size: 18px;
+  color: #000;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 56px;
+  margin-bottom: 32px;
+  margin-left: 90px;
+}
+.forget-content .form-box {
+  margin-left: 334px;
+}
+.forget-content .form-box .input-p {
+  margin-bottom: 20px;
+}
+.forget-content .form-box .input-p .name {
+  display: inline-block;
+  width: 96px;
+  text-align: right;
+  font-size: 16px;
+  color: #999;
+  margin-right: 9px;
+  line-height: 40px;
+}
+.forget-content .form-box .input-p input {
+  width: 198px;
+  height: 38px;
+  line-height: 38px;
+  border: 1px solid #ededed !important;
+  background: #f6f6f6;
+  border-radius: 3px;
+  padding: 0 15px;
+  border-right: 3px;
+  font-size: 14px;
+  color: #333;
+}
+.forget-content .form-box .code-input {
+  position: relative;
+}
+.forget-content .form-box .code-input .code-btn {
+  position: absolute;
+  width: 112px;
+  text-align: center;
+  line-height: 40px;
+  height: 40px;
+  background: #4CC6D8;
+  font-size: 14px;
+  color: #fff;
+  top: 3px;
+  left: 224px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.forget-content .form-box .code-input .disable {
+  background: #bfbfbf;
+}
+.forget-content .form-box .agreement {
+  font-size: 14px;
+  color: #666;
+  margin-left: 104px;
+  margin-bottom: 13px;
+}
+.forget-content .form-box .agreement span {
+  color: #2e368e;
+  cursor: pointer;
+}
+.forget-content .form-box .btn-p {
+  padding-top: 10px;
+  margin-left: 104px;
+}
+.forget-content .form-box .btn-p button {
+  width: 230px;
+  height: 39px;
+  text-align: center;
+  line-height: 39px;
+  border: none;
+  cursor: pointer;
+  background: #4CC6D8;
+  font-size: 14px;
+  color: #fff;
+  border-radius: 3px;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #999;
+  font-size: 14px;
+}
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #999;
+  font-size: 14px;
+}
+input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #999;
+  font-size: 14px;
+}
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #999;
+  font-size: 14px;
+}

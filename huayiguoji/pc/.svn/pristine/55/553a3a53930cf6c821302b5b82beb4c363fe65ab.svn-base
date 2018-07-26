@@ -1,0 +1,234 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.main .input-p {
+  margin-bottom: 20px;
+  line-height: 30px;
+}
+.main .input-p input {
+  background: #FAFBFF;
+}
+.content-box {
+  padding: 0 221px;
+}
+.content-box .head-box {
+  margin-top: 28px;
+}
+.content-box .head-box .pic-box {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+}
+.content-box .head-box .head-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 100;
+}
+.content-box .head-box .head-pic {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+.content-box .head-box .tip {
+  margin-top: 9px;
+  font-size: 14px;
+  color: #999;
+  text-align: center;
+  margin-bottom: 17px;
+}
+.form-box {
+  margin-bottom: 27px;
+}
+.form-box .name {
+  font-size: 14px;
+  color: #999;
+  width: 60px;
+  text-align: right;
+  margin-right: 15px;
+}
+.form-box .sex-p {
+  position: relative;
+}
+.form-box .sex-p input {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+}
+.form-box .sex-p input[type="radio"] {
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+}
+.form-box .sex-p .sex-name {
+  margin-left: 5px;
+  font-size: 14px;
+  color: #333;
+}
+.input-p .name-label {
+  line-height: 36px;
+}
+.input-p .nickName {
+  width: 214px;
+  height: 34px;
+  line-height: 34px;
+  padding: 0 10px;
+  border: 1px solid #eff1fa;
+  border-radius: 3px;
+}
+.choose-box .name {
+  line-height: 30px;
+}
+.btn-p .save-btn {
+  border: none;
+  width: 136px;
+  height: 40px;
+  line-height: 40px;
+  background: #4CC6D8;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+  margin-left: 75px;
+}
+.pos {
+  position: relative;
+  width: 114px;
+  height: 30px;
+  margin-right: 9px;
+}
+.pos:last-child {
+  margin-right: 0;
+}
+.pos .xiaLa {
+  position: absolute;
+  right: 6px;
+  top: 11px;
+}
+.date-select select {
+  width: 114px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #eff1fa;
+  border-radius: 3px;
+  padding-left: 10px ;
+  overflow: hidden;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  font-size: 14px;
+  color: #999;
+  outline-width: 1px;
+  background: #FAFBFF;
+}
+.date-select select option {
+  font-size: 14px;
+  color: #999;
+  padding: 20px;
+  width: 114px;
+  text-align: center;
+  height: 34px;
+  display: inline-block;
+  line-height: 34px;
+  border-bottom: none;
+}
+.date-select select .placeholder {
+  display: none;
+  font-size: 14px;
+  color: #999;
+}
+.date-select select::-ms-expand {
+  display: none;
+}
+.date-select select:focus {
+  border-color: #409EFF;
+}
+.date-select select:hover {
+  border-color: #b4bccc;
+}
+.doctor-data {
+  padding: 0 221px 0 178px ;
+}
+.doctor-data .name {
+  width: 102px;
+}
+.doctor-data .save-btn {
+  margin-left: 117px;
+  margin-bottom: 70px;
+  cursor: pointer;
+}
+.doctor-data .text-p .Validform_checktip {
+  float: right;
+}
+.doctor-data .text-p .name {
+  line-height: 30px;
+}
+.doctor-data .text-p textarea {
+  width: 362px;
+  height: 100px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  font-size: 14px;
+  color: #333;
+  resize: none;
+  border: 1px solid #eff1fa;
+}
+.el-input__inner::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #999;
+}
+.el-input__inner:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #999;
+}
+.el-input__inner::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #999;
+}
+.el-input__inner:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #999;
+}
+.el-input__prefix {
+  display: none;
+}
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+  width: 114px;
+}
+.el-input--prefix .el-input__inner {
+  padding-left: 10px;
+}
+.el-input__inner {
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid #eff1fa;
+  background: #FAFBFF;
+}
+.el-input--suffix .el-input__inner {
+  padding-right: 0;
+}
+.el-input__suffix {
+  display: none;
+}

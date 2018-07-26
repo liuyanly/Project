@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>体征监测</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/personal.css"/>
+    <link rel="stylesheet" href="css/question_surver.css"/>
+    <link rel="stylesheet" href="css/sign_detection.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="6"></my-header>
+    </div>
+    <div class="main">
+        <section class="container clearFix">
+            <my-left-nav active="13"></my-left-nav>
+            <div class="right right-box" style="margin-bottom: 93px">
+                <p class="header-title clearFix"><span class="left">体征监测</span></p>
+                <ul class="question-list clearFix">
+                    <li :class="{active:currentLi == data.id}" @click="changeLi(data.id)" v-for="data in dataList">{{data.title}}</li>
+                </ul>
+                <div class="filter-box clearFix">
+                    <form id="" name="formDate">
+                        <p class="left pos date-select">
+                            <select name="year1" class="year1" onChange="YYYYDD1(this.value)" @click="changeXia1(4)" @blur="changeXia1(0)">
+                                <option class="placeholder">选择年</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=4">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==4">
+                        </p>
+                        <p class="left pos date-select">
+                            <select name="month1" class="month1" onChange="MMDD1(this.value)" @click="changeXia1(5)" @blur="changeXia1(0)">
+                                <option class="placeholder">选择月</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=5">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==5">
+                        </p>
+                        <p class="left pos date-select">
+                            <select name="day1" class="day1" onChange="DDD1(this.value)" @click="changeXia1(6)" @blur="changeXia1(0)">
+                                <option class="placeholder">选择日</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=6">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==6">
+                        </p>
+                        <p class="left pos center-word">~</p>
+                        <p class="left pos date-select">
+                            <select name="year" class="year" onChange="YYYYDD(this.value)" @click="changeXia1(1)" @blur="changeXia1(0)">
+                                <option class="placeholder">选择年</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=1">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==1">
+                        </p>
+                        <p class="left pos date-select">
+                            <select name="month" class="month" onChange="MMDD(this.value)" @click="changeXia1(2)" @blur="changeXia1(0)">
+                                <option class="placeholder">选择月</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=2">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==2">
+                        </p>
+                        <p class="left pos date-select">
+                            <select name="day" class="day" onChange="DDD(this.value)" @click="changeXia1(3)" @blur="changeXia1(0)">
+                                <option class="placeholder">选择日</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=3">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==3">
+                        </p>
+                        <p class="btn-p left" @click="search()"><button type="button" class="filter-btn">查询</button> </p>
+                    </form>
+                </div>
+                <div class="list" >
+                    <p class="header-title small-title clearFix" style="border-top: none">血压趋势图</p>
+                    <div class="last-box" style="border-bottom: none">
+                        <section class="chart-div relative" style="padding-top: 50px">
+                            <div class="time-filter" style="top:20px">
+                                <span v-bind:class="{active:chartDate == 0}" @click="changeChartDate(0)">周</span>
+                                <span v-bind:class="{active:chartDate == 1}" @click="changeChartDate(1)">月</span>
+                                <span v-bind:class="{active:chartDate == 2}" @click="changeChartDate(2)">日</span>
+                            </div>
+                            <div id="myChart" style="width: 878px;height: 580px;margin: 0 auto;"></div>
+                        </section>
+                    </div>
+                    <div class="data-table" v-if="detailList.length>0">
+                        <table>
+                            <thead>
+                            <tr>
+                                <td class="w1">测量时间</td>
+                                <td class="w2" v-for="data in titleFields">{{data.title}}({{data.unit}})</td>
+                                <td class="w2">结果</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="data in detailList">
+                                <td></span><span>{{data.check_at.substring(0,10)}}</span></td>
+                                <td v-for="dt in data.fields"><span>{{dt.pivot.value}}</span></td>
+                                <td><span>{{data.result}}</span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/doctor_login.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/patient_leftNav.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/date.js"></script>
+<script src="js/date1.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data:{
+            currentLi:0,
+            questionType:0,
+            questionValue:'请选择档案类型',
+            xiaType1:0,
+            chartDate:0,
+            msgBoxStatus:0,
+            dataList:[],
+            detailList:[],
+            titleFields:'',
+            startDate:'',
+            endDate:'',
+            id:localStorage.getItem('uId'),//用户Id
+        },
+        mounted:function () {
+            getToken(this)
+            this.getData()
+        },
+        methods:{
+            changeLi:function (num) {
+                this.currentLi=num;
+            },
+            changeType:function () {
+                if(this.questionType==0){
+                    this.questionType=1;
+                }else{
+                    this.questionType=0;
+                }
+            },
+            changeXia1:function(num){
+                if(this.xiaType1==0){
+                    this.xiaType1=num;
+                }else{
+                    this.xiaType1=0;
+                }
+            },
+            //搜索
+            search:function () {
+                if($(".year1").val()==''||$(".month1").val()==''||$(".day1").val()==''){
+                    $this.$alert('请选择起始日期！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return;
+                }
+                if($(".year").val()==''||$(".month").val()==''||$(".day").val()==''){
+                    $this.$alert('请选择结束日期！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return;
+                }
+                this.startDate = $(".year1").val()+'-'+($(".month1").val()<10?'0'+$(".month1").val():$(".month1").val())+'-'+($(".day1").val()<10?'0'+$(".day1").val():$(".day1").val())+' 00:00:00'
+                this.endDate = $(".year").val()+'-'+($(".month").val()<10?'0'+$(".month").val():$(".month").val())+'-'+($(".day").val()<10?'0'+$(".day").val():$(".day").val())+' 00:00:00'
+                this.getDetail(this)
+            },
+            //获取体征类型列表
+            getData:function(){
+                var that=this
+                axios.get(doctorApi+'/check')
+                    .then(function(res){
+                        if(res.data.status==200){
+                            if(res.data.data instanceof Array){
+                                that.currentLi = res.data.data[0].id
+                                that.dataList=res.data.data
+                                that.getDetail(that)
+                            }
+                        }
+                    })
+                    .catch(function(err){
+                        linkLogin(that)
+                    })
+            },
+            //获取当前体征类型详情
+            getDetail:function(el){
+                var params={};
+                var that=el
+                if(that.startDate != ''&&that.endDate != ''){
+                    params.start_time = this.startDate
+                    params.end_time = this.endDate
+                }
+                axios.get(doctorApi+'/check/'+that.currentLi+'/user/'+that.id,{params:params})
+                    .then(function(dt){
+                        if(dt.data.status==200 && !(dt.data.data instanceof Array)){
+                            if(dt.data.data.data instanceof Array){
+                                that.detailList = dt.data.data.data
+                                that.titleFields = dt.data.data.data[0].fields
+                            }
+                            var data = []
+                            var name = []
+                            for(var i = 0;i<dt.data.data.fields.length;i++){
+                                var dta = dt.data.data.fields[i]
+                                var tem = {
+                                    title:dta[0].title,
+                                    data:[],
+                                    color:'#4CC6D8',
+                                    legendDot:'image://images/a1_q_dian_p.png',
+                                    bgPic:'images/a1_cheng1.png',
+                                    date:[]
+                                }
+                                for(var j = 0;j<dta.length;j++){
+                                    var item = dta[j]
+                                    tem.date.push(dt.data.data.fields[0][j].check_at.substring(0,10))
+                                    tem.data.push(item.pivot.value)
+                                }
+                                data.push(tem)
+                            }
+                            twoLine(data,'myChart');
+                        }else if(dt.data.data instanceof  Array&&dt.data.data.length == 0){
+                            that.$alert('该患者暂未上传数据！', '提示', {
+                                confirmButtonText: '确定',
+                            })
+                        }
+                    })
+                    .catch(function(err){
+                        linkLogin(that)
+                    })
+            },
+        }
+    })
+</script>
+</body>
+</html>

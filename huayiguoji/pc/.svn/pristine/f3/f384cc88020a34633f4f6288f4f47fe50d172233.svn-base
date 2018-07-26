@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>惠美诊断</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+</head>
+<style>
+    .user-info,
+    .clearFix {
+        background: #fff !important;
+        height: auto !important;
+    
+    }
+
+    .list {
+        width: 100%;
+        height: auto;
+        max-height: 600px;
+        overflow: auto;
+
+    }
+
+    .list>li {
+        width: 100%;
+        height: 40px;
+        border-bottom: 1px solid #dfdfdf;
+        line-height: 40px;
+        color: #666;
+        font-size: 12px;
+
+    }
+</style>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="13"></my-left-nav>
+                <div class="right right-box">
+                    <p class="header-title">惠美诊断</p>
+                    <div class="user-info clearFix">
+                        <ul class="list">
+                            <li v-for="(item,index) in items" :key=index>
+                                {{item.created_at}}问诊结果
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    items: []
+                }
+            },
+            created() {
+                var _this = this;
+                getToken(this);
+                axios.get(userApi + '/answersheet')
+                    .then((res) => {
+                        console.log(res)
+                        if (res.data.status == 200) {
+                            _this.items = res.data.data;
+                        }
+                    }).catch((err) => {
+                        console.log(err)
+                    });
+            }
+        })
+    </script>
+</body>
+
+</html>

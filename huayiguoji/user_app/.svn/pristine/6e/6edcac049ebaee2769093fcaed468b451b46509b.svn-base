@@ -1,0 +1,314 @@
+<template>
+    <div class="consult-pay">
+        <headers headName="支付"></headers>
+        <div class="contentScollr">
+        <div class="top-box">
+            <div class="type-info clear">
+                <div class="left">
+                    <p class="type">
+                        就近类
+                    </p>
+                    <p class="name">
+                        {{dataInfo.realname}}
+                    </p>
+                </div>
+                <p class="right">
+                    <span>¥{{dataInfo.price}}</span>/月
+                </p>
+            </div>
+            <div class="choose-time clear">
+                <span class="left">预定时长</span>
+                <ul class="right">
+                    <li :class="{current:timeId==1}" @click="changeTime(1)">
+                        1个月
+                    </li>
+                    <li :class="{current:timeId==2}" @click="changeTime(2)">
+                        2个月
+                    </li>
+                    <li :class="{current:timeId==3}" @click="changeTime(3)">
+                        3个月
+                    </li>
+                    <li :class="{current:timeId==12}" @click="changeTime(12)">
+                        1年
+                    </li>
+                </ul>
+            </div>
+            <p class="money-p">
+                共需支付：<span>{{dataInfo.price*timeId}}元</span>
+            </p>
+        </div>
+        <div class="way-box">
+            <p class="title-p">
+                选择支付方式
+            </p>
+            <p class="pay-way clear">
+                <img class="left" src="../assets/images/c14_icon1.png" />
+                <span class="title left">支付宝支付</span>
+                <input class="one_sel" type="radio" name="payWay" value="1" v-model="payWay"/>
+                <img class="right" v-if="payWay==1" src="../assets/images/c14_xz.png" />
+            </p>
+            <!-- <p class="pay-way clear">
+                <img class="left" src="../assets/images/c14_icon2.png" />
+                <span class="title left">微信支付</span>
+                <input class="one_sel" type="radio" name="payWay" value="2" v-model="payWay"/>
+                <img class="right" v-if="payWay==2" src="../assets/images/c14_xz.png" />
+            </p> -->
+            <p class="pay-way clear">
+                <img class="left" src="../assets/images/c14_icon3.png" />
+                <span class="title left">会员<span class="tip">(支付{{dataInfo.total-dataInfo.residue}}次,剩余{{dataInfo.residue}}次)</span></span>
+                <input class="one_sel" type="radio" name="payWay" value="2" v-model="payWay"/>
+                <img class="right" v-if="payWay==2" src="../assets/images/c14_xz.png" />
+            </p>
+            <p class="pay-way clear">
+                <img class="left" src="../assets/images/c14_icon4.png" />
+                <span class="title left">余额支付</span>
+                <input class="one_sel" type="radio" name="payWay" value="3" v-model="payWay"/>
+                <img class="right" v-if="payWay==3" src="../assets/images/c14_xz.png" />
+            </p>
+        </div>
+        <div class="intro-box">
+            <span>服务介绍：</span>详细内容详细内容详细内容详细内容详细内
+            容详细内容详细内容详细内容详细内容详细内容详细内
+            容详细内容详细内容详细内容详细内容详细内容详细内
+            容详细内容详细内容
+        </div>
+        <p class="tip">
+            点击确认则默认同意<router-link :to="{ name: 'ServerClause', params: {} }"><span>《服务协议》</span></router-link>
+        </p>
+        <p class="pay-btn" @click='pay()'>
+            确认支付
+        </p>
+    </div>
+    </div>
+</template>
+<script>
+    import headers from '../components/Header'
+    export default {
+        data(){
+            return{
+                payWay:'1',
+                zfbData:'',
+                timeId:1,
+                moneyVal:100,
+                dataInfo:'',
+                doctorAccount:'',
+                id:this.$route.params.id,
+            }
+        },
+        mounted(){
+            this.BaseSet.getToken(this)
+            this.getDoctorData()
+        },
+        methods:{
+            changeTime(time){
+                this.timeId=time;
+                this.moneyVal=this.timeId*this.dataInfo.price;
+            },
+            getDoctorData(){
+                var that=this
+                that.$ajax.get('/doctor/'+that.id+'/advice/5')
+                .then(function(res){
+                    console.log(res.data)
+                    if(res.data.status==200){
+                        that.dataInfo=res.data.data
+                        that.doctorAccount=res.data.data.translates.doctor_account
+                    }else if(res.data.status==401){
+                        that.BaseSet.linkLogin(that)
+                    }else{
+                        that.$toast(res.data.message)
+                    }
+                })
+                .catch(function(err){
+                    that.$toast(err)
+                    that.BaseSet.linkLogin(that)
+                })
+            },
+            pay(){
+                if(this.payWay == 1){
+                    var that = this
+                    that.$ajax.post('/order',{
+                        _me:'user-api',
+                        title:'就近类',
+                        money:that.dataInfo.price*that.timeId,
+                        paytype:0,
+                        body:'就近类',
+                    })
+                    .then(function(res){
+                        if(res.data.status == 200){
+                            that.zfbData = res.data.data
+                            that.$router.push({name:'PaySuccess',params:{money:that.money}})
+                        }else if(res.data.status == 401){
+                            that.BaseSet.linkLogin(that)
+                        }else{
+                            that.$toast(res.data.message)
+                            that.$router.push({name:'PayFail'})
+                        }
+                    })
+                    .catch(function(err){
+                        that.BaseSet.linkLogin(that)
+                    })
+                }
+            }
+        },
+        components:{headers},
+    }
+</script>
+<style lang="scss" scoped>
+    .consult-pay{
+        display: flex;
+		height: 100%;
+		flex-direction: column;
+		.contentScollr{
+			flex: 1;
+			overflow: scroll;
+			-webkit-overflow-scrolling:touch;
+		}
+        .left{
+            float: left;
+        }
+        .right{
+            float: right;
+        }
+        .top-box{
+            background: #fff;
+            .type-info{
+                padding: .8rem /* 30/40 */;
+                border-bottom: 1px solid #e5e5e5;
+                p{
+                    font-size: .7rem /* 28/40 */;
+                    color: #333;
+                    line-height: .7rem;
+                }
+                .name{
+                    color: #666;
+                    margin-top: .4rem /* 17/40 */;
+                    padding-bottom: .2rem /* 8/40 */;
+                }
+                .right{
+                    line-height: 2rem;
+                    color: #999;
+                    span{
+                        color: #4CC6D8;
+                    }
+                }
+            }
+        }
+        .way-box{
+            background: #fff;
+            margin-top: .5rem /* 20/40 */;
+            .title-p{
+                font-size: .7rem /* 28/40 */;
+                color:#999;
+                line-height: 2rem /* 80/40 */;
+                padding-left: .8rem /* 30/40 */;
+            }
+            .pay-way,.borderBottom{
+                border-bottom: 1px solid #e5e5e5;
+            }
+            .pay-way{
+                line-height: 3rem /* 120/40 */;
+                padding: 0 .8rem /* 30/40 */;
+                position: relative;
+                .one_sel,.more_sel{
+                    width: 100% /* 52/40 */;
+                    height: 100% /* 52/40 */;
+                    position: absolute;
+                    top: .85rem;
+                    right: .8rem /* 30/40 */;
+                }
+                .title{
+                    font-size: .7rem /* 28/40 */;
+                    color:#666;
+                    span{
+                        color:#4CC6D8;
+                    }
+                }
+                .left{
+                    float: left;
+                }
+                img:nth-of-type(1){
+                    width:1.1rem /* 44/40 */;
+                    height: auto;
+                    margin-top: .9rem;
+                    margin-right: .4rem /* 17/40 */;
+                }
+                .right{
+                    float: right
+                }
+                img{
+                    width: 1.3rem /* 50/40 */;
+                    height: 1.3rem /* 50/40 */;
+                    vertical-align: middle;
+                    margin-top: 0.85rem;
+                }
+            }
+        }
+        .choose-time{
+            padding: .5rem /* 20/40 */ .8rem /* 30/40 */;
+            .left{
+                font-size: .7rem /* 28/40 */;
+                color: #333;
+                line-height: 1.3rem /* 50/40 */;
+            }
+            ul{
+                li{
+                    float: left;
+                    width: 3rem /* 120/40 */;
+                    border: 1px solid #999;
+                    font-size: .7rem /* 28/40 */;
+                    line-height: 1.3rem /* 50/40 */;
+                    height: 1.3rem /* 50/40 */;
+                    border-radius: .3rem /* 10/40 */;
+                    text-align: center;
+                    margin-right: .5rem /* 20/40 */;
+                    &:last-child{
+                        margin-right: 0;
+                    }
+                }
+                .current{
+                    background:#4CC6D8;
+                    color: #fff;
+                    border-color: #4CC6D8;
+                }
+            }
+        }
+        .money-p{
+            line-height: 2.3rem /* 90/40 */;
+            text-align: right;
+            font-size: .7rem /* 28/40 */;
+            color: #333;
+            padding: 0 .8rem /* 30/40 */;
+            span{
+                color: #fc4f4f;
+            }
+        }
+        .intro-box{
+            line-height: .9rem /* 36/40 */;
+            font-size: .7rem /* 28/40 */;
+            color: #666;
+            padding: 1rem /* 40/40 */ .8rem /* 30/40 */;
+            background: #fff;
+            span{
+                color: #333;
+            }
+        }
+        .tip{
+            padding: 0 .8rem /* 30/40 */;
+            font-size: .7rem /* 28/40 */;
+            color: #999;
+            margin-top: 1rem /* 40/40 */;
+            span{
+                color: #4CC6D8;
+            }
+        }
+        .pay-btn{
+            margin: 1.5rem /* 60/40 */ .8rem /* 30/40 */;
+            background: #4CC6D8;
+            text-align: center;
+            color:#fff;
+            font-size: .8rem /* 32/40 */;
+            line-height: 2rem /* 82/40 */;
+            border-radius: .3rem /* 10/40 */;
+        }
+    }
+</style>

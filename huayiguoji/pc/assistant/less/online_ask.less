@@ -1,0 +1,204 @@
+
+.search-box{
+  width: 660px;
+  height: 50px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  background: #fff;
+  p{
+    width: 635px;
+    padding-left: 25px;
+    background: #f4f4f4;
+    border-radius: 8px;
+    input{
+      border: none;
+      outline: none;
+      background: transparent;
+      height: 50px;
+      line-height: 50px;
+      width: 550px;
+      font-size: 16px;
+      color: #666;
+      float: left;
+      font-weight: 600;
+    }
+  .search-pic{
+    width: 83px;
+    float: right;
+    background: #4CC6D8;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    height: 50px;
+    img{
+      width: 33px;
+      height: 33px;
+
+      margin: 8px 25px;
+    }
+  }
+  }
+}
+.main{
+  background: #f3f7fd;
+  .content-box{
+    background: #fff;
+    width: 960px;
+    padding: 20px;
+    .top-title{
+      border-bottom: 3px solid #57c6d7;
+      .left{
+        font-size: 18px;
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 14px;
+      }
+      .right{
+        font-size: 14px;
+        color:#999;
+        margin-bottom: 14px;
+        cursor: pointer;
+      }
+    }
+    .doctor-search{
+      padding: 22px 0;
+      .left{
+        font-size: 14px;
+        color: #666;
+        padding-left: 28px;
+        margin-bottom: 0;
+      }
+      .name{
+        color: #999;
+        padding-left: 18px;
+      }
+      .right{
+        margin-bottom: 0;
+        padding-right: 15px;
+        span{
+          color:#4CC6D8;
+        }
+
+      }
+    }
+    .top-filter{
+      padding-bottom: 19px;
+      margin-top: 20px;
+      border-bottom: 1px dotted #ccc;
+      li{
+        float: left;
+        font-size: 14px;
+        color:#999999;
+        line-height: 18px;
+        height: 18px;
+        padding:2px 3px;
+        text-align: center;
+        margin-left: 20px;
+        &.active,&:hover{
+          background: #57C6D7;
+          color: #fff;
+          cursor: pointer;
+        }
+      }
+    }
+    .area-list{
+      padding: 28px;
+      >li{
+        margin-bottom: 21px;
+        >p{
+          font-size: 14px;
+          color:#666;
+          float: left;
+          margin-right: 51px;
+        }
+
+        .hospital-list{
+          float: right;
+          width: 807px;
+          li{
+            color:#333333;
+            margin-bottom: 18px;
+            font-size: 14px;
+            width: 269px;
+            float: left;
+            p{
+              display: inline-block;
+              box-sizing: border-box;
+              height: 14px;
+            }
+            &.active>p,&:hover>p{
+              width: auto;
+              color:#4CC6D8 ;
+              border-bottom: 1px solid #4CC6D8;
+            }
+            &.active span,&:hover span{
+              color:#4CC6D8 ;
+              //text-decoration: underline;
+              cursor: pointer;
+            }
+            span{
+              color:#999;
+              float: left;
+            }
+            .name{
+              color:#333;
+              max-width: 180px;
+              overflow: hidden;
+              text-overflow:ellipsis;
+              white-space: nowrap;
+
+            }
+          }
+        }
+      }
+    }
+    .department-filter{
+      padding: 29px;
+      li{
+        width: 112px;
+        float: left;
+        font-size: 14px;
+        color:#333;
+        margin-bottom: 19px;
+        &.active,&:hover{
+          color: #57C6D7;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+.main .content-box .department-list{
+ // border-bottom: 1px solid #ccc;
+  padding: 0;
+  padding-top: 18px;
+  margin-bottom: 21px;
+}
+.main .content-box .department-list > li>p{
+  margin-right: 76px;
+  padding-top: 4px;
+}
+.main .content-box .department-list > li .hospital-list{
+  width: 842px;
+}
+.main .content-box .department-list > li{
+  margin-bottom: 0;
+}
+.main .content-box .department-list > li .hospital-list li{
+  width: auto;
+  margin-right: 37px;
+  padding: 4px;
+  margin-bottom: 14px;
+  cursor: pointer;
+}
+.main .content-box .department-list > li .hospital-list li.current{
+  padding: 4px;
+  background: #4CC6D8;
+  color: #fff;
+}
+.main .content-box .department-list > li .hospital-list li:hover{
+  //display: inline-block;
+  color:#4CC6D8;
+  background: #fff;
+  text-decoration: underline;
+}

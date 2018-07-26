@@ -1,0 +1,82 @@
+@import "../../less/variable";
+.header-top{
+  width:1000px;
+  margin: 0 auto;
+  line-height: 52px;
+  height: 52px;
+  .color999(@color:#999);
+  .hospital-name{
+    color:#4CC6D8;
+  }
+}
+.content-box{
+  .can-status{
+    .color666(16px);
+    line-height: 57px;
+    height: 57px;
+    border-bottom:1px dotted #ccc ;
+    .cc{
+      font-size: 16px;
+    }
+    .bold{
+      color: #333;
+      font-weight: 600;
+    }
+  }
+  .department-num{
+    margin: 20px 0;
+    border-bottom: 1px solid #ccc;
+    li{
+      float: left;
+      margin-right: 48px;
+      margin-bottom: 22px;
+      .color999(@color:#333);
+      cursor: pointer;
+    }
+    .active{
+      color: #4CC6D8;
+      text-decoration: underline;
+    }
+
+  }
+  .doctor-list{
+    padding: 0 20px;
+    margin-bottom: 80px;
+    li{
+      float: left;
+      width:265px;
+      height:88px;
+      margin-right: 32px;
+      margin-bottom: 21px;
+      border: 1px solid #999;
+      padding:14px 9px;
+      cursor: pointer;
+      &:nth-of-type(3n){
+        margin-right: 0;
+      }
+      .doctor-info{
+        padding-bottom: 10px;
+        border-bottom: 1px dashed #CCC;
+        img{
+          width:40px;
+          height: 40px;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+        .doctor-content{
+          p{
+            .color999(12px,#666);
+          }
+          .name{
+            margin-top: 9px;
+            .color999(12px,#333);
+          }
+        }
+      }
+      .content-word{
+        padding-top: 10px;
+        .color999(12px,#999);
+      }
+    }
+  }
+}

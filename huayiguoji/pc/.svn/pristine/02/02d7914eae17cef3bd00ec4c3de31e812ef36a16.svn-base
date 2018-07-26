@@ -1,0 +1,33 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.collection-list li {
+  padding: 9px 14px;
+  border-bottom: 1px solid #eff1fa;
+}
+.collection-list li .article-title {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 11px;
+  font-weight: 600;
+}
+.collection-list li .article-title .my {
+  color: #4CC6D8;
+}
+.collection-list li .content-word {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 11px;
+}
+.collection-list li .date {
+  font-size: 14px;
+  color: #999;
+}

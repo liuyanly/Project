@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>系统消息</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/edit_data.css" />
+    <link rel="stylesheet" href="css/msg_center.css" />
+    <script src="./node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="0"></my-header>
+        </div>
+        <div class="main-box" style="padding-top: 15px;padding-bottom: 61px">
+            <section class="container clearFix">
+                <my-left-nav active="5"></my-left-nav>
+                <div class="right-box right" style="background: #fff;width: 884px">
+                    <p class="header-title clearFix">
+                        <span class="left">系统消息</span>
+                        <!-- <span class="right send-msg" @click="sendMsg()">发起群聊</span> -->
+                    </p>
+                    <div class="msg-box">
+                        <ul class="msg-list">
+                            <li class="clearFix" v-for="(item,index) in items" :key="index">
+                                <img class="left" @click="link(1)" src="images/head.jpg">
+                                <div class="left content-word" @click="link(1)">
+                                    <p class="line1 clearFix">
+                                        <span class="left">{{item.data.type}}</span>
+                                        <span class="right">{{this.getDate(item.created_at)}}</span>
+                                    </p>
+                                    <p class="line2" v-if="item.data.content.length>60">
+                                        {{item.data.content.substring(0,60)+"..."}}
+                                    </p>
+                                    <p class="line2" v-if="item.data.content.length<=60">
+                                        {{item.data.content}}
+                                    </p>
+                                </div>
+                                <p class="del-btn right" @click="delMsg(item.id)">
+                                    <img src="images/a4_shanchu.png" />
+                                </p>
+                            </li>
+                        </ul>
+                        <div class="page" style="margin-top: 40px;margin-bottom: 25px;">
+                            <span v-if="!isShowPage">暂无数据</span>
+                            <el-pagination v-if="isShowPage" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="prev, pager, next"
+                                :total=total>
+                            </el-pagination>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/doctor_login.js"></script>
+    <script src="js/msg_leftNav.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    contentWord: "某某与公益的橄榄枝，就像一只和平鸽飞翔于世界民族之林，在不同肤色的人群中飞越五某某与公益的橄榄枝，就像一只和平鸽飞翔于世界在不同肤色的人群中飞越五某某与公益的橄榄枝",
+                    total: 10,
+                    items: [],
+                    page: 1,
+                    isShowPage: false
+                }
+            },
+            created: function () {
+
+            },
+            mounted() {
+                getToken(this);
+                this.getData(1)
+            },
+            methods: {
+                link: function (type) {
+                    if (type == 1) {
+                        location.href = "push_msg.html";
+                    } else if (type == 2) {
+                        location.href = "dialogue_msg.html";
+                    } else {
+                        location.href = "group_msg.html";
+                    }
+                },
+                delMsg: function (id) {
+                    var that = this;
+                    this.$confirm('此操作将永久删除该消息, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(function () {
+                        axios.delete(doctorApi + '/user/notifications/' + id)
+                            .then(function (res) {
+                                // console.log(res)
+                                if (res.status == 200) {
+                                    that.getData(that.page)
+                                    that.$message({
+                                        type: 'success',
+                                        message: '删除成功!'
+                                    });
+                                }
+
+                            }).catch(function (error) {
+                                linkLogin(that)
+                            });
+                    }).catch(function () {
+                        that.$message({
+                            type: 'info',
+                            message: '已取消删除'
+                        });
+                    });
+                },
+                sendMsg: function () {
+                    location.href = "launch_group_chat.html"
+                },
+                getData: function (page) {
+                    var _this = this
+                    axios.get(doctorApi + '/user/notificationslist/1?per_page=8&page=' + page)
+                        .then(function (res) {
+                            if (res.status == 200) {
+                                _this.items = res.data.data.notifications;
+                                _this.total = res.data.data.paginate.total_page * 10;
+                                _this.isShowPage = res.data.data.notifications.length > 0 ? true :
+                                    false
+                            }
+                        })
+                },
+                handleSizeChange: function (val) {
+                    //删除回调
+                    // console.log('11111111')
+                    // console.log(val)
+                },
+                handleCurrentChange: function (val) {
+                    this.page = val;
+                    this.getData(val);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

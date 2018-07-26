@@ -1,0 +1,148 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.main {
+  background: #F3F7FD;
+}
+.main .container {
+  padding-top: 15px;
+  padding-bottom: 49px;
+}
+.main .container .right-box {
+  width: 878px;
+  background: #fff;
+  height: 720px;
+}
+.main .container .right-box .header-title {
+  padding: 0 14px;
+  line-height: 50px;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #EFF1FA;
+}
+.main .container .right-box .header-title .add-btn {
+  margin-top: 17px;
+  margin-right: 14px;
+  cursor: pointer;
+}
+.main .container .right-box .header-title .right {
+  line-height: 50px;
+  font-size: 14px;
+  color: #4ec7d9;
+  margin-right: 24px;
+  cursor: pointer;
+}
+.main .container .right-box .small-title {
+  font-size: 14px;
+  color: #4ec7d9;
+  border-top: 1px solid #eff1fa;
+}
+.main .container .right-box .user-info {
+  padding: 15px 16px;
+  background: #eff1fa;
+  border-radius: 10px ;
+  margin: 14px 14px 17px 10px;
+  height: 68px;
+}
+.main .container .right-box .user-info .left-info-box {
+  margin-left: 28px;
+  margin-top: 5px;
+}
+.main .container .right-box .user-info .head-box {
+  position: relative;
+}
+.main .container .right-box .user-info .head-box .head-pic {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+.main .container .right-box .user-info .head-box .vip {
+  position: absolute;
+  bottom: 2px;
+  right: 0;
+}
+.main .container .right-box .user-info .user-name {
+  font-size: 14px;
+  color: #000;
+}
+.main .container .right-box .user-info .user-name .marginRight {
+  margin-right: 20px;
+}
+.main .container .right-box .user-info .user-name .sex,
+.main .container .right-box .user-info .user-name .age {
+  font-size: 14px;
+  color: #999;
+}
+.main .container .right-box .user-info .user-sex,
+.main .container .right-box .user-info .user-ad {
+  font-size: 12px;
+  color: #999;
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+.main .container .right-box .user-info .user-sex .marginRight,
+.main .container .right-box .user-info .user-ad .marginRight {
+  margin-right: 30px;
+}
+.main .container .right-box .user-info .edit-btn {
+  margin: 22px 14px;
+  cursor: pointer;
+}
+.main .container .right-box .user-info .application-btn {
+  margin: 20px 14px;
+  width: 108px;
+  height: 30px;
+  background: #4CC6D8;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  line-height: 30px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+.main .ul-box li {
+  height: 38px;
+  border-bottom: 1px solid #EFF1FA;
+  padding: 10px 15px;
+}
+.main .ul-box li > img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.main .ul-box li .info-box {
+  margin-left: 13px;
+}
+.main .ul-box li .info-box .name {
+  font-size: 14px;
+  color: #000;
+  margin-bottom: 8px;
+}
+.main .ul-box li .info-box .sex {
+  font-size: 12px;
+  color: #999;
+}
+.main .ul-box li .info-box .sex .marginRight {
+  margin-right: 20px;
+}
+.main .ul-box li .telNum {
+  line-height: 34px;
+  height: 34px;
+  font-size: 12px;
+  color: #999;
+  margin-left: 170px;
+}
+.main .ul-box li .del-btn {
+  margin-right: 24px;
+  margin-top: 12px;
+  cursor: pointer;
+}

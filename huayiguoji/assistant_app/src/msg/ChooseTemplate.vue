@@ -1,0 +1,136 @@
+<template>
+	<div class="publish-box">
+		<headers headName="选择模板"></headers>
+		<div class="contentScollr">
+		<div class="txt-tem">
+			<textarea maxlength="200" v-model="contentWord" placeholder="请添加详细描述"></textarea>
+		</div>
+		<mt-loadmore  :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :autoFill='false' ref="loadmore">
+		<ul class="tem-list">
+			<li @click="chooseTem(index)" v-for="(data,index) in dataList">
+				{{data.content}}
+			</li>
+		</ul>
+		</mt-loadmore>
+		<p class="sure-btn" @click="publish()">
+			确认
+		</p>
+	</div>
+	</div>
+</template>
+<script>
+	import headers from '../components/Header';
+	export default {
+		data(){
+			return{
+				contentWord:'',
+				patientId: this.$route.params.patientId,
+				doctorId: this.$route.params.doctorId,
+				dataList:[],
+				allLoaded:false,//是否为最后一页
+				page:1,
+				per_page:8,//每页最大数
+				last:false,
+			}
+		},
+		mounted(){
+			this.BaseSet.getToken(this)
+			this.getList()
+		},
+		methods:{
+			loadBottom() {
+	        this.allLoaded = false;
+	        setTimeout(function() {
+	            if (!this.last) {
+	                this.getList()
+	            } else {
+	                this.allLoaded = true;
+	            }
+	            this.$refs.loadmore.onBottomLoaded();
+	        }, 500);
+	    },
+			publish(){
+				if(this.contentWord!=''){
+					this.BaseSet.setInfo('temContent',this.contentWord)
+					this.$router.push({name:'PublishMsg',params:{patientId:this.patientId,doctorId:this.doctorId,temId:1}})
+				}else{
+					this.$toast('请选择或新建模板')
+				}
+			},
+			getList(){
+				var that = this
+				that.$ajax.get('/user/temp?per_page='+that.per_page+'&page='+that.page)
+				.then(function(res){
+					if(res.data.status == 200){
+						if(res.data.data.temp.length){
+							that.page++
+								that.last = false;
+								for(let i = 0;i < res.data.data.temp.length;i++){
+										that.dataList.push(res.data.data.temp[i])
+								};
+						}else{
+								that.last = true;
+						}
+					}
+				})
+				.catch(function(err){
+
+				})
+			},
+			chooseTem(id){
+				this.contentWord=this.dataList[id].content
+			}
+		},
+		components:{headers}
+	}
+</script>
+<style lang="scss" scoped>
+	.publish-box{
+		display: flex;
+		height: 100%;
+		flex-direction: column;
+		.contentScollr{
+			flex: 1;
+			overflow: scroll;
+			-webkit-overflow-scrolling:touch;
+		}
+		.txt-tem{
+			background: #fff;
+			padding: .5rem /* 10/20 */ .8rem /* 15/20 */;
+			margin-bottom: .5rem /* 10/20 */;
+			textarea{
+				width: 100%;
+				height:9rem /* 200/20 */;
+				padding: 0.5rem /* 10/20 */ 0.8rem /* 15/20 */;
+				resize: none;
+				font-size: 0.7rem /* 14/20 */;
+				color: #333;
+			}
+		}
+		.tem-list{
+			li{
+				line-height: 2rem /* 40/20 */;
+				border-bottom: 1px solid #dcdcdc;
+				padding: 0 .8rem /* 17/20 */;
+				width:calc(100% - 1.6rem) /* 350/20 */;
+				font-size:.7rem /* 13/20 */;
+				color: #999;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				background: #fff;
+			}
+		}
+		.sure-btn{
+			width: 100%;
+			height: 2.5rem /* 50/20 */;
+			background: #4CC6D8;
+			color: #fff;
+			text-align: center;
+			line-height: 2.5rem;
+			font-size: 0.8rem /* 15/20 */;
+			position: fixed;
+			bottom: 0;
+		}
+	}
+</style>

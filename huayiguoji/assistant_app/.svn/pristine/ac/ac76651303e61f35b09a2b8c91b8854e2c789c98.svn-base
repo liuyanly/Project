@@ -1,0 +1,327 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+
+import Home from '@/home/Home' //首页
+import Login from '@/login/Login' //登录
+import FindPassword from '@/login/FindPassword' //忘记密码
+import MyPatient from '@/patient/MyPatient' //患者-已完成
+import HealthManage from '@/healthmanage/HealthManage' //会员详情
+import Monitoring from '@/healthmanage/Monitoring' //体征监测
+import MonitoringDetail from '@/healthmanage/MonitoringDetail' //血压监测
+import Intervention from '@/healthmanage/Intervention' //健康干预
+import InterventionDetail from '@/healthmanage/InterventionDetail' //健康干预详情
+import HealthAssessment from '@/healthmanage/HealthAssessment' //健康评估
+import RiskAssessment from '@/healthmanage/RiskAssessment' //风险评估
+import CardiovascularProfile from '@/healthmanage/CardiovascularProfile' //心血管病风险评估
+import PressureAssessment from '@/healthmanage/PressureAssessment' // 血压评估
+import BloodFatAssessment from '@/healthmanage/BloodFatAssessment' // 血脂风险评估
+import BloodSugarAssessment from '@/healthmanage/BloodSugarAssessment' // 血糖评估
+import ReportIntervention from '@/healthmanage/ReportIntervention' //健康报告深度解读
+import ReportInterventionDetail from '@/healthmanage/ReportInterventionDetail' //健康报告深度解读详情
+import CheckReport from '@/healthmanage/CheckReport' //体检报告
+import UpReport from '@/healthmanage/UpReport' //体检报告上传
+import ReportDetail from '@/healthmanage/ReportDetail' //体检报告详情
+import TestData from '@/healthmanage/TestData' //检验数据
+import TrendMap from '@/healthmanage/TrendMap' //趋势图
+import Survey from '@/healthmanage/Survey' //调查问卷
+import BaseQuestion from '@/healthmanage/BaseQuestion' //基础问卷
+import Follow from '@/healthmanage/Follow' //跟踪随访
+import FollowDetail from '@/healthmanage/FollowDetail' //跟踪随访详情
+import PublishFollow from '@/healthmanage/PublishFollow' //发布随访
+import PublishTip from '@/healthmanage/PublishTip' //发布提醒
+import Message from '@/msg/Message' //消息
+import DoctorMsg from '@/msg/DoctorMsg' //就诊消息
+import MsgDetail from '@/msg/MsgDetail' //消息详情
+import PublishMsg from '@/msg/PublishMsg' //发布消息
+import ChoosePatient from '@/msg/ChoosePatient' //选择患者
+import ChooseDoctor from '@/msg/ChooseDoctor' //选择医生
+import ChooseTemplate from '@/msg/ChooseTemplate' //选择模板
+import My from '@/my/My' //我的
+import MyData from '@/my/MyData' //我的资料
+import Address from '@/my/Address' //地址
+import Feedback from '@/my/Feedback' //意见反馈
+import AssistantManage from '@/my/AssistantManage' //医助管理
+import MyAssistant from '@/my/MyAssistant' //我的医助
+import ChooseUser from '@/my/ChooseUser' //选择用户
+import AssistantDetail from '@/my/AssistantDetail' //医助详情
+import SetUpVip from '@/my/SetUpVip' //设置会员
+import DistributionTask from '@/my/DistributionTask' //分配任务
+import PatientDetail from '@/my/PatientDetail' //患者详情
+import ChooseAssistant from '@/my/ChooseAssistant' //选择医助
+import ChooseAssistantDetail from '@/my/ChooseAssistantDetail' //医助详情
+import SignDistribution from '@/my/SignDistribution' //签约分配
+import SignAssistantDetail from '@/my/SignAssistantDetail' //签约医助详情
+import MyVip from '@/healthmanage/MyVip' //我的会员
+import service from '../service/Service' // d1 服务
+import setUp from '../my/setUp' // 设置
+
+Vue.use(Router)
+
+export default new Router({
+    routes: [{
+            path: '/Home',
+            name: 'Home',
+            component: Home
+        },
+        {
+            path: '/',
+            name: 'Login',
+            component: Login
+        },
+        {
+            path: '/FindPassword',
+            name: 'FindPassword',
+            component: FindPassword
+        },
+        {
+            path: '/MyPatient',
+            name: 'MyPatient',
+            component: MyPatient
+        },
+        {
+            path: '/HealthManage/:id',
+            name: 'HealthManage',
+            component: HealthManage
+        },
+        {
+            path: '/Monitoring',
+            name: 'Monitoring',
+            component: Monitoring
+        },
+        {
+            path: '/MonitoringDetail/:id',
+            name: 'MonitoringDetail',
+            component: MonitoringDetail
+        },
+        {
+            path: '/Intervention',
+            name: 'Intervention',
+            component: Intervention
+        },
+        {
+            path: '/InterventionDetail/:id/:title',
+            name: 'InterventionDetail',
+            component: InterventionDetail
+        },
+        {
+            path: '/HealthAssessment',
+            name: 'HealthAssessment',
+            component: HealthAssessment
+        },
+        {
+            path: '/RiskAssessment/:id/:title',
+            name: 'RiskAssessment',
+            component: RiskAssessment
+        },
+        {
+            path: '/ReportIntervention',
+            name: 'ReportIntervention',
+            component: ReportIntervention
+        },
+        {
+            path: '/ReportInterventionDetail',
+            name: 'ReportInterventionDetail',
+            component: ReportInterventionDetail
+        },
+        {
+            path: '/CheckReport/:id',
+            name: 'CheckReport',
+            component: CheckReport
+        },
+        {
+            path: '/UpReport',
+            name: 'UpReport',
+            component: UpReport
+        },
+        {
+            path: '/ReportDetail/:id',
+            name: 'ReportDetail',
+            component: ReportDetail
+        },
+        {
+            path: '/TestData/:id/:fieldId/:title',
+            name: 'TestData',
+            component: TestData
+        },
+        {
+            path: '/TrendMap/:title/:reId',
+            name: 'TrendMap',
+            component: TrendMap
+        },
+        {
+            path: '/Survey',
+            name: 'Survey',
+            component: Survey
+        },
+        {
+            path: '/BaseQuestion/:id',
+            name: 'BaseQuestion',
+            component: BaseQuestion
+        },
+        {
+            path: '/Follow',
+            name: 'Follow',
+            component: Follow
+        },
+        {
+            path: '/FollowDetail/:id/:type',
+            name: 'FollowDetail',
+            component: FollowDetail
+        },
+        {
+            path: '/PublishFollow',
+            name: 'PublishFollow',
+            component: PublishFollow
+        },
+        {
+            path: '/PublishTip/:id',
+            name: 'PublishTip',
+            component: PublishTip
+        },
+        {
+            path: '/Message',
+            name: 'Message',
+            component: Message
+        },
+        {
+            path: '/DoctorMsg/:id',
+            name: 'DoctorMsg',
+            component: DoctorMsg
+        },
+        {
+            path: '/MsgDetail/:id',
+            name: 'MsgDetail',
+            component: MsgDetail
+        },
+        {
+            path: '/PublishMsg/:patientId/:doctorId/:temId',
+            name: 'PublishMsg',
+            component: PublishMsg
+        },
+        {
+            path: '/ChoosePatient/:doctorId/:temId/:patientId',
+            name: 'ChoosePatient',
+            component: ChoosePatient
+        },
+        {
+            path: '/ChooseDoctor/:patientId/:temId/:doctorId',
+            name: 'ChooseDoctor',
+            component: ChooseDoctor
+        },
+        {
+            path: '/ChooseTemplate/:patientId/:doctorId/:temId',
+            name: 'ChooseTemplate',
+            component: ChooseTemplate
+        },
+        {
+            path: '/My',
+            name: 'My',
+            component: My
+        },
+        {
+            path: '/MyData/:type',
+            name: 'MyData',
+            component: MyData
+        },
+        {
+            path: '/AssistantManage',
+            name: 'AssistantManage',
+            component: AssistantManage
+        },
+        {
+            path: '/MyAssistant',
+            name: 'MyAssistant',
+            component: MyAssistant
+        },
+        {
+            path: '/ChooseUser/:type/:patientId/:assistantId/:title',
+            name: 'ChooseUser',
+            component: ChooseUser
+        },
+        {
+            path: '/ChooseAssistant/:type/:patientId/:assistantId',
+            name: 'ChooseAssistant',
+            component: ChooseAssistant
+        },
+        {
+            path: '/AssistantDetail/:id',
+            name: 'AssistantDetail',
+            component: AssistantDetail
+        },
+        {
+            path: '/SetUpVip/:id',
+            name: 'SetUpVip',
+            component: SetUpVip
+        },
+        {
+            path: '/DistributionTask/:patientId/:assistantId',
+            name: 'DistributionTask',
+            component: DistributionTask
+        },
+        {
+            path: '/PatientDetail/:type/:patientId/:assistantId',
+            name: 'PatientDetail',
+            component: PatientDetail
+        },
+        {
+            path: '/ChooseAssistantDetail/:patientId/:assistantId',
+            name: 'ChooseAssistantDetail',
+            component: ChooseAssistantDetail
+        },
+        {
+            path: '/SignAssistantDetail/:patientId/:assistantId',
+            name: 'SignAssistantDetail',
+            component: SignAssistantDetail
+        },
+        {
+            path: '/MyVip',
+            name: 'MyVip',
+            component: MyVip
+        },
+        {
+            path: '/PressureAssessment/:id/:title',
+            name: 'PressureAssessment',
+            component: PressureAssessment
+        },
+        {
+            path: '/BloodFatAssessment',
+            name: 'BloodFatAssessment',
+            component: BloodFatAssessment
+        },
+        {
+            path: '/BloodSugarAssessment',
+            name: 'BloodSugarAssessment',
+            component: BloodSugarAssessment
+        },
+        {
+            path: '/CardiovascularProfile',
+            name: 'CardiovascularProfile',
+            component: CardiovascularProfile
+        },
+        {
+            path: '/SignDistribution/:patientId/:assistantId',
+            name: 'SignDistribution',
+            component: SignDistribution
+        },
+        {
+            path: '/Address',
+            name: 'Address',
+            component: Address
+        },
+        {
+            path: '/Feedback',
+            name: 'Feedback',
+            component: Feedback
+        },
+        {
+            path: '/service',
+            name: 'service',
+            component: service
+        },
+        {
+            path: '/setUp',
+            name: 'setUp',
+            component: setUp
+        }
+    ]
+})

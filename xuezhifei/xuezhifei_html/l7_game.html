@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>发起比赛</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="js/assets/css/amazeui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/font_icon/iconfont.css" />
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+		
+		<link rel="stylesheet" type="text/css" href="css/y_public.css" />
+
+		<style type="text/css">
+			.y_header_yonghu span {
+				position: relative;
+				top: 2px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!--头部-->
+		<div class="header">
+			<div class="header_inner y_clear">
+				<div class="header_logo y_f_l"><img src="images/logo.png" /></div>
+				<ul class="header_nav y_f_l y_font_14">
+					<li>
+						<a href="h3_index.html" class="y_a_n ">首页</a>
+					</li>
+					<li class="cj y_p_r">
+						<a href="h5_createClass.html" class="y_a_n ">创建</a>
+						<div class="cj_inner">
+							<a href="javascript:video(0)">校园班级</a>
+							<a href="javascript:video(0)">辅导机构</a>
+						</div>
+					</li>
+					<li>
+						<a href="l1_wenjiao.html" class="y_a_n y_a_s">文教中心</a>
+					</li>
+					<li>
+						<a href="m1_myManagement.html" class="y_a_n">我的管理</a>
+					</li>
+				</ul>
+				<div class="y_header_yonghu y_color_lan y_font_14 y_f_r">
+					<img src="images/huang.png" />
+					<span>阿拉丁</span>
+					<span><a href="" class="y_color_lan">【退出】</a></span>
+				</div>
+			</div>
+		</div>
+		<form class="y_inner formValidator">
+			<div style="clear: both;"></div>
+			<div class="h5_createClass">
+				<div class="h5_createClass_title"><span></span>发起比赛</div>
+			</div>
+			<!--比赛内容-->
+			<div class="h5_classData">
+				<div class="h5_classData_title y_inner_padding">
+					<i class="icon iconfont icon-bisai y_color_00 y_font_20"></i>
+					<span class="y_font_14 y_color_00">比赛内容</span>
+				</div>
+				<div class="y_border_b h5_banji_inner">
+					<div class=" y_margin_l_26 y_inner_padding">
+						<span class="y_font_14 y_color_57 y_p_r_10">发 起 人</span>
+						<input type="text" placeholder="请输入发起人姓名" class="banzhurenName y_border y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入发起人姓名" />
+					</div>
+					<div class=" y_margin_l_26 y_inner_padding">
+						<span class="y_font_14 y_color_57 y_p_r_5">比赛标题</span>
+						<input type="text" placeholder="请输入比赛标题" class="y_width_826 y_height_34  y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入比赛标题" />
+
+					</div>
+					<div class=" y_margin_l_26 y_inner_padding y_clear">
+						<span class="y_font_14 y_color_57 y_p_r_10 y_f_l">上传海报</span>
+						<ul class="y_f_l ">
+							<li class="y_width_height_88 l7_li">
+								<img src="images/huang.png" class="y_img_obj" />
+								<img src="images/guanbi.png" class="l7_li_close" />
+							</li>
+							<li class="y_width_height_88 l7_li l7_li_upload y_text_c">
+								<img src="images/pic.png" class="y_p_t_25 y_p_b_10" />
+								<div class="y_font_12 y_color_lan y_text_c"><span>1</span>/3</div>
+							</li>
+						</ul>
+					</div>
+					<!--比赛内容-->
+					<div class="y_clear y_color_57 y_font_14 y_p_l_45 y_margin_t_30">
+						<span class="y_f_l y_p_r_10 y_p_t_15">比赛内容</span>
+						<div style="float: left;">
+							<script id="editor" type="text/plain" style="width:826px;height:173px;"></script>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--<!--参赛信息-->
+			<div class="studentsData y_border_b">
+				<div class="h5_classData_title y_inner_padding ">
+					<i class="icon iconfont icon-canjia y_color_00 y_font_20"></i>
+					<span class="y_font_14 y_color_00">参赛信息</span>
+				</div>
+				<div class="h5_banji  y_inner_padding  y_clear y_margin_b_25">
+					<span class="y_font_14 y_color_57 y_p_r_10 y_p_l_30">参赛人数</span>
+					<input type="text" placeholder="请输入参赛人数" class="banzhurenName y_border y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入发起人姓名" />
+
+				</div>
+				<div class="h5_banji  y_inner_padding  y_clear">
+					<div class="y_font_14 y_color_57 y_f_l y_p_r_20 y_p_l_30">参赛作品</div>
+
+					<div class="am-form-group y_f_l y_color_21 y_font_14 width720 youjianjudecg">
+
+					</div>
+
+				</div>
+
+				<!--参赛要求-->
+				<div class="y_clear y_color_57 y_font_14 y_p_l_40 y_margin_t_15 y_margin_b_25">
+					<span class="y_f_l y_p_r_10 y_p_t_15 y_p_l_10">参赛要求</span>
+					<div style="float: left;">
+						<script id="yaoqiu" type="text/plain" style="width:826px;height:173px;"></script>
+					</div>
+				</div>
+				<!--报名截止时间-->
+				<div class="h5_dizhi info  y_inner_padding y_clear">
+					<div>
+						<div class="y_f_l y_p_r_5">
+							<div class="y_font_14 y_color_57 y_p_l_5">报名截止时间</div>
+							<div class="y_font_11 y_color_hong">（投票开始时间）</div>
+						</div>
+						<div class="y_f_l">
+							<div id="birthday_container">
+								<select data-am-selected="{ btnStyle: 'secondary', maxHeight: 280}" name="year"></select><span class="y_margin_l_10 y_margin_r_30 y_font_14 y_color_lan">年</span>
+								<select data-am-selected="{ btnStyle: 'secondary', maxHeight: 280}" name="month"></select><span class="y_margin_l_10 y_margin_r_30 y_font_14 y_color_lan">月</span>
+								<select data-am-selected="{ btnStyle: 'secondary', maxHeight: 280}" name="day"></select><span class="y_margin_l_10 y_margin_r_30 y_font_14 y_color_lan">日</span>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!--报名截止时间-->
+				<div class="h5_dizhi info  y_inner_padding y_clear y_margin_t_20">
+					<div>
+						<div class="y_f_l y_p_r_15">
+							<div class="y_font_14 y_color_57 y_p_t_10">投票结束时间</div>
+						</div>
+						<div class="y_f_l">
+							<div id="birthday_container2">
+								<select data-am-selected="{ btnStyle: 'secondary', maxHeight: 280}" name="year"></select><span class="y_margin_l_10 y_margin_r_30 y_font_14 y_color_lan">年</span>
+								<select data-am-selected="{ btnStyle: 'secondary', maxHeight: 280}" name="month"></select><span class="y_margin_l_10 y_margin_r_30 y_font_14 y_color_lan">月</span>
+								<select data-am-selected="{ btnStyle: 'secondary', maxHeight: 280}" name="day"></select><span class="y_margin_l_10 y_margin_r_30 y_font_14 y_color_lan">日</span>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!--奖品信息-->
+			<div class="h5_classData">
+				<div class="h5_classData_title y_inner_padding">
+					<i class="icon iconfont icon-liwu y_color_00 y_font_20"></i>
+					<span class="y_font_14 y_color_00">奖品信息</span>
+					<span class="y_font_12 y_color_hong">（注：奖品总额小于10000元，我们将按您奖品价值总额的50%收取押金，待比赛结束，您上传快递单号或颁奖照片后，我们会予以退还。）</span>
+				</div>
+				<div class="y_border_b ">
+					<!--奖项名称-->
+					<div class="jiangxiang">
+						<div class=" y_margin_l_26 y_inner_padding y_margin_b_25">
+							<span class="y_font_14 y_color_57 y_p_r_10">奖项名称</span>
+							<input type="text" placeholder="请输入奖项数量" class="y_width_826 y_height_34  y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入奖项数量" />
+						</div>
+						<div class=" y_margin_l_26 y_inner_padding">
+							<span class="y_font_14 y_color_57 y_p_r_10">奖项数量</span>
+							<input type="text" placeholder="请输入奖项数量" class="banzhurenName y_border y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入奖项数量" />
+							<span class="y_font_14 y_color_57 y_p_r_5 y_p_l_30">奖品价格</span>
+							<input type="text" placeholder="请输入奖品价格" class="banzhurenName y_border y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入奖品价格" />
+						</div>
+						<div class="y_clear y_color_57 y_font_14 y_p_l_45 y_margin_t_30 y_p_b_20">
+							<span class="y_f_l y_p_r_10 y_p_t_15">奖品内容</span>
+							<div class="y_f_l y_border_b y_p_b_20">
+								<script id="jiangpin" type="text/plain" style="width:826px;height:173px;"></script>
+							</div>
+						</div>
+					</div>
+					<!--奖项名称-->
+					<div class="jiangxiang">
+						<div class=" y_margin_l_26 y_inner_padding y_margin_b_25">
+							<span class="y_font_14 y_color_57 y_p_r_10">奖项名称</span>
+							<input type="text" placeholder="请输入奖项数量" class="y_width_826 y_height_34  y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入奖项数量" />
+						</div>
+						<div class=" y_margin_l_26 y_inner_padding">
+							<span class="y_font_14 y_color_57 y_p_r_10">奖项数量</span>
+							<input type="text" placeholder="请输入奖项数量" class="banzhurenName y_border y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入奖项数量" />
+							<span class="y_font_14 y_color_57 y_p_r_5 y_p_l_30">奖品价格</span>
+							<input type="text" placeholder="请输入奖品价格" class="banzhurenName y_border y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入奖品价格" />
+						</div>
+						<div class="y_clear y_color_57 y_font_14 y_p_l_45 y_margin_t_30 y_p_b_20">
+							<span class="y_f_l y_p_r_10 y_p_t_15">奖品内容</span>
+							<div class="y_f_l y_border_b y_p_b_20">
+								<script id="jiangpin2" type="text/plain" style="width:826px;height:173px;"></script>
+							</div>
+						</div>
+					</div>
+					<!--奖项名称-->
+					<div class="jiangxiang">
+						<div class=" y_margin_l_26 y_inner_padding y_margin_b_25">
+							<span class="y_font_14 y_color_57 y_p_r_10">奖项名称</span>
+							<input type="text" placeholder="请输入奖项数量" class="y_width_826 y_height_34  y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入奖项数量" />
+						</div>
+						<div class=" y_margin_l_26 y_inner_padding">
+							<span class="y_font_14 y_color_57 y_p_r_10">奖项数量</span>
+							<input type="text" placeholder="请输入奖项数量" class="banzhurenName y_border y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入奖项数量" />
+							<span class="y_font_14 y_color_57 y_p_r_5 y_p_l_30">奖品价格</span>
+							<input type="text" placeholder="请输入奖品价格" class="banzhurenName y_border y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入奖品价格" />
+						</div>
+						<div class="y_clear y_color_57 y_font_14 y_p_l_45 y_margin_t_30 y_p_b_20">
+							<span class="y_f_l y_p_r_10 y_p_t_15">奖品内容</span>
+							<div class="y_f_l y_border_b y_p_b_20">
+								<script id="jiangpin3" type="text/plain" style="width:826px;height:173px;"></script>
+							</div>
+						</div>
+					</div>
+					<div class="addJiangxiang y_p_t_10 y_p_b_30">
+						<a href="javascript:void(0);">添加奖项</a>
+					</div>
+
+				</div>
+			</div>
+			<!--合作伙伴-->
+			<div class="h5_classData">
+				<div class="h5_classData_title y_inner_padding">
+					<i class="icon iconfont icon-hezuojigou y_color_00 y_font_20"></i>
+					<span class="y_font_14 y_color_00">合作伙伴（选填）</span>
+					<span class="y_font_12 y_color_hong">（注：奖品总额小于10000元，我们将按您奖品价值总额的50%收取押金，待比赛结束，您上传快递单号或颁奖照片后，我们会予以退还。）</span>
+				</div>
+				<div class="y_border_b h5_banji_inner">
+
+					<div class="h5_banji y_margin_l_26 y_inner_padding">
+						<span class="y_font_14 y_color_57">合作商家</span>
+						<select data-am-selected="{ btnStyle: 'secondary'}">
+							<option value="a">请选择合作商家</option>
+							<option value="b">Banana</option>
+							<option value="o">Orange</option>
+							<option value="m">Mango</option>
+						</select>
+					</div>
+					<div class="y_p_l_15">
+						<span class="y_font_14 y_color_57 y_p_r_5">您的联系方式</span>
+						<input type="text" placeholder="请输入您的手机号码" class="banzhurenName y_border y_p_l_10" class="y_font_14" datatype="m" nullmsg="请输入您的手机号码" errormsg="请输入您的手机号码" />
+						<span class="y_font_14 y_color_57 y_p_r_5 y_margin_l_30">其它</span>
+						<input type="text" placeholder="请输入您的其它联系方式" class="banzhurenName y_border y_p_l_10" class="y_font_14" datatype="m" nullmsg="请输入您的其它联系方式" errormsg="请输入您的其它联系方式" />
+					</div>
+					<!--发送内容-->
+					<div class="y_clear y_color_57 y_font_14 y_p_l_45 y_margin_t_30">
+						<span class="y_f_l y_p_r_10 y_p_t_15">发送内容</span>
+						<div style="float: left;">
+							<script id="fasong" type="text/plain" style="width:826px;height:173px;"></script>
+						</div>
+					</div>
+					<div class="y_clear y_color_57 y_font_14 y_p_l_45 y_margin_t_30">
+						<span class="y_f_l y_p_r_10 y_p_t_15 y_f_l">比赛方案</span>
+						<div class="studentsData_table   y_f_l">
+							<table class='public-jy-table  gd-td-table-826'>
+								<tr>
+									<th>比赛名称</th>
+									<td><input value="例如：我的成长日记主题" placeholder="" /></td>
+
+								</tr>
+								<tr>
+									<th>比赛内容</th>
+									<td><input placeholder="请天填写比赛内容"/></td>
+								</tr>
+								<tr>
+									<th>组织形式</th>
+									<td><input placeholder="请填写组织形式"/></td>
+
+								</tr>
+								<tr>
+									<th>广告投放形式</th>
+									<td><input placeholder="请填写广告投放形式"/></td>
+								</tr>
+								<tr>
+									<th>预计参与人员（团队）数量</th>
+									<td><input placeholder="请天填写预计参赛人员（团队）数量"/></td>
+
+								</tr>
+								<tr>
+									<th>预计参与点赞／评论人数</th>
+									<td><input placeholder="请填写预计参与点赞/评论人数"/></td>
+								</tr>
+								<tr>
+									<th>预计产生点击量</th>
+									<td><input placeholder="请填写预计产生点击量"/></td>
+
+								</tr>
+								<tr>
+									<th>预计广告收益</th>
+									<td><input placeholder="请天填写预计广告收益"/></td>
+								</tr>
+								<tr>
+									<th>预计总成本</th>
+									<td><input placeholder="请填写预计总成本"/></td>
+
+								</tr>
+								<tr>
+									<th>比赛发起单位</th>
+									<td><input placeholder="请填写比赛发起单位"/></td>
+								</tr>
+							</table>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<div class="h5_yhxy  y_margin_t_5 y_p_b_35 y_margin_l_26">
+				<div class="y_font_12 y_color_hong y_p_t_5 y_p_b_5">注：您需要缴纳的费用包括：发布比赛的1000元，50%奖品总价值的押金，该比赛自带广告位，您可以先上缴费用后再上传审核！</div>
+				<input id='xuanze1' class="y_checkbox " type="checkbox" />
+				<label class="y_checkbox_label " for="xuanze1"></label>
+				<span class="y_color_a3 y_font_12">确认创建表示已阅读并同意《<a href="javascript:void(0);" class="y_color_lan">用户协议</a>》</span>
+			</div>
+			<div class="y_btn y_p_b_40 ">
+
+				<button type="submit">确认提交</button>
+
+			</div>
+		</form>
+		<!--底部-->
+		<footer class="">
+			<div class="footer_inner">
+				<p>·免费声明·友情链接·网站地图·通讯录服务热线：400-080-9180</p>
+				<p>2008 学知非公司版权所有 闵 ICP 备05007286号 design by Clh</p>
+			</div>
+		</footer>
+		<!--自定义模块弹窗-->
+		<form class="formValidator">
+			<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+				<div class="am-modal-dialog zidingyimokuai">
+					<div class="am-modal-hd pop_title y_p_b_20 y_p_t_40">自定义模块</div>
+					<div class="am-modal-bd y_p_b_40">
+						<input type="text" class="y_background_input y_border am-modal-prompt-input" placeholder="请输入自定义模块名称" datatype="*" nullmsg="请输入自定义模块名称">
+					</div>
+					<div class="am-modal-footer">
+						<span class="am-modal-btn y-am-modal-btn" data-am-modal-cancel>取消</span>
+						<button type="submit" class=" y-am-modal-btn">提交</button>
+						<!--<span class="am-modal-btn y-am-modal-btn" data-am-modal-confirm>提交</span>-->
+					</div>
+				</div>
+			</div>
+		</form>
+		<script src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/Validform_v5.1_min.js"></script>
+		<script type="text/javascript" src="js/layer/layer.js"></script>
+		<script type="text/javascript" src="js/data.select.js"></script>
+		<script src="js/assets/js/amazeui.min.js"></script>
+		<script src="js/y_public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/area.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/ueditor.all.min.js">
+		</script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/lang/zh-cn/zh-cn.js"></script>
+
+		<script type="text/javascript">
+			//三级日期联动初始化
+			$(function() {
+				$("#birthday_container").birthday();
+			})
+			$(function() {
+				$("#birthday_container2").birthday();
+			})
+
+			//创建自定义模块
+			$(function() {
+				$('#doc-prompt-toggle').on('click', function() {
+					$('#my-prompt').modal({
+						relatedTarget: this,
+						onConfirm: function(e) {
+							//							
+						},
+						onCancel: function(e) {
+							//							
+						}
+					});
+				});
+			});
+			//配置富文本框
+			var config = {
+				maximumWords: 300,
+				toolbars: [
+					[
+						'fullscreen', 'source', '|', 'undo', 'redo', '|',
+						'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+						'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+
+					]
+				]
+			}
+			var ue = UE.getEditor('editor', config);
+			var ue = UE.getEditor('jiangpin', config);
+			var ue = UE.getEditor('jiangpin2', config);
+			var ue = UE.getEditor('jiangpin3', config);
+			var ue = UE.getEditor('fasong', config);
+			var ue = UE.getEditor('yaoqiu', config);
+
+			//选择地区
+			_init_area();
+			var Gid = document.getElementById;
+			var showArea = function() {
+				Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" +
+					Gid('s_city').value + " - 县/区" +
+					Gid('s_county').value + "</h3>"
+			}
+			$('#s_county').attr('onchange', 'showArea()');
+		</script>
+	</body>
+
+</html>

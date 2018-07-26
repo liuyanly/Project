@@ -1,0 +1,87 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.header-top {
+  width: 1000px;
+  margin: 0 auto;
+  line-height: 52px;
+  height: 52px;
+  font-size: 14px;
+  color: #999;
+}
+.header-top .hospital-name {
+  color: #4CC6D8;
+}
+.content-box .can-status {
+  font-size: 16px;
+  color: #666;
+  line-height: 57px;
+  height: 57px;
+  border-bottom: 1px dotted #ccc ;
+}
+.content-box .can-status .cc {
+  font-size: 16px;
+}
+.content-box .can-status .bold {
+  color: #333;
+  font-weight: 600;
+}
+.content-box .department-num {
+  margin: 20px 0;
+  border-bottom: 1px solid #ccc;
+}
+.content-box .department-num li {
+  float: left;
+  margin-right: 48px;
+  margin-bottom: 22px;
+  font-size: 14px;
+  color: #333;
+}
+.content-box .doctor-list {
+  padding: 0 20px;
+  margin-bottom: 80px;
+}
+.content-box .doctor-list li {
+  float: left;
+  width: 265px;
+  height: 88px;
+  margin-right: 32px;
+  margin-bottom: 21px;
+  border: 1px solid #999;
+  padding: 14px 9px;
+}
+.content-box .doctor-list li:nth-of-type(3n) {
+  margin-right: 0;
+}
+.content-box .doctor-list li .doctor-info {
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #CCC;
+}
+.content-box .doctor-list li .doctor-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.content-box .doctor-list li .doctor-info .doctor-content p {
+  font-size: 12px;
+  color: #666;
+}
+.content-box .doctor-list li .doctor-info .doctor-content .name {
+  margin-top: 9px;
+  font-size: 12px;
+  color: #333;
+}
+.content-box .doctor-list li .content-word {
+  padding-top: 10px;
+  font-size: 12px;
+  color: #999;
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>检验数据</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/personal.css"/>
+    <link rel="stylesheet" href="css/report_info.css"/>
+    <script src="./node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+</head>
+<body>
+<div id="page" class="relative">
+    <div class="container">
+        <my-header active="6"></my-header>
+    </div>
+    <div class="main">
+        <section class="container clearFix">
+            <my-left-nav active="11"></my-left-nav>
+            <div class="right right-box" style="height: 851px">
+                <p class="header-title clearFix">检验数据</p>
+                <div class="description-box">
+                    <ul class="data-list clearFix" style="padding-bottom: 0;margin-bottom:13px; ">
+                        <li :class="{current:name == data.name}" @click="changeType(data.id,data.name)" v-for="data in abnormalData"><span class="name left">{{data.name}}</span><span class="data left">{{data.count}}</span></li>
+                    </ul>
+                    <table class="description-table data-table">
+                        <thead>
+                        <tr class="th-tr">
+                            <td width="158">项目</td>
+                            <td width="138">检查值</td>
+                            <td width="148">单位</td>
+                            <td width="149">参考范围</td>
+                            <td width="250">趋势图</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="data in detailData" :class="{imp:data.pivot.value>data.max||data.pivot.value<data.min}">
+                            <td>{{data.title}}</td>
+                            <td><span>{{data.pivot.value}}</span><img src="images/f47_icon1.png" v-if="data.pivot.value>data.max"><img src="images/f47_icon2.png" v-if="data.pivot.value<data.min"></td>
+                            <td>{{data.unit}}</td>
+                            <td v-if="data.translates.range_desc!=''">{{data.translates.range_desc}}</td>
+                            <td v-if="data.translates.range_desc==''">-</td>
+                            <td class="chart-btn" @click="linkChart(data.id,data.title)">
+                                <img v-if="data.pivot.value>data.max||data.pivot.value<data.min" src="images/f6_icon1.png">
+                                <img v-else src="images/f6_icon2.png">
+                            </td>
+                        </tr>
+                        <!--<tr>-->
+                        <!--<td>体重</td>-->
+                        <!--<td>60</td>-->
+                        <!--<td>kg</td>-->
+                        <!--<td>-</td>-->
+                        <!--<td class="chart-btn"><img src="images/f6_icon2.png"></td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td>腰围</td>-->
+                        <!--<td>50</td>-->
+                        <!--<td>cm</td>-->
+                        <!--<td>-</td>-->
+                        <!--<td class="chart-btn"><img src="images/f6_icon2.png"></td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td>ABO血型</td>-->
+                        <!--<td>A</td>-->
+                        <!--<td></td>-->
+                        <!--<td>-</td>-->
+                        <!--<td class="chart-btn"><img src="images/f6_icon2.png"></td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td>RhD血型</td>-->
+                        <!--<td>-</td>-->
+                        <!--<td></td>-->
+                        <!--<td>-</td>-->
+                        <!--<td class="chart-btn"><img src="images/f6_icon2.png"></td>-->
+                        <!--</tr>-->
+                        <!--<tr class="imp">-->
+                        <!--<td>收缩压(SBP)</td>-->
+                        <!--<td><span class="abnormal">260</span><img src="images/f47_icon1.png" v-if="data.pivot.value>data.max"></td>-->
+                        <!--<td>mmHg</td>-->
+                        <!--<td>50-250</td>-->
+                        <!--<td class="chart-btn"><img src="images/f6_icon1.png"></td>-->
+                        <!--</tr>-->
+                        <!--<tr class="imp">-->
+                        <!--<td>舒张压(DBP)</td>-->
+                        <!--<td><span class="abnormal">26</span><img src="images/f47_icon2.png"></td>-->
+                        <!--<td>mmHg</td>-->
+                        <!--<td>26-180</td>-->
+                        <!--<td class="chart-btn"><img src="images/f6_icon1.png"></td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td>心率</td>-->
+                        <!--<td>60</td>-->
+                        <!--<td>次/分钟</td>-->
+                        <!--<td>20-250</td>-->
+                        <!--<td class="chart-btn"><img src="images/f6_icon2.png"></td>-->
+                        <!--</tr>-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/doctor_login.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/patient_leftNav.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data() {
+            return {
+                abnormalData:[],
+                aId:getparams('aId'),
+                id:getparams('id'),
+                name:getparams('name'),
+                detailData:'',
+            }
+        },
+        mounted:function () {
+            getToken(this)
+            this.getData()
+            this.getDetail()
+        },
+        methods:{
+            //获取检验数据类型
+            getData:function(){
+                var that=this
+                axios.get(doctorApi+'/archive/'+that.id)
+                    .then(function(res){
+                        if(res.data.status==200){
+                            //重组检查数据
+                            for(var i = 0;i<res.data.data.detection.length;i++){
+                                var tem = {
+                                    name:res.data.data.detection[i].category,
+                                    count:0,
+                                }
+                                for(var j = 0;j<res.data.data.detection[i].data.length;j++){
+                                    tem.count += res.data.data.detection[i].data[j].abnormal_count
+                                }
+                                that.abnormalData.push(tem)
+                            }
+                        }
+                    })
+                    .catch(function(err){
+                        //linkLogin(that)
+                    })
+            },
+            //获取检验数据详情，表格数据
+            getDetail:function(){
+                var that = this
+                axios.get(doctorApi+'/archive/showdetection?archive_id='+that.id+'&category='+that.name)
+                    .then(function(res){
+                        if(res.data.status == 200){
+                            that.detailData = res.data.data.data
+                            console.log(that.detailData)
+                        }
+                    })
+                    .catch(function(err){
+
+                    })
+            },
+            //切换检验数据类型
+            changeType:function (id,name) {
+                this.name = name;
+                this.getDetail()
+            },
+            //趋势图
+            linkChart:function (id,name) {
+                location.href = "trend_chart.html?id="+id+'&name='+name;
+            },
+        }
+    })
+</script>
+</body>
+</html>

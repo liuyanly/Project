@@ -1,0 +1,50 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.filter-box {
+  margin-top: 28px;
+  padding-left: 14px;
+  padding-bottom: 27px;
+  border-bottom: 1px solid #EFF1FA;
+}
+.filter-box .filter-btn {
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  background: #4CC6D8;
+  border-radius: 3px;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+.report-list li {
+  padding: 0 20px 0 12px;
+  line-height: 58px;
+  height: 58px;
+  border-bottom: 1px solid #EFF1FA;
+  cursor: pointer;
+}
+.report-list li span {
+  font-size: 14px;
+  color: #000;
+  width: 136px;
+}
+.report-list li .date {
+  width: 156px;
+}
+.report-list li .hospital-name {
+  width: auto;
+}
+.report-list li img {
+  margin-top: 22px;
+  cursor: pointer;
+}

@@ -1,0 +1,223 @@
+<template>
+	<div class="message-doctor">
+		<headers headName="消息"></headers>
+		<div class="contentScollr">
+			<ul class="list-ul">
+				<li class="clear">
+					<router-link :to="{ name: 'DoctorMsg', params: {id:3} }">
+					<div class="left img-box">
+						<img src="../assets/images/f1_icon1.png" />
+						<span class="num" v-if="doctor.count>0&&doctor.count<100">{{doctor.count}}</span>
+						<span class="num" v-if="doctor.count>100">99+</span>
+					</div>
+					<div class="left word">
+						<p class="line1 clear">
+							<span class="left">咨询消息</span>
+							<span class="right" v-if="doctorContent!=null">{{doctorContent.created_at}}</span>
+						</p>
+						<p class="line2" v-if="doctorContent!=null">
+							{{doctorContent.content}}
+						</p>
+						<p class="line2" v-else>
+							暂无消息，敬请期待
+						</p>
+					</div>
+					</router-link>
+				</li>
+				<!-- <li class="clear">
+					<router-link :to="{ name: 'DoctorMsg', params: {} }">
+					<div class="left img-box">
+						<img src="../assets/images/f1_icon2.png" /> -->
+						<!-- <span class="num">22</span> -->
+					<!-- </div>
+					<div class="left word">
+						<p class="line1 clear">
+							<span class="left">服务消息</span>
+							<span class="right">03月12日&emsp;12:00</span>
+						</p>
+						<p class="line2">
+							暂无消息，敬请期待
+						</p>
+					</div>
+					</router-link>
+				</li> -->
+				<li class="clear">
+					<router-link :to="{ name: 'DoctorMsg', params: {id:2} }">
+					<div class="left img-box">
+						<img src="../assets/images/b1_icon2.png" />
+						<span class="num" v-if="patient.count>0&&patient.count<100">{{patient.count}}</span>
+						<span class="num" v-if="patient.count>100">99+</span>
+					</div>
+					<div class="left word">
+						<p class="line1 clear">
+							<span class="left">会员消息</span>
+							<span class="right" v-if="patientContent!=null">{{patientContent.created_at}}</span>
+						</p>
+						<p class="line2" v-if="patientContent!=null">
+							{{patientContent.content}}
+						</p>
+						<p class="line2" v-else>
+							暂无消息，敬请期待
+						</p>
+					</div>
+					</router-link>
+				</li>
+				<li class="clear">
+					<router-link :to="{ name: 'DoctorMsg', params: {id:1} }">
+					<div class="left img-box">
+						<img src="../assets/images/b1_icon4.png" />
+						<span class="num" v-if="system.count>0&&system.count<100">{{system.count}}</span>
+						<span class="num" v-if="system.count>100">99+</span>
+					</div>
+					<div class="left word">
+						<p class="line1 clear">
+							<span class="left">系统消息</span>
+							<span class="right" v-if="systemContent!=null">{{systemContent.created_at}}</span>
+						</p>
+						<p class="line2" v-if="systemContent!=null">
+							{{systemContent.content}}
+						</p>
+						<p class="line2" v-else>
+							暂无消息，敬请期待
+						</p>
+					</div>
+					</router-link>
+				</li>
+				<li class="clear">
+					<router-link :to="{ name: 'PublishMsg', params: {patientId:0} }"><img src="../assets/images/b5_icon1.png" class="left publish-img" /><div class="left publish-btn">发布消息</div></router-link>
+				</li>
+			</ul>
+		</div>
+		<footers FootOn='msg'></footers>
+	</div>
+</template>
+
+<script>
+//导入模板
+import headers from "../components/Header.vue";
+import footers from "../components/Footer.vue";
+export default {
+  data () {
+    return {
+		doctor:'',
+  	  	patient:'',
+  	  	system:'',
+  	  	doctorContent:'',
+  	  	patientContent:'',
+  	  	systemContent:'',
+  	  	doctorTime:'',
+  	  	patientTime:'',
+  	  	systemTime:'',
+    }
+  },
+  mounted(){
+	  this.BaseSet.getToken(this)
+	  this.getData()
+  },
+  methods: {
+	  getData(){
+		  this.$ajax.get('/user/mynotifications')
+		  .then((res)=>{
+			  var that = this
+			  if(res.data.status == 200){
+				  	that.doctor = res.data.data.doctor
+	   			   	that.patient = res.data.data.patient
+	   			    that.system = res.data.data.system
+	   			    that.doctorContent = res.data.data.doctor.data
+	   			    that.patientContent = res.data.data.patient.data
+	   			    that.systemContent = res.data.data.system.data
+			  }
+		  })
+		  .catch((err)=>{
+			  console.log(err)
+		  })
+	  }
+  },
+  components: { headers, footers},
+  //请求数据接口
+}
+</script>
+
+<style lang="scss" scoped>
+.message-doctor{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	.contentScollr{
+		flex: 1;
+		overflow: scroll;
+		-webkit-overflow-scrolling:touch;
+	}
+	.list-ul{
+		background: #fff;
+		.publish-btn{
+			line-height: 2.5rem /* 50/20 */;
+			font-size: .75rem;
+			color: #444;
+		}
+		.publish-img{
+			width: 1.5rem /* 30/20 */;
+			height: 1.5rem /* 50/20 */;
+			margin-top: .5rem;
+			margin-right: 1rem;
+			margin-left: .5rem;
+		}
+		li{
+			padding: 1rem /* 20/20 */ .8rem /* 15/20 */;
+			border-bottom: 1px solid #e5e5e5;
+			.left{
+				float:left;
+			}
+			.right{
+				float: right;
+			}
+			.img-box{
+				margin-right: .5rem /* 10/20 */;
+				position: relative;
+				>img{
+					width: 2.5rem /* 50/20 */;
+					height: 2.5rem /* 50/20 */;
+				}
+				.num{
+					font-size: .5rem /* 10/20 */;
+					color: #fff;
+					position: absolute;
+					width: .8rem /* 16/20 */;
+					height: .8rem /* 16/20 */;
+					text-align: center;
+					border-radius: 50%;
+					background: #ff2906;
+					top: -.1rem /* -2/20 */;
+					right: 0;
+				}
+			}
+			.word{
+				width: calc(100% - 3.3rem);
+				.line1{
+					line-height: 1.1rem /* 21/20 */;
+					margin-bottom: .4rem /* 8/20 */;
+					.left{
+						font-size: .75rem;
+						color: #444;
+					}
+					.right{
+						font-size: .6rem /* 12/20 */;
+						color: #999;
+					}
+				}
+				.line2{
+					font-size: .7rem /* 13/20 */;
+					color: #666;
+					width: 14.1rem /* 282/20 */;
+					line-height: .9rem /* 18/20 */;
+					height: .9rem /* 18/20 */;
+					overflow: hidden;
+					text-overflow:ellipsis;
+					white-space: nowrap;
+				}
+			}
+		}
+	}
+}
+</style>

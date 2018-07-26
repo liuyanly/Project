@@ -1,0 +1,237 @@
+<template>
+    <div class="no-accept">
+        <headers headName="患者信息"></headers>
+        <div class="head-top">
+			<p class="bg-p">
+			</p>
+			<div class="user-box">
+				<img class="head-img" src="../assets/images/a_image1.png" />
+				<p class="name">
+					{{data.realname}}
+				</p>
+				<p class="diease">
+					{{data.illness}}
+				</p>
+                <p class="sex">
+					性别：{{translates.sex}}&emsp;年龄：{{translates.age}}岁
+				</p>
+			</div>
+		</div>
+        <div class="content-word">
+            <p class="title">
+                症状
+            </p>
+            <div class="word" v-html="data.symptom">
+
+            </div>
+        </div>
+        <div class="content-word">
+            <p class="title">
+                档案
+            </p>
+            <div class="word" v-html="data.archives">
+
+            </div>
+        </div>
+        <div class="footer-btn clear">
+            <router-link :to="{ name: 'refuseConsult', params: {id:id} }">
+            <p class="refuse">
+                拒绝
+            </p>
+            </router-link>
+            <p class="accept" @click="accept()">
+                接受
+            </p>
+        </div>
+        <mt-datetime-picker
+            ref="picker"
+            type="datetime"
+			:startDate="startDate"
+            year-format="{value}"
+  month-format="{value}"
+  date-format="{value}"
+  @confirm="handleConfirm">
+        </mt-datetime-picker>
+    </div>
+</template>
+<script>
+    import headers from '../components/Header'
+    let d = new Date(),
+    time = d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日'+d.getHours()+'点'+d.getMinutes()+'分'
+    export default {
+        data(){
+            return{
+                id:this.$route.params.id,
+                type:this.$route.params.type,
+                pickerValue:time,
+				startDate: new Date(),
+				contentWord:'',
+				radioVal:0,
+                data:'',
+                translates:'',
+            }
+        },
+        mounted(){
+            this.BaseSet.getToken(this)
+            this.queryUserMeg()
+        },
+        methods:{
+            accept(){
+                if(this.type==2){
+                    this.$messagebox('提示', '接受成功');
+                    this.$messagebox.alert('操作成功').then(action => {
+                        this.$router.push({name:'OnlineConsult',params:{type:1}})
+                    });
+                }else{
+                    this.$refs.picker.open();
+                }
+            },
+            queryUserMeg(){
+              this.$ajax.get(`user/patient/${this.id}`)
+              .then((res)=>{
+                  let data = res.data.data;
+                  if(res.data.status==200){
+                      this.data = data;
+                      this.translates = data.translates
+                  }
+              })
+              .catch((err)=>{
+                  this.BaseSet.linkLogin(this)
+              })
+            },
+            handleConfirm(res){
+			  let d=new Date(res);
+			  this.pickerValue=d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日'+d.getHours()+'点'+d.getMinutes()+'分'
+              this.$messagebox.alert('操作成功').then(action => {
+                  this.$router.push({name:'OnlineConsult',params:{type:1}})
+              });
+			},
+        },
+        components:{headers},
+    }
+</script>
+<style lang="scss">
+    .no-accept{
+        padding-bottom: 2.5rem;
+        .head-top{
+			position: relative;
+			background: #fff;
+			//height: 11.6rem /* 463/40 */;
+			margin-bottom: .5rem /* 20/40 */;
+			.bg-p{
+				height:2.1rem /* 173/40 */;
+				background: #4cc6d8;
+			}
+			.user-box{
+				//height: 4.2rem /* 84/20 */;
+				background: #fff;
+				text-align: center;
+				.head-img{
+					width: 3rem /* 120/40 */;
+					height: 3rem /* 120/40 */;
+					border: .1rem /* 4/40 */ solid #fff ;
+					border-radius: 50%;
+					position: absolute;
+					top: 0.4rem /* 64/40 */;
+					left: 7.7rem /* 309/40 */;
+				}
+				.name{
+					font-size: .8rem /* 30/40 */;
+					color: #333;
+					margin-top: 1.8rem /* 35/20 */;
+					line-height: .8rem /* 30/40 */;
+				}
+				.diease,.sex{
+					font-size: .6rem /* 24/40 */;
+					color: #666;
+					line-height: .6rem /* 24/40 */;
+					padding-top: .3rem /* 12/40 */;
+				}
+                .sex{
+                    padding-bottom: 1.1rem /* 44/40 */;
+                }
+			}
+			.top-btn{
+				margin-top: 3.8rem /* 153/40 */;
+				padding-bottom: 1.2rem /* 48/40 */;
+				.title{
+					font-size: .7rem /* 26/40 */;
+					color: #666;
+					margin-top: .5rem /* 20/40 */;
+					line-height: .7rem;
+				}
+
+				.left{
+					float: left;
+					text-align: center;
+					img{
+						width: 1.2rem /* 49/40 */;
+						height: 1rem /* 40/40 */;
+					}
+					margin-left: 3.5rem /* 141/40 */;
+				}
+				.right{
+					float: right;
+					text-align: center;
+					margin-right: 3.6rem /* 144/40 */;
+					img{
+						width: 1.4rem /* 54/40 */;
+						height: 1.1rem /* 46/40 */;
+					}
+				}
+			}
+		}
+        .content-word{
+            background: #fff;
+            margin-bottom: .5rem /* 20/40 */;
+            .title{
+                padding: 0 .8rem /* 30/40 */;
+                line-height: 2rem /* 80/40 */;
+                font-size: .7rem /* 28/40 */;
+                color: #6fc3d5;
+                border-bottom: 1px solid #e5e5e5;
+            }
+            .word{
+                padding: .5rem /* 20/40 */ .8rem /* 30/40 */;
+                line-height: 1.2rem /* 48/40 */;
+                font-size: .7rem /* 28/40 */;
+                color: #333;
+            }
+            .img-list{
+                padding: .8rem /* 30/40 */;
+                li{
+                    float: left;
+                    margin-right: .6rem /* 25/40 */;
+                    &:nth-of-type(3n){
+                        margin-right: 0;
+                    }
+                    img{
+                        width: 5.3rem /* 213/40 */;
+                        height: 7.9rem /* 315/40 */;
+                    }
+                }
+            }
+        }
+        .footer-btn{
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            p{
+                float: left;
+                width: 50%;
+                height: 2.5rem /* 98/40 */;
+                text-align: center;
+                line-height: 2.5rem /* 98/40 */;
+                font-size: .8rem /* 30/40 */;
+            }
+            .refuse{
+                background: #fff;
+                color: #4cc6d8;
+            }
+            .accept{
+                background: #4cc6d8;
+                color: #fff;
+            }
+        }
+    }
+</style>

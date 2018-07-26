@@ -1,0 +1,287 @@
+<template>
+	<div class="my-info">
+		<div class="all_header">
+            <div class="back" @click="Back">
+                <img src="../assets/images/b1_fanhui.png"/>
+            </div>
+            <div class="name"></div>
+            <router-link :to="{ name: 'MyData', params: {} }"><div class="right">个人信息</div></router-link>
+        </div>
+		<div class="contentScollr">
+			<div class="head-top">
+				<p class="bg-p">
+				</p>
+				<router-link :to="{ name: 'MyData', params: {} }">
+					<div class="user-box">
+						<img class="head-img" :src="headImg" />
+						<img class="vip-img" src="../assets/images/g1_v3.png" />
+						<p class="name">
+							{{nickname}}
+						</p>
+						<p class="hospital">
+							{{hospital}}
+						</p>
+						<p class="department">
+							{{department}}
+						</p>
+					</div>
+				</router-link>
+			</div>
+
+			<ul class="menu-list">
+				<router-link :to="{ name: 'SignPatient', params: {} }">
+					<li class="clear">
+						<img class="icon-img" src="../assets/images/g1_icon5.png" />
+						<span class="name">我的签约</span>
+						<img src="../assets/images/c13_liebiao.png" class="link-img" />
+					</li>
+				</router-link>
+				<router-link :to="{ name: 'MyPatient', params: {} }">
+					<li class="clear">
+						<img class="icon-img" src="../images/f1_icon2@2x.png" />
+						<span class="name">我的患者</span>
+						<img src="../assets/images/c13_liebiao.png" class="link-img" />
+					</li>
+				</router-link>
+				<router-link :to="{ name: 'MyWallet', params: {} }">
+				<li class="clear">
+					<img class="icon-img" src="../assets/images/g1_icon4.png" />
+					<span class="name">我的钱包</span>
+					<img src="../assets/images/c13_liebiao.png" class="link-img" />
+				</li>
+				</router-link>
+				<router-link :to="{ name: 'feedback', params: {} }">
+					<li class="clear">
+						<img class="icon-img" src="../assets/images/g1_icon8.png" />
+						<span class="name">意见反馈</span>
+						<img src="../assets/images/c13_liebiao.png" class="link-img" />
+					</li>
+				</router-link>
+				<router-link :to="{ name: 'setUp', params: {} }">
+					<li class="clear">
+						<img class="icon-img" src="../assets/images/g1_icon9.png" />
+						<span class="name">设置</span>
+						<img src="../assets/images/c13_liebiao.png" class="link-img" />
+					</li>
+				</router-link>
+				<li class="clear">
+					<img class="icon-img" src="../images/f1_icon6@2x.png" />
+					<span class="name">是否接受种类任务</span>
+					<img v-if="onOff==0" class="onOff" @click="acceptTask(1)" src="../images/f1_off@2x.png" /><img @click="acceptTask(0)" v-if="onOff==1" class="onOff" src="../images/f1_on@2x.png" />
+				</li>
+			</ul>
+		</div>
+		<footers FootOn="my"></footers>
+	</div>
+</template>
+
+<script>
+import footers from "../components/Footer.vue"
+import avatarImg from "../assets/images/avatar.png"
+//导入模板
+export default {
+  	data () {
+	    return {
+			onOff:0,
+			nickname:'',
+			hospital:'',
+			department:'',
+			headImg:avatarImg,
+		}
+  	},
+	mounted:function(){
+		this.queryMyMeg();
+  	},
+  	methods:{
+	  	Back(){
+	        //this.$toast('111')
+			this.$router.go(-1)
+	    },
+		acceptTask(num){
+			this.onOff=num;
+		},
+		memberInfo(num){
+			if(num){
+				this.$router.push({name:'MemberInfo'});
+			}else{
+				this.$router.push({name:'NotVip'});
+			}
+		},
+		queryMyMeg(){
+				this.BaseSet.getToken(this) //用户端token
+				this.$ajax.get('/user/profile')
+				.then((res)=> {
+					let data = res.data;
+					if(data.status == 200) {
+						console.log(data.data)
+								this.nickname = data.data.nickname;
+								this.hospital = data.data.hospital;
+								this.department = data.data.department
+								this.headImg = data.data.translates.avatar_img
+					}else{
+						this.$toast(data.message)
+					}
+				})
+				.catch((err)=> {
+					this.BaseSet.linkLogin(this)
+				});
+		}
+  	},
+	components:{footers},
+}
+</script>
+
+<style lang="scss" scoped>
+.all_header{
+		width: 100%;
+		height:2.2rem;
+		background-color: #4CC6D8;
+		overflow: hidden;
+		text-align: center;
+		position: relative;
+		line-height: 2.2rem;
+		top: 0;
+		left: 0;
+		z-index: 999;
+	}
+	.all_header .back{
+		width: 0.475rem;
+		height: 0.8rem;
+		position: absolute;
+		left: 0.75rem;
+		top: 0.65rem;
+	}
+	.all_header .back img{
+		width: 0.475rem;
+		height: 0.8rem;
+	}
+	.all_header .name{
+		color: #ffffff;
+		font-size: 0.9rem;
+    }
+    .all_header .right{
+		position: absolute;
+		right: 0.75rem;
+        top:0;
+        color: #ffffff;
+		font-size: 0.75rem;
+		img{
+			width: .9rem /* 37/40 */;
+			height: .9rem /* 37/40 */;
+			vertical-align: middle;
+		}
+    }
+	.my-info{
+		display: flex;
+		height: 100%;
+		flex-direction: column;
+		.contentScollr{
+			flex: 1;
+			overflow: scroll;
+			-webkit-overflow-scrolling:touch;
+		}
+		.head-top{
+			position: relative;
+			background: #fff;
+			//height: 11.6rem /* 463/40 */;
+			margin-bottom: .5rem /* 20/40 */;
+			.bg-p{
+				height:2.1rem /* 173/40 */;
+				background: #4cc6d8;
+			}
+			.user-box{
+				text-align: center;
+				height: 3.6rem /* 224/40 */;
+				.head-img{
+					background-color: #ccc;
+					position: absolute;
+					top: 0.4rem /* 64/40 */;
+					left: 7.7rem /* 309/40 */;
+					width: 3rem /* 120/40 */;
+					height: 3rem /* 120/40 */;
+					border: .1rem /* 4/40 */ solid #fff ;
+					border-radius: 50%;
+				}
+				.vip-img{
+					position: absolute;
+					width: .9rem /* 37/40 */;
+					height: 1rem /* 40/40 */;
+					top: 2.5rem /* 64/40 */;
+					left: 10rem;
+				}
+				.name{
+					font-size: .8rem /* 30/40 */;
+					color: #333;
+					margin-top: 2rem /* 82/40 */;
+					line-height: .8rem /* 30/40 */;
+				}
+				.hospital,.department{
+					font-size: .6rem /* 24/40 */;
+					color: #666;
+					margin-top: .5rem /* 19/40 */;
+					line-height: .6rem /* 24/40 */;
+				}
+			}
+			.top-btn{
+				margin-top: 3.8rem /* 153/40 */;
+				padding-bottom: 1.2rem /* 48/40 */;
+				.title{
+					font-size: .7rem /* 26/40 */;
+					color: #666;
+					margin-top: .5rem /* 20/40 */;
+					line-height: .7rem;
+				}
+
+				.left{
+					float: left;
+					text-align: center;
+					img{
+						width: 1.2rem /* 49/40 */;
+						height: 1rem /* 40/40 */;
+					}
+					margin-left: 3.5rem /* 141/40 */;
+				}
+				.right{
+					float: right;
+					text-align: center;
+					margin-right: 3.6rem /* 144/40 */;
+					img{
+						width: 1.4rem /* 54/40 */;
+						height: 1.1rem /* 46/40 */;
+					}
+				}
+			}
+		}
+		.menu-list{
+			li{
+				padding: .5rem /* 20/40 */ .8rem /* 30/40 */;
+				background: #fff;
+				border-bottom: 1px solid #e5e5e5;
+				.icon-img{
+					width: 1.5rem /* 60/40 */;
+					height: 1.5rem /* 60/40 */;
+					float: left;
+				}
+				.name{
+					float: left;
+					margin-left: .6rem /* 25/40 */;
+					font-size: .7rem /* 26/40 */;
+					line-height: 1.5rem /* 60/40 */;
+					color: #666;
+				}
+				.onOff{
+					float: right;
+					width: 2.3rem /* 92/40 */;
+					height: 1.4rem /* 56/40 */;
+				}
+				.link-img{
+					vertical-align: middle;
+					width: .3rem /* 14/40 */;
+					height: .7rem /* 26/40 */;
+					float: right;
+					margin-top: .4rem /* 17/40 */;
+				}
+			}
+		}
+	}
+</style>

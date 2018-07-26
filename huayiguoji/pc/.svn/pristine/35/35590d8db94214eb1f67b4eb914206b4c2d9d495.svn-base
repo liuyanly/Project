@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>体征监测</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/question_surver.css" />
+    <link rel="stylesheet" href="css/sign_detection.css" />
+</head>
+<style>
+    td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 30px;
+    }
+</style>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="23"></my-left-nav>
+                <div class="right right-box" style="margin-bottom: 93px">
+                    <p class="header-title clearFix">
+                        <span class="left">体征监测</span>
+                        <span class="right cursor" @click="upFile()">
+                            <img class="add-btn" src="images/f4_icon1.png">数据录入</span>
+                    </p>
+                    <ul class="question-list clearFix">
+                        <li :class="{active:currentLi == data.id}" @click="changeLi(data.id,data.title)" v-for="data in dataList">{{data.title}}</li>
+                    </ul>
+                    <div class="filter-box clearFix">
+                        <form id="" name="formDate">
+                            <p class="left pos date-select">
+                                <select name="year1" v-model='sYear' class="year1" onChange="YYYYDD1(this.value)" @click="changeXia1(4)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择年</option>
+                                </select>
+                                <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=4">
+                                <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==4">
+                            </p>
+                            <p class="left pos date-select">
+                                <select name="month1" v-model='sMonth' class="month1" onChange="MMDD1(this.value)" @click="changeXia1(5)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择月</option>
+                                </select>
+                                <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=5">
+                                <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==5">
+                            </p>
+                            <p class="left pos date-select">
+                                <select name="day1" v-model='sDay' class="day1" onChange="DDD1(this.value)" @click="changeXia1(6)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择日</option>
+                                </select>
+                                <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=6">
+                                <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==6">
+                            </p>
+                            <p class="left pos center-word">~</p>
+                            <p class="left pos date-select">
+                                <select name="year" v-model='eYear' class="year" onChange="YYYYDD(this.value)" @click="changeXia1(1)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择年</option>
+                                </select>
+                                <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=1">
+                                <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==1">
+                            </p>
+                            <p class="left pos date-select">
+                                <select name="month" v-model='eMonth' class="month" onChange="MMDD(this.value)" @click="changeXia1(2)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择月</option>
+                                </select>
+                                <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=2">
+                                <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==2">
+                            </p>
+                            <p class="left pos date-select">
+                                <select name="day" v-model='eDay' class="day" onChange="DDD(this.value)" @click="changeXia1(3)" @blur="changeXia1(0)">
+                                    <option class="placeholder">选择日</option>
+                                </select>
+                                <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=3">
+                                <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==3">
+                            </p>
+                            <p class="btn-p left" @click="search()">
+                                <button type="button" class="filter-btn">查询</button>
+                            </p>
+                        </form>
+                    </div>
+                    <div class="list">
+                        <p class="header-title small-title clearFix" style="border-top: none">{{imgTitle}}趋势图</p>
+                        <div>
+                            <div class="last-box" style="border-bottom: none">
+                                <section class="chart-div relative" style="padding-top: 50px">
+                                    <div class="time-filter" style="top:20px">
+                                        <span v-bind:class="{active:chartDate == 7}" @click="changeChartDate(7)">周</span>
+                                        <span v-bind:class="{active:chartDate == 31}" @click="changeChartDate(31)">月</span>
+                                        <span v-bind:class="{active:chartDate == 365}" @click="changeChartDate(365)">年</span>
+                                    </div>
+                                    <div id="myChart" v-show="isShow" style="width: 878px;height: 580px;margin: 0 auto;"></div>
+                                </section>
+                            </div>
+                            <div class="data-table" v-show="isShow" style="overflow-x:auto;">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td style="width: 100px;">测量时间</td>
+                                            <td v-for="data in titleFields">{{data.unit.length>0?data.title+'('+data.unit+')':data.title}}</td>
+                                            <td>结果</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="data in detailList">
+                                            <td>
+                                                </span>
+                                                <span>{{data.check_at.substring(0,10)}}</span>
+                                            </td>
+                                            <td v-for="dt in data.fields">
+                                                <span>{{dt.pivot.value}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{data.result}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <p v-show="!isShow" style="text-align: center">暂无数据</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+        <div class="fade" v-if="msgBoxStatus==1">
+            <form class="demoform">
+                <div class="msg-box">
+                    <div class="content-box">
+                        <p class="title clearFix">
+                            <span class="left">选择问卷</span>
+                            <span class="close-btn right" @click="cancelChoose()">×</span>
+                        </p>
+                        <p class="tip">请选择所要填写的档案类型</p>
+                        <p class="select-p">
+                            <select name="questionType" v-model="questionValue" value="" datatype="*" @click="changeType()" @blur="changeType()">
+                                <option :value="data.id" v-for="data in dataList">{{data.title}}</option>
+                            </select>
+                            <img v-if="questionType==1" src="images/e1_xiala_p.png">
+                            <img v-if="questionType==0" src="images/e1_xiala.png">
+                            <span class="Validform_checktip"></span>
+                        </p>
+                        <p class="btn-p">
+                            <button type="button" class="cancel" @click="cancelChoose()">取消</button>
+                            <button type="button" class="sure" @click="sureChoose">确定</button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/date.js"></script>
+    <script src="js/date1.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    currentLi: 1,
+                    questionType: 0,
+                    questionValue: '请选择档案类型',
+                    xiaType1: 0,
+                    chartDate: 7,
+                    msgBoxStatus: 0,
+                    dataList: [],
+                    detailList: [],
+                    titleFields: '',
+                    startDate: '',
+                    endDate: '',
+                    imgTitle: '一般',
+                    isShow: false,
+                    sYear: this.getTimes(-7).split('-')[0],
+                    sMonth: this.getTimes(-7).split('-')[1],
+                    sDay: this.getTimes(-7).split('-')[2],
+                    eYear: this.getTimes().split('-')[0],
+                    eMonth: this.getTimes().split('-')[1],
+                    eDay: this.getTimes().split('-')[2]
+                }
+            },
+            mounted: function () {
+                //  this.currentLi= getparams('id')||this. currentLi;
+                // console.log('=====',this.currentLi)
+                getToken(this);
+                var that = this;
+                this.getData();
+            },
+            methods: {
+                getTimes(timespan) {
+                    if (timespan === undefined) {
+                        timespan = 0;
+                    }
+                    var now = new Date();
+                    now.setDate(now.getDate() + timespan);
+                    return (now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()).toString();
+                },
+                changeLi: function (num, title) {
+                    // console.log(num)
+                    this.currentLi = num;
+                    this.imgTitle = title;
+                    var that = this;
+                    this.getDetail(that);
+                },
+                changeType: function () {
+                    if (this.questionType == 0) {
+                        this.questionType = 1;
+                    } else {
+                        this.questionType = 0;
+                    }
+                },
+                changeXia1: function (num) {
+                    if (this.xiaType1 == 0) {
+                        this.xiaType1 = num;
+                    } else {
+                        this.xiaType1 = 0;
+                    }
+                },
+                upFile: function () {
+                    this.msgBoxStatus = 1;
+                },
+                changeChartDate: function (num) {
+                    var that = this;
+                    this.chartDate = num;
+                    var sDate = this.getTimes(-num).split('-');
+                    var eDate = this.getTimes().split('-');
+                    this.sYear = sDate[0];
+                    this.sMonth = sDate[1];
+                    this.sDay = sDate[2];
+                    this.eYear = eDate[0];
+                    this.eMonth = eDate[1];
+                    this.eDay = eDate[2];
+                    this.getDetail(that);
+                },
+                cancelChoose: function () {
+                    this.msgBoxStatus = 0;
+                },
+                sureChoose: function () {
+                    if (this.questionValue != '' && this.questionValue != '请选择档案类型') {
+                        location.href = "data_entry.html?id=" + this.questionValue
+                    } else {
+                        $(".demoform").Validform({
+                            tiptype: 3,
+                        });
+                    }
+                },
+                //搜索
+                search: function () {
+                    if ($(".year1").val() == '' || $(".month1").val() == '' || $(".day1").val() == '') {
+                        $this.$alert('请选择起始日期！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return;
+                    }
+                    if ($(".year").val() == '' || $(".month").val() == '' || $(".day").val() == '') {
+                        $this.$alert('请选择结束日期！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return;
+                    }
+                    var that = this;
+                    // this.startDate = this.sYear + '-' + addZero(this.sMonth) + '-' + addZero(this.sDay) +
+                    //     ' 00:00:00';
+                    // this.endDate = this.eYear + '-' + addZero(this.eMonth) + '-' + addZero(this.eDay) +
+                    //     ' 00:00:00';
+                    // this.startDate = $(".year1").val() + '-' + ($(".month1").val() < 10 ? '0' + $(".month1")
+                    //     .val() : $(".month1").val()) + '-' + ($(".day1").val() < 10 ? '0' + $(".day1").val() :
+                    //     $(".day1").val()) + ' 00:00:00'
+                    // this.endDate = $(".year").val() + '-' + ($(".month").val() < 10 ? '0' + $(".month").val() :
+                    //     $(".month").val()) + '-' + ($(".day").val() < 10 ? '0' + $(".day").val() : $(
+                    //     ".day").val()) + ' 00:00:00'
+                    this.getDetail(that)
+                },
+                //获取体征类型列表
+                getData: function () {
+                    var that = this
+                    axios.get(userApi + '/check')
+                        .then(function (res) {
+                            if (res.data.status == 200) {
+                                console.log('标题:', res)
+                                // console.log('11111111:', res)
+                                that.imgTitle = res.data.data[0].title;
+                                if (getparams('id') == 2) {
+                                    that.imgTitle = res.data.data[1].title;
+                                }
+                                if (res.data.data instanceof Array) {
+                                    that.currentLi = getparams('id') || res.data.data[0].id;
+                                    that.dataList = res.data.data;
+                                    that.getDetail(that);
+                                }
+                            }
+                        })
+                        .catch(function (err) {
+                            //linkLogin(that)
+                        })
+                },
+                //获取当前体征类型详情
+                getDetail: function (el) {
+                    var that = el;
+                    that.startDate = that.sYear + '-' + that.sMonth + '-' + that.sDay +
+                        ' 00:00:00';
+                    that.endDate = that.eYear + '-' + that.eMonth + '-' + that.eDay +
+                        ' 23:59:59';
+                    console.log('执行获取数据详情！')
+                    var name = [];
+                    console.log('标题id=====================', that.currentLi)
+                    that.isShow = false;
+                    axios.get(userApi + '/checks/' + that.currentLi + "?start_time=" + that.startDate +
+                            "&end_time=" + that.endDate)
+                        .then(function (dt) {
+                            console.log('获取的数据：', dt.data)
+                            if (dt.data.data.length <= 0) {
+                                that.$alert('该患者本时间段暂未上传数据！', '提示', {
+                                    confirmButtonText: '确定',
+                                })
+                                return;
+                            }
+                            that.isShow = true;
+                            var tem = {};
+                            var data = [];
+                            that.imgTitle = dt.data.data.data[0].translates.checktemp_title;
+                            if (dt.data.status == 200 && !(dt.data.data instanceof Array)) {
+                                if (dt.data.data.data instanceof Array) {
+                                    that.detailList = dt.data.data.data
+                                    for (var i = 0; i < that.detailList.length; i++) {
+                                        for (var j = 0; j < that.detailList[i].fields.length; j++) {
+                                            that.detailList[i].fields[j].pivot.value = parseFloat(
+                                                that.detailList[i].fields[j].pivot.value
+                                            ).toFixed(2);
+                                        }
+                                    }
+                                    that.titleFields = that.detailList[0].fields;
+                                }
+                                var color = ["#0554a3", "#8dfd05", "#fc8e13", "#684599", "#a93c97",
+                                    "#de4598", "#eb1c22", "#f3c800", "#f4f92b", "#0da28e",
+                                    "#f96e07", "#0e8bc3"
+                                ];
+                                // debugger;
+                                for (var i = 0; i < dt.data.data.fields.length; i++) {
+                                    var dta = dt.data.data.fields[i]
+                                    tem = {
+                                        title: dta[0].title,
+                                        data: [],
+                                        color: color[i],
+                                        legendDot: 'image://images/a1_q_dian_p.png',
+                                        bgPic: 'images/a1_cheng1.png',
+                                        date: []
+                                    }
+                                    for (var j = 0; j < dta.length; j++) {
+                                        var item = dta[j]
+                                        tem.date.push(dt.data.data.fields[0][j].check_at.substring(0,
+                                            10))
+                                        //tem.date.push(dt.data.data.fields[0][j].check_at);
+                                        tem.data.push(parseFloat(item.pivot.value).toFixed(2));
+                                    }
+                                    data.push(tem)
+                                }
+                                // console.log('33333', data.length)
+                                console.log('data中的数据：', data)
+                                twoLine(data, 'myChart');
+                            } else if (dt.data.data instanceof Array && dt.data.data.length == 0) {
+                                that.$alert('该患者暂未上传数据！', '提示', {
+                                    confirmButtonText: '确定',
+                                })
+                            }
+                        })
+                        .catch(function (err) {
+                            //linkLogin(that)
+                        })
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

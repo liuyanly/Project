@@ -1,0 +1,84 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+#upBox:after {
+	content: '';
+	display: block;
+	height: 0;
+	clear: both;
+}
+#inputBox{
+	width:80px;
+	height:80px;
+	border:1px solid #eff1fa;
+	border-radius: 3px ;
+	position: relative;
+	text-align: center;
+	float: left;
+}
+#inputBox img{
+	margin-top: 32px;
+}
+#inputBox input{
+	width: 100%;
+	height: 80px;
+	opacity: 0;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left:0;
+
+}
+#imgBox{
+	float: left;
+}
+/*#imgBox:after {
+	content: '';
+	display: block;
+	height: 0;
+	clear: both;
+}*/
+.imgContainer{
+	width: 80px;
+	height: 80px;
+	margin-right: 13px;
+	float: left;
+	position: relative;
+}
+.imgContainer img{
+	width: 100%;
+	height: 80px;
+	cursor: pointer;
+	border-radius:3px;
+}
+.imgContainer:hover p{
+	display: block;
+}
+#btn{
+	display: inline-block;
+	text-align: center;
+	line-height: 30px;
+	outline: none;
+	width: 100px;
+	height: 30px;
+	background: cornflowerblue;
+	border: 1px solid cornflowerblue;
+	color: white;
+	cursor: pointer;
+	margin-top: 30px;
+	border-radius: 5px;
+}
+.imgContainer .imgDelete{
+	 position: absolute;
+	 top: 0;
+	 right: 0;
+	 width: 16px;
+	 height: 16px;
+	 cursor: pointer;
+	 display: none;
+ }
+.imgContainer .imgDelete img{
+	width: 16px;
+	height: 16px;
+}

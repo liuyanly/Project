@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的错题-家长</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="js/assets/css/amazeui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/font_icon/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="css/y_public.css" />
+		<style type="text/css">
+			.y_header_yonghu span {
+				position: relative;
+				top: 2px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!--头部-->
+		<div class="header">
+			<div class="header_inner y_clear">
+				<div class="header_logo y_f_l"><img src="images/logo.png" /></div>
+				<ul class="header_nav y_f_l y_font_14">
+					<li>
+						<a href="h3_index.html" class="y_a_n ">首页</a>
+					</li>
+					<li class="cj y_p_r">
+						<a href="h5_createClass.html" class="y_a_n ">创建</a>
+						<div class="cj_inner">
+							<a href="javascript:video(0)">校园班级</a>
+							<a href="javascript:video(0)">辅导机构</a>
+						</div>
+					</li>
+					<li>
+						<a href="l1_wenjiao.html" class="y_a_n">文教中心</a>
+					</li>
+					<li class="cj y_p_r">
+						<a href="m1_myManagement.html" class="y_a_n y_a_s">我的管理</a>
+						<div class="cj_inner">
+							<a href="javascript:video(0)">校园班级</a>
+							<a href="javascript:video(0)">辅导机构</a>
+							<a href="javascript:video(0)">我的收藏</a>
+							<a href="javascript:video(0)">我的错题</a>
+						</div>
+					</li>
+				</ul>
+				<div class="y_header_yonghu y_color_lan y_font_14 y_f_r">
+					<img src="images/huang.png" />
+					<span>阿拉丁</span>
+					<span><a href="" class="y_color_lan">【退出】</a></span>
+				</div>
+			</div>
+		</div>
+		<div class="y_inner">
+			<div style="clear: both;"></div>
+			<div class="h5_createClass">
+				<div class="h5_createClass_title y_font_15"><span></span>我的错题</div>
+			</div>
+			<div class="m_container">
+				<div class="m_row clearfix">
+					<div class="y_f_l">
+						<span class="y_color_666 y_p_r_10">学科</span>
+						<div id="course" class="row_inline">
+							<!-- <select  data-am-selected="{ btnStyle: 'secondary'}">
+								<option value="a">语文</option>
+								<option value="b" selected>数学</option>
+								<option value="o">英语</option>
+							</select> -->
+						</div>
+						<span class="y_color_666 y_p_r_10">开始日期</span>
+						<div class="row_inline">
+							<div class="am-input-group am-datepicker-date" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+								<input id="my-startDate" type="text" class="am-form-field" placeholder="YYYY-MM-DD" readonly>
+								<span class="am-input-group-btn am-datepicker-add-on">
+									<button class="am-btn" type="button" id="my-start">
+										<i class="am-selected-icon am-icon-caret-down"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+						<span class="y_color_666 y_p_r_10">结束日期</span>
+						<div class="row_inline">
+							<div class="am-input-group am-datepicker-date" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+								<input id="my-endDate" type="text" class="am-form-field" placeholder="YYYY-MM-DD" readonly>
+								<span class="am-input-group-btn am-datepicker-add-on">
+									<button class="am-btn" type="button" id="my-end">
+									<i class="am-selected-icon am-icon-caret-down"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="y_f_r">
+						<button id="btnSure" type="submit" class="btn">确定</button><button id="btnExport" type="submit" class="btn">导出</button>
+					</div>
+				</div>
+				<div class="am-alert am-alert-danger" id="my-alert" style="display: none">
+				  <p></p>
+				</div>
+				<!-- <div class="topic_item">
+					<div class="topic_title">
+						<a href="m24_myErrorDetail.html"><span class="y_color_3f y_p_r_5">(单选)</span>三个班级分别有1名，2名，3名学生获奖，这6名学生要排成一排合影，则同班学生排在一起的概率是( )</a></div>
+					<div class="topic_list">
+						<label class="am-radio am-secondary">
+							<input type="radio" name="radio1" value="A" data-am-ucheck checked="checked">A、1/30</label>
+						<label class="am-radio am-secondary">
+							<input type="radio" name="radio1" value="B" data-am-ucheck>B、1/15</label>
+						<label class="am-radio am-secondary">
+							<input type="radio" name="radio1" value="C" data-am-ucheck>C、1/10</label>
+						<label class="am-radio am-secondary">
+							<input type="radio" name="radio1" value="D" data-am-ucheck>D、1/5</label>
+					</div>
+					<div class="topic_description clearfix">
+						<div class="y_f_l">
+							<strong class="y_p_r_20">难度4.9</strong><span class="y_color_3f">2016年湖南师大附中月考</span>
+						</div>
+					</div>
+				</div> -->
+				<!-- <div class="topic_item">
+					<div class="topic_title">
+						<a href="m24_myErrorDetail.html"><span class="y_color_3f y_p_r_5">(单选)</span>三个班级分别有1名，2名，3名学生获奖，这6名学生要排成一排合影，则同班学生排在一起的概率是( )</a></div>
+					<div class="topic_list">
+						<label class="am-radio am-secondary">
+							<input type="radio" name="radio2" value="A" data-am-ucheck checked="checked">A、1/30</label>
+						<label class="am-radio am-secondary">
+							<input type="radio" name="radio2" value="B" data-am-ucheck>B、1/15</label>
+						<label class="am-radio am-secondary">
+							<input type="radio" name="radio2" value="C" data-am-ucheck>C、1/10</label>
+						<label class="am-radio am-secondary">
+							<input type="radio" name="radio2" value="D" data-am-ucheck>D、1/5</label>
+					</div>
+					<div class="topic_description clearfix">
+						<div class="y_f_l">
+							<strong class="y_p_r_20">难度4.9</strong>
+							<span class="y_color_3f">2016年湖南师大附中月考</span>
+						</div>
+					</div>
+				</div> -->
+			</div>
+		</div>
+		<!--底部-->
+		<footer class="">
+			<div class="footer_inner">
+				<p>·免费声明·友情链接·网站地图·通讯录服务热线：400-080-9180</p>
+				<p>2008 学知非公司版权所有 闵 ICP 备05007286号 design by Clh</p>
+			</div>
+		</footer>
+
+		<script src="js/jquery-1.8.3.min.js"></script>
+		<script src="js/assets/js/amazeui.min.js"></script>
+		<script src="js/errorlist.js"></script>
+		<!-- <script type="text/javascript">
+			$(function () {
+				$('.collect').on('click', function () {
+					if($(this).hasClass('collected')){
+						$(this).removeClass('collected')
+					}else{
+						$(this).addClass('collected')
+					}
+				});
+			});
+		</script> -->
+	</body>
+</html>

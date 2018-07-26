@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>发布提醒</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/imgUp.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/edit_data.css"/>
+    <link rel="stylesheet" href="css/up_archives.css"/>
+    <script src="./node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="6"></my-header>
+    </div>
+    <div class="main-box" style="padding-top: 15px;padding-bottom: 61px">
+        <section class="container clearFix" style="height: 764px">
+            <p class="header-title">发布提醒</p>
+            <div class="head-top clearFix">
+                <img class="left" :src="headImg">
+                <div class="left info-box">
+                    <p class="line1 clearFix"><span class="name left">{{userName}}</span><span class="disease">病症：{{illness}}</span></p>
+                    <p class="line2 clearFix"><span class="sex left">性别：{{sex}}</span><span class="left age">年龄：{{age}}</span></p>
+                </div>
+            </div>
+            <form class="demoform"  name="formDate">
+                <div class="form-box publish-msg">
+                    <div class="choose-box clearFix">
+                        <label class="name left">选择时间</label>
+                        <p class="left pos date-select">
+                            <select name="year" class="year" datatype="n" onChange="YYYYDD(this.value)"  errormsg="请选择年" @click="changeXia1(7)"  @blur="changeXia1(0)">
+                                <option class="placeholder">选择年</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=7">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==7">
+                        </p>
+                        <p class="left pos date-select">
+                            <select name="month" class="month" datatype="n" onChange="MMDD(this.value)"  errormsg="请选择月份" @click="changeXia1(8)" @blur="changeXia1(0)">
+                                <option class="placeholder">选择月</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=8">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==8">
+                        </p>
+                        <p class="left pos date-select">
+                            <select name="day" class="day" datatype="n" onChange="DDD(this.value)" errormsg="请选择日期" @click="changeXia1(9)" @blur="changeXia1(0)">
+                                <option class="placeholder">选择日</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=9">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==9">
+                        </p>
+                        <p class="left pos date-select">
+                            <select datatype="n" errormsg="请选择时" v-model="hour" @click="changeXia1(10)" @blur="changeXia1(0)">
+                                <option class="placeholder">选择时</option>
+                                <option v-for="index in 12">{{index}}</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=10">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==10">
+                        </p>
+                        <p class="left pos date-select">
+                            <select datatype="n" errormsg="请选择分" v-model="minutes" @click="changeXia1(11)" @blur="changeXia1(0)">
+                                <option class="placeholder">选择分</option>
+                                <option v-for="index in 60">{{index}}</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=11">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==11">
+                        </p>
+                    </div>
+
+                    <div class="pic-box clearFix" style="margin-left: 77px">
+                        <span class="left name"></span>
+                        <div class="inner-box left">
+                            <textarea placeholder="请填写详细描述" datatype="*1-200" v-model="textContent"></textarea>
+                        </div>
+                    </div>
+                    <div class="msg-type">
+                        <img src="images/f2_xz.png" @click="sendMsg(1)" v-if="msgType == 0">
+                        <img src="images/f2_xz_p.png" @click="sendMsg(0)" v-if="msgType == 1">
+                        <span>选择发送短信通知</span>
+                    </div>
+                    <p class="btn-p">
+                        <button type="button" class="up-btn" @click="upArchives()">发布</button>
+                    </p>
+                </div>
+            </form>
+
+        </section>
+    </div>
+
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/date.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="js/uploadImg.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="swiper/swiper-3.4.2.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/doctor_login.js"></script>
+<script src="js/patient_leftNav.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data:{
+            xiaType1:0,
+            textContent:'',
+            hour:'选择时',
+            minutes:'选择分',
+            id:getparams('id'),
+            userName:'',
+            sex:'',
+            age:'',
+            headImg:'',
+            illness:'',
+            date:'',
+            msgType:0,
+        },
+        created:function () {
+
+        },
+        mounted:function () {
+            $(".demoform").Validform({
+                tiptype:3,
+            });
+            getToken(this)
+            this.getData()
+        },
+        methods:{
+            changeXia1:function(num){
+                if(this.xiaType1==0){
+                    this.xiaType1=num;
+                }else{
+                    this.xiaType1=0;
+                }
+            },
+            sendMsg:function (num) {
+                this.msgType = num
+            },
+            getData:function(){
+                var that=this
+                axios.get(doctorApi+'/user/'+that.id)
+                    .then(function(res){
+                        if(res.data.status==200){
+                            that.userName=res.data.data.realname
+                            that.sex=res.data.data.translates.sex
+                            that.age = res.data.data.translates.age
+                            that.headImg=res.data.data.translates.avatar_img
+                            that.illness = res.data.data.illness
+                        }
+                    })
+                    .catch(function(err){
+                        linkLogin(that)
+                    })
+            },
+            upArchives:function () {
+                if($(".year").val()==""||$(".year").val()=="选择年"){
+                    this.$alert('请选择年份！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return;
+                }
+                if($(".month").val()==""||$(".month").val()=="选择月"){
+                    this.$alert('请选择月份！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return;
+                }
+                if($(".day").val()==""||$(".day").val()=="选择日"){
+                    this.$alert('请选择日期！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return;
+                }
+                if(this.hour==""||this.hour=="选择时"){
+                    this.$alert('请选择时间！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return;
+                }
+                if(this.minutes==""||this.minutes=="选择分"){
+                    this.$alert('请选择分钟数！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return;
+                }
+                if(this.textContent==""){
+                    this.$alert('请填写详细描述！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                    return;
+                }
+                var that = this
+                that.date = $(".year").val()+'-'+($(".month").val()<10?'0'+$(".month").val():$(".month").val())+'-'+($(".day").val()<10?'0'+$(".day").val():$(".day").val())+' '+(this.hour>9?this.hour:'0'+this.hour)+':'+(this.minutes>9?this.minutes:'0'+this.minutes)+':00'
+                axios.post(doctorApi+'/user/sendnotification',{
+                    id:that.id,
+                    content:that.textContent,
+                    model:'user_account',
+                    send_at:that.date,
+                    tosms:that.msgType,
+                })
+                    .then(function (res) {
+                        console.log(res)
+                        if(res.status == 200){
+                            that.$notify({
+                                title: '成功',
+                                message: '发布成功！',
+                                type: 'success'
+                            });
+                            setTimeout(function () {
+                                location.href="my_patient.html";
+                            },1500)
+                        }
+                    })
+                    .catch(function(err){
+                        linkLogin(that)
+                    })
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

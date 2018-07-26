@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>健康评估</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/question_surver.css" />
+    <link rel="stylesheet" href="css/sign_detection.css" />
+    <link rel="stylesheet" href="css/health_evaluation.css" />
+</head>
+<style>
+    .tdHead {
+        width: 396px;
+        height: 38px;
+        background: #FFEEEEEE;
+        font-size: 16px;
+        line-height: 38px;
+        text-indent: 6px;
+    }
+    
+    .tdSubHead {
+        width: 198px;
+        height: 48px;
+        background: rgba(249, 246, 246, 1);
+        font-size: 14px;
+        color: #666;
+        line-height: 48px;
+        text-indent: 12px;
+    }
+    
+    .tdSubHeadShort {
+        width: 80px;
+        height: 48px;
+        background: rgba(249, 246, 246, 1);
+        font-size: 14px;
+        color: #666;
+        text-indent: 12px;
+        line-height: 48px;
+    }
+    
+    .fontColor {
+        color: #999;
+
+    }
+    
+    .pTable {
+        border-collapse: collapse;
+    }
+    
+    .pTable td {
+        border: 1px solid #FFE5E5E5;
+    }
+    
+    .tdText {
+        width: 347px;
+        color: rgba(76, 198, 216, 1);
+        font-size: 14px;
+        line-height: 30px;
+        text-align: left;
+        padding: 0 40px 30px 10px;
+    }
+    
+    .displayInline {
+        display: inline-block;
+        vertical-align: top;
+    }
+    
+    .marginLeft35 {
+        margin-left: 35px;
+    }
+    
+    .content_box {
+        padding-top: 30px;
+        padding-left: 14px;
+    }
+    
+    .divWidth {
+        width: 100px;
+        text-align: center;
+        line-height: 18px;
+        margin: 4px 20px 0 20px;
+    }
+    
+    .lineHeight75 {
+        vertical-align: middle;
+        line-height: 20px;
+        text-indent: 0;
+        padding-left: 12px;
+        padding-right: 12px;
+
+    }
+    
+    .imgPosition {
+        text-align: center;
+        line-height: 49px;
+    }
+    
+    .marginTop24 {
+        margin-top: 24px;
+    }
+    
+    .subtitle {
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+    }
+    
+    .aim-title {
+        display: inline-block;
+        font-size: 12px;
+        color: #999;
+        vertical-align: middle;
+    }
+    
+    .circular {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 12px;
+        vertical-align: middle;
+    }
+    
+    .bgBlue {
+        background: rgba(76, 198, 216, 1);
+    }
+    
+    .bgYellow {
+        background: rgba(255, 213, 46, 1);
+    }
+    
+    .marginLeftM {
+        margin-left: 100px;
+    }
+    
+    .alignment {
+        display: inline-block;
+        vertical-align: middle;
+        text-indent: 0;
+    }
+</style>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="24"></my-left-nav>
+                <div class="right right-box" style="margin-bottom: 93px;min-height: 720px;">
+                    <p class="header-title clearFix">健康评估</p>
+                    <ul class="question-list clearFix">
+                        <li :class="{active:currentLi==999999}" @click="changeLi(999999)">
+                            <img :src="currentLi==999999? 'images/f15_icon5_p.png':'images/f15_icon5.png' ">健康报告深度解读
+                        </li>
+                        <li :class="{active:currentLi==1} " @click="changeLi(1) ">
+                            <img src="images/f15_icon3.png ">心血管疾病风险评估
+                        </li>
+                        <li :class="{active:currentLi==2} " @click="changeLi(2) ">
+                            <img src="./images/x1.png ">血压风险评估
+                        </li>
+                        <li :class="{active:currentLi==3} " @click="changeLi(3) ">
+                            <img src="./images/x2.png ">血脂风险评估
+                        </li>
+                        <li :class="{active:currentLi==4} " @click="changeLi(4) ">
+                            <img src="./images/x3.png ">血糖风险评估
+                        </li>
+                        <li v-for="data in dataList " v-if="data.id !=999999 " :class="{active:currentLi==data.id+4}
+                                " @click="changeLi(data.id+4) ">
+                            <img :src="data.cover ">{{data.title}}
+                        </li>
+                    </ul>
+                    <!-- <div class="filter-box clearFix">
+                <form id="" name="formDate">
+                    <p class="left pos date-select">
+                        <select name="year" class="year" onChange="YYYYDD(this.value)" @click="changeXia1(1)" @foucs="changeXia(0)">
+                            <option class="placeholder">选择年</option>
+                        </select>
+                        <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=1">
+                        <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==1">
+                    </p>
+                    <p class="left pos date-select">
+                        <select name="month" class="month" onChange="MMDD(this.value)" @click="changeXia1(2)" @foucs="changeXia(0)">
+                            <option class="placeholder">选择月</option>
+                        </select>
+                        <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=2">
+                        <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==2">
+                    </p>
+                    <p class="left pos date-select">
+                        <select name="day" class="day" onChange="DDD(this.value)" @click="changeXia1(3)" @foucs="changeXia(0)">
+                            <option class="placeholder">选择日</option>
+                        </select>
+                        <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=3">
+                        <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==3">
+                    </p>
+                    <p class="btn-p left" @click="search()">
+                        <button type="button" class="filter-btn">查询</button>
+                    </p>
+                </form>
+            </div> -->
+                    <!-- 心血管疾病 -->
+                    <div class="list content_box" v-show='currentLi==1'>
+                        <p class="header-title small-title clearFix" style="border-top: none">动脉硬化性心血管疾病（ASCVD）</p>
+                        <div class="chart-box" v-show="cvd_10yearRisk!='-'">
+                            <div class="word-box">
+                                <p class="title">10年ASCVD风险</p>
+                                <p class="marBot">
+                                    <span>{{cvd_10yearRisk}}%</span>(你的10年DSCVD风险)</p>
+                                <p>同龄人最佳的10年ASCVD危险因素水平：{{opt_10yearRisk}}%</p>
+                                <p>（同龄最佳值）</p>
+                            </div>
+                            <div id="myChart3" style="width: 700px;height: 400px;margin: 0 auto; "></div>
+                        </div>
+                        <div v-show="cvd_10yearRisk=='-'" style="text-align: center;color: #999">暂无10年ASCVD风险数据</div>
+                        <div class="chart-box" v-show="cvd_LifetimeRisk!='-'">
+                            <div class="word-box">
+                                <p class="title">终身ASCVD风险</p>
+                                <p class="marBot">
+                                    <span>{{cvd_LifetimeRisk}}%</span>%</span>(你的终身DSCVD风险)</p>
+                                <p>同龄人最佳的10年ASCVD危险因素水平：{{opt_LifetimeRisk}}%</p>
+                                <p>（同龄最佳值）</p>
+                            </div>
+                            <div id="myChart4" style="width: 700px;height: 400px;margin: 0 auto;"></div>
+                        </div>
+                        <div v-show="cvd_LifetimeRisk=='-'" style="text-align: center;color: #999">暂无终身ASCVD风险数据</div>
+                    </div>
+                    <!-- 心血管疾病end -->
+
+                    <!-- 血压风险评估 -->
+                    <div class="list content_box " v-show='currentLi==2'>
+                        <table class="pTable displayInline">
+                            <tr>
+                                <td colspan="2" class="cc tdHead">血压状况</td>
+                            </tr>
+                            <tr>
+                                <td class="tdSubHead">项目</td>
+                                <td class="tdSubHead">数值</td>
+                            </tr>
+                            <tr>
+                                <td class="tdSubHead fontColor">舒张压(SBP)</td>
+                                <td class="tdSubHead fontColor">97mmHg</td>
+                            </tr>
+                            <tr>
+                                <td class="tdSubHead fontColor">收缩压(DBP)</td>
+                                <td class="tdSubHead fontColor">59mmHg</td>
+                            </tr>
+                            <tr>
+                                <td class="tdSubHead fontColor">降压药服用</td>
+                                <td class="tdSubHead fontColor">-</td>
+                            </tr>
+                            <tr>
+                                <td class="tdSubHead fontColor">风险因素</td>
+                                <td class="tdSubHead fontColor">4</td>
+                            </tr>
+                        </table>
+                        <table class="pTable displayInline marginLeft35">
+                            <tr>
+                                <td colspan="2" class="cc tdHead">综合情况</td>
+                            </tr>
+                            <tr>
+                                <td class="tdText" colspan="2">您的血压处于正常范围之内，目前无需特殊干预，请继续 保持健康生活方式及定期监测血压。</td>
+                            </tr>
+                        </table>
+
+                        <table class="pTable displayInline marginTop24">
+                            <tr>
+                                <td colspan="5" class="cc tdHead"> 血压-危险因素</td>
+                            </tr>
+                            <tr>
+                                <td class="tdSubHead lineHeight75">其他危险因素和病史</td>
+                                <td class="">
+                                    <div class="divWidth">
+                                        正常值</br>
+                                        <span class="fontColor">SBP:130-139 DBP:85-89</span>
+                                    </div>
+                                </td>
+                                <td class="">
+                                    <div class="divWidth">
+                                        1级高血压</br>
+                                        <span class="fontColor">SBP:140-159 DBP:90-99</span>
+                                    </div>
+                                </td>
+                                <td class="">
+                                    <div class="divWidth">
+                                        2级高血压</br>
+                                        <span class="fontColor">SBP:160-179 DBP:100-109</span>
+                                    </div>
+                                </td>
+                                <td class="">
+                                    <div class="divWidth">3级高血压</br>
+                                        <span class="fontColor">SBP:≧180 DBP:≧110</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr v-for="(item,index) in bloodPressureData" ::key="index">
+                                <td class=" tdSubHead lineHeight75 fontColor">{{item.name}}</td>
+                                <td class="">
+                                    <div class="imgPosition">
+                                        <img src="./images/a1_w1.png">
+                                    </div>
+                                </td>
+                                <td class="">
+                                    <div class="imgPosition">
+                                        <img src="./images/a1_w2.png">
+                                    </div>
+                                </td>
+                                <td class="">
+                                    <div class="imgPosition">
+                                        <img src="./images/a1_w3.png">
+                                    </div>
+                                </td>
+                                <td class="">
+                                    <div class="imgPosition">
+                                        <img src="./images/a1_w4.png">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- 血压风险评估end -->
+
+
+                    <!-- 血脂风险评估 -->
+                    <div class="list content_box " v-show='currentLi==3'>
+                        <!-- 血脂风险评估左侧栏 -->
+                        <div style="width:396px;float:left">
+                            <table class="pTable displayInline">
+                                <tr>
+                                    <td colspan="2" class="cc tdHead">血脂状况</td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead">项目</td>
+                                    <td class="tdSubHead">数值</td>
+                                </tr>
+                                <tr v-for="(item,index) in health_model" :key="index">
+                                    <td class="tdSubHead fontColor">{{item.title}}</td>
+                                    <td class="tdSubHead fontColor">
+                                        {{item.pivot.value==''?'-':item.pivot.value}}{{item.pivot.value==''?'':item.unit}}
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- 血脂风险 -->
+                            <table class="pTable displayInline marginTop24">
+                                <tr>
+                                    <td colspan="2" class="cc tdHead">血脂风险</td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHeadShort subtitle" colspan="2">
+                                        我的危险分级：{{bl.risk_stratification_str!=''?bl.risk_stratification_str:'-'}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="thermometer-chart relative">
+                                            <img src="images/a1_zhu.png">
+                                            <span class="best absolute" style="left:140px">极高危</span>
+                                            <span class="high absolute" style="left:154px">高危</span>
+                                            <span class="middle absolute" style="left:154px">中危</span>
+                                            <span class="low absolute" style="left:154px">低危</span>
+                                        <div class="current absolute clearFix"
+                                             :style="{ left: '210px', bottom: bl.risk_stratification*0.185*5 + '%' }">
+                                            <div class="current absolute clearFix" :style="{ left: '210px', bottom: bl.risk_stratification*0.185*5 + '%' }">
+                                                <span class="me left">
+                                                    <span>我</span>
+                                                </span>
+                                                <span class="num left">5</span>
+                                                <span class="status left">(低危)</span>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- 血脂风险评估 -->
+                            <table class="pTable displayInline marginTop24">
+                                <tr>
+                                    <td colspan="2" class="cc tdHead">
+                                        药物治疗
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="tdSubHead fontColor">
+                                        <div>
+                                            <center>{{bl.is_medication_begin?'建议开始药物治疗':'暂时不需要药物治疗'}}</center>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- 血脂风险评估右侧栏 -->
+                        <div style="float:right;margin-top:0;">
+                            <table class="pTable">
+                                <tr>
+                                    <td colspan="2" class="cc tdHead">生活方式</td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHeadShort">生活方式</td>
+                                    <td class="tdSubHead">内容</td>
+                                </tr>
+                                <tr v-for="(item,index) in situation_model" :key="index">
+                                    <td class=" tdSubHeadShort lineHeight75 fontColor">{{item.title}}</td>
+                                    <td class=" tdSubHeadShort lineHeight75 fontColor">{{item.value}}</td>
+                                </tr>
+                            </table>
+                            <!-- 目标值 -->
+                            <table class="pTable displayInline marginTop24">
+                                <tr>
+                                    <td colspan="2" class="cc tdHead">
+                                        目标值
+                                        <span class="aim-title marginLeftM">
+                                            <div class="circular bgBlue"></div>
+                                            <label class="alignment">总胆固醇</label>
+                                        </span>
+                                        <span class="aim-title marginLeft35">
+                                            <div class="circular bgYellow"></div>
+                                            <label class="alignment">低密度脂蛋白</label>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div id="myChart5" style="width: 400px;height: 300px;margin: 0 auto;"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- 血脂风险评估end -->
+                    </div>
+                    <!-- 血糖风险评估 -->
+                    <div class="list content_box " v-if='currentLi==4'>
+                        <div style="width:396px;float:left">
+                            <table class="pTable displayInline">
+                                <tr>
+                                    <td colspan="2" class="cc tdHead">血糖状况</td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead">项目</td>
+                                    <td class="tdSubHead">数值</td>
+                                </tr>
+
+                                <tr v-for="(item,index) in bloodSugarCondition" :key="index">
+                                    <td class="tdSubHead fontColor">{{item.title}}</td>
+                                    <td class="tdSubHead fontColor">{{item.pivot.value}}{{item.unit}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead fontColor">降压药服用</td>
+                                    <td class="tdSubHead fontColor">{{is_ha==1?'是':'否'}}</td>
+                                </tr>
+                            </table>
+                            <!--血糖风险评估因素 -->
+                            <table class="pTable displayInline marginTop24">
+                                <tr>
+                                    <td colspan="2" class="cc tdHead">血糖风险评估</td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead lineHeight75">项目</td>
+                                    <td class="tdSubHead lineHeight75">内容</td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead lineHeight75 fontColor">风险评分</td>
+                                    <td class="tdSubHead lineHeight75 fontColor">
+                                        {{bloodSugarBg.score==''?'-':bloodSugarBg.score}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead lineHeight75 fontColor">风险分层</td>
+                                    <td class="tdSubHead lineHeight75 fontColor">
+                                        {{bloodSugarBg.diabetes_risk==''?'-':bloodSugarBg.diabetes_risk}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead lineHeight75 fontColor">建议</td>
+                                    <td class="tdSubHead lineHeight75 fontColor">
+                                        {{bloodSugarBg.glucose_tolerance_advice==''?'-':bloodSugarBg.glucose_tolerance_advice}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="float:right">
+                            <table class="pTable displayInline marginLeft35">
+                                <tr>
+                                    <td colspan="2" class="cc tdHead">糖代谢状态</td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead">状态</td>
+                                    <td class="tdSubHead">你的血糖位置</td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead fontColor">正常</td>
+                                    <td class="tdSubHead fontColor">
+                                        <img :src="bloodSugarBg.glucose_tolerance_status==0?'./images/f20_icon1.png':''">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead fontColor">偏高</td>
+                                    <td class="tdSubHead fontColor">
+                                        <img :src="bloodSugarBg.glucose_tolerance_status==6?'./images/f20_icon1.png':''">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead fontColor">空腹血糖受损</td>
+                                    <td class="tdSubHead fontColor">
+                                        <img :src="bloodSugarBg.glucose_tolerance_status==1?'./images/f20_icon1.png':''">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead fontColor">糖耐量递减</td>
+                                    <td class="tdSubHead fontColor">
+                                        <img :src="bloodSugarBg.glucose_tolerance_status==2?'./images/f20_icon1.png':''">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead fontColor">空腹血糖受损+糖耐量递减</td>
+                                    <td class="tdSubHead fontColor">
+                                        <img :src="bloodSugarBg.glucose_tolerance_status==3?'./images/f20_icon1.png':''">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead fontColor">糖尿病可能性大</td>
+                                    <td class="tdSubHead fontColor">
+                                        <img :src="bloodSugarBg.glucose_tolerance_status==4?'./images/f20_icon1.png':''">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tdSubHead fontColor">糖尿病</td>
+                                    <td class="tdSubHead fontColor">
+                                        <img :src="bloodSugarBg.glucose_tolerance_status==5?'./images/f20_icon1.png':''">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- 血糖风险评估end -->
+                    <div class="list " v-show='currentLi==999999'>
+                        <ul class="report-list ">
+                            <li class="clearFix " v-for="data in evaluationList " @click="viewInfo(data.id) ">
+                                <p class="left time ">{{data.created_at.substring(0,10)}}</p>
+                                <p class="left name ">{{data.doctor.realname}}</p>
+                                <p class="left department ">{{data.doctor.translates.department_title}}</p>
+                                <p class="left hospital ">{{data.doctor.translates.hospital_title}}</p>
+                                <p class="right ">
+                                    <img src="./images/f21_icon1.png ">
+                                </p>
+                            </li>
+                        </ul>
+                        <div class="page " v-if="total>1" style="margin-top: 40px;margin-bottom: 10px;">
+                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                                       layout="prev, pager, next" :current-page="currentPage"
+                                       :page-size="per_page" :page-count="total">
+                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="prev, pager, next" :current-page="currentPage" :page-size="per_page" :page-count="total">
+
+                            </el-pagination>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/chart.js"></script>
+    <!-- <script src="js/date.js"></script> -->
+    <script src="js/public.js"></script>
+
+    <script>
+        var content = new Vue({
+            el: '#page',
+        data: {
+            data() {
+                return {
+                    currentLi: 999999,
+                    questionType: 0,
+                    questionValue: '',
+                    xiaType1: 0,
+                    chartDate: 0,
+                    twoBar_data: [1.8, 0.75],
+                    nameData: ["10年风险", "10年最优值"],
+                    nameData2: ["终身风险", "终身最优值"],
+                    barName: '10年ASCVD风险',
+                    barName2: '终身ASCVD风险',
+                    total: 0,
+                    dataList: [],
+                    currentPage: 1,
+                    per_page: 8,
+                    tip: 0,
+                    evaluationList: [],
+                    content: '',
+                    date: '',
+                    bloodPressureData: [{
+                        name: '无危险因素'
+            },
+                {
+                    }, {
+                        name: '1-2其他危险因素'
+                },
+                {
+                    }, {
+                        name: '3个及以上危险因素'
+                },
+                {
+                    }, {
+                        name: '靶器官损害、糖尿病'
+                },
+                {
+                    }, {
+                        name: '有症状CVD、CKD4期 以上糖尿病合并靶器官 损害或危险因素'
+                }
+            ],
+                    }],
+                    situation_model: [], //生活方式
+                    bloodSugarCondition: [], //血糖情况
+                    bloodSugarBg: [], //血糖风险评估
+                    health_model: [], //血脂状况
+                    bl: {}, //血脂风险
+                    ascvd: {}, //ascv风险
+                    opt_10yearRisk: '', //10年dscvd风险
+                    cvd_10yearRisk: '', //同龄10年dscvd风险
+                    opt_LifetimeRisk: '',
+                    cvd_LifetimeRisk: '',
+                    is_ha: '' //降糖药服用
+                }
+            },
+            watch: {
+                currentLi: function(val) {
+                    // this.changeLi(val)
+                    // console.log('改变了')
+                }
+            },
+            mounted() {
+                var _this = this;
+                // twoBar(_this.twoBar_data, 'myChart3', _this.nameData, _this.barName);
+                // twoBar(this.twoBar_data, 'myChart4', this.nameData2, this.barName2);
+                getToken(this);
+                var id = getparams('id') || this.currentLi;
+                this.currentLi = id;
+
+                // this.currentLi = sessionStorage.userCurrentLi || 999999; //记住选择的菜单
+                this.getDataList();
+                this.getList();
+                if (getparams('order') == 1) {
+                    this.changeLi(1)
+                }
+            },
+            methods: {
+                changeLi: function(num) {
+                    console.log(num)
+                    var _this = this;
+                    sessionStorage.userCurrentLi = num;
+                    this.currentLi = num || sessionStorage.userCurrentLi;
+                    if (num == 999999) {
+                        this.getList();
+                    }
+                    if (num == 1) {
+                        // 心血疾病
+                        axios.get(userApi + '/check/ascvd').then(function(res) {
+                            if (typeof res.data.data == 'string') {
+                            _this.$alert('基础问卷未填写！', '提示', {
+                                _this.$alert('您还没有体征检测的一般数据，或基础问卷未填写！', '提示', {
+                                    confirmButtonText: '确定',
+                                })
+                                return;
+                            }
+                            if (res.status == 200) {
+                                console.log(res);
+                                _this.ascvd = res.data.data;
+                                _this.cvd_10yearRisk = _this.ascvd.cvd_10yearRisk >= 0 ? _this.ascvd
+                                    .cvd_10yearRisk.toFixed(2) : '-';
+                                _this.opt_10yearRisk = _this.ascvd.opt_10yearRisk >= 0 ? _this.ascvd
+                                    .opt_10yearRisk.toFixed(2) : '-';
+                                _this.cvd_LifetimeRisk = _this.ascvd.cvd_LifetimeRisk >= 0 ? _this
+                                    .ascvd.cvd_LifetimeRisk.toFixed(2) : '-';
+                                _this.opt_LifetimeRisk = _this.ascvd.opt_LifetimeRisk >= 0 ? _this
+                                    .ascvd.opt_LifetimeRisk.toFixed(2) : '-';
+                                twoBar([_this.opt_10yearRisk, _this.cvd_10yearRisk], 'myChart3',
+                                    _this.nameData, _this.barName); //图表,ascvd风险
+                                twoBar([_this.opt_LifetimeRisk, _this.cvd_LifetimeRisk], 'myChart4',
+                                    _this.nameData2, _this.barName2); //图表,终身
+                            }
+                        })
+                    }
+                    if (num == 3) {
+                        barLine2([7.5, 3.7], [4.14, 2.59], 'myChart5') //图表,终身
+
+                        // 血脂
+                        axios.get(userApi + '/check/bloodfat').then(function(res) {
+                            if (res.status == 200) {
+                                if (typeof res.data.data == 'string') {
+                                _this.$alert('基础问卷未填写！', '提示', {
+                                    _this.$alert('您还没有体征检测的一般数据，或基础问卷未填写!', '提示', {
+                                        confirmButtonText: '确定',
+                                    });
+                                    return;
+                                }
+                                var data = res.data.data;
+                                console.log(data)
+                                _this.health_model = data.health_model; //血脂状况
+                                _this.situation_model = data.situation_model; //生活方式
+                                _this.bl = data.bl;
+                                console.log(_this.bl)
+                            }
+                        })
+                    }
+                    if (num == 4) {
+                        // 血糖
+                        axios.get(userApi + '/check/bloodglucose').then(function(res) {
+                            if (res.status == 200) {
+                                if (typeof res.data.data == 'string') {
+                                _this.$alert('基础问卷未填写！', '提示', {
+                                    _this.$alert('您还没有体征检测的一般数据，或基础问卷未填写！', '提示', {
+                                        confirmButtonText: '确定',
+                                    });
+                                    return;
+                                }
+                                console.log(res)
+                                var data = res.data.data;
+                                _this.bloodSugarCondition = data.bloodglucose;
+                                _this.bloodSugarBg = data.bg;
+                                _this.is_ha = data.is_ha;
+                            }
+                        })
+
+                    }
+                    // else {
+                    //     this.getData()
+                    // }
+                },
+                changeType: function() {
+                    if (this.questionType == 0) {
+                        this.questionType = 1;
+                    } else {
+                        this.questionType = 0;
+                    }
+                },
+                viewInfo: function(id) {
+                    location.href = 'depth_analysis_info.html?id=' + id;
+                },
+                changeXia1: function(num) {
+                    if (this.xiaType1 == 0) {
+                        this.xiaType1 = num;
+                    } else {
+                        this.xiaType1 = 0;
+                    }
+                },
+                handleSizeChange: function(val) {
+
+                },
+                handleCurrentChange: function(val) {
+                    this.currentPage = val;
+                    this.getList()
+                },
+                //查询
+                search: function() {
+                    // if ($('.year').val() != '' && $('.year').val() != '选择年' && $('.month').val() != '' && $(
+                    //         '.month').val() != '选择月' && $('.day').val() != '' && $('.day').val() != '选择日') {
+                    //     this.date = $(".year").val() + '-' + ($(".month").val() < 10 ? '0' + $(".month").val() :
+                    //         $(".month").val()) + '-' + ($(".day").val() < 10 ? '0' + $(".day").val() :
+                    //         $(".day").val())
+                    //     this.getList()
+                    // } else {
+                    //     this.$alert('请选择查询时间！', '提示', {
+                    //         confirmButtonText: '确定',
+                    //     })
+                    // }
+                },
+                //获取评估分类
+                getDataList: function() {
+                    var that = this
+                    axios.get(userApi + '/analysis')
+                        .then(function(res) {
+                            console.log(res.data)
+                            if (res.data.status == 200) {
+                                that.dataList = res.data.data
+                            }
+                        })
+                        .catch(function(err) {
+                            linkLogin(that)
+                        })
+                },
+                changeChartDate: function(type) {
+                    this.chartDate = type;
+                },
+                //获取深度解读列表
+                getList: function() {
+                    var that = this,
+                        params = {
+                            per_page: this.per_page,
+                            page: this.currentPage
+                        }
+                        // if (that.date != '') {
+                        //     that.date = $(".year").val() + '-' + ($(".month").val() < 10 ? '0' + $(".month").val() :
+                        //         $(".month").val()) + '-' + ($(".day").val() < 10 ? '0' + $(".day").val() :
+                        //         $(".day").val())
+                        //     params['m_s[created_at]'] = that.date
+                        // }
+                    axios.get(userApi + '/analysis/list/999999', {
+                            params: params
+                        })
+                        .then(function(res) {
+                            if (res.data.status == 200) {
+                                that.evaluationList = res.data.data.data
+                                that.total = res.data.data.paginate.total_page
+                            }
+                        })
+                        .catch(function(err) {
+
+                        })
+                },
+                //获取非深度解读类型的详情
+                getData: function() {
+                    var that = this
+                    axios.get(userApi + '/analysis/list/' + that.currentLi)
+                        .then(function(res) {
+                            console.log(res.data.data)
+                            that.content = res.data.data.content
+                        })
+                        .catch(function(err) {
+                            linkLogin(that)
+                        })
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

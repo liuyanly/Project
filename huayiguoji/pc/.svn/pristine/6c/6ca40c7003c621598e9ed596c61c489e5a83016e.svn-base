@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>健康管理</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/edit_data.css" />
+    <link rel="stylesheet" href="css/health_control.css" />
+    <script src="./node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container doctor-main clearFix">
+                <my-left-nav active="11"></my-left-nav>
+                <div class="right right-box" style="height: 851px">
+                    <p class="header-title">体检报告</p>
+                    <div class="filter-box clearFix">
+                        <form id="" name="formDate">
+                            <p class="left pos date-select">
+                                <select name="hospital" v-model="hospital" @click="changeXia1(5)" @blur="changeXia1(0)">
+                                <option class="placeholder">选择医院</option>
+                                <option :value="data.id" v-for="data in hospitalArr">{{data.title}}</option>
+                            </select>
+                                <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=5">
+                                <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==5">
+                            </p>
+                            <p class="left pos date-select">
+                                <select name="department" v-model="department" @click="changeXia1(4)" @blur="changeXia1(0)">
+                                <option class="placeholder">选择科室</option>
+                                <option v-for="data in departmentArr" :value="data.id">{{data.title}}</option>
+                            </select>
+                                <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=4">
+                                <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==4">
+                            </p>
+                            <p class="left pos date-select">
+                                <select name="year" class="year" onChange="YYYYDD(this.value)" @click="changeXia1(1)" @blur="changeXia(0)">
+                                <option class="placeholder">选择年</option>
+                            </select>
+                                <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=1">
+                                <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==1">
+                            </p>
+                            <p class="left pos date-select">
+                                <select name="month" class="month" onChange="MMDD(this.value)" @click="changeXia1(2)" @blur="changeXia(0)">
+                                <option class="placeholder">选择月</option>
+                            </select>
+                                <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=2">
+                                <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==2">
+                            </p>
+                            <p class="left pos date-select">
+                                <select name="day" class="day" onChange="DDD(this.value)" @click="changeXia1(3)" @blur="changeXia(0)">
+                                <option class="placeholder">选择日</option>
+                            </select>
+                                <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=3">
+                                <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==3">
+                            </p>
+                            <p class="btn-p left"><button type="button" class="filter-btn" @click="search()">搜索</button> </p>
+                        </form>
+                    </div>
+                    <ul class="report-list">
+                        <li class="clearFix" v-for="data in dataList" @click="viewDetail(data.id)">
+                            <span class="left date">{{data.checked_at.substring(0,10)}}</span>
+                            <span class="left">{{data.title}}</span>
+                            <span class="left">{{data.translates.department_title}}</span>
+                            <span class="left hospital-name">{{data.translates.hospital_title}}</span>
+                            <img class="right" src="images/f21_icon1.png">
+                        </li>
+                    </ul>
+                    <div class="page" v-if="total>1" style="margin-top: 40px;margin-bottom: 10px;">
+                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="prev, pager, next" :current-page="currentPage" :page-size="per_page" :page-count="total">
+                        </el-pagination>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="js/uploadImg.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/doctor_login.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/patient_leftNav.js"></script>
+    <script src="js/date.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var $this = ''
+        var content = new Vue({
+            el: '#page',
+            data: {
+                sex: 1,
+                monthValue: '',
+                yearValue: '',
+                dayValue: '',
+                province: '',
+                department: '选择科室',
+                hospital: '选择医院',
+                total: 0,
+                per_page: 8,
+                currentPage: 1,
+                xiaType1: 0,
+                xiaType: 0,
+                id: localStorage.getItem('pId'),
+                dataList: [],
+                hospitalArr: [],
+                departmentArr: [],
+                check_date: '',
+            },
+            directives: {
+
+            },
+            mounted: function() {
+                $this = this;
+                getToken(this)
+                this.getDataList()
+                this.getHospital()
+                this.getDepartment()
+            },
+            methods: {
+                changeXia1: function(num) {
+                    if (this.xiaType1 == 0) {
+                        this.xiaType1 = num;
+                    } else {
+                        this.xiaType1 = 0;
+                    }
+                },
+                changeXia: function(num) {
+                    this.xiaType = num
+                },
+                viewDetail: function(id) {
+                    location.href = "report_info.html?id=" + id;
+                },
+                handleSizeChange: function(val) {
+
+                },
+                handleCurrentChange: function(val) {
+                    this.currentPage = val;
+                    this.getDataList()
+                },
+                search: function() {
+                    if ($(".year").val() == "" && $(".year").val() == "选择年" && $(".month").val() == "" && $(".month").val() == "选择月" && $(".day").val() == "" && $(".day").val() == "选择日") {
+                        this.check_date = $(".year").val() + '-' + ($(".month").val() < 10 ? '0' + $(".month").val() : $(".month").val()) + '-' + ($(".day").val() < 10 ? '0' + $(".day").val() : $(".day").val())
+                    }
+                    this.getDataList()
+                },
+                //获取医院
+                getHospital: function() {
+                    var that = this;
+                    axios.get(doctorApi + '/hospital')
+                        .then(function(res) {
+                            if (res.data.status == 200) {
+                                that.hospitalArr = res.data.data;
+                            }
+                        })
+                        .catch(function(err) {
+
+                        })
+                },
+                getDepartment: function() {
+                    var that = this
+                    axios.get(doctorApi + '/subdepartment')
+                        .then(function(res) {
+                            console.log(res.data)
+                            if (res.data.status == 200) {
+                                that.departmentArr = res.data.data
+                            }
+                        })
+                        .catch(function(err) {
+
+                        })
+                },
+                getDataList: function() {
+                    var that = this
+                    var params = {
+                        'e_s[user_id]': that.id,
+                        page: that.currentPage,
+                        per_page: that.per_page
+                    }
+                    if (that.check_date != '') {
+                        params['e_s[checked_at]'] = that.check_date
+                    }
+                    if (this.hospital != '' && this.hospital != '选择医院') {
+                        params['e_s[hospital_id]'] = this.hospital
+                    }
+                    if (this.department != '' && this.department != '选择科室') {
+                        params['e_s[department_id]'] = this.department
+                    }
+                    axios.get(doctorApi + '/archive', {
+                            params: params
+                        })
+                        .then(function(res) {
+                            console.log(res.data)
+                            if (res.data.status == 200) {
+                                that.dataList = res.data.data.archives
+                                that.total = res.data.data.paginate.total_page
+                            }
+                        })
+                        .catch(function() {
+                            linkLogin(that)
+                        })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

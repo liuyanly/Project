@@ -1,0 +1,96 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.evaluation-box .person-box {
+  padding-bottom: 27px;
+  border-bottom: 1px solid #eff1fa;
+}
+.evaluation-box .person-box .person-info {
+  padding: 28px 0 13px 28px;
+}
+.evaluation-box .person-box .person-info > img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 13px;
+}
+.evaluation-box .person-box .person-info .detail-info p {
+  line-height: 22px;
+  font-size: 12px;
+  color: #666;
+}
+.evaluation-box .person-box .person-info .detail-info p .marginLeft {
+  margin-left: 15px;
+}
+.evaluation-box .person-box .person-info .detail-info .name {
+  font-size: 14px;
+  color: #000;
+}
+.evaluation-box .person-box .text-box {
+  margin-left: 12px;
+  margin-bottom: 11px;
+}
+.evaluation-box .person-box .text-box textarea {
+  width: 828px;
+  height: 74px;
+  border: 1px solid #eff1fa;
+  padding: 12px;
+  resize: none;
+  font-size: 14px;
+  outline: none;
+}
+.evaluation-box .person-box .evaluation-grade {
+  margin-left: 13px;
+  margin-bottom: 13px;
+}
+.evaluation-box .person-box .evaluation-grade .title {
+  font-size: 14px;
+  color: #666;
+  line-height: 20px;
+}
+.evaluation-box .person-box .tag-list {
+  margin-left: 13px;
+}
+.evaluation-box .person-box .tag-list li {
+  float: left;
+  padding: 8px 11px;
+  text-align: center;
+  color: #555;
+  background: #EFF1FA ;
+  font-size: 14px;
+  border-radius: 3px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.evaluation-box .person-box .tag-list .active {
+  background: #4CC6D8;
+  color: #fff;
+}
+.evaluation-box .assistant-box .person-info .detail-info .name {
+  margin-top: 12px;
+}
+.evaluation-box .btn-p {
+  margin-left: 14px;
+  margin-top: 3px;
+  margin-bottom: 52px;
+}
+.evaluation-box .btn-p button {
+  width: 136px;
+  height: 40px;
+  background: #4cc6d8;
+  border-radius: 3px ;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  line-height: 40px;
+  font-size: 14px;
+  color: #fff;
+}

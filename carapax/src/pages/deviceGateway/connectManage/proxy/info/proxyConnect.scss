@@ -1,0 +1,102 @@
+@media screen and (max-width: 1200px) {
+    .proxy-connect .alarm {
+        width: 250px;
+    }
+}
+@media screen and (min-width: 1201px) and (max-width: 1500px) {
+    .proxy-connect .alarm {
+        width: 270px;
+    }
+}
+@media screen and (min-width: 1501px) {
+    .proxy-connect .alarm {
+        width: 300px;
+    }
+}
+
+.proxy-connect {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    .alarm {
+		display: flex;
+    	flex-direction: column;
+    	margin-right: 20px;
+        .statistics {
+        	border-bottom: 1px solid #DDD;
+        }
+        .exception {
+        	flex: 1;
+        	position: relative;
+        	margin-top: 20px;
+        	.exception-content {
+        		position: absolute;
+        		width: 100%;
+        		height: 100%;
+        		padding: 10px;
+        		overflow: auto;
+        		background-color: #fafafa;
+        	}
+        	.time{
+		        font-size: 14px;
+		        font-weight: bold;
+		    }
+		    .info{
+		        padding-left: 15px;
+		    }
+        }
+    }
+    .connect {
+        flex: 1;
+        width: 0px;
+        position: relative;
+        .title {
+            position: absolute;
+            width: calc(100% - 17px);
+            padding: 5px;
+            font-size: 14px;
+            background-color: #000;
+            z-index: 99;
+            span {color: #fff;}
+            a {margin-left: 10px;}
+        }
+        .content {
+            height: 100%;
+            padding: 40px 10px 10px 10px;
+            background: #000;
+            overflow-y: auto;
+            .ws-item{
+                height:auto;
+                .ws-status{
+                    margin-bottom: 2px;
+                    color: #fff;
+                }
+                .ws-info {
+                    display: flex;
+                    color: #fff;
+                    margin-bottom: 2px;
+                    span {
+                        display: inline-block;
+                        margin-right: 12px;
+                    }
+                }
+                .connect-time { width: 150px }
+                .connect-data {
+                    flex: 1;
+                    overflow: hidden;
+                    text-overflow:ellipsis;
+                    white-space: nowrap;
+                    cursor: pointer;
+                    &:hover { color: #29cee9 }
+                }
+                .connect-data-show {
+                    flex: 1;
+                    cursor: pointer;
+                    color: #29cee9;
+                    margin-bottom: 10px;
+                    word-break: break-all;
+                }
+            }
+        }
+    }
+}

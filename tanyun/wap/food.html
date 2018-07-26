@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="MobileOptimized" content="750">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="format-detection" content="telephone=no">
+    <title>碳云</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+  <body>
+    <div id="healthData" class="container">
+      <my-header active="0"></my-header>
+      <div class="content">
+            <!-- 饮食 -->
+            <div class="energy">
+                <div class="title flex-item">
+                  <span menu="c5" class="flex active">日</span>
+                  <span menu="c6" class="flex">周</span>
+                </div>
+                <div class="conbox">
+                  <div id="c5" class="day"><span>{{dayTotal}}</span>能量</div>
+                  <div id="c6" class="hide">
+                      <div id="foodWeek" class="chartLine" style="width: 87vw; height:9rem;">
+
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <div class="date">
+              <div class="pre" @click="pre()"></div>
+              <div id="datebox" class="datebox">
+                <ul class="flex-item">
+                  <li  v-for="(item,index) in temp" class="foo" :data-val="item.getFullYear()
+                  +'-'+(((item.getMonth() + 1) <=9 )? '0' + (item.getMonth() + 1) : (item.getMonth() + 1))
+                  +'-'+((item.getDate() <=9) ? '0' + item.getDate() : item.getDate())"
+                  @click="add(index)" 
+                  :class="currentnow.getTime()==item.getTime()?'active':''"
+                  >
+                    <span>{{item.getDate()}}</span>
+                    <small>{{item.getMonth()+1}}月</small>
+                  </li>
+                </ul>
+              </div>
+              <div class="next" @click="next()"></div>
+            </div>
+            <div class="food">
+                <div class="nav">
+                  <ul class="flex-item">
+                    <li menu="c7" class="flex active">早餐</li>
+                    <li menu="c8" class="flex">午餐</li>
+                    <li menu="c9" class="flex">晚餐</li>
+                  </ul>
+                </div>
+                <div class="conbox">
+                    <div id="c7">
+                      <div class="fooditem">
+                         <div class="title">营养列表</div>
+                         <div class="box">
+                            <div class="list">
+                              <div class="flex-item">
+                                <div class="footeChat">
+                                    <div class="epie">
+                                      <div class="circleInfo">376</br>kcal</div>
+                                      <div id="circle1" class="circle">
+
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="flex footinfo">
+                                    <div class="flex-item">
+                                      <div class="footlabel">
+                                        <p v-for="(item,index) in morningFood" v-if="index < 4">{{item.name}}</p>
+                                      </div>
+                                      <div class="flex footval">
+                                        <ul>
+                                          <li v-for="(item,index) in morningFood" v-if="index < 4">
+                                            <div class="progress">
+                                              <div class="progress-bar" :style="{width:item.percent+'%'}">
+                                              </div>
+                                           </div>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div class="caret" @click="morningModal()"></div>
+                                </div>
+                              </div>
+                              <div class="afoot">
+                                <div class=" flex-item" v-for="item in morningData">
+                                  <div class="afootName">
+                                    {{item.name}}
+                                  </div>
+                                  <div class="flex afootVal">
+                                    <span class="num">{{item.grams}}</span>克
+                                  </div>
+                                 </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- 弹出框 -->
+                          <div class="modal">
+                            <div class="modalBox">
+                                <div class="modalTitle">营养列表</div>
+                                <div class="modalCon">
+                                    <div class="modalfootinfo ">
+                                      <div class="flex-item">
+                                        <div class="footlabel">
+                                          <p v-for="(item,index) in morningFood">{{item.name}}</p>
+                                        </div>
+                                        <div class="flex footval">
+                                          <ul>
+                                            <li v-for="(item,index) in morningFood">
+                                              <div class="progress">
+                                                <div class="progress-bar" :style="{width:item.percent+'%'}">
+                                                </div>
+                                              </div>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="close" @click="closeModal()"></span>
+                          </div>
+                      </div>
+                    </div>
+                    <div id="c8" class="hide">
+                      <div class="fooditem">
+                        <div class="title">营养列表</div>
+                        <div class="box">
+                          <div class="list">
+                            <div class="flex-item">
+                              <div class="footeChat">
+                                <div class="epie">
+                                  <div class="circleInfo">376</br>kcal</div>
+                                  <div id="circle2" class="circle">
+                      
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="flex footinfo">
+                                <div class="flex-item">
+                                  <div class="footlabel">
+                                    <p v-for="(item,index) in afternoonFood" v-if="index < 4">{{item.name}}</p>
+                                  </div>
+                                  <div class="flex footval">
+                                    <ul>
+                                      <li v-for="(item,index) in afternoonFood" v-if="index < 4">
+                                        <div class="progress">
+                                          <div class="progress-bar" :style="{width:item.percent+'%'}">
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="caret" @click="morningModal()"></div>
+                              </div>
+                            </div>
+                            <div class="afoot">
+                              <div class=" flex-item" v-for="item in afternoonData">
+                                <div class="afootName">
+                                  {{item.name}}
+                                </div>
+                                <div class="flex afootVal">
+                                  <span class="num">{{item.grams}}</span>克
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- 弹出框 -->
+                        <div class="modal">
+                          <div class="modalBox">
+                            <div class="modalTitle">营养列表</div>
+                            <div class="modalCon">
+                              <div class="modalfootinfo ">
+                                <div class="flex-item">
+                                  <div class="footlabel">
+                                    <p v-for="(item,index) in afternoonFood">{{item.name}}</p>
+                                  </div>
+                                  <div class="flex footval">
+                                    <ul>
+                                      <li v-for="(item,index) in afternoonFood">
+                                        <div class="progress">
+                                          <div class="progress-bar" :style="{width:item.percent+'%'}">
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <span class="close" @click="closeModal()"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="c9" class="hide">
+                      <div class="fooditem">
+                        <div class="title">营养列表</div>
+                        <div class="box">
+                          <div class="list">
+                            <div class="flex-item">
+                              <div class="footeChat">
+                                <div class="epie">
+                                  <div class="circleInfo">376</br>kcal</div>
+                                  <div id="circle3" class="circle">
+                      
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="flex footinfo">
+                                <div class="flex-item">
+                                  <div class="footlabel">
+                                    <p v-for="(item,index) in nightFood" v-if="index < 4 ">{{item.name}}</p>
+                                  </div>
+                                  <div class="flex footval">
+                                    <ul>
+                                      <li v-for="(item,index) in nightFood" v-if="index < 4 ">
+                                        <div class="progress">
+                                          <div class="progress-bar" :style="{width:item.percent+'%'}">
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="caret" @click="morningModal()"></div>
+                              </div>
+                            </div>
+                            <div class="afoot">
+                              <div class=" flex-item" v-for="item in nightData">
+                                <div class="afootName">
+                                  {{item.name}}
+                                </div>
+                                <div class="flex afootVal">
+                                  <span class="num">{{item.grams}}</span>克
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- 弹出框 -->
+                        <div class="modal">
+                          <div class="modalBox">
+                            <div class="modalTitle">营养列表</div>
+                            <div class="modalCon">
+                              <div class="modalfootinfo ">
+                                <div class="flex-item">
+                                  <div class="footlabel">
+                                    <p v-for="(item,index) in nightFood">{{item.name}}</p>
+                                  </div>
+                                  <div class="flex footval">
+                                    <ul>
+                                      <li v-for="(item,index) in nightFood">
+                                        <div class="progress">
+                                          <div class="progress-bar" :style="{width:item.percent+'%'}">
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <span class="close" @click="closeModal()"></span>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/mychart.js"></script>
+    <script src="js/healthData.js"></script>
+    <script>
+    new Vue({
+        el: '#healthData',
+        data() {
+          return {
+            id: '',
+            date: '2018-06-29',
+            dayTotal: '',
+            lineDataLabel: [],
+            lineDataVal: [],
+            morningFood: [],
+            morningData: [],
+            morningPie: [
+              { value: 376, name: '', selected: true },
+              { value: 624, name: '' },
+            ],
+            afternoonFood: [],
+            afternoonData: [],
+            afternoonPie: [
+              { value: 624, name: '', selected: true },
+              { value: 376, name: '' },
+            ],
+            nightFood: [],
+            nightData: [],
+            nightPie: [
+              { value: 500, name: '', selected: true },
+              { value: 500, name: '' },
+            ],
+            currentnow: new Date(),
+            now : new Date(),
+            clickNum: 1,
+            temp: [],
+            nowDate :'',
+          }
+        },
+        created() {
+          this.nowDate = getFormat(this.currentnow.getTime());
+          console.log(this.nowDate);
+          this.id = 28;
+          this.calendar();
+          this.getData();
+        },
+        mounted() {
+          
+        },
+        methods: {
+          calendar(){
+            var firstTime = new Date(this.now.setDate(this.now.getDate() - (this.now.getDay() + 1) * this.clickNum));
+            this.temp = [];
+            for (var i = 0; i < 7; i++) {
+              this.temp.push(new Date(firstTime.setDate(firstTime.getDate() + 1))) ;
+            }
+          },
+          pre(){
+            this.clickNum+= 1;
+            this.calendar();
+          },
+          next() {
+            this.clickNum -= 1;
+            this.calendar();
+          },
+          add(index){
+           $('.foo').removeClass('active');
+           $('.foo')[index].classList.add('active');
+            console.log($('.foo')[index].getAttribute('data-val'));
+            this.nowDate = $('.foo')[index].getAttribute('data-val');
+            this.getData();
+          },
+          getData() {
+            var that = this;
+            axios.get(baseurl + '/mobileapi.php?action=healthy&type=food&date='+this.nowDate+'&id=' + this.id)
+              .then(function (res) {
+                var data = res.data;
+                if (data.code == 200) {
+                  that.dayTotal = data.data.energy;
+                  // var weekEnergy = data.data.energy_1 + "," + data.data.energy_2 + "," + data.data.energy_3 + "," + data.data.energy_4
+                  //   + "," + data.data.energy_5 + "," + data.data.energy_6 + "," + data.data.energy_7;
+                  // that.lineData = weekEnergy.split(',');
+                  that.lineDataLabel=[];
+                  that.lineDataVal=[];
+                  for(var i = 0; i< data.data.week.length;i++){
+                    that.lineDataLabel.push(data.data.week[i].date)
+                    that.lineDataVal.push(data.data.week[i].val)
+                  }
+                  chartLine(that.lineDataLabel, that.lineDataVal, 'foodWeek'); //饮食 周 折线图
+                  // 早餐
+                  // 遍历对象的获取value添加到数组
+                  var morningFoodArr = objVal(data.data.morning.data);
+                  // 数组的每个对象添加属性百分比;
+                  that.morningFood = addAttr(morningFoodArr)
+                  console.log(that.morningFood);
+                  that.morningData = data.data.morning.items;
+                  chartpie(that.morningPie, 'circle1')
+                  // 午餐
+                  var afternoonFoodArr = objVal(data.data.afternoon.data);
+                  that.afternoonFood = addAttr(afternoonFoodArr)
+                  console.log(that.afternoonFood);
+                  that.afternoonData = data.data.afternoon.items;
+                  chartpie(that.afternoonPie, 'circle2')
+                  // 晚餐
+                  var nightFoodArr = objVal(data.data.night.data);
+                  that.nightFood = addAttr(nightFoodArr)
+                  console.log(that.nightFood);
+                  that.nightData = data.data.night.items;
+                  chartpie(that.nightPie, 'circle3')
+                }
+              })
+              .catch(function (err) {
+                console.log(err);
+              })
+          },
+          morningModal() {
+            $(".modal").css("display", "block");
+          },
+          closeModal() {
+            $(".modal").css("display", "none");
+          },
+          // matchStr(str){
+          //     switch (str) {
+          //         case "ash":
+          //             return "灰分"
+          //             break;
+          //         case "cho":
+          //             return "碳水化合物"
+          //             break;
+          //         case "cholesterol":
+          //             return "胆固醇"
+          //             break;
+          //         case "dietary_fiber":
+          //             return "膳食钎维"
+          //             break;
+          //         case "energy":
+          //             return "能量"
+          //             break;
+          //         case "fat":
+          //             return "脂肪"
+          //             break;
+          //         case "protein":
+          //             return "蛋白质"
+          //             break;
+          //         case "vit_a":
+          //             return "维生素A"
+          //             break;
+          //         case "water":
+          //             return "水分"
+          //             break;
+          //         default:
+          //             return str
+          //     }
+          // },
+        }
+      })  
+    </script>
+  </body>
+</html>

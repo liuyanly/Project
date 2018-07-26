@@ -1,0 +1,226 @@
+<template>
+    <div class="find-password">
+        <headers headName="找回密码"></headers>
+        <div class="contentScollr">
+        <div class="form-box">
+            <ul class="form-list">
+                <li>
+                    <input type="number" class="input-p" placeholder="请输入手机号" v-model="telNum" />
+                </li>
+                <li>
+                    <input type="number" class="input-p" placeholder="验证码" v-model="codeNum" />
+                    <span :class="{disabled:btnType==1}" class="code-btn" @click="getCode()">{{codeContent}}</span>
+                </li>
+                <li>
+                    <input type="password" class="input-p" v-model="password" placeholder="6-16位字母、数字密码" />
+                </li>
+                <li>
+                    <input type="password" class="input-p" placeholder="再次输入密码" v-model="repeatPassword" />
+                </li>
+            </ul>
+            <p class="sure-btn" @click="sureEdit()">
+                确定
+            </p>
+        </div>
+    </div>
+    </div>
+
+</template>
+<script>
+    import headers from "../components/Header"
+    export default {
+        data(){
+            return{
+                telNum:'',
+                codeNum: '',
+                password: '',
+                repeatPassword:'',
+                codeContent: '获取验证码',
+                time:60,
+                btnType:0,
+            }
+        },
+       methods: {
+			//验证码倒计时
+			timing() {
+				var that = this;
+				if(this.time == 0) {
+					this.btnType = 0;
+					this.time=60;
+					this.codeContent = "获取验证码";
+				} else {
+					this.btnType = 1;
+					this.codeContent = this.time + '秒';
+					this.time--;
+					setTimeout(function() {
+						that.timing();
+					}, 1000)
+				}
+			},
+			getCode() {
+				var that = this;
+				if(this.telNum != '' && this.telNum.length == 11&&this.time==60) {
+					this.timing();
+					//请求接口，获取验证码
+					var that = this;
+					this.$ajax.post('/auth/code/reset-password', {
+							username: that.telNum
+						})
+						.then(function(res) {
+							var data = res.data;
+							if(data.status == 422) {
+								that.$toast(data.message);
+							}
+						})
+						.catch(function(err) {
+                            that.$toast(err);
+						});
+				} else {
+
+				}
+			},
+			sureEdit() {
+				var that = this;
+				if(this.telNum == '') {
+					this.$toast('请输入手机号码')
+					return false;
+				}
+				if(this.telNum.length != 11) {
+					this.$toast('手机号码格式不正确')
+					return false;
+				}
+				if(this.codeNum == "") {
+					this.$toast('请输入验证码')
+					return false;
+				}
+				if(this.codeNum.length != 4) {
+					this.$toast('验证码不正确')
+					return false;
+				}
+				if(this.password == "") {
+					this.$toast('请输入密码')
+					return false;
+				}
+				const regExp = /^[a-zA-Z\d]{6,16}$/;
+				if(!regExp.test(this.password)) {
+					this.$toast('密码格式不正确')
+					return false;
+				}
+				if(this.repeatPassword == "") {
+					this.$toast('请重复密码')
+					return false;
+				}
+				if(!regExp.test(this.repeatPassword) && this.password != this.repeatPassword) {
+					this.$toast('密码不一致')
+					return false;
+				}
+				//找回密码
+				var that = this;
+				this.$ajax.post('/auth/password/reset', {
+						username: that.telNum,
+						password: that.password,
+                        code: that.codeNum,
+						login_type: 'phone'
+					})
+					.then(function(res) {
+						var data = res.data;
+						if(data.status == 422) {
+							that.$toast(data.message);
+						}else if(data.status == 200){
+							//密码修改成功，跳转到登录页面
+            				that.$messagebox({
+            					title: '提示',
+            					showConfirmButton: true,
+            					confirmButtonText: "立即登录",
+            					message: "密码修改成功",
+            				}).then(action => {
+            					that.$router.push({
+            						name: 'Login'
+            					});
+            				});
+            			}
+            		})
+					.catch(function(err) {
+                        that.$toast(err)
+					});
+
+			},
+		},
+        components:{headers},
+    }
+</script>
+<style lang="scss" scoped>
+input:-ms-input-placeholder{
+    color:#999;
+    font-size: .7rem /* 28/40 */;
+}
+input::-moz-placeholder{
+    color:#999;
+    font-size: .7rem /* 28/40 */;
+}
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+　　color:#999;
+}
+input::-webkit-input-placeholder{
+    color:#999;
+    font-size: .7rem /* 28/40 */;
+}
+    .find-password{
+        display: flex;
+    	height: 100%;
+    	flex-direction: column;
+    	.contentScollr{
+    		flex: 1;
+    		overflow: scroll;
+    		-webkit-overflow-scrolling:touch;
+    	}
+        .form-box{
+            .form-list{
+                background: #fff;
+                li{
+                    padding:0 .8rem /* 30/40 */;
+                    border-bottom: 1px solid #e5e5e5;
+                    line-height: 2.3rem /* 90/40 */;
+                    position: relative;
+                    //width: calc(100% - 1.6rem);
+                    .input-p{
+                        line-height: 2.3rem /* 90/40 */;
+                        font-size: #333;
+                        font-size: .7rem /* 28/40 */;
+                        color: #333;
+                        width: 100%;
+                    }
+                    .code-btn{
+                        display: block;
+                        position: absolute;
+                        height: 1.6rem /* 66/40 */;
+                        width: 4.1rem /* 164/40 */;
+                        border-radius: .3rem /* 10/40 */;
+                        line-height: 1.6rem;
+                        background: #4cc6d8;
+                        text-align: center;
+                        color: #fff;
+                        font-size: .7rem /* 28/40 */;
+                        right: .8rem /* 30/40 */;
+                        top: .3rem /* 12/40 */;
+                    }
+                    .disabled{
+                        background: #999;
+                    }
+                }
+            }
+        }
+        .sure-btn{
+            width: 17.2rem /* 688/40 */;
+            height: 2rem /* 82/40 */;
+            background: #4cc6d8;
+            border-radius: .3rem /* 10/40 */;
+            text-align: center;
+            line-height: 2rem;
+            color: #fff;
+            font-size: .8rem /* 32/40 */;
+            margin: 0 auto;
+            margin-top: 1.5rem /* 60/40 */;
+        }
+    }
+</style>

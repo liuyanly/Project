@@ -1,0 +1,107 @@
+<template>
+    <div class="pay">
+        <headers headName="线下充值"></headers>
+        <div class="contentScollr">
+        <div class="top-div">
+            <p class="line1 clear">
+                <span class="name left">充值金额：</span>
+                <span class="unit left">¥</span>
+                <input type="number left" v-model="money"/>
+            </p>
+        </div>
+        <p class="pay-btn" @click="nowRecharge()">
+            下一步
+        </p>
+    </div>
+    </div>
+</template>
+<script>
+    import headers from "../components/Header.vue";
+    export default {
+        data(){
+            return{
+                money:'',
+            }
+        },
+        mounted(){
+            //console.log(this.$route.params.id);
+        },
+        methods:{
+            nowRecharge(){
+                if(this.money>5000){
+                    this.$toast("单笔最高充值5000元");
+                    return false;
+                }
+                if(this.money==''){
+                    this.$toast("请输入充值金额");
+                    return false;
+                }
+                this.$router.push({name:'OfflineRemittance',params:{money:this.money}})
+            }
+        },
+        components: {headers},
+    }
+</script>
+<style lang="scss">
+a{
+    color:#4CC6D8;
+}
+.pay{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    .contentScollr{
+        flex: 1;
+        overflow: scroll;
+        -webkit-overflow-scrolling:touch;
+    }
+    .top-div{
+        line-height: 1.2rem /* 48/40 */;
+        padding: 2.2rem /* 89/40 */ .6rem /* 24/40 */ 1.8rem /* 73/40 */ .6rem /* 24/40 */;
+        box-sizing: border-box;
+        //margin-bottom: 1.5rem /* 60/40 */;
+        background: #fff;
+        .left{
+            float: left;
+        }
+        .line1{
+            line-height: 1.2rem /* 48/40 */;
+        }
+        .name{
+            font-size: .7rem /* 28/40 */;
+            color: #999;
+            margin-right: .3rem /* 10/40 */;
+        }
+        .unit{
+            font-size: 1.2rem /* 48/40 */;
+            color: #333;
+        }
+        input{
+            width: 10rem /* 400/40 */;
+            line-height: 1.2rem /* 48/40 */;
+            color: #333;
+            font-size: .8rem /* 32/40 */;
+            margin-left: .5rem /* 20/40 */;
+        }
+        .tip-word{
+            font-size: .6rem /* 22/40 */;
+            color:#999;
+            margin-top: .3rem;
+            line-height: .6rem;
+        }
+    }
+    .way-box{
+        background: #fff;
+        margin-top: .5rem /* 20/40 */;
+    }
+    .pay-btn{
+        margin: 1.5rem /* 60/40 */ .8rem /* 30/40 */;
+        background: #4CC6D8;
+        text-align: center;
+        color:#fff;
+        font-size: .8rem /* 32/40 */;
+        line-height: 2rem /* 82/40 */;
+        border-radius: .3rem /* 10/40 */;
+    }
+}
+</style>

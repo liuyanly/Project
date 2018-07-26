@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>按科室找医生</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/online_ask.css"/>
+    <link rel="stylesheet" href="css/hospital_info.css"/>
+    <link rel="stylesheet" href="css/department_search.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="3"></my-header>
+    </div>
+    <div class="main">
+        <div class="header-top">
+            <span>预约就诊>选择医生></span>
+            <span class="hospital-name">{{title}}</span>
+        </div>
+        <section class="container">
+            <div class="content-box">
+                <p class="top-title clearFix">
+                    <span class="left">按科室找医生</span>
+                </p>
+                <ul class="area-list">
+                    <li class="clearFix" v-for="item in departmentData">
+                        <p class="area-title">{{item.title}}</p>
+                        <ul class="hospital-list">
+                            <li @click="departmentChange(item.id,0)" :class="{current:pid==item.id}">全部科室</li>
+                            <li @click="departmentChange(dt.id,1)" :class="{current:departmentId==dt.id && pid==0}" v-for="dt in item.translates.sub_cates">{{dt.title}}</li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="doctor-list clearFix">
+                    <li v-for="data in doctorData" @click="viewDetail(data.id,data.translates.department_title,data.realname,data.translates.hospital_title)">
+                        <div class="doctor-info clearFix">
+                            <img class="left" :src="data.translates.avatar_img">
+                            <div class="left doctor-content">
+                                <p><span class="cc">{{data.realname}}</span></p>
+                                <p class="name">{{data.translates.department_title}}</p>
+                            </div>
+                        </div>
+                        <div class="content-word" v-if="data.specialty.length>38">
+                            擅长：{{data.specialty.substring(0,38)+"..."}}
+                        </div>
+                        <div class="content-word" v-else="data.specialty.length<38">
+                            擅长：{{data.specialty}}
+                        </div>
+                    </li>
+                </ul>
+                <div class="page" v-if="total > 1">
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            layout="prev, pager, next"
+                            :current-page="currentPage"
+                            :page-size="per_page"
+                            :page-count="total"
+                            >
+                    </el-pagination>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <my-footer></my-footer>
+    <login-box></login-box>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="swiper/swiper-3.4.2.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/user_login.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data:{
+            contentData:'擅长：胸闷、心功能不全、心绞痛、高血压、血脂异常擅长：胸闷、心功能不全、心绞痛、胸闷、心功能不全、心绞痛、高血压、血脂',
+            total:0,
+            departmentData: [],
+            departmentId:getparams('id'),
+            title:getparams('title'),
+            currentPage:1,
+            per_page:20,
+            doctorData:[],
+            pid:0,
+        },
+        mounted:function () {
+            this.getDepartmentData();
+        },
+        methods: {
+            /*maxSlice:function (v) {
+                if(this.contentData.length>40){
+                    this.contentData =this.contentData.substring(0,40)+"...";
+                }
+            }*/
+            handleSizeChange:function(val) {
+                console.log(val);
+            },
+            handleCurrentChange:function(val){
+                console.log(val);
+                this.currentPage = val;
+                this.getDoctor()
+            },
+            viewDetail:function (id,department,name,hospital) {
+                location.href = 'doctor_info_department.html?id='+id+'&title='+name+'&department='+department+'&hospital='+hospital;
+            },
+            getDepartmentData:function () {
+                //获取科室数据
+                var that=this;
+                axios.get(userApi+'/category?e_s[module]=department&e_s[pid]=0')
+                    .then(function (res) {
+                        console.log(res.data);
+                        if(res.data.status==200){
+                            that.departmentData=res.data.data;
+                            if(that.departmentId == 0){
+                                that.pid = res.data.data[0].id
+                            }
+                            that.getDoctor()
+                        }else if(res.data.status==401){
+                            that.$message({
+                                message: res.data.message,
+                                type: 'error'
+                            });
+                            window.eventHub.$emit('needLogin',1);
+                        }else{
+                            that.$alert(res.data.message, '提示', {
+                                confirmButtonText: '确定',
+                            })
+                        }
+                    })
+                    .catch(function (err) {
+                        that.$alert(err, '提示', {
+                            confirmButtonText: '确定',
+                        })
+                    })
+            },
+            getDoctor:function(){
+              var that = this;
+              var params = {
+                  per_page:that.per_page,
+                  page:that.currentPage,
+              }
+              if(this.pid == 0){
+                  params['e_s[department]'] = this.departmentId
+              }else{
+                  params.pid = this.pid
+              }
+              axios.get(userApi+'/doctor',{params:params})
+                  .then(function (res) {
+                      console.log(res.data)
+                      if(res.data.status == 200){
+                          that.doctorData = res.data.data.doctor;
+                          that.total = res.data.data.paginate.total_page;
+                          console.log(that.total)
+                      }
+                  })
+                  .catch(function (err) {
+                      
+                  })
+            },
+            departmentChange:function (id,num) {
+                if(num == 0){
+                    this.pid = id;
+                }else{
+                    this.pid = 0;
+                    this.departmentId=id;
+                }
+
+                this.getDoctor()
+            }
+        }
+    })
+</script>
+</body>
+</html>

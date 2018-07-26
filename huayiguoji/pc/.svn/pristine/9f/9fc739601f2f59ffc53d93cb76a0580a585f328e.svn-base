@@ -1,0 +1,47 @@
+@import "variable";
+
+.main-box{
+  padding: 7px 42px;
+  background: none;
+  .outer-box{
+    margin-top: 23px;
+    .title{
+      .color999(14px,#999);
+      line-height: 76px;
+    }
+    .choose-box{
+      width: 286px;
+      height: 76px;
+      background: #f3f7fd;
+      border: 1px solid #eff1fa;
+      border-radius: 3px;
+      padding: 14px;
+      box-sizing: border-box;
+      .name{
+        margin-left: 13px;
+      }
+      p{
+        line-height: 48px;
+        .color999(14px,#333);
+      }
+      .choose-p{
+        margin-right: 9px;
+        cursor: pointer;
+      }
+    }
+  }
+  .btn-p{
+    margin-top: 30px;
+    margin-left: 70px;
+    button{
+      width:136px;
+      height:40px;
+      border-radius: 3px;
+      background: #4CC6D8;
+      line-height: 40px;
+      border: none;
+      .color999(14px,#fff);
+      cursor: pointer;
+    }
+  }
+}

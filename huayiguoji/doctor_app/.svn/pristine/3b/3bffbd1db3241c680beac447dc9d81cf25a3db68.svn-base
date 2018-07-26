@@ -1,0 +1,210 @@
+<template>
+	<div class="d4">
+		<headers headName="患者信息"></headers>
+		<div class="contentScollr">
+			<div class="head-top">
+				<p class="bg-p">
+				</p>
+				<div class="user-box">
+					<img class="head-img" :src="headImg" />
+					<p class="name">
+						{{name}}
+					</p>
+					<p class="hospital">
+						{{illness}}
+					</p>
+					<p class="department">
+						性别:{{sex}}&emsp;年龄:{{age}}岁
+					</p>
+				</div>
+			</div>
+		<div>
+			<p class="y-x-title">症状</p>
+			<div class="y-x-fengexian"></div>
+			<p class="y-x-miaoshu">{{symptom}}
+			</p>
+			<div class="y-fengexian"></div>
+		</div>
+
+		<div>
+			<p class="y-x-title aui-border-b">
+				<span>图文咨询</span>
+				<span class="aui-text-333 aui-pull-right">¥ {{money}}/次</span>
+			</p>
+		</div>
+	</div>
+		<publicFooter1 :footer1Txt='footer1Txt' :footer1TxtUsl='footer1TxtUsl'></publicFooter1>
+	</div>
+</template>
+
+<script>
+	import headers from '../components/Header'
+	import publicFooter1 from '@/components/parts/footer1'
+
+	export default {
+		name: 'd4twxq',
+		data() {
+			return {
+				name: '',
+				sex: '',
+				illness:'',
+				age: '',
+				footer1Txt: "立即回复",
+				footer1TxtUsl: '',
+				headImg:'',
+				userId:this.$route.params.userId,
+				id:this.$route.params.id,
+				symptom:'',
+				money:'',
+				status:this.$route.params.status,
+			}
+		},
+		mounted(){
+			this.BaseSet.getToken(this)
+			if(this.status == 0){
+				this.footer1Txt = "立即回复"
+			}else{
+				this.footer1Txt = "查看记录"
+				this.footer1TxtUsl ="/graphicConsultingDetails/1"
+			}
+			this.getUser()
+			this.getDoctor()
+		},
+		methods:{
+			getUser(){
+				var that = this
+				that.$ajax.get('/user/patient/'+that.userId)
+				.then((res)=> {
+					console.log(res.data)
+					if(res.data.status == 200){
+						this.headImg = res.data.data.translates.avatar_img
+						this.name = res.data.data.realname
+						this.sex = res.data.data.translates.sex
+						this.age = res.data.data.translates.age
+						this.illness = res.data.data.illness
+						this.symptom = res.data.data.symptom
+					}
+				})
+				.catch((err)=>{
+					this.BaseSet.linkLogin(this)
+				})
+			},
+			getDoctor(){
+				this.$ajax.get('/service/'+this.id)
+				.then((res)=> {
+					this.money = res.data.data.doctor.im_advice_price
+				})
+				.catch((err)=> {
+					this.BaseSet.linkLogin(this)
+				})
+			}
+		},
+		components: {
+			headers,
+			publicFooter1
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+.contentScollr{
+	flex: 1;
+	overflow: scroll;
+	-webkit-overflow-scrolling:touch;
+}
+.head-top{
+	position: relative;
+	background: #fff;
+	//height: 11.6rem /* 463/40 */;
+	margin-bottom: .5rem /* 20/40 */;
+	.bg-p{
+		height:2.1rem /* 173/40 */;
+		background: #4cc6d8;
+	}
+	.user-box{
+		text-align: center;
+		height: 3.6rem /* 224/40 */;
+		.head-img{
+			position: absolute;
+			top: 0.4rem /* 64/40 */;
+			left: 7.7rem /* 309/40 */;
+			width: 3rem /* 120/40 */;
+			height: 3rem /* 120/40 */;
+			border: .1rem /* 4/40 */ solid #fff ;
+			border-radius: 50%;
+		}
+		.vip-img{
+			position: absolute;
+			width: .9rem /* 37/40 */;
+			height: 1rem /* 40/40 */;
+			top: 2.5rem /* 64/40 */;
+			left: 10rem;
+		}
+		.name{
+			font-size: .8rem /* 30/40 */;
+			color: #333;
+			margin-top: 2rem /* 82/40 */;
+			line-height: .8rem /* 30/40 */;
+		}
+		.hospital,.department{
+			font-size: .6rem /* 24/40 */;
+			color: #666;
+			margin-top: .5rem /* 19/40 */;
+			line-height: .6rem /* 24/40 */;
+		}
+	}
+	.top-btn{
+		margin-top: 3.8rem /* 153/40 */;
+		padding-bottom: 1.2rem /* 48/40 */;
+		.title{
+			font-size: .7rem /* 26/40 */;
+			color: #666;
+			margin-top: .5rem /* 20/40 */;
+			line-height: .7rem;
+		}
+
+		.left{
+			float: left;
+			text-align: center;
+			img{
+				width: 1.2rem /* 49/40 */;
+				height: 1rem /* 40/40 */;
+			}
+			margin-left: 3.5rem /* 141/40 */;
+		}
+		.right{
+			float: right;
+			text-align: center;
+			margin-right: 3.6rem /* 144/40 */;
+			img{
+				width: 1.4rem /* 54/40 */;
+				height: 1.1rem /* 46/40 */;
+			}
+		}
+	}
+}
+.y-x-miaoshu{
+	font-size: .7rem /* 28/40 */;
+	color:#333;
+	padding: .8rem /* 30/40 */ .4rem /* 15/40 */;
+	line-height: 1.2rem /* 48/40 */;
+	p{
+		font-size: .7rem /* 28/40 */;
+		color:#333;
+		line-height: 1.2rem /* 48/40 */;
+	}
+	img{
+		width: 100%;
+	}
+}
+	.kong222{
+		height: 5.55rem;
+		background: #fff;
+	}
+	.d4{
+		margin-bottom: 2.95rem;
+		display: flex;
+		height: 100%;
+		flex-direction: column;
+	}
+</style>

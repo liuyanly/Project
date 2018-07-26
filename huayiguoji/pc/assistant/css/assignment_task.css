@@ -1,0 +1,65 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.main-box {
+  padding: 7px 42px;
+  background: none;
+}
+.main-box .outer-box {
+  margin-top: 23px;
+}
+.main-box .outer-box .title {
+  font-size: 14px;
+  color: #999;
+  line-height: 76px;
+}
+.main-box .outer-box .choose-box {
+  width: 286px;
+  height: 76px;
+  background: #f3f7fd;
+  border: 1px solid #eff1fa;
+  border-radius: 3px;
+  padding: 14px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.main-box .outer-box .choose-box > img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.main-box .outer-box .choose-box .name {
+  margin-left: 13px;
+}
+.main-box .outer-box .choose-box p {
+  line-height: 48px;
+  font-size: 14px;
+  color: #333;
+}
+.main-box .outer-box .choose-box .choose-p {
+  margin-right: 9px;
+  cursor: pointer;
+}
+.main-box .btn-p {
+  margin-top: 30px;
+  margin-left: 70px;
+}
+.main-box .btn-p button {
+  width: 136px;
+  height: 40px;
+  border-radius: 3px;
+  background: #4CC6D8;
+  line-height: 40px;
+  border: none;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+}

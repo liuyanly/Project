@@ -1,0 +1,211 @@
+<template>
+    <div class="not-vip">
+        <headers headName="会员信息"></headers>
+        <div class="contentScollr">
+        <ul class="vip-list" v-for="data in dataList">
+            <li class="g4_bg1-li">
+                <input type="radio" name="inputRadio" class="input-radio" value="1" v-model="vipValue" />
+                <img class="choose-img" src="../assets/images/g4_xz_p.png"  v-if="vipValue==1" />
+                <img class="choose-img" src="../assets/images/g4_xz.png"  v-if="vipValue!=1" />
+                <p class="title">
+                    {{data.title}}(¥{{data.money}})
+                </p>
+                <ul class="sevice-list clear">
+                    <li class="left">1.电子病历</li>
+                    <li class="left">2.慢病管理疾病风险评估</li>
+                    <li class="left">3.协和医院名医绿道</li>
+                    <li class="left">4.梅奥智能问诊</li>
+                    <li class="right">5.专家远程会诊</li>
+                    <li class="right">6.私人管家</li>
+                    <li class="right">7.健康知识</li>
+                    <li class="right">8.7*24小时健康保障</li>
+                </ul>
+            </li>
+            <!-- <li class="g4_bg2-li">
+                <input type="radio" name="inputRadio" class="input-radio" value="2" v-model="vipValue" />
+                <img class="choose-img" src="../assets/images/g4_xz_p.png"  v-if="vipValue==2" />
+                <img class="choose-img" src="../assets/images/g4_xz.png"  v-if="vipValue!=2" />
+                <p class="title">
+                    白银会员(¥1000)
+                </p>
+                <ul class="sevice-list clear">
+                    <li class="left">1.电子病历</li>
+                    <li class="left">2.慢病管理疾病风险评估</li>
+                    <li class="left">3.协和医院名医绿道</li>
+                    <li class="left">4.梅奥智能问诊</li>
+                    <li class="right">5.专家远程会诊</li>
+                    <li class="right">6.私人管家</li>
+                    <li class="right">7.健康知识</li>
+                    <li class="right">8.7*24小时健康保障</li>
+                </ul>
+            </li>
+            <li class="g4_bg3-li">
+                <input type="radio" name="inputRadio" class="input-radio" value="3" v-model="vipValue" />
+                <img class="choose-img" src="../assets/images/g4_xz_p.png"  v-if="vipValue==3" />
+                <img class="choose-img" src="../assets/images/g4_xz.png"  v-if="vipValue!=3" />
+                <p class="title">
+                    黄金会员(¥2000)
+                </p>
+                <ul class="sevice-list clear">
+                    <li class="left">1.电子病历</li>
+                    <li class="left">2.慢病管理疾病风险评估</li>
+                    <li class="left">3.协和医院名医绿道</li>
+                    <li class="left">4.梅奥智能问诊</li>
+                    <li class="right">5.专家远程会诊</li>
+                    <li class="right">6.私人管家</li>
+                    <li class="right">7.健康知识</li>
+                    <li class="right">8.7*24小时健康保障</li>
+                </ul>
+            </li>
+            <li class="g4_bg4-li">
+                <input type="radio" name="inputRadio" class="input-radio" value="4" v-model="vipValue" />
+                <img class="choose-img" src="../assets/images/g4_xz_p.png"  v-if="vipValue==4" />
+                <img class="choose-img" src="../assets/images/g4_xz.png"  v-if="vipValue!=4" />
+                <p class="title">
+                    白金会员(¥3000)
+                </p>
+                <ul class="sevice-list clear">
+                    <li class="left">1.电子病历</li>
+                    <li class="left">2.慢病管理疾病风险评估</li>
+                    <li class="left">3.协和医院名医绿道</li>
+                    <li class="left">4.梅奥智能问诊</li>
+                    <li class="right">5.专家远程会诊</li>
+                    <li class="right">6.私人管家</li>
+                    <li class="right">7.健康知识</li>
+                    <li class="right">8.7*24小时健康保障</li>
+                </ul>
+            </li> -->
+        </ul>
+        <p class="btn-open" @click="openVip()">
+            开通会员
+        </p>
+    </div>
+    </div>
+</template>
+<script>
+    import headers from "../components/Header"
+    export default {
+        data(){
+            return{
+                vipValue: 0,
+                dataList:'',
+            }
+        },
+        mounted(){
+            this.getList()
+        },
+        methods:{
+            getList(){
+                this.$ajax.get('/user/viplist')
+                .then((res)=>{
+                    console.log(res.data)
+                    if(res.data.status == 200){
+                        this.dataList = res.data.data
+                    }
+                })
+                .catch((err)=>{
+
+                })
+            },
+            openVip(){
+                if(this.vipValue==0){
+                    this.$toast('请选择会员类型')
+                    return false;
+                }
+                this.$router.push({name:'NowPay'});
+            },
+        },
+        components:{headers},
+    }
+</script>
+<style lang="scss" scoped>
+$bg-list: g4_bg1,g4_bg2,g4_bg3,g4_bg4;
+    .not-vip{
+        display: flex;
+		height: 100%;
+		flex-direction: column;
+		.contentScollr{
+			flex: 1;
+			overflow: scroll;
+			-webkit-overflow-scrolling:touch;
+		}
+        .vip-list{
+            margin-top: .5rem;
+            >li{
+                margin: 0 .8rem /* 30/40 */ .7rem /* 26/40 */  .8rem /* 30/40 */;
+                width: 17.3rem /* 690/40 */;
+                height: 7.9rem /* 316/40 */;
+                position: relative;
+                color: #883f03;
+                box-sizing: border-box;
+                padding: 1.9rem /* 78/40 */ 0 .7rem /* 28/40 */ 1.9rem /* 78/40 */;
+                &:nth-of-type(2n){
+                    color: #454545;
+                }
+                input{
+                    width: 100%;
+                    height: 7.9rem /* 316/40 */;
+                    position: absolute;
+                    opacity: 0;
+                    top:0;
+                    left:0;
+                }
+                .choose-img{
+                    position: absolute;
+                    width: 1.1rem /* 46/40 */;
+                    height: 1.1rem /* 46/40 */;
+                    top: .5rem /* 20/40 */;
+                    right: .6rem /* 22/40 */;
+                }
+                .title{
+                    font-size: .9rem /* 36/40 */;
+                    color: #fff;
+                    margin-bottom: 1.3rem;
+                    text-align: center;
+                    line-height: .9rem;
+                    margin-right: 1.9rem;
+                    //font-weight: 600;
+                }
+                .sevice-list{
+                    //width: 100%;
+                    height: 3.2rem /* 125/40 */;
+                    display:-webkit-box;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-flex-direction: column;
+                    -ms-flex-direction: column;
+                    flex-direction:column;
+                    flex-wrap:wrap;
+                    -webkit-flex-wrap:wrap;
+                    -ms-flex-wrap: wrap;
+                    -webkit-align-items: center;
+                    -ms-flex-align: center;
+                    align-items:center ;
+                    li{
+                        font-size: .6rem /* 22/40 */;
+                        width: 7.2rem /* 286/40 */;
+                        line-height: .8rem /* 32/40 */;
+                    }
+
+                }
+            }
+            @each $name in $bg-list {
+                >.#{$name}-li{
+                    background: url('../assets/images/#{$name}.png');
+                    background-size: cover;
+                }
+            }
+        }
+        .btn-open{
+            width: 100%;
+            height: 2.5rem /* 98/40 */;
+            background: #4cc6d8;
+            color: #fff;
+            text-align: center;
+            line-height: 2.5rem;
+            font-size: .8rem /* 30/40 */;
+            margin-top: .1rem /* 6/40 */;
+        }
+    }
+</style>

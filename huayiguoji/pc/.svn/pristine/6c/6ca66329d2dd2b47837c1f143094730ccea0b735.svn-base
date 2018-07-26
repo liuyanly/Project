@@ -1,0 +1,76 @@
+@import "../../less/variable";
+
+.head-top{
+  .head-content{
+    padding: 41px 14px 31px 14px;
+    .borderBottom(1px,solid,#EFF1FA);
+    font-size: 14px;
+    .left{
+
+    }
+    .name{
+      .color999(14px,#666);
+      margin-top: 15px;
+    }
+    .money{
+      .color999(24px,#2748AB);
+      margin-right: 21px;
+      margin-top: 7px;
+      font-weight: 600;
+    }
+    .withdrawals,.recharge{
+      width:80px;
+      height:30px;
+      background:rgba(76,198,216,1);
+      border-radius: 3px ;
+      color: #fff;
+      line-height: 30px;
+      text-align: center;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+    .withdrawals{
+      background: #fff;
+      color: #4CC6D8;
+      border: 1px solid #4CC6D8;
+      margin-right: 12px;
+    }
+  }
+
+}
+.bill-list{
+  li{
+    padding: 11px 15px;
+    border-bottom: 1px solid #eff1fa;
+    .left{
+      .purpose{
+        .color999(14px,#000);
+        margin-top: 2px;
+        line-height: 15px;
+        span{
+          color: #4CC6D8;
+        }
+      }
+      .info{
+        .color999(14px,#999);
+        margin-top: 7px;
+        line-height: 13px;
+        font-size: 12px;
+        .marginLeft{
+          margin-left: 8px;
+        }
+      }
+    }
+    .status{
+      line-height: 37px;
+      .color999(14px,#4cc6d8);
+      margin-right: 9px;
+    }
+    .reduce{
+      color:#EE774D;
+    }
+  }
+}
+.el-pagination{
+  text-align: center;
+}

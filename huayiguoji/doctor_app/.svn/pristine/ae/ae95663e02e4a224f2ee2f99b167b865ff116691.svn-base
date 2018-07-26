@@ -1,0 +1,549 @@
+<template>
+	<div class="my-data">
+		<headers headName='个人信息'></headers>
+		<div class="contentScollr">
+			<div class="head-top clear">
+				<span class="name">头像</span>
+				<!-- <img class="head-img" src="../assets/images/a_image1.png" /> -->
+				<img class="head-img" :src="headImg" @click="uploadImg"/>
+				<img class="btn-img" src="../assets/images/c13_liebiao.png" />
+			</div>
+			<div class="form_box">
+				<div class="form">
+					<ul>
+						<router-link :to="{ name: 'TrueName', params: {} }">
+							<li>
+								<span class="name">姓名</span>
+								<span class="content-txt">{{userName}}</span>
+								<img src="../assets/images/c13_liebiao.png" class="arrow">
+							</li>
+						</router-link>
+						<li>
+							<span class="name">性别</span>
+							<input type="radio" v-model="sex" @change="link()" value="0" name="sex" class="input-radio one_sel" />
+							<span class="radio-name">女</span>
+							<img class="radio-img" src="../assets/images/b2_icon1_p.png" v-if="sex!=0" />
+							<img class="radio-img" src="../assets/images/b2_icon1.png" v-if="sex==0" />
+							<input type="radio" v-model="sex" @change="link()" value="1" name="sex" class="input-radio input-radio1 one_sel" />
+							<span class="radio-name radio-name1">男</span>
+							<img class="radio-img radio-img1" src="../assets/images/b2_icon1_p.png" v-if="sex!=1" />
+							<img  class="radio-img radio-img1" src="../assets/images/b2_icon1.png" v-if="sex==1" />
+						</li>
+						<li>
+							<span class="name">出生年月</span>
+							<input type="text" class="text time" placeholder="请选择" @click="openDatePicker" v-model="brithday" readonly>
+							<img src="../assets/images/c13_liebiao.png" class="arrow">
+						</li>
+						<router-link :to="{ name: 'Tel', params: {} }">
+							<li>
+								<span class="name">联系电话</span>
+								<span class="content-txt">{{tel}}</span>
+								<img src="../assets/images/c13_liebiao.png" class="arrow">
+							</li>
+						</router-link>
+						<router-link :to="{ name: 'Address', params: {} }">
+							<li>
+								<span class="name">住址</span>
+								<span class="content-txt">{{area}}</span>
+								<img src="../assets/images/c13_liebiao.png" class="arrow">
+							</li>
+						</router-link>
+						<router-link :to="{ name: 'Department', params: {} }">
+							<li>
+								<span class="name">科室</span>
+								<span class="content-txt">{{department}}</span>
+								<img src="../assets/images/c13_liebiao.png" class="arrow">
+							</li>
+						</router-link>
+						<router-link :to="{ name: 'Hospital', params: {} }">
+						<li>
+							<span class="name">医院</span>
+							<span class="content-txt">{{hospital}}</span>
+							<img src="../assets/images/c13_liebiao.png" class="arrow">
+						</li>
+						</router-link>
+						<router-link :to="{ name: 'GoodAt', params: {} }">
+							<li>
+								<span class="name">擅长</span>
+								<img src="../assets/images/c13_liebiao.png" class="arrow">
+							</li>
+						</router-link>
+						<router-link :to="{ name: 'EducationalBackground', params: {} }">
+							<li>
+								<span class="name">教育背景</span>
+								<img src="../assets/images/c13_liebiao.png" class="arrow">
+							</li>
+						</router-link>
+						<router-link :to="{ name: 'Achievements', params: {} }">
+							<li>
+								<span class="name">学术、研究成果</span>
+								<img src="../assets/images/c13_liebiao.png" class="arrow">
+							</li>
+						</router-link>
+					</ul>
+				</div>
+			</div>
+			<p class="complete-btn" @click="complete()">
+				完成
+			</p>
+			<mt-datetime-picker
+				ref="picker1"
+				type="date"
+				:startDate="startDate"
+				:endDate="endDate"
+				year-format="{value}"
+				month-format="{value}"
+				date-format="{value}"
+				@confirm="handleConfirm"
+				v-model="pickerValue">
+			</mt-datetime-picker>
+		</div>
+	</div>
+</template>
+
+<script>
+import headers from "../components/Header.vue";
+//导入模板
+export default {
+  	data () {
+	    return {
+			userName: '',//姓名
+			pickerValue:'',
+			brithday: '',//出生年月
+			startDate: new Date("1900"),
+			endDate: new Date(),
+			sex: 1,//性别
+			tel:'',//电话
+			area:'',//住址
+			department:'',//科室
+			hospital:'',//医院
+			skilled:'',//擅长
+			bg:'',//背景
+			result:'',//成果
+			pickerStatus: false,
+			caseUserMeg:'',
+			id:'',
+			headImg: "",
+		}
+  	},
+  	methods:{
+	  	Back(){
+	        //this.$toast('111')
+			this.$router.go(-1)
+	    },
+		openDatePicker(){
+			this.$refs.picker1.open();
+		},
+		handleConfirm(res){
+			console.log(res);
+			let d=new Date(res);
+			this.brithday=(d.getFullYear())+'-'+((d.getMonth()+1)>9?d.getMonth()+1:'0'+(d.getMonth()+1))+'-'+(d.getDate()>9?d.getDate():'0'+d.getDate());
+			sessionStorage.setItem('brithday',this.brithday)
+		},
+		complete(){
+			console.log(this.sex)
+			if(!sessionStorage.getItem('realname') && !this.userName){
+				this.$toast('请输入姓名');
+				return false;
+			}
+			if(!this.brithday && !this.caseUserMeg.brithday){
+				this.$toast('请选择生日');
+				return false;
+			}
+			if(!sessionStorage.getItem('phone_no') && !this.caseUserMeg.brithday){
+				this.$toast('请输入联系电话');
+				return false;
+			}
+			if(!sessionStorage.getItem('area') && !this.caseUserMeg.area){
+				this.$toast('请选择地址');
+				return false;
+			}
+
+			if(!sessionStorage.getItem('department') && !this.caseUserMeg.department){
+				this.$toast('请选择科室');
+				return false;
+			}
+			console.log(this.caseUserMeg);
+			if(!sessionStorage.getItem('hospital') && !this.hospital){
+				this.$toast('请选择医院');
+				return false;
+			}
+
+			this.BaseSet.getToken(this) //用户端token
+			this.$ajax.put('/user/'+this.id, {headers: {'Content-Type': 'application/x-www-form-urlencoded'},params:{
+			  realname: sessionStorage.getItem('realname'),
+			//   sex: this.sex=='1'?'男':'女',
+			  sex: this.sex,
+			//   brithday: this.brithday,
+			  brithday: sessionStorage.getItem('brithday'),
+			  phone_no: sessionStorage.getItem('phone_no'),
+
+			  area: JSON.parse(sessionStorage.getItem('area')).detail,
+			  province_id: JSON.parse(sessionStorage.getItem('area')).proviceId,
+			  city_Id: JSON.parse(sessionStorage.getItem('area')).cityeId,
+			  area_id: JSON.parse(sessionStorage.getItem('area')).areaId,
+				avatar_id:22,//头像id
+			  department: sessionStorage.getItem('department'),
+			  hospital: sessionStorage.getItem('hospital'),
+			  specialty: sessionStorage.getItem('specialty'),
+			  background: sessionStorage.getItem('background'),
+			  case: sessionStorage.getItem('case'),
+		  }})
+			.then((res)=> {
+				var data = res.data;
+				if(data.status == 422) {
+					this.$toast(data.message)
+				}else if(data.status == 200) {
+					this.$toast("信息修改成功")
+					this.$router.push({name:'My'})
+				}else{
+					that.$toast(data.message)
+				}
+			})
+			.catch((err)=> {
+				console.log(err)
+				this.$toast(err)
+			});
+		},
+		uploadImg() {
+			var that = this;
+			this.native.photo({ num: 1, width: 1, height: 1, size: 80 }, function(
+				data
+			) {
+				console.log(data);
+				console.log(data.id);
+				console.log(data.id.split(",")[0]);
+				that.headImg = data.imgs.split(",")[0];
+				that.avatar_id = data.id.split(",")[0];
+				
+			});
+		},
+		queryMyMeg(){
+			this.BaseSet.getToken(this) //用户端token
+			this.$ajax.get('/user/profile')
+			.then((res)=> {
+				let data = res.data;
+				if(data.status == 200) {
+					this.caseUserMeg = res.data.data
+					this.userName = res.data.data.realname
+					this.sex = res.data.data.sex
+					this.brithday = res.data.data.brithday
+					this.tel = res.data.data.phone_no
+					this.area = res.data.data.translates.area_title
+					this.department = res.data.data.translates.department_title
+					this.hospital = res.data.data.translates.hospital_title
+					this.skilled = res.data.data.specialty
+					this.bg = res.data.data.background
+					this.result = res.data.data.case
+					this.id = res.data.data.id
+					this.headImg = res.data.data.translates.avatar_img
+					// if(sessionStorage.getItem('realname')){
+					// 	this.userName = sessionStorage.getItem('realname')
+					// }
+					// if(sessionStorage.getItem('phone_no')){
+					// 	this.tel = sessionStorage.getItem('phone_no')
+					// }
+					// if(sessionStorage.getItem('area')){
+					// 	this.area = JSON.parse(sessionStorage.getItem('area')).detail
+					// }
+					// if(sessionStorage.getItem('department')){
+					// 	this.department = sessionStorage.getItem('department')
+					// }
+					// if(sessionStorage.getItem('hospital')){
+					// 	this.hospital = sessionStorage.getItem('hospital')
+					// }
+					var doctorAddress = {
+						detail: this.caseUserMeg.area,
+						proviceId:this.caseUserMeg.province_id,
+						cityeId:this.caseUserMeg.city_id,
+						areaId:this.caseUserMeg.area_id,
+					}
+					if(!sessionStorage.getItem('realname')){
+						sessionStorage.setItem('realname',res.data.data.realname)
+					}else{
+						this.userName = sessionStorage.getItem('realname')
+					}
+					if(!sessionStorage.getItem('sex')){
+						sessionStorage.setItem('sex',res.data.data.sex)
+					}else{
+						this.sex = sessionStorage.getItem('sex')
+					}
+					if(!sessionStorage.getItem('brithday')){
+						sessionStorage.setItem('brithday',res.data.data.brithday)
+					}else{
+						this.brithday = sessionStorage.getItem('brithday')
+					}
+					if(!sessionStorage.getItem('phone_no')){
+						sessionStorage.setItem('phone_no',res.data.data.phone_no)
+					}else{
+						this.tel = sessionStorage.getItem('phone_no')
+					}
+					if(!sessionStorage.getItem('area')){
+						sessionStorage.setItem('area', JSON.stringify(doctorAddress))
+					}else{
+						this.area = JSON.parse(sessionStorage.getItem('area')).detail
+					}
+					if(!sessionStorage.getItem('department')){
+						sessionStorage.setItem('department',res.data.data.translates.department_title)
+					}else{
+						this.department = sessionStorage.getItem('department')
+					}
+					if(!sessionStorage.getItem('hospital')){
+						sessionStorage.setItem('hospital',res.data.data.translates.hospital_title)
+					}else{
+						this.hospital = sessionStorage.getItem('hospital')
+					}
+				}else{
+					this.$toast(data.message)
+				}
+			})
+			.catch((err)=> {
+				this.$toast(err)
+			});
+		},
+		link() {
+			sessionStorage.setItem('sex',this.sex)
+		},
+  	},
+	mounted:function(){
+		this.queryMyMeg()
+		this.sex = sessionStorage.getItem('sex')
+  	},
+	  components:{headers}
+}
+</script>
+
+<style lang="scss" scoped>
+.all_header{
+		width: 100%;
+		height:2.2rem;
+		background-color: #4CC6D8;
+		overflow: hidden;
+		text-align: center;
+		position: relative;
+		line-height: 2.2rem;
+		top: 0;
+		left: 0;
+		z-index: 999;
+	}
+	.all_header .back{
+		width: 0.475rem;
+		height: 0.8rem;
+		position: absolute;
+		left: 0.75rem;
+		top: 0.65rem;
+	}
+	.all_header .back img{
+		width: 0.475rem;
+		height: 0.8rem;
+	}
+	.all_header .name{
+		color: #ffffff;
+		font-size: 0.9rem;
+    }
+    .all_header .right{
+		position: absolute;
+		right: 0.75rem;
+        top:0;
+        color: #ffffff;
+		font-size: 0.75rem;
+		img{
+			width: .9rem /* 37/40 */;
+			height: .9rem /* 37/40 */;
+			vertical-align: middle;
+		}
+    }
+	.my-data{
+	    height: 100%;
+		display: flex;
+		flex-direction: column;
+		.contentScollr{
+			flex: 1;
+			overflow: scroll;
+			-webkit-overflow-scrolling:touch;
+		}
+		.head-top{
+			padding: .5rem /* 21/40 */ .8rem /* 30/40 */;
+			background: #fff;
+			margin-bottom: .6rem /* 22/40 */;
+			.name{
+				line-height: 2.5rem /* 98/40 */;
+				font-size: .7rem /* 28/40 */;
+				color: #333;
+				float: left;
+			}
+			.head-img{
+				width: 2.5rem /* 98/40 */;
+				height: 2.5rem /* 98/40 */;
+				border-radius: 50%;
+				float: left;
+				margin-right: .2rem /* 7/40 */;
+				margin-left: 12.7rem /* 516/40 */;
+			}
+			.btn-img{
+				vertical-align: middle;
+				float: right;
+				width: .3rem /* 14/40 */;
+				height: .7rem /* 26/40 */;
+				margin-top: .9rem;
+			}
+		}
+		.mint-popup-bottom{
+			width: 100%;
+		}
+		.popup-box{
+			width: 100%;
+			.head{
+				line-height: 3rem /* 120/40 */;
+				padding: 0 .8rem /* 33/40 */;
+				border-bottom: 1px solid #e5e5e5;
+				.cancel{
+					font-size: .8rem /* 30/40 */;
+					color: #999;
+					float: left;
+				}
+				.sure{
+					font-size: .8rem /* 30/40 */;
+					color: #999;
+					float: right;
+				}
+				.title{
+					font-size: .9rem /* 36/40 */;
+					color: #4CC6D8;
+					float: left;
+					width: 13.8rem;
+					text-align: center;
+				}
+			}
+			.popup-list{
+				padding-top: 5.2rem /* 208/40 */;
+				li{
+					line-height: 1.6rem /* 64/40 */;
+					text-align: center;
+					font-size: .9rem /* 36/40 */;
+					color: #333;
+					border-bottom: 1px solid #e5e5e5;
+					&:first-child{
+						border-top: 1px solid #e5e5e5;
+					}
+				}
+			}
+		}
+	    .form_box{
+	        width: 100%;
+	        overflow: hidden;
+	        background-color: #fff;
+	        .form{
+	           width: 100%;
+	           overflow: hidden;
+	           li{
+	                width: 100%;
+	                box-sizing: border-box;
+	                padding: 0 .75rem;
+	                height: 2.25rem;
+	                line-height: 2.25rem;
+	                overflow: hidden;
+	                position: relative;
+	                border-bottom: #e5e5ee 1px solid;
+					// &:last-child{
+					// 	border-bottom: none;
+					// }
+					.content-txt{
+						float: right;
+						font-size: .7rem /* 28/40 */;
+						color:#666;
+						margin-right: .5rem;
+					}
+					.input-radio,.radio-img{
+						width: 1.3rem /* 52/40 */;
+						height: 1.3rem /* 52/40 */;
+						position: absolute;
+						right: 1.8rem /* 70/40 */;
+						top: .4rem;
+					}
+					.input-radio{
+						z-index: 10;
+					}
+					.input-radio1,.radio-img1{
+						right: 6.8rem /* 280/40 */;
+					}
+					.radio-name{
+						float: right;
+						font-size: .7rem /* 28/40 */;
+						color:#666;
+					}
+					.radio-name1{
+						margin-right: 4.2rem /* 168/40 */;
+					}
+	                .name{
+	                    font-size: .7rem;
+	                    color: #333333;
+	                    float: left;
+	                }
+	                .tag{
+	                    float: right;
+	                    font-size: .7rem;
+	                    color: #333333;
+	                }
+	                .text{
+	                    float: right;
+	                    font-size: .7rem;
+	                    color: #333333;
+	                    //margin-top: .65rem;
+						line-height: 2.25rem /* 90/40 */;
+	                    text-align: right;
+	                    width: 12.5rem;
+	                }
+	                .time{
+	                    margin-right: .5rem;
+	                }
+	                .text::-webkit-input-placeholder{
+	                    color: #999999;
+	                }
+	                .arrow{
+	                    width: .3rem;
+	                    height: .6rem;
+	                    position: absolute;
+	                    right: .75rem;
+	                    top: 50%;
+	                    margin-top: -0.3rem;
+	                }
+	            }
+	        }
+	        .pic_box{
+	            width: 100%;
+	            overflow: hidden;
+	            box-sizing: border-box;
+	            padding: 0 .75rem;
+	            padding-bottom: 1.25rem;
+	            .title{
+	                width: 100%;
+	                color: #999999;
+	                font-size: .7rem;
+	                margin-top: 1.35rem;
+	            }
+	            li{
+	                width: 3.95rem;
+	                height: 3.95rem;
+	                overflow: hidden;
+	                float: left;
+	                margin-right: .2rem;
+	                position: relative;
+	                margin-top: .55rem;
+	                img{
+	                   width: 3.95rem;
+	                    height: 3.95rem;
+	                    object-fit: cover;
+	                }
+	                .close{
+	                    position: absolute;
+	                    width: 1.25rem;
+	                    height: 1.25rem;
+	                    right: .125rem;
+	                    top: .125rem
+	                }
+	            }
+	        }
+	    }
+	}
+</style>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>图文咨询</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/my_server.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="41"></my-left-nav>
+                <div class="right right-box">
+                    <p class="header-title">图文咨询</p>
+                    <ul class="consult_list">
+                        <li class="clearFix" v-for="data in dataList">
+                            <p class="left img-p">
+                                <img :src="data.doctor.translates.avatar_img"> </p>
+                            <div class="left user-detail">
+                                <div class="left">
+                                    <p class="person-name">{{data.doctor.realname}}
+                                        <span>({{data.doctor.translates.department_title+" "+data.doctor.jobtitle}})</span>
+                                    </p>
+                                    <p class="hospital-name">{{data.doctor.translates.hospital_title}}</p>
+                                </div>
+                                <p class="right consult-status right">
+                                    {{data.translates.status_desc}}
+                                </p>
+                            </div>
+                            <p class="left time">{{data.created_at.substring(0,10)}}</p>
+                            <p class="operation right cursor" @click="viewDetail(data.id)" v-if="data.translates.status_desc=='已完成'">
+                                <img class="info-btn" src="images/f21_icon1.png">
+                            </p>
+                            <p class="operation right" v-if="data.translates.status_desc=='未完成'">
+                                <span class="consult-btn cursor" @click="nowConsult(data.doctor.id)">咨询</span>
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="page" v-if="total>1" style="margin-top: 40px;margin-bottom: 10px;">
+                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="prev, pager, next" :current-page="currentPage" :page-size="per_page" :page-count="total">
+                        </el-pagination>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    total: 0,
+                    per_page: 8,
+                    currentPage: 1,
+                    dataList: [],
+                }
+            },
+            mounted: function() {
+                getToken(this)
+                this.getDataList()
+            },
+            methods: {
+                nowConsult: function(id) {
+                    location.href = "pic_consult.html?id=" + id;
+                },
+                viewDetail: function(id) {
+                    location.href = "pic_consult_yes.html?id=" + id
+                },
+                handleSizeChange: function(val) {
+
+                },
+                handleCurrentChange: function(val) {
+                    this.currentPage = val;
+                    this.getDataList()
+                },
+                getDataList: function() {
+                    var that = this
+                    axios.get(userApi + '/service?per_page=' + that.per_page + '&page=' + that.currentPage +
+                            '&type=0')
+                        .then(function(res) {
+                            console.log('列表信息', res.data)
+                            if (res.data.status == 200) {
+                                that.dataList = res.data.data.data
+                                that.total = res.data.data.paginate.total_page
+                            }
+                        })
+                        .catch(function(err) {
+                            linkLogin(that)
+                        })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

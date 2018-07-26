@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="MobileOptimized" content="750">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="format-detection" content="telephone=no">
+    <title>紫平方AI人工智能</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script>
+      //设置动态计算rem
+        window.rootFont = function() {
+            var doc = document;
+            var win = window;
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = doc.body.clientWidth;
+                    /*clientWidth = $(window).width();*/
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 16 * (clientWidth / 375) + 'px';
+                };
+
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        }();
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+          <h1>紫平方AI人工智能解决方案</h1>
+          <ul>
+            <li><span class="dot"></span>深度学习</li>
+            <li><span class="dot"></span>大数据训练</li>
+            <li><span class="dot"></span>NLP自然语言理解</li>
+            <li><span class="dot"></span>TTS语音合成技术服务</li>
+          </ul>
+      </div>
+      <div class="description">
+         <p>
+        深度学习和 AI 技术正全面攻占世界的各个领域——自动驾驶、无人机、虚拟助理、精准医疗、自动生成、客户服务、互联网安全等等。AI 为各行各业的发展带来了机遇，也带来了挑战。为了充分利用 AI 技术，用户急需训练数据集、优化模块、编程以匹配各自的目标需求。然而，深度学习冗长的开发流程，重复的建模训练，耗时的基础设施开发搭建及调试等一系列的问题让用户苦难重重。
+        </p>
+        <p>紫平方人工智能解决方案是一个集成了深度学习、大数据训练、NLP自然语言理解、TTS语音合成技术服务的整体解决方案，能够帮助用户简单、快捷的实现从数据的采集、缓存到分析建模以及应用与可视化的全过程，大大降低了人工智能技术在企业中应用的门槛。</p>
+      </div>
+      <div class="title">我们为您提供多行业的人工智能解决方案</div>
+      <div class="solutionbox">
+        <ul class="solution flex-item">
+          <li class="flex">
+            <div class="shape odd">
+              <div class="icon icon1"></div><div class="text">金融</div>
+            </div>
+            <div class="info"><p>基金证券 智能投顾 风险监控 智能客服</p></div>
+          </li>
+          <li class="flex">
+            <div class="shape even">
+              <div class="icon icon2"></div>
+              <div class="text">医疗</div>
+            </div>
+            <div class="info"><p>虚拟助理 医疗影像 病例分析 智能诊断</p></div>
+          </li>
+          <li class="flex">
+            <div class="shape odd">
+              <div class="icon icon3"></div>
+              <div class="text">教育</div>
+            </div>
+            <div class="info"><p>全时互动 智能语音 虚拟教室 智能评测</p></div>
+          </li>
+          <li class="flex">
+            <div class="shape even">
+              <div class="icon icon4"></div>
+              <div class="text">工业</div>
+            </div>
+            <div class="info"><p>无人工厂 故障预测 视觉检测 优化运营</p></div>
+          </li>
+        </ul>
+        <ul class="solution flex-item">
+          <li class="flex">
+            <div class="shape unodd">
+              <div class="icon icon5"></div>
+              <div class="text">运输</div>
+            </div>
+            <div class="info"><p>无人驾驶 智慧交通 无人送货 智能仓储</p></div>
+          </li>
+          <li class="flex">
+            <div class="shape uneven">
+              <div class="icon icon6"></div>
+              <div class="text">电信</div>
+            </div>
+            <div class="info"><p>智能检修 智能客服 语音助手 网络优化</p></div>
+          </li>
+          <li class="flex">
+            <div class="shape unodd">
+              <div class="icon icon7"></div>
+              <div class="text">法律</div>
+            </div>
+            <div class="info"><p>智慧法院 智能律师 自动合同分析</p></div>
+          </li>
+          <li class="flex">
+            <div class="shape uneven">
+              <div class="icon icon8"></div>
+              <div class="text">旅游</div>
+            </div>
+            <div class="info"><p>智能导游 智能规划 翻译机器人</p></div>
+          </li>
+        </ul>
+      </div>
+      <div class="title">紫平方人工智能解决方案技术架构</div>
+      <div class="framework flex-item">
+          <div class="list">
+             <ul>
+               <li class="list1">人工智能应用</li>
+               <li class="list2">数据分析</li>
+               <li class="list3">计算引擎</li>
+               <li class="list4">数据缓存</li>
+               <li>数据采集</li>
+             </ul>
+          </div>
+          <div class="flex">
+            <div class="category category1">
+                <ul class="flex-item">
+                   <li class="flex">聚类与降维</li>
+                   <li class="flex">分类分析</li>
+                   <li class="flex">回归预测</li>
+                </ul>
+                <ul class="flex-item">
+                   <li class="flex">关联发现</li>
+                   <li class="flex">统计分析</li>
+                   <li class="flex">数据可视化</li>
+                </ul>
+            </div>
+            <div class="arrow"></div>
+            <div class="category category1">
+                <ul class="flex-item">
+                   <li class="flex">ADAM</li>
+                   <li class="flex">机器学习</li>
+                   <li class="flex">深度学习</li>
+                </ul>
+                <ul class="flex-item">
+                   <li class="flex">特征提取</li>
+                   <li class="flex">训练优化验证</li>
+                   <li class="flex transparent"></li>
+                </ul>
+            </div>
+            <div class="category category2">
+                <ul class="flex-item">
+                   <li class="flex">Tensorflow</li>
+                </ul>
+            </div>
+            <div class="category category1">
+                <ul class="flex-item">
+                   <li class="flex">Redis</li>
+                   <li class="flex">MangoDB</li>
+                   <li class="flex">MySQL</li>
+                </ul>
+            </div>
+            <div class="arrowitem">
+              <ul class="flex-item">
+                <li class="flex">
+                  <div class="arrowlist">AETL</div>
+                </li>
+                <li class="flex">
+                  <div class="arrowlist">AESB</div>
+                </li>
+                <li class="flex">
+                  <div class="arrowlist">ADL</div>
+                </li>
+                <li class="flex">
+                  <div class="arrowlist">爬虫</div>
+                </li>
+              </ul>
+            </div>
+            <div class="category category3">
+                <ul class="flex-item">
+                   <li class="flex">数据库</li>
+                   <li class="flex">业务系统</li>
+                   <li class="flex">文件</li>
+                   <li class="flex">互联网</li>
+                </ul>
+            </div>
+          </div>
+       </div>
+       <div class="title">客户案例</div>
+       <div class="case">
+        <ul class="flex-item">
+          <li class="flex mr">
+            <div class="caseitem">
+                <div class="brand brand1"></div>
+                <p>中财讯-财税智能机器人</p>
+            </div>
+          </li>
+          <li class="flex">
+            <div class="caseitem">
+                <div class="brand brand2"></div>
+                <p>北部资产智能投顾系统</p>
+            </div>
+          </li>
+        </ul>
+        <ul class="flex-item">
+          <li class="flex mr">
+            <div class="caseitem">
+                <div class="brand brand3"></div>
+                <p>海底捞智能订餐机器人</p>
+            </div>
+          </li>
+          <li class="flex">
+            <div class="caseitem">
+                <div class="brand brand4"></div>
+                <p>首创智能回访系统</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

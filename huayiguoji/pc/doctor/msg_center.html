@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>消息中心</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/edit_data.css" />
+    <link rel="stylesheet" href="css/msg_center.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="0"></my-header>
+        </div>
+        <div class="main-box" style="padding-top: 15px;padding-bottom: 61px">
+            <section class="container clearFix">
+                <my-left-nav active="2"></my-left-nav>
+                <div class="right-box right" style="background: #fff;width: 884px">
+                    <!-- <p class="header-title clearFix"><span class="left">咨询消息</span><span class="right send-msg" @click="sendMsg()">发起群聊</span></p> -->
+                    <div class="msg-box">
+                        <ul class="msg-list">
+                            <li class="clearFix" v-for="(item,index) in receiveData" ::key="index">
+                                <img class="left" @click="link(item.friendId,'毛杜拉')" :src="item.img">
+                                <div class="left content-word" @click="link(item.friendId,'毛杜拉')">
+                                    <p class="line1 clearFix">
+                                        <span class="left">毛杜拉</span>
+                                        <span class="right">2017-05-23</span>
+                                    </p>
+                                    <p class="line2">
+                                        {{item.title.length>60?item.title.substring(0,60)+"...":item.title}}
+                                    </p>
+                                </div>
+                                <p class="del-btn right" @click="delMsg(index)">
+                                    <img src="images/a4_shanchu.png" />
+                                </p>
+                            </li>
+                        </ul>
+                        <!-- <div class="page" style="margin-top: 40px;margin-bottom: 25px;">
+                            <el-pagination layout="prev, pager, next" :total=total>
+                            </el-pagination>
+                        </div> -->
+                    </div>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+    <script src="./node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/doctor_login.js"></script>
+    <script src="js/msg_leftNav.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/public.js"></script>
+    <!--引入webim sdk-->
+    <script type="text/javascript" src="./js/im/webim.js"></script>
+    <script type="text/javascript" src="./js/im/json2.js"></script>
+    <!--用于获取文件MD5 js api(发送图片时用到)-->
+    <script type="text/javascript" src="./js/im/spark-md5.js"></script>
+    <!-- 发送消息 -->
+    <script type="text/javascript" src="./js/im/sendMsg.js"></script>
+    <script>
+        var sendMsg;
+        var doctorInfo;
+        var content = new Vue({
+            el: '#page',
+            data() {
+                return {
+                    contentWord: "某某与公益的橄榄枝，就像一只和平鸽飞翔于世界民族之林，在不同肤色的人群中飞越五某某与公益的橄榄枝，就像一只和平鸽飞翔于世界在不同肤色的人群中飞越五某某与公益的橄榄枝",
+                    total: 10,
+                    receiveData: []
+                }
+            },
+            created: function () {
+
+            },
+            mounted() {
+                // getToken()
+                // axios.get(doctorApi + '/user/notificationslist/3')
+                //     .then(function (res){
+                //         console.log(res)
+                //     })
+                var _this = this;
+                doctorInfo = JSON.parse(localStorage.doctorInfo);
+                // 发送消息
+                sendMsg = new SendMsg(doctorInfo, '0', {
+                    "onMsgNotify": _this.onMsgNotify //接收新消息
+                });
+                sendMsg.login();
+                sendMsg.initSend();
+                setTimeout(function () {
+                    webim.syncMsgs(_this.onMsgNotify);
+                }, 2000)
+            },
+            methods: {
+                onMsgNotify: function (data) {
+                    console.log(data);
+                    var _this = this;
+                    // var _data = data.elems[0]
+                    //接收文字消息
+                    // var _data = data.elems[0];
+                    var _data = [];
+                    // for (var key in data) {
+                    for (var key = 0; key < 10; key++) {
+                        // var element = object[key];
+                        // console.log(data[key].elems[0])
+                        var tmpData = data[key].elems[0];
+                        if (tmpData.type == "TIMCustomElem") {
+                            if (tmpData.content.ext != "CallNotification") {
+                                _this.receiveData.push({
+                                    img: tmpData.content.ext,
+                                    title: tmpData.content.data,
+                                    friendId: data[key].fromAccount,
+                                    isImg: false
+                                })
+                            }
+                        }
+                        //接收图片消息
+                        // if (tmpData.type == "TIMImageElem") {
+                        //     _this.receiveData.push({
+                        //         img: 'images/head.jpg',
+                        //         imgMsg: tmpData.content.ImageInfoArray[0].url,
+                        //         title: '图片',
+                        //         isImg: true
+                        //     })
+                        // }
+                        console.log(_this.receiveData)
+                    }
+
+                },
+                link: function (id,name) {
+                     location.href = "dialogue_msg.html?id="+id+'&name='+ encodeURI(encodeURI(name));
+                    // if (type == 1) {
+                    //     location.href = "push_msg.html";
+                    // } else if (type == 2) {
+                    //     location.href = "dialogue_msg.html";
+                    // } else {
+                    //     location.href = "group_msg.html";
+                    // }
+                },
+                delMsg: function (index) {
+                    var that = this;
+                    this.$confirm('此操作将永久删除该消息, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(function () {
+                        that.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                        that.receiveData.splice(index,1);
+                    }).catch(function () {
+                        that.$message({
+                            type: 'info',
+                            message: '已取消删除'
+                        });
+                    });
+                },
+                sendMsg: function () {
+                    location.href = "launch_group_chat.html"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

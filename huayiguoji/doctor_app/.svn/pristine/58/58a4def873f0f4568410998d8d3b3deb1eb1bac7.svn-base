@@ -1,0 +1,174 @@
+<template>
+    <div class="login">
+        <headers headName="登录"></headers>
+        <div class="loginRow">
+            <div class="logo-box">
+                <img src="../assets/images/b1_logo.png" />
+            </div>
+            <div class="form-box">
+                <ul class="form-list">
+                    <li>
+                        <input type="number" class="input-p" placeholder="请输入手机号" v-model="telNum" />
+                    </li>
+                    <li>
+                        <input type="password" class="input-p" v-model="password" placeholder="请输入密码" />
+                    </li>
+                </ul>
+                <p class="sure-btn" @click="sureEdit()">
+                    登录
+                </p>
+            </div>
+            <router-link :to="{ name: 'changePassword', params: {} }">
+            <p class="tip">
+                忘记登录密码？
+            </p>
+            </router-link>
+        </div>
+    </div>
+
+</template>
+<script>
+    import headers from "../components/Header"
+    export default {
+        data(){
+            return{
+                telNum:'',
+                password: '',
+            }
+        },
+        mounted(){
+            this.BaseSet.setInfo('doctorInfo','')
+        },
+        methods: {
+			sureEdit() {
+				var that = this;
+				if(this.telNum == '') {
+					this.$toast('请输入手机号码')
+					return false;
+				}
+				if(this.telNum.length != 11) {
+					this.$toast('手机号码格式不正确')
+					return false;
+				}
+				if(this.password == "") {
+					this.$toast('请输入密码')
+					return false;
+				}
+				const regExp = /^[a-zA-Z\d]{6,16}$/;
+				if(!regExp.test(this.password)) {
+					this.$toast('密码格式不正确')
+					return false;
+				}
+				this.$ajax.post('/auth/login', {
+						username: that.telNum,
+						password: that.password,
+						login_type: 'phone'
+					})
+					.then(function(res) {
+						var data = res.data;
+                        if(data.status == 422) {
+							that.$toast(data.message)
+						}else if(data.status == 200) {
+							that.BaseSet.setInfo('doctorInfo',JSON.stringify(data.data))
+                            that.BaseSet.getToken(that) //用户端token
+							that.$toast(data.message)
+							setTimeout(function(){
+								that.$router.push({name:'Home'})
+							},1500)
+						}else{
+							that.$toast(data.message)
+						}
+					})
+					.catch(function(err) {
+						that.$toast(err)
+					});
+			},
+		},
+        components:{headers},
+    }
+</script>
+<style lang="scss" scoped>
+input:-ms-input-placeholder{
+    color:#999;
+    font-size: .75rem /* 30/40 */;
+}
+input::-moz-placeholder{
+    color:#999;
+    font-size: .75rem /* 30/40 */;
+}
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+　　color:#999;
+    font-size: .75rem /* 30/40 */;
+}
+input::-webkit-input-placeholder{
+    color:#999;
+    font-size: .75rem /* 30/40 */;
+}
+    .login{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        .loginRow{
+            flex: 1;
+        }
+        .tip{
+            text-align: center;
+            color: #999;
+            font-size: .7rem /* 28/40 */;
+            line-height: .7rem;
+            margin-top: 1.5rem /* 60/40 */;
+        }
+        .logo-box{
+            text-align: center;
+            margin-top: 6.4rem ;
+            margin-bottom: 1.6rem /* 66/40 */;
+            img{
+                width: 3.5rem /* 140/40 */;
+                height: 2.6rem /* 103/40 */;
+
+            }
+        }
+        .form-box{
+            .form-list{
+                li{
+                    width: 14.5rem /* 580/40 */;
+                    height: 2rem /* 82/40 */;
+                    margin: 0 auto;
+                    margin-bottom: 1.1rem /* 43/40 */;
+                    .input-p{
+                        width: 13rem /* 520/40 */;
+                        height: 2rem;
+                        background: #fff;
+                        border-radius: .3rem /* 10/40 */;
+                        line-height: 2rem;
+                        padding: 0 .8rem /* 30/40 */;
+
+                    }
+                }
+            }
+        }
+        .c1{
+            color:#4cc6d8;
+        }
+        .sure-btn{
+            width: 14.5rem /* 580/40 */;
+            height: 2rem /* 82/40 */;
+            background: #4cc6d8;
+            border-radius: .3rem /* 10/40 */;
+            text-align: center;
+            line-height: 2rem;
+            color: #fff;
+            font-size: .8rem /* 32/40 */;
+            margin: 0 auto;
+            margin-top: 1.5rem;
+        }
+        .bottom-p{
+            position: fixed;
+            text-align: center;
+            font-size: .7rem /* 28/40 */;
+            color: #999;
+            bottom: .9rem /* 36/40 */;
+            left:6.3rem /* 250/40 */;
+        }
+    }
+</style>

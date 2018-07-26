@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>智能问诊</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        var nativeWithinIOS = {
+            closeView: function(params) {
+                window.parent.closeView(params)
+            }
+        }
+        var nativeWithinAndroid = {
+            closeView: function(params) {
+                window.parent.user_app.closeView()
+            }
+
+        }
+        var nativeWithinPC = {
+            closeView: function(params) {
+                window.location.href = "_self";
+            }
+        }
+        var native;
+        var userAgent = navigator.userAgent,
+            isAndroid = userAgent.indexOf('Android') > -1 || userAgent.indexOf('Adr') > -1,
+            isiOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+        if (isiOS) {
+            native = nativeWithinIOS;
+        } else if (isAndroid) {
+            native = nativeWithinAndroid;
+        } else {
+            native = nativeWithinPC;
+        }
+
+        function getparams(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var result = window.location.search.substr(1).match(reg);
+            return result ? decodeURIComponent(result[2]) : null;
+        }
+        $(function() {
+            $.ajax({
+                url: 'http://api-hygjuser.zpftech.com/answersheet',
+                type: 'post',
+                headers: {
+                    Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userInfo')).api_token
+                },
+                data: {
+                    sheet_id: getparams('detailId')
+                },
+                success: function() {
+                    var timer = 5;
+                    setInterval(function() {
+                        timer--;
+                        if (timer == 0) {
+                            timer = 0;
+                        }
+                        $("#timer").text(timer);
+                    }, 1000);
+                    setTimeout(function() {
+                        closed();
+                    }, 5000);
+                }
+
+            })
+        })
+
+        function closed() {
+            window.native.closeView();
+        }
+    </script>
+    <style>
+        body,
+        div,
+        ul,
+        li {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        #img {
+            background: transparent url(/static/img/huimeibg.png) center 30px no-repeat;
+            text-align: center;
+            padding-top: 210px;
+            margin: 0px auto;
+            width: 60%;
+            font-size: 11pt;
+        }
+        
+        a {
+            color: #4cc6d8;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="img">
+        <span id="timer">5</span>秒后，将自动回到华医健康管家，或者您可以点击
+        <a href="javascript:;" onclick="closed()">这里</a>
+    </div>
+</body>
+
+</html>

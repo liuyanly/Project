@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate"><!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/><!-- 禁止百度转码 -->
+    <title>健康评估</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/personal.css"/>
+    <link rel="stylesheet" href="css/question_surver.css"/>
+    <link rel="stylesheet" href="css/sign_detection.css"/>
+    <link rel="stylesheet" href="css/health_evaluation.css"/>
+</head>
+<body>
+<div id="page">
+    <div class="container">
+        <my-header active="3"></my-header>
+    </div>
+    <div class="main">
+        <section class="container assistant-patient clearFix">
+            <my-left-nav active="14"></my-left-nav>
+            <div class="right right-box" style="margin-bottom: 93px;min-height: 720px;">
+                <p class="header-title clearFix">健康评估</p>
+                <ul class="question-list clearFix">
+                    <li :class="{active:currentLi==999999}" @click="changeLi(999999)"><img src="images/f15_icon5.png" v-if="currentLi!=4"><img src="images/f15_icon5_p.png" v-if="currentLi==4">健康报告深度解读</li>
+                    <li v-for="data in dataList" v-if="data.id !=999999" :class="{active:currentLi==data.id}" @click="changeLi(data.id)"><img :src="data.cover">{{data.title}}</li>
+                </ul>
+                <div class="filter-box clearFix">
+                    <form id="" name="formDate">
+                        <p class="left pos date-select">
+                            <select name="year" class="year" onChange="YYYYDD(this.value)" @click="changeXia1(1)" @foucs="changeXia(0)">
+                                <option class="placeholder">选择年</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=1">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==1">
+                        </p>
+                        <p class="left pos date-select">
+                            <select name="month" class="month" onChange="MMDD(this.value)" @click="changeXia1(2)" @foucs="changeXia(0)">
+                                <option class="placeholder">选择月</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=2">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==2">
+                        </p>
+                        <p class="left pos date-select">
+                            <select name="day" class="day" onChange="DDD(this.value)" @click="changeXia1(3)" @foucs="changeXia(0)">
+                                <option class="placeholder">选择日</option>
+                            </select>
+                            <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=3">
+                            <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==3">
+                        </p>
+                        <p class="btn-p left" @click="search()"><button type="button" class="filter-btn">查询</button> </p>
+                    </form>
+                </div>
+                <div class="list content_box"  v-if="currentLi != 999999" v-html="content">
+                    <!--<p class="header-title small-title clearFix" style="border-top: none">动脉硬化性心血管疾病（ASCVD）</p>-->
+                    <!--<div class="chart-box">-->
+                    <!--<div class="word-box">-->
+                    <!--<p class="title">10年ASCVD风险</p>-->
+                    <!--<p class="marBot"><span>1.72%</span>(你的10年DSCVD风险)</p>-->
+                    <!--<p>同龄人最佳的10年ASCVD危险因素水平：0.49%</p>-->
+                    <!--<p>（同龄最佳值）</p>-->
+                    <!--</div>-->
+                    <!--<div id="myChart3" style="width: 700px;height: 400px;margin: 0 auto;"></div>-->
+                    <!--</div>-->
+                    <!--<div class="chart-box">-->
+                    <!--<div class="word-box">-->
+                    <!--<p class="title">终身ASCVD风险</p>-->
+                    <!--<p class="marBot"><span>39.0%</span>(你的终身DSCVD风险)</p>-->
+                    <!--<p>同龄人最佳的10年ASCVD危险因素水平：8.00%</p>-->
+                    <!--<p>（同龄最佳值）</p>-->
+                    <!--</div>-->
+                    <!--<div id="myChart4" style="width: 700px;height: 400px;margin: 0 auto;"></div>-->
+                    <!--</div>-->
+                </div>
+                <div class="list" v-if="currentLi == 999999">
+                    <ul class="report-list">
+                        <li class="clearFix" v-for="data in evaluationList" @click="viewInfo(data.id)">
+                            <p class="left time">{{data.created_at.substring(0,10)}}</p>
+                            <p class="left name">{{data.doctor.realname}}</p>
+                            <p class="left department">{{data.doctor.translates.department_title}}</p>
+                            <p class="left hospital">{{data.doctor.translates.hospital_title}}</p>
+                            <p class="right"><img src="../user/images/f21_icon1.png"></p>
+                        </li>
+                    </ul>
+                    <div class="page" v-if="total>1" style="margin-top: 40px;margin-bottom: 10px;">
+                        <el-pagination
+                                @size-change="handleSizeChange"
+                                @current-change="handleCurrentChange"
+                                layout="prev, pager, next"
+                                :current-page="currentPage"
+                                :page-size="per_page"
+                                :page-count="total"
+                        >
+                        </el-pagination>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <my-footer></my-footer>
+    <login-box></login-box>
+
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/Validform_v5.3.2.js"></script>
+<script src="element/element-ui.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/login.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/patient_leftNav.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/date.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var content=new Vue({
+        el:'#page',
+        data:{
+            currentLi:999999,
+            questionType:0,
+            questionValue:'',
+            xiaType1:0,
+            chartDate:0,
+            twoBar_data: [1.8, 0.75],
+            nameData:["10年风险","10年最优值"],
+            nameData2:["终身风险","终身最优值"],
+            barName:'10年ASCVD风险',
+            barName2:'终身ASCVD风险',
+            total:0,
+            dataList:[],
+            currentPage:1,
+            per_page:8,
+            tip:0,
+            evaluationList:[],
+            content:'',
+            date:'',
+            id:localStorage.getItem('pId'),
+        },
+        mounted:function () {
+            getToken(this)
+            this.getDataList()
+            this.getList()
+        },
+        methods:{
+            changeLi:function (num) {
+                this.currentLi=num;
+                if(num == 999999){
+                    this.getList()
+                }else{
+                    this.getData()
+                }
+            },
+            changeType:function () {
+                if(this.questionType==0){
+                    this.questionType=1;
+                }else{
+                    this.questionType=0;
+                }
+            },
+            viewInfo:function (id) {
+                location.href='depth_analysis_info.html?id='+id;
+            },
+            changeXia1:function(num){
+                if(this.xiaType1==0){
+                    this.xiaType1=num;
+                }else{
+                    this.xiaType1=0;
+                }
+            },
+            handleSizeChange:function(val) {
+
+            },
+            handleCurrentChange:function(val){
+                this.currentPage = val;
+                this.getList()
+            },
+            //查询
+            search:function () {
+                if($('.year').val()!=''&&$('.year').val()!='选择年'&&$('.month').val()!=''&&$('.month').val()!='选择月'&&$('.day').val()!=''&&$('.day').val()!='选择日'){
+                    this.date = $(".year").val()+'-'+($(".month").val()<10?'0'+$(".month").val():$(".month").val())+'-'+($(".day").val()<10?'0'+$(".day").val():$(".day").val())
+                    this.getList()
+                }else{
+                    this.$alert('请选择查询时间！', '提示', {
+                        confirmButtonText: '确定',
+                    })
+                }
+            },
+            //获取评估分类
+            getDataList:function(){
+                var that = this
+                axios.get(assistantApi+'/analysis')
+                    .then(function(res){
+                        console.log(res.data)
+                        if(res.data.status == 200){
+                            that.dataList = res.data.data
+                        }
+                    })
+                    .catch(function(err){
+                        linkLogin(that)
+                    })
+            },
+            changeChartDate:function (type) {
+                this.chartDate=type;
+            },
+            //获取深度解读列表
+            getList:function () {
+                var that = this,
+                    params = {
+                        per_page:this.per_page,
+                        page:this.currentPage
+                    }
+                if(that.date != ''){
+                    that.date = $(".year").val()+'-'+($(".month").val()<10?'0'+$(".month").val():$(".month").val())+'-'+($(".day").val()<10?'0'+$(".day").val():$(".day").val())
+                    params['m_s[created_at]'] = that.date
+                }
+                axios.get(assistantApi+'/analysis/list/999999/user/'+that.id,{params:params})
+                    .then(function (res) {
+                        if(res.data.status == 200){
+                            that.evaluationList = res.data.data.data
+                            that.total = res.data.data.paginate.total_page
+                        }
+                    })
+                    .catch(function (err) {
+
+                    })
+            },
+            //获取非深度解读类型的详情
+            getData:function(){
+                var that = this
+                axios.get(assistantApi+'/analysis/list/'+that.currentLi+'/user/'+this.id)
+                    .then(function(res){
+                        console.log(res.data.data)
+                        that.content = res.data.data.content
+                    })
+                    .catch(function(err){
+                        linkLogin(that)
+                    })
+            },
+        }
+    })
+</script>
+</body>
+</html>

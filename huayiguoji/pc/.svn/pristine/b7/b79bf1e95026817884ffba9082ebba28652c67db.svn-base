@@ -1,0 +1,9 @@
+.content-list .server-list li {
+  padding-right: 21px;
+}
+.content-list .server-list li .btn-p {
+  width: 136px;
+  height: 40px;
+  margin-top: 0;
+  line-height: 40px;
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>在线咨询</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/online_ask.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="3"></my-header>
+        </div>
+        <div class="search-box">
+            <p class="clearFix">
+                <input type="text" id="search-input" v-model="searchKey" placeholder="请输入...">
+                <span class="search-pic" style="cursor: pointer" @click="getSearch">
+                    <img src="images/e1_sousuo.png">
+                </span>
+            </p>
+        </div>
+        <div class="main" style="padding-top: 10px;">
+            <section class="container">
+                <div class="content-box">
+                    <p class="top-title clearFix">
+                        <span class="left">按医院找医生</span>
+                        <span class="right" onclick="window.location.href='doctor_search.html'">查看更多》</span>
+                    </p>
+                    <ul class="top-filter clearFix">
+                        <li :class="{active:cityId == data.id}" @click="changeCity(data.id)" v-for="data in cityData">
+                            {{data.name}}
+                        </li>
+                    </ul>
+                    <ul class="area-list">
+                        <li class="clearFix" v-for="data in hospitalData">
+                            <p class="area-title">{{data.title}}</p>
+                            <ul class="hospital-list">
+                                <li @click="hospitalInfo(item.id,item.title)" :class="{active:item.id == hospitalId}" v-for="item in data.data">
+                                    <p class="clearFix">
+                                        <span class="name" style="display: inline-block;height: 20px">{{item.title}}</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <p class="top-title clearFix">
+                        <span class="left">按科室找医生</span>
+                        <span class="right" @click="viewDepartment(0,'全部科室')">查看更多》</span>
+                    </p>
+                    <ul class="area-list department-list">
+                        <li class="clearFix" v-for="item in departmentData">
+                            <p class="area-title">{{item.title}}</p>
+                            <ul class="hospital-list">
+                                <li @click="viewDepartment(dt.id,dt.title)" :class="{current:departmentId==dt.id}" v-for="dt in item.translates.sub_cates">{{dt.title}}
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="swiper/swiper-3.4.2.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var content = new Vue({
+            el: '#page',
+            data: {
+                departmentData: [],
+                departmentId: '',
+                cityData: [],
+                cityId: '',
+                hospitalData: [],
+                hospitalId: '',
+                searchKey: ''
+            },
+            mounted: function () {
+                this.getDepartmentData();
+                this.getCity()
+            },
+            methods: {
+                hospitalInfo: function (id, name) {
+                    location.href = 'hospital_info.html?id=' + id + '&title=' + name;
+                },
+                viewDepartment: function (id, name) {
+                    location.href = "department_search.html?id=" + id + '&title=' + name;
+                },
+                changeCity: function (id) {
+                    this.cityId = id;
+                    this.getHospital()
+                },
+                //获取城市
+                getCity: function () {
+                    var that = this
+                    axios.get(userApi + '/region?status=0')
+                        .then(function (res) {
+                            console.log(res.data)
+                            if (res.data.status == 200) {
+                                var len = res.data.data.length > 13 ? 13 : res.data.data.length;
+                                for (var i = 0; i < len; i++) {
+                                    var dt = res.data.data[i].city
+                                    var tem = {
+                                        name: dt[0].title,
+                                        id: dt[0].id,
+                                    }
+                                    if (tem.name == '市辖区') {
+                                        tem.name = res.data.data[i].title
+                                    }
+                                    that.cityData.push(tem)
+                                }
+                                that.cityId = res.data.data[0].city[0].id
+                                that.getHospital()
+                                console.log(that.cityData)
+                            }
+                        })
+                        .catch(function (err) {
+
+                        })
+                },
+                //获取医院
+                getHospital: function () {
+                    var that = this;
+                    axios.get(userApi + '/hospital/list/' + that.cityId)
+                        .then(function (res) {
+                            if (res.data.status == 200) {
+                                that.hospitalData = res.data.data;
+                            }
+                        })
+                        .catch(function (err) {
+
+                        })
+                },
+                getSearch: function () {
+                    location.href = "search_result.html?key=" + this.searchKey;
+                },
+                getDepartmentData: function () {
+                    var that = this;
+                    axios.get(userApi + '/category?e_s[module]=department&e_s[pid]=0')
+                        .then(function (res) {
+                            console.log(res.data);
+                            if (res.data.status == 200) {
+                                that.departmentData = res.data.data;
+                            } else if (res.data.status == 401) {
+                                that.$message({
+                                    message: res.data.message,
+                                    type: 'error'
+                                });
+                                window.eventHub.$emit('needLogin', 1);
+                            } else {
+                                that.$alert(res.data.message, '提示', {
+                                    confirmButtonText: '确定',
+                                })
+                            }
+                        })
+                        .catch(function (err) {
+                            that.$alert(err, '提示', {
+                                confirmButtonText: '确定',
+                            })
+                        })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

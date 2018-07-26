@@ -1,0 +1,172 @@
+<template>
+    <div class="my-patient"  :style="{'-webkit-overflow-scrolling': scrollMode}">
+        <headers headName='我的会员'></headers>
+        <div class="contentScollr">
+        <mt-loadmore :bottom-method="loadBottom" bottomPullText='上拉刷新' bottomLoadingText='加载中......' :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
+        <ul class="order-list already-complete">
+            <li class="clear" @click="serviceList(data.id)" v-for="data in dataList">
+                <div class="img-box left">
+                    <img :src="data.translates.avatar_img" class="head-img" />
+                </div>
+                <div class="left info-box">
+                    <p class="name">
+                        {{data.realname}}
+                    </p>
+                    <p class="user-info">
+                        {{data.translates.sex}}&emsp;42岁
+                    </p>
+                    <p class="status">
+                        症状：脑肿瘤
+                    </p>
+                </div>
+            </li>
+        </ul>
+
+        </mt-loadmore>
+    </div>
+    </div>
+</template>
+<script>
+    //导入模板
+    import headers from "../components/Header.vue";
+    export default {
+        data (){
+            return{
+                dataList:[],
+                currentPage:1,
+                per_page:7,
+                total_page:0,
+                allLoaded:false,//分页
+                topStatus:false,//分页
+                scrollMode:"auto",//分页
+            }
+        },
+        mounted(){
+            this.BaseSet.getToken(this)
+            this.getDataList('/assistant/member?per_page='+this.per_page+'&page='+this.currentPage)
+        },
+        methods:{
+            loadBottom() {
+                if(this.currentPage==this.total_page){
+      			  this.allLoaded = true;// 若数据已全部获取完毕
+      		    }
+                if(this.currentPage<this.total_page){
+                    this.currentPage=this.currentPage+1
+                    this.getDataList('/assistant/member?per_page='+this.per_page+'&page='+this.currentPage)
+                    this.$refs.loadmore.onBottomLoaded();
+                }
+
+            },
+            serviceList(id){
+                this.$router.push({name:'HealthManage',params:{id:id}})
+            },
+            getDataList(url){
+                var that=this
+                that.$ajax.get(url)
+                .then(function(res){
+                    if(res.data.status==200){
+
+                        for(var i=0; i<res.data.data.member.length;i++){
+                            that.dataList.push(res.data.data.member[i].user)
+                        }
+                        that.total_page=res.data.data.paginate.total_page
+                        if(that.dataList.length==that.total_page*that.per_page){
+                            that.allLoaded = true;// 若数据已全部获取完毕
+                        }
+                        if(that.currentPage==that.total_page){
+              			  that.allLoaded = true;// 若数据已全部获取完毕
+              		    }
+                        that.$nextTick(function () {
+      					   // 原意是DOM更新循环结束时调用延迟回调函数，大意就是DOM元素在因为某些原因要进行修改就在这里写，要在修改某些数据后才能写，
+      					   // 这里之所以加是因为有个坑，iphone在使用-webkit-overflow-scrolling属性，就是移动端弹性滚动效果时会屏蔽loadmore的上拉加载效果，
+      					   // 花了好久才解决这个问题，就是用这个函数，意思就是先设置属性为auto，正常滑动，加载完数据后改成弹性滑动，安卓没有这个问题，移动端弹性滑动体验会更好
+      					   that.scrollMode = "touch";
+      				    })
+                    }else if(res.data.status==401){
+                        that.BaseSet.linkLogin(that)
+                    }else{
+                        that.$toast(res.data.message)
+                    }
+                })
+                .catch(function(err){
+                    //that.$toast(err)
+                    that.BaseSet.linkLogin(that)
+                })
+            }
+        },
+        components: {headers},
+    }
+</script>
+<style lang="scss">
+a{
+    color:#fff;
+}
+    .my-patient{
+        display: flex;
+    	height: 100%;
+    	flex-direction: column;
+    	.contentScollr{
+    		flex: 1;
+    		overflow: scroll;
+    		-webkit-overflow-scrolling:touch;
+    	}
+
+        .order-list{
+            width: 100%;
+            overflow: hidden;
+            background: #fff;
+            li{
+                width: 100%;
+                border-bottom: #e5e5e5 1px solid;
+                overflow: hidden;
+                box-sizing: border-box;
+                padding: .75rem;
+                font-size: 0;
+                .left{
+                    float: left;
+                }
+                .right{
+                    float: right;
+                }
+                .img-box{
+                    position: relative;
+                    .head-img{
+                        width: 2.5rem /* 50/20 */;
+                        height: 2.5rem /* 50/20 */;
+                        border-radius: 50%;
+                    }
+                    .vip{
+                        position: absolute;
+                        width: 0.9rem /* 18/20 */;
+                        height: 1.1rem /* 21/20 */;
+                        bottom:0.1rem /* 2/20 */;
+                        right: 1px;
+                    }
+                }
+                .info-box{
+                    margin-left: 0.5rem /* 10/20 */;
+                    .name{
+                        font-size: 0.7rem /* 14/20 */;
+                        color: #444;
+                        line-height: 1rem /* 20/20 */;
+                    }
+                    .user-info{
+                        font-size: 0.6rem /* 12/20 */;
+                        color: #666;
+                        line-height: 0.8rem /* 17/20 */;
+                    }
+                    .status{
+                        font-size: 0.6rem /* 12/20 */;
+                        color:#ff4646;
+                        line-height: 0.8rem /* 17/20 */;
+                    }
+                }
+                .right{
+                    font-size: 0.6rem /* 12/20 */;
+                    color: #666;
+                    line-height: 2.5rem /* 50/20 */;
+                }
+            }
+        }
+    }
+</style>

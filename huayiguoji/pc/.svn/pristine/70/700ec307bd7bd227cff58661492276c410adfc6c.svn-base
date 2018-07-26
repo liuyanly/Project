@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>修改资料</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/edit_data.css" />
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="9"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="1"></my-left-nav>
+                <div class="right right-box" style="height: auto">
+                    <p class="header-title">个人资料</p>
+                    <div class="content-box doctor-data">
+                        <form class="demoform" id="formData" name="formDate">
+                            <div class="head-box">
+                                <div class="pic-box">
+                                    <input class="head-img" name="files[]" type="file" accept="image/*;capture=camera" onChange="setImagePreview(this,$('.head-pic'))">
+                                    <img :src="avatar_img" class="upLoad btn head-pic">
+                                    <input class="wx_banner_pic" type="hidden">
+                                </div>
+                                <p class="tip">点击头像即可修改</p>
+                            </div>
+                            <p class="input-p form-box clearFix">
+                                <label class="name name-label left">昵称:</label>
+                                <input type="text" class="nickName left" v-model="nickName" datatype="s1-20" errormsg="昵称最多20个字符！" maxlength="20" />
+                                <span class="Validform_checktip"></span>
+                            </p>
+                            <div class="input-p form-box clearFix">
+                                <label class="name left">性别:</label>
+                                <p class="left sex-p">
+                                    <input type="radio" name="sex" value="1" v-model="sex" />
+                                    <img src="images/f2_xz_p.png" v-if="sex==1">
+                                    <img src="images/f2_xz.png" v-else="sex!=1">
+                                    <span class="sex-name">男</span>
+                                </p>
+                                <p class="left sex-p" style="margin-left: 22px">
+                                    <input type="radio" name="sex" value="0" v-model="sex" />
+                                    <img src="images/f2_xz_p.png" v-if="sex==0">
+                                    <img src="images/f2_xz.png" v-else="sex!=0">
+                                    <span class="sex-name">女</span>
+                                </p>
+                            </div>
+                            <div class="choose-box form-box clearFix">
+                                <label class="name left">出生年月:</label>
+                                <p class="left pos date-select">
+                                    <select name="year" class="year" datatype="n" errormsg="请选择年" onChange="YYYYDD(this.value)" @click="changeXia1(1)" @blur="changeXia1(0)"
+                                        v-model="yearValue">
+                                        <option class="placeholder">选择年</option>
+                                    </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=1">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==1">
+                                </p>
+                                <p class="left pos date-select">
+                                    <select name="month" class="month" datatype="n" errormsg="请选择月" onChange="MMDD(this.value)" @click="changeXia1(2)" @blur="changeXia1(0)"
+                                        v-model="monthValue">
+                                        <option class="placeholder">选择月</option>
+                                    </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=2">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==2">
+                                </p>
+                                <p class="left pos date-select">
+                                    <select name="day" class="day" datatype="n" errormsg="请选择日" onChange="DDD(this.value)" @click="changeXia1(3)" @blur="changeXia1(0)"
+                                        v-model="dayValue">
+                                        <option class="placeholder">选择日</option>
+                                    </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=3">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==3">
+                                </p>
+                            </div>
+                            <div class="choose-box form-box clearFix">
+                                <label class="name left">住址:</label>
+                                <p class="left pos date-select">
+                                    <select name="province" class="province" v-model="province" @click="changeXia1(4)" @blur="changeXia1(0)" @change="chooseProvince">
+                                        <option class="placeholder">选择省</option>
+                                        <option v-for="(item,index) in sites" :key="index" :value="item.id">{{item.title}}
+                                        </option>
+                                    </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=4">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==4">
+                                </p>
+                                <p class="left pos date-select">
+                                    <select name="city" class="city" v-model="city" @click="changeXia1(5)" @change="chooseCity" @blur="changeXia1(0)">
+                                        <option class="placeholder">选择市</option>
+                                        <option v-for="(item,index) in citys" :key="index" :value="item.id">{{item.title}}
+                                        </option>
+                                    </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=5">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==5">
+                                </p>
+                                <p class="left pos date-select">
+                                    <select name="area" class="area" v-model="area" @click="changeXia1(6)" @blur="changeXia1(0)">
+                                        <option class="placeholder">选择区</option>
+                                        <option v-for="(item,index) in areas" :key="index" :value="item.id">{{item.title}}
+                                        </option>
+                                    </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=6">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==6">
+                                </p>
+                            </div>
+                            <p class="input-p form-box clearFix">
+                                <label class="name name-label left">详细地址:</label>
+                                <input type="text" class="nickName left" placeholder="请输入详细地址" v-model="detailedAddress" datatype="*1-20" errormsg="地址超过20个字符"
+                                />
+                                <span class="Validform_checktip"></span>
+                            </p>
+
+                            <div class="choose-box form-box clearFix">
+                                <label class="name left">科室:</label>
+                                <p class="left pos date-select">
+                                    <select name="province" class="province" v-model="department" @click="changeXia1(7)" @blur="changeXia1(0)">
+                                        <option class="placeholder">选择科室</option>
+                                        <option v-for="(item,index) in departments" :key="item" :value="item.id">
+                                            {{item.title}}
+                                        </option>
+                                    </select>
+                                    <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=7">
+                                    <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==7">
+                                </p>
+                            </div>
+                            <p class="input-p form-box clearFix">
+                                <label class="name name-label left">联系电话:</label>
+                                <input type="number" class="nickName left" placeholder="请输入您的联系电话" v-model="telNum" datatype="m" errormsg="手机号格式不正确" />
+                                <span class="Validform_checktip"></span>
+                            </p>
+                            <p class="text-p form-box clearFix">
+                                <label class="name name-label left">擅长:</label>
+                                <textarea class="left textArea" placeholder="请输入您的擅长" v-model="advantage" datatype="*1-200" maxlength="200"></textarea>
+                                <span class="Validform_checktip"></span>
+                            </p>
+                            <p class="text-p form-box clearFix">
+                                <label class="name name-label left">教育背景:</label>
+                                <textarea class="left textArea" placeholder="请输入您的教育背景" v-model="educationalBg" datatype="*1-200" maxlength="200"></textarea>
+                                <span class="Validform_checktip"></span>
+                            </p>
+                            <p class="text-p form-box clearFix">
+                                <label class="name name-label left">学术、研究成果:</label>
+                                <textarea class="left textArea" placeholder="请输入您的学术、研究成果" v-model="achievements" datatype="*1-200" maxlength="200"></textarea>
+                                <span class="Validform_checktip"></span>
+                            </p>
+                            <p class="btn-p">
+                                <button type="button" class="save-btn" @click="saveBtn()">保存</button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/doctor_login.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/upImg.js"></script>
+    <script src="js/date.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var $this = ''
+        var content = new Vue({
+            el: '#page',
+            data: {
+                avatar_img: '',
+                nickName: '',
+                advantage: '',
+                educationalBg: '',
+                achievements: '',
+                telNum: '',
+                sex: 1,
+                monthValue: '选择月',
+                yearValue: '选择年',
+                dayValue: '选择日',
+                province: '选择省',
+                city: '选择市',
+                area: '选择区',
+                headPic: 'images/head.jpg',
+                xiaType1: 0,
+                xiaType: 0,
+                departments: [],
+                department: '选择科室',
+                sites: [],
+                citys: [],
+                areas: [],
+                detailedAddress: ''
+            },
+            directives: {},
+            mounted() {
+                getToken(this);
+                var _this = this;
+
+
+
+
+                async function getdata() {
+                    var aa = await axios.get(doctorApi + '/user/profile')
+                    console.log('====:', aa)
+                }
+
+
+                getdata()
+
+
+
+
+
+
+                //获取科室
+                axios.get(doctorApi + '/hospitaldepartment/1')
+                    .then(function (res) {
+                        if (res.status == 200) {
+                            _this.departments = res.data.data;
+                            //个人信息数据回显
+                            axios.get(doctorApi + '/user/profile')
+                                .then(function (res) {
+                                    // console.log(res);
+                                    var _data = res.data.data;
+                                    imgId = _data.avatar_id;
+                                    _this.nickName = _data.realname;
+                                    _this.sex = _data.sex;
+                                    var _brithday = _data.brithday.split('-');
+                                    _this.yearValue = _brithday[0];
+                                    _this.monthValue = _brithday[1];
+                                    _this.dayValue = _brithday[2];
+                                    _this.detailedAddress = _data.area;
+                                    _this.department = String(_data.department);
+                                    _this.telNum = _data.phone_no;
+                                    _this.advantage = _data.specialty;
+                                    _this.educationalBg = _data.background;
+                                    _this.achievements = _data.case;
+                                    _this.avatar_img = _data.translates.avatar_img;
+                                    _this.getSites(_this, '', 'sites');
+                                    _this.getSites(_this, _data.province_id, 'citys');
+                                    _this.getSites(_this, _data.city_id, 'areas');
+                                    setTimeout(function () {
+                                        _this.province = _data.province_id;
+                                        _this.city = _data.city_id;
+                                        _this.area = _data.area_id;
+                                    }, 1000)
+                                })
+                        }
+                    });
+                //获取省市区
+                this.getSites(_this, '', 'sites');
+                $(".demoform").Validform({
+                    tiptype: 3,
+                });
+            },
+            methods: {
+                getSites(_this, id, saveVal) {
+                    //地址三级联动
+                    //_this 保存的this变量,上级id逐级请求,saveVal 需要保存在哪个vue data上
+                    axios.get(doctorApi + '/regionlist?pid=' + id + '&status=1')
+                        .then(function (res) {
+                            _this[saveVal] = res.data.data || Function(res)
+                        });
+                },
+                chooseProvince: function () {
+                    // console.log(this.province)
+                    this.citys = []
+                    this.areas = []
+                    this.getSites(this, this.province, 'citys')
+                },
+                chooseCity: function () {
+                    this.getSites(this, this.city, 'areas')
+                },
+                changeXia1: function (num) {
+                    if (this.xiaType1 == 0) {
+                        this.xiaType1 = num;
+                    } else {
+                        this.xiaType1 = 0;
+                    }
+                },
+                changeXia: function (num) {
+                    this.xiaType = num
+                },
+                saveBtn: function () {
+                    console.log(this.province, this.city, this.area);
+                    if (imgUrl == '') {
+                        this.$alert('请上传头像！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if (this.nickName == '') {
+                        this.$alert('请输入您的昵称！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if (this.detailedAddress == '') {
+                        this.$alert('请输入您的详细地址！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if ($(".year").val() == '' || $(".year").val() == '选择年') {
+                        this.$alert('请选择年份！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if ($(".month").val() == '' || $(".month").val() == '选择月') {
+                        this.$alert('请选择月份！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        })
+                        return;
+                    }
+                    if ($(".day").val() == '' || $(".day").val() == '选择日') {
+                        this.$alert('请选择日期！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if (this.department == '' || this.department == '选择科室') {
+                        this.$alert('请选择科室！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if (this.province == '选择省' || this.province == '') {
+                        this.$alert('请选择省份！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if (this.city == '选择市' || this.city == '') {
+                        this.$alert('请选择城市！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if (this.area == '选择区' || this.area == '') {
+                        this.$alert('请选择区县！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if (this.telNum == '') {
+                        this.$alert('请输入您的联系方式！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if (this.telNum.length != 11) {
+                        this.$alert('联系方式格式不正确！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if (this.advantage == '') {
+                        this.$alert('请填写您的擅长！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if (this.educationalBg == '') {
+                        this.$alert('请填写您的教育背景！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    if (this.achievements == '') {
+                        this.$alert('请填写您的学术、研究成果！', '提示', {
+                            confirmButtonText: '确定',
+                            type: "warning"
+                        }).then(function () {
+
+                        })
+                        return;
+                    }
+                    var _this = this;
+                    axios.put(doctorApi + '/user/' + localStorage.doctorId, {
+                            avatar_id: imgId,
+                            realname: _this.nickName,
+                            sex: _this.sex,
+                            brithday: _this.yearValue + '-' + _this.monthValue + '-' + _this.dayValue,
+                            department: _this.department,
+                            phone_no: _this.telNum,
+                            specialty: _this.advantage,
+                            background: _this.educationalBg,
+                            area: _this.detailedAddress,
+                            case: _this.achievements
+                        })
+                        .then(function (res) {
+                            if (res.status == 200) {
+                                _this.$alert('资料修改成功！', '提示', {
+                                    confirmButtonText: '确定',
+                                    type: "success"
+                                }).then(function () {
+                                    location.href = "personal.html";
+                                })
+                            } else
+                                _this.$alert('资料修改失败！', '提示', {
+                                    confirmButtonText: '确定',
+                                    type: "error"
+                                })
+                        })
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

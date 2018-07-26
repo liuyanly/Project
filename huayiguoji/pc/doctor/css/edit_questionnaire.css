@@ -1,0 +1,117 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.questionnaire-content {
+  padding: 27px 15px;
+}
+.questionnaire-content .que-type {
+  margin-bottom: 32px;
+}
+.questionnaire-content .marBot {
+  margin-bottom: 12px;
+}
+.questionnaire-content .que-select {
+  width: 92px;
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
+  border-radius: 3px;
+  margin-left: 20px;
+  border: 1px solid #eff1fa;
+  background: #FAFBFF;
+  color: #333;
+}
+.questionnaire-content .line {
+  position: relative;
+}
+.questionnaire-content .xiaLa {
+  position: absolute;
+  right: 6px;
+  top: 11px;
+}
+.questionnaire-content .que-title {
+  font-size: 14px;
+  color: #000;
+  line-height: 30px;
+}
+.questionnaire-content .son-title {
+  font-size: 14px;
+  color: #999;
+  line-height: 30px;
+  margin-left: 20px;
+}
+.questionnaire-content .input-p input {
+  height: 28px;
+  line-height: 28px;
+  width: 216px;
+  padding: 0 10px;
+  border: 1px solid #eff1fa;
+  background: #FAFBFF;
+  color: #333;
+}
+.questionnaire-content .textArea-title {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #333;
+  margin-left: 21px;
+}
+.questionnaire-content .textArea-p {
+  margin-left: 21px;
+  margin-bottom: 35px;
+}
+.questionnaire-content .textArea-p textarea {
+  resize: none;
+  width: 770px;
+  height: 54px;
+  border: 1px solid #eff1fa;
+  background: #FAFBFF;
+  color: #333;
+  padding: 10px;
+}
+.questionnaire-content .pay-p {
+  position: relative;
+  line-height: 30px;
+  margin-left: 34px;
+  margin-right: 15px;
+}
+.questionnaire-content .pay-p input[type="radio"] {
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+}
+.questionnaire-content .pay-p label {
+  font-size: 14px;
+  color: #000;
+}
+.questionnaire-content .pay-p .type-img {
+  margin-right: 8px;
+  margin-left: 21px;
+}
+.questionnaire-content .pay-p .tip {
+  font-size: 12px;
+  color: #666;
+}
+.btn-box {
+  margin-left: 38px;
+}
+.btn-box .save-btn {
+  width: 136px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #4CC6D8;
+  border: none;
+  color: #fff;
+  border-radius: 3px;
+}

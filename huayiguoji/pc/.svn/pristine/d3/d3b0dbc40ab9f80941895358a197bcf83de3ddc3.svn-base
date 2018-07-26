@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="google" value="notranslate">
+    <!-- 禁止Chrome 浏览器中自动提示翻译 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- 禁止百度转码 -->
+    <title>提现</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="element/element-ui.min.css">
+    <link rel="stylesheet" href="swiper/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="css/imgUp.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/personal.css" />
+    <link rel="stylesheet" href="css/withdrawals.css" />
+
+</head>
+
+<body>
+    <div id="page">
+        <div class="container">
+            <my-header active="6"></my-header>
+        </div>
+        <div class="main">
+            <section class="container clearFix">
+                <my-left-nav active="6"></my-left-nav>
+                <div class="right right-box">
+                    <p class="header-title clearFix">提现</p>
+                    <form class="demoform">
+                        <section class="Withdrawals-box">
+                            <div class="input-box clearFix">
+                                <span class="left title">选择银行卡：</span>
+                                <!--<p class="left pos date-select">
+                                <select class="card-select" v-model="cardValue" @click="changeXia1(4)" @blur="changeXia1(0)">
+                                    <option class="clearFix"><img class="left" src="images/f74_icon3.png"><span class="left">中国农业银行</span><span class="left c1">尾号3431</span></option>
+                                </select>
+
+                                <img class="xiaLa" src="images/e1_xiala.png" v-if="xiaType1!=4">
+                                <img class="xiaLa" src="images/e1_xiala_p.png" v-if="xiaType1==4">
+                            </p>-->
+                                <div class="select-box left relative" v-if="cardList.length<=0">
+                                    <p class="date-select clearFix nothing" @click="openList()">无银行卡</p>
+                                    <img class="xiaLa absolute" src="images/e1_xiala.png" v-if="xiaType1!=4">
+                                    <img class="xiaLa absolute" src="images/e1_xiala_p.png" v-if="xiaType1==4">
+                                </div>
+                                <div class="select-box left relative" v-if="cardList.length>0" @click="changeXia1(4)">
+                                    <p class="date-select clearFix" @click="openList()">
+                                        <img class="left" :src="cardList[num].src">
+                                        <span class="left">{{cardList[num].name}}</span>
+                                        <span class="left c1">尾号{{cardList[num].lastNum}}</span>
+                                    </p>
+                                    <img class="xiaLa absolute" src="images/e1_xiala.png" v-if="xiaType1!=4">
+                                    <img class="xiaLa absolute" src="images/e1_xiala_p.png" v-if="xiaType1==4">
+                                    <ul class="select-ul absolute" v-show="liType==1">
+                                        <li v-for="(data,index) in cardList" class="clearFix" :class="{current:currentLi==index}" @click="changeLi(index)">
+                                            <img class="left" :src="data.src">
+                                            <span class="left">{{data.name}}</span>
+                                            <span class="left c1">尾号{{data.lastNum}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p class="add-card left" @click="addCard()">+添加银行卡</p>
+                            </div>
+                            <div class="input-box clearFix">
+                                <span class="left title">提现金额：</span>
+                                <input class="left money-input" v-model="moneyValue" type="number" datatype="n" nullmsg="请填写提现金额" />
+                                <span class="Validform_checktip"></span>
+                            </div>
+                            <p class="btn-p">
+                                <button type="button" class="pay-btn" @click="payBtn()">提现</button>
+                            </p>
+                        </section>
+                    </form>
+
+                </div>
+            </section>
+        </div>
+        <my-footer></my-footer>
+        <login-box></login-box>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="js/uploadImg.js"></script>
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="element/element-ui.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/user_login.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/leftNav.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var $this = ''
+        var content = new Vue({
+            el: '#page',
+            data: {
+                liType: 0,
+                currentLi: 0,
+                payType: 0,
+                payWay: 1,
+                cardValue: '',
+                cardList: [{
+                    src: 'images/f74_icon3.png',
+                    name: '中国银行',
+                    lastNum: '3441'
+                }, {
+                    src: 'images/f74_icon3.png',
+                    name: '中国农业银行',
+                    lastNum: '3441'
+                }, {
+                    src: 'images/f74_icon3.png',
+                    name: '中国建设银行',
+                    lastNum: '3441'
+                }],
+                num: 0,
+                moneyValue: '1',
+                textContent: '',
+                xiaType1: 0,
+            },
+            mounted: function () {
+                getToken(this);
+
+                var _this = this;
+                axios.get(userApi + '/bank')
+                    .then(function (res) {
+                        if (res.status == 200) {
+                            console.log(res);
+                            _this.cardList = [];
+                            var object = res.data.data;
+                            //  src: 'images/f74_icon3.png', name: '中国银行', lastNum: '3441'
+                            for (var key in object) {
+                                _this.cardList.push({
+                                    name: object[key].translates.affiliation,
+                                    lastNum: object[key].cardno.substr(-4),
+                                    src: object[key].translates.cover_img
+                                })
+                            }
+                            // _this.cardList = res.data.data;
+                        }
+                    })
+                if (this.cardList.length > 0) {
+                    this.cardValue = 0;
+                }
+                imgUpload({
+                    inputId: 'file', //input框id
+                    imgBox: 'imgBox', //图片容器id
+                    buttonId: 'btn', //提交按钮id
+                    upUrl: '', //提交地址
+                    data: 'file1', //参数名
+                    num: "6" //上传个数
+                });
+                $(".demoform").Validform({
+                    tiptype: 3
+                });
+            },
+            methods: {
+                changeXia1: function (num) {
+                    if (this.xiaType1 == 0) {
+                        this.xiaType1 = num;
+                    } else {
+                        this.xiaType1 = 0;
+                    }
+                },
+                changeLi: function (num) {
+                    this.currentLi = num;
+                    this.num = num;
+                    this.liType = 0;
+                    this.cardValue = num;
+                },
+                openList: function () {
+                    if (this.liType == 1) {
+                        this.liType = 0;
+                    } else {
+                        this.liType = 1;
+                    }
+                },
+                payBtn: function () {
+                    if (this.cardValue === '') {
+                        this.$alert('请选择银行卡！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return false;
+                    }
+                    if (this.moneyValue == '') {
+                        this.$alert('请填写提现金额！', '提示', {
+                            confirmButtonText: '确定',
+                        })
+                        return false;
+                    }
+                    this.$confirm('提现成功！', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'success'
+                    }).then(function () {
+                        location.href = "my_wallet.html";
+                    }).catch(function () {
+
+                    });
+                },
+                addCard: function () {
+                    location.href = "add_card.html";
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

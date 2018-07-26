@@ -1,0 +1,711 @@
+* {
+  font-size: 14px;
+}
+
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+
+.footer {
+  height: auto;
+}
+
+.noTip {
+  font-size: 14px;
+  color: #444;
+  text-align: center;
+  line-height: 80px;
+}
+
+.fade {
+  position: fixed;
+  top: 0;
+  right: 0;
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  z-index: 1001;
+}
+
+.fade .msg-box {
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1002;
+  position: absolute;
+  display: -webkit-box;
+  display: flex;
+  display: -webkit-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.fade .msg-box .detail-box {
+  width: 1000px;
+  height: 432px;
+  background: #fff;
+  border-radius: 6px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.fade .msg-box .detail-box .content-box {
+  width: 500px;
+  height: 432px;
+  box-sizing: border-box;
+  padding: 65px 0 54px 135px;
+}
+
+.fade .msg-box .detail-box .content-box .absolute {
+  top: 11px;
+  right: 14px;
+  cursor: pointer;
+}
+
+.fade .msg-box .detail-box .content-box .close-btn {
+  top: 0;
+  line-height: 40px;
+  color: #fff;
+  font-size: 36px;
+}
+
+.fade .msg-box .detail-box .content-box .login-title {
+  font-size: 18px;
+  color: #000;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 32px;
+  width: 37px;
+  margin-left: 99px;
+}
+
+.fade .msg-box .detail-box .content-box .input-p {
+  width: 230px;
+  height: 39px;
+  border: 1px solid #ededed;
+  background: #f6f6f6;
+  border-radius: 3px;
+  box-sizing: border-box;
+  line-height: 39px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.fade .msg-box .detail-box .content-box .input-p img {
+  margin: 12px 13px 12px 10px;
+}
+
+.fade .msg-box .detail-box .content-box .input-p input {
+  border: none;
+  outline: none;
+  line-height: 38px;
+  background: transparent;
+}
+
+.fade .msg-box .detail-box .content-box .input-p .Validform_checktip {
+  position: absolute;
+  right: -105px;
+  top: 10px;
+}
+
+.fade .msg-box .detail-box .content-box .forget-psw {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 34px;
+  cursor: pointer;
+  width: 80px;
+}
+
+.fade .msg-box .detail-box .content-box .btn-login-p {
+  margin-bottom: 58px;
+}
+
+.fade .msg-box .detail-box .content-box .btn-login-p button {
+  width: 230px;
+  height: 39px;
+  line-height: 39px;
+  text-align: center;
+  background: #4CC6D8;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.fade .msg-box .detail-box .content-box .not-account {
+  text-align: center;
+  font-size: 16px;
+  color: #999;
+  width: 129px;
+  margin-left: 53px;
+}
+
+.fade .msg-box .detail-box .content-box .not-account .c1 {
+  color: #57c6d8;
+  cursor: pointer;
+}
+
+.fade .msg-box .btn-box {
+  text-align: center;
+}
+
+.fade .msg-box .btn-box button {
+  width: 140px;
+  height: 40px;
+  border-radius: 3px;
+  background: #4CC6D8;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.fade .msg-box .btn-box .sure-btn {
+  margin-right: 40px;
+}
+
+.fade .msg-box .choose-time {
+  width: 600px;
+  height: 230px;
+}
+
+.fade .msg-box .choose-time .title-p {
+  line-height: 40px;
+  padding: 0 14px;
+  background: #4CC6D8;
+  font-size: 14px;
+  color: #fff;
+}
+
+.fade .msg-box .choose-time .content-box {
+  width: 100%;
+  padding: 0;
+  height: 300px;
+}
+
+.fade .msg-box .choose-time .name {
+  width: 84px;
+  margin-right: 10px;
+  float: left;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+  line-height: 30px;
+}
+
+.fade .msg-box .choose-time .select-p {
+  position: relative;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #333;
+}
+
+.fade .msg-box .choose-time .select-p>img {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+}
+
+.fade .msg-box .choose-time .choose-box {
+  margin-bottom: 0;
+  padding: 40px 30px;
+}
+
+.fade .msg-box .choose-time .choose-box .pos {
+  width: 92px;
+  margin-right: 20px;
+}
+
+.fade .msg-box .choose-time .choose-box .pos:nth-of-type(5) {
+  margin-right: 0;
+}
+
+.fade .msg-box .choose-time .choose-box .pos .xiaLa {
+  right: 10px;
+}
+
+.fade .msg-box .choose-time .choose-box select {
+  width: 90px;
+  height: 30px;
+  font-size: 14px;
+  color: #333;
+  background: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.content-list .header-title {
+  line-height: 43px;
+  border-bottom: 1px solid #eff1fa;
+}
+
+.content-list .header-title .name {
+  font-size: 16px;
+  color: #4cc6d8;
+  font-weight: 600;
+}
+
+.content-list .header-title .viewMore {
+  font-size: 14px;
+  color: #666;
+}
+
+.content-list .server-list {
+  margin-bottom: 26px;
+}
+
+.content-list .server-list li {
+  padding: 10px 0 10px 21px;
+  border-bottom: 1px solid #eff1fa;
+}
+
+.content-list .server-list li>img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 14px;
+}
+
+.content-list .server-list li .line1 {
+  font-size: 14px;
+  color: #4cc6d8;
+}
+
+.content-list .server-list li .line1 .user-name {
+  margin-right: 18px;
+}
+
+.content-list .server-list li .line1 .disease {
+  color: #666;
+  margin-right: 10px;
+}
+
+.content-list .server-list li .line1 .tag {
+  padding: 0 8px;
+  background: #4CC6D8;
+  line-height: 16px;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 7px;
+}
+
+.content-list .server-list li .line2 {
+  font-size: 12px;
+  color: #999;
+}
+
+.content-list .server-list li .line2 .sex {
+  margin-right: 14px;
+}
+
+.content-list .server-list li .btn-p {
+  width: 92px;
+  height: 30px;
+  background: #4cc6d8;
+  border-radius: 3px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+* {
+  font-size: 14px;
+}
+
+.footer {
+  height: auto;
+}
+
+.fade2 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  vertical-align: middle;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  z-index: 1001;
+}
+
+.fade2 .login-box {
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1002;
+  position: absolute;
+  display: -webkit-box;
+  display: flex;
+  display: -webkit-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.fade2 .login-box .detail-box {
+  width: 1000px;
+  height: 432px;
+  background: #fff;
+  border-radius: 6px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.fade2 .login-box .detail-box .content-box {
+  width: 500px;
+  height: 432px;
+  box-sizing: border-box;
+  padding: 65px 0 54px 135px;
+}
+
+.fade2 .login-box .detail-box .content-box .absolute {
+  top: 11px;
+  right: 14px;
+  cursor: pointer;
+}
+
+.fade2 .login-box .detail-box .content-box .close-btn {
+  top: 0;
+  line-height: 40px;
+  color: #fff;
+  font-size: 36px;
+}
+
+.fade2 .login-box .detail-box .content-box .login-title {
+  font-size: 18px;
+  color: #000;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 32px;
+  width: 37px;
+  margin-left: 99px;
+}
+
+.fade2 .login-box .detail-box .content-box .input-p {
+  width: 230px;
+  height: 39px;
+  border: 1px solid #ededed;
+  background: #f6f6f6;
+  border-radius: 3px;
+  box-sizing: border-box;
+  line-height: 39px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.fade2 .login-box .detail-box .content-box .input-p img {
+  margin: 12px 13px 12px 10px;
+}
+
+.fade2 .login-box .detail-box .content-box .input-p input {
+  border: none;
+  outline: none;
+  line-height: 38px;
+  background: transparent;
+}
+
+.fade2 .login-box .detail-box .content-box .input-p .Validform_checktip {
+  position: absolute;
+  right: -105px;
+  top: 10px;
+}
+
+.fade2 .login-box .detail-box .content-box .forget-psw {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 34px;
+  cursor: pointer;
+  width: 80px;
+}
+
+.fade2 .login-box .detail-box .content-box .btn-login-p {
+  margin-bottom: 58px;
+}
+
+.fade2 .login-box .detail-box .content-box .btn-login-p button {
+  width: 230px;
+  height: 39px;
+  line-height: 39px;
+  text-align: center;
+  background: #4CC6D8;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.fade2 .login-box .detail-box .content-box .not-account {
+  text-align: center;
+  font-size: 16px;
+  color: #999;
+  width: 129px;
+  margin-left: 53px;
+}
+
+.fade2 .login-box .detail-box .content-box .not-account .c1 {
+  color: #57c6d8;
+  cursor: pointer;
+}
+
+.fade2 .login-box .btn-box {
+  text-align: center;
+}
+
+.fade2 .login-box .btn-box button {
+  width: 140px;
+  height: 40px;
+  border-radius: 3px;
+  background: #4CC6D8;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.fade2 .login-box .btn-box .sure-btn {
+  margin-right: 40px;
+}
+
+.fade2 .login-box .choose-time {
+  width: 600px;
+  height: 230px;
+}
+
+.fade2 .login-box .choose-time .title-p {
+  line-height: 40px;
+  padding: 0 14px;
+  background: #4CC6D8;
+  font-size: 14px;
+  color: #fff;
+}
+
+.fade2 .login-box .choose-time .content-box {
+  width: 100%;
+  padding: 0;
+  height: 300px;
+}
+
+.fade2 .login-box .choose-time .name {
+  width: 84px;
+  margin-right: 10px;
+  float: left;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+  line-height: 30px;
+}
+
+.fade2 .login-box .choose-time .select-p {
+  position: relative;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #333;
+}
+
+.fade2 .login-box .choose-time .select-p>img {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+}
+
+.fade2 .login-box .choose-time .choose-box {
+  margin-bottom: 0;
+  padding: 40px 30px;
+}
+
+.fade2 .login-box .choose-time .choose-box .pos {
+  width: 92px;
+  margin-right: 20px;
+}
+
+.fade2 .login-box .choose-time .choose-box .pos:nth-of-type(5) {
+  margin-right: 0;
+}
+
+.fade2 .login-box .choose-time .choose-box .pos .xiaLa {
+  right: 10px;
+}
+
+.fade2 .login-box .choose-time .choose-box select {
+  width: 90px;
+  height: 30px;
+  font-size: 14px;
+  color: #333;
+  background: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.content-list .header-title {
+  line-height: 43px;
+  border-bottom: 1px solid #eff1fa;
+}
+
+.content-list .header-title .name {
+  font-size: 16px;
+  color: #4cc6d8;
+  font-weight: 600;
+}
+
+.content-list .header-title .viewMore {
+  font-size: 14px;
+  color: #666;
+}
+
+.content-list .server-list {
+  margin-bottom: 26px;
+}
+
+.content-list .server-list li {
+  padding: 10px 0 10px 21px;
+  border-bottom: 1px solid #eff1fa;
+}
+
+.content-list .server-list li>img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 14px;
+}
+
+.content-list .server-list li .line1 {
+  font-size: 14px;
+  color: #4cc6d8;
+}
+
+.content-list .server-list li .line1 .user-name {
+  margin-right: 18px;
+}
+
+.content-list .server-list li .line1 .disease {
+  color: #666;
+  margin-right: 10px;
+}
+
+.content-list .server-list li .line1 .tag {
+  padding: 0 8px;
+  background: #4CC6D8;
+  line-height: 16px;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 7px;
+}
+
+.content-list .server-list li .line2 {
+  font-size: 12px;
+  color: #999;
+}
+
+.content-list .server-list li .line2 .sex {
+  margin-right: 14px;
+}
+
+.content-list .server-list li .btn-p {
+  width: 92px;
+  height: 30px;
+  background: #4cc6d8;
+  border-radius: 3px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.model-box {
+  /* display: none; */
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 99999;
+}
+
+.model-box-center h1 {
+  width: 100%;
+  height: auto;
+  color: #000;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.model-box-center {
+  box-shadow: 0px 0px 10px #666;
+  width: 400px;
+  height: 400px;
+  background: #fff;
+  margin: 10% auto;
+  opacity: 1 !important;
+}
+
+.btn-back {
+  width: auto;
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #4cc6d8;
+  border-radius: 3px;
+  font-size: 14px;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+  border: none;
+  margin-top: 30px;
+  margin-left: 120px;
+  cursor: pointer;
+}
+
+.qrcode {
+  width: 128px;
+  height: 128px;
+  padding: 5px;
+  border-radius: 4px;
+  background: #fff;
+  margin: 20% auto 5% auto;
+}
+
+.model-colse {
+  display: inline-block;
+  width: 10%;
+  height: auto;
+  font-size: 20px;
+  margin-left: 90%;
+  cursor: pointer;
+  
+}

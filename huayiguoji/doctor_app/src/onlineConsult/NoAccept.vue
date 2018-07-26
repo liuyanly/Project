@@ -1,0 +1,285 @@
+<template>
+    <div class="no-accept">
+        <headers headName="患者信息"></headers>
+        <div class="head-top">
+            <p class="bg-p">
+            </p>
+            <div class="user-box">
+                <img class="head-img" :src="data.user.translates.avatar_img" />
+                <p class="name">
+                    {{data.user.realname}}
+                </p>
+                <p class="diease">
+                    {{data.user.illness}}
+                </p>
+                <p class="sex">
+                    性别：{{data.user.translates.sex}}&emsp;年龄：{{data.user.translates.age!='暂无'?data.user.translates.age+'岁':'暂无'}}
+                </p>
+            </div>
+        </div>
+        <div class="content-word">
+            <p class="title">
+                症状
+            </p>
+            <div class="word" v-html="data.service_details.message">
+
+            </div>
+        </div>
+        <div class="content-word">
+            <p class="title">
+                档案
+            </p>
+            <div class="word" v-html="data.archives">
+
+            </div>
+        </div>
+        <div class="footer-btn clear">
+            <router-link :to="{ name: 'refuseConsult', params: {id:id} }">
+                <p class="refuse">
+                    拒绝
+                </p>
+            </router-link>
+            <p class="accept" @click="openDatePicker()">
+                接受
+            </p>
+        </div>
+        <mt-datetime-picker ref="picker" type="datetime" :startDate="startDate" v-model="pickerValue" year-format="{value}" month-format="{value}" date-format="{value}" @confirm="handleConfirm">
+        </mt-datetime-picker>
+    </div>
+</template>
+<script>
+import headers from "../components/Header";
+let d = new Date();
+let time =
+  d.getFullYear() +
+  "年" +
+  (d.getMonth() + 1) +
+  "月" +
+  d.getDate() +
+  "日" +
+  d.getHours() +
+  "点" +
+  d.getMinutes() +
+  "分";
+export default {
+  data() {
+    return {
+      id: this.$route.params.id,
+      type: this.$route.params.type,
+      pickerValue: this.getTimes(),
+      starDate: this.getTimes(),
+      contentWord: "",
+      radioVal: 0,
+      data: ""
+    };
+  },
+  mounted() {
+    this.BaseSet.getToken(this);
+    this.queryUserMeg();
+  },
+  methods: {
+    getTimes(timespan) {
+      if (timespan === undefined) {
+        timespan = 0;
+      }
+      var now = new Date();
+      now.setDate(now.getDate() + timespan);
+      return (
+        now.getFullYear() +
+        "-" +
+        (now.getMonth() + 1) +
+        "-" +
+        now.getDate() +
+        " " +
+        now.getHours() +
+        ":" +
+        now.getMinutes()
+      );
+    },
+    queryUserMeg() {
+      var that = this;
+      this.$ajax
+        .get("/consult/" + that.$route.params.id)
+        .then(res => {
+          if (res.data.status == 200) {
+            this.data = res.data.data;
+          }
+        })
+        .catch(err => {
+          //this.BaseSet.linkLogin(this)
+        });
+    },
+    handleConfirm(res) {
+      let d = new Date(res);
+      var that = this;
+      that.pickerValue =
+        d.getFullYear() +
+        "年" +
+        (d.getMonth() + 1) +
+        "月" +
+        d.getDate() +
+        "日" +
+        d.getHours() +
+        "点" +
+        d.getMinutes() +
+        "分";
+      that.starDate =
+        d.getFullYear() +
+        "-" +
+        (d.getMonth() + 1) +
+        "-" +
+        d.getDate() +
+        " " +
+        d.getHours() +
+        ":" +
+        d.getMinutes();
+      this.$ajax
+          .put(`/consult/accept/${this.id}`, { started_at: that.starDate+":00" })
+          .then(res => {
+            if (res.data.status == 200) {
+              this.data = res.data.data;
+              this.$messagebox.alert("预约成功").then(action => {
+                this.$router.push({
+                  name: "OnlineConsult",
+                  params: { type: 1 }
+                });
+              });
+            }
+          })
+          .catch(err => {
+            //this.BaseSet.linkLogin(this)
+          });
+    },
+    openDatePicker() {
+      this.$refs.picker.open();
+    }
+  },
+  components: { headers }
+};
+</script>
+<style lang="scss" scoped>
+.no-accept {
+  padding-bottom: 2.5rem;
+  .head-top {
+    position: relative;
+    background: #fff;
+    //height: 11.6rem /* 463/40 */;
+    margin-bottom: 0.5rem;
+    .bg-p {
+      height: 2.1rem;
+      background: #4cc6d8;
+    }
+    .user-box {
+      //height: 4.2rem /* 84/20 */;
+      background: #fff;
+      text-align: center;
+      .head-img {
+        width: 3rem;
+        height: 3rem;
+        border: 0.1rem solid #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 0.4rem;
+        left: 7.7rem;
+      }
+      .name {
+        font-size: 0.8rem;
+        color: #333;
+        margin-top: 1.8rem;
+        line-height: 0.8rem;
+      }
+      .diease,
+      .sex {
+        font-size: 0.6rem;
+        color: #666;
+        line-height: 0.6rem;
+        padding-top: 0.3rem;
+      }
+      .sex {
+        padding-bottom: 1.1rem;
+      }
+    }
+    .top-btn {
+      margin-top: 3.8rem;
+      padding-bottom: 1.2rem;
+      .title {
+        font-size: 0.7rem;
+        color: #666;
+        margin-top: 0.5rem;
+        line-height: 0.7rem;
+      }
+
+      .left {
+        float: left;
+        text-align: center;
+        img {
+          width: 1.2rem;
+          height: 1rem;
+        }
+        margin-left: 3.5rem;
+      }
+      .right {
+        float: right;
+        text-align: center;
+        margin-right: 3.6rem;
+        img {
+          width: 1.4rem;
+          height: 1.1rem;
+        }
+      }
+    }
+  }
+  .content-word {
+    background: #fff;
+    margin-bottom: 0.5rem;
+    .title {
+      padding: 0 0.8rem;
+      line-height: 2rem;
+      font-size: 0.7rem;
+      color: #6fc3d5;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .word {
+      padding: 0.5rem 0.8rem;
+      line-height: 1.2rem;
+      font-size: 0.7rem;
+      color: #333;
+    }
+    .img-list {
+      padding: 0.8rem;
+      li {
+        float: left;
+        margin-right: 0.6rem;
+        &:nth-of-type(3n) {
+          margin-right: 0;
+        }
+        img {
+          width: 5.3rem;
+          height: 7.9rem;
+        }
+      }
+    }
+  }
+  .footer-btn {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    p {
+      float: left;
+      width: 50%;
+      height: 2.5rem;
+      text-align: center;
+      line-height: 2.5rem;
+      font-size: 0.8rem;
+    }
+    .refuse {
+      background: #fff;
+      color: #4cc6d8;
+    }
+    .accept {
+      background: #4cc6d8;
+      color: #fff;
+    }
+  }
+}
+</style>

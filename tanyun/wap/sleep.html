@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="MobileOptimized" content="750">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="format-detection" content="telephone=no">
+    <title>碳云</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+  <body>
+    <div id="healthData" class="container">
+      <my-header active="2"></my-header>
+      <div class="content">
+          <!-- 睡眠 -->
+          <div class="energy">
+                <div class="title flex-item">
+                  <span menu="c12" class="flex active">日</span>
+                  <span menu="c13" class="flex">周</span>
+                </div>
+                <div class="conbox">
+                  <div id="c12" class="day"><span>{{dayTotal}}</span>小时</div>
+                  <div id="c13" class="hide">
+                      <div id="sleepWeek" style="width: 87vw; height:9rem;">
+
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <div class="date">
+              <div class="pre" @click="pre()"></div>
+              <div id="datebox" class="datebox">
+                <ul class="flex-item">
+                  <li v-for="(item,index) in temp" class="foo" :data-val="item.getFullYear()
+                              +'-'+(((item.getMonth() + 1) <=9 )? '0' + (item.getMonth() + 1) : (item.getMonth() + 1))
+                              +'-'+((item.getDate() <=9) ? '0' + item.getDate() : item.getDate())" @click="add(index)" :class="currentnow.getTime()==item.getTime()?'active':''">
+                    <span>{{item.getDate()}}</span>
+                    <small>{{item.getMonth()+1}}月</small>
+                  </li>
+                </ul>
+              </div>
+              <div class="next" @click="next()"></div>
+            </div>
+            <div class="food">
+                <div class="conbox">
+                      <div class="record flex-item">
+                        <div class="flex">
+                          <p>记录睡眠</p>
+                          <p class="h4">{{count}}</p>
+                          <p>次</p>
+                        </div>
+                        <div class="flex">
+                          <p>总时长</p>
+                          <p class="h4">{{dayTotal}}</p>
+                          <p>小时</p>
+                        </div>
+                        <div class="flex">
+                          <p>最长睡眠时间</p>
+                          <p class="h4">{{max}}</p>
+                          <p>小时</p>
+                        </div>
+                      </div>
+                      <div class="fooditem">
+                         <div class="title">今日睡眠时间</div>
+                         <div class="sleepTotal flex-item" v-for="item in sleepData">
+                            <div class="flex">
+                              <p>入睡时间</p>
+                              <p class="h4">{{item.start}}</p>
+                            </div>
+                            <div class="flex">
+                              <p>起床时间</p>
+                              <p class="h4">{{item.end}}</p>
+                            </div>
+                            <div class="flex">
+                              <p>睡眠时间</p>
+                              <p class="h4">{{item.duration}}</p>
+                            </div>
+                          </div>
+                      </div>
+                </div>
+            </div>
+      </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/mychart.js"></script>
+    <script src="js/healthData.js"></script>
+    <script>
+      new Vue({
+        el: '#healthData',
+        data() {
+          return {
+            id: '',
+            dayTotal: '',
+            lineDataLabel: [],
+            lineDataVal: [],
+            count: '',
+            max: '',
+            sleepData: [],
+            currentnow: new Date(),
+            now: new Date(),
+            clickNum: 1,
+            temp: [],
+            nowDate: '',
+          }
+        },
+        created() {
+          this.nowDate = getFormat(this.currentnow.getTime());
+          console.log(this.nowDate);
+          this.id = 28;
+          this.calendar();
+          this.getData();
+        },
+        mounted() {
+
+        },
+        methods: {
+          calendar() {
+            var firstTime = new Date(this.now.setDate(this.now.getDate() - (this.now.getDay() + 1) * this.clickNum));
+            this.temp = [];
+            for (var i = 0; i < 7; i++) {
+              this.temp.push(new Date(firstTime.setDate(firstTime.getDate() + 1)));
+            }
+          },
+          pre() {
+            this.clickNum += 1;
+            this.calendar();
+          },
+          next() {
+            this.clickNum -= 1;
+            this.calendar();
+          },
+          add(index) {
+            $('.foo').removeClass('active');
+            $('.foo')[index].classList.add('active');
+            console.log($('.foo')[index].getAttribute('data-val'));
+            this.nowDate = $('.foo')[index].getAttribute('data-val');
+            this.getData();
+          },
+          getData() {
+            var that = this;
+            axios.get(baseurl + '/mobileapi.php?action=healthy&type=sleep&date=' + this.nowDate +'&id=' + this.id)
+              .then(function (res) {
+                console.log(res);
+                var data = res.data;
+                if (data.code == 200) {
+                  that.dayTotal = data.data.hour;
+                  // var weekEnergy = data.data.duration_1 + "," + data.data.duration_2 + "," + data.data.duration_3 + "," + data.data.duration_4
+                  //   + "," + data.data.duration_5 + "," + data.data.duration_6 + "," + data.data.duration_7;
+                  // that.lineData = weekEnergy.split(',');
+                  // chartLine(that.lineData, 'sleepWeek'); //睡眠 周 折线图
+                  that.lineDataLabel = [];
+                  that.lineDataVal = [];
+                  for (var i = 0; i < data.data.week.length; i++) {
+                    that.lineDataLabel.push(data.data.week[i].date)
+                    that.lineDataVal.push(data.data.week[i].val)
+                  }
+                  chartLine(that.lineDataLabel, that.lineDataVal, 'sleepWeek'); //睡眠 周 折线图
+                  that.count = data.data.count;
+                  that.max = data.data.max;
+                  that.sleepData = data.data.items;
+                }
+              })
+              .catch(function (err) {
+                console.log(err);
+              })
+          },
+        }
+      })  
+    </script>
+  </body>
+</html>

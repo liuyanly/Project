@@ -1,0 +1,212 @@
+@import "../../less/variable";
+.main .container .right-box{
+  height: auto;
+}
+.header-top{
+  padding: 15px 15px;
+  border-bottom: 1px solid #eff1fa;
+  img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 5px 0;
+    margin-right: 14px;
+  }
+  .header-name{
+    .color999(14px,#000);
+    margin-top: 10px;
+    span{
+      .color999(14px,#999);
+    }
+  }
+  .hospital-name{
+    .color999(12px,#4cc6d8);
+    margin-top: 7px;
+  }
+  .info-div{
+    width: 561px;
+    .right-title{
+      width: 80px;
+      color:#999;
+      margin-top: 5px;
+    }
+    .right-content{
+      width: 480px;
+      color:#333;
+      line-height: 24px;
+    }
+  }
+}
+.chat-content{
+  padding: 0 15px;
+  height: 453px;
+  overflow: auto;
+  .time{
+    margin-top: 14px;
+    text-align: center;
+    .color999(12px,#999);
+  }
+  .line,.line2{
+    width: 100%;
+    display:-webkit-box;
+    display:-webkit-flex;
+    display:-ms-flexbox;
+    display:flex;
+    align-items: center;
+    align-content: center;
+    -webkit-align-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align-content: center;
+    -ms-flex-align-items: center;
+    margin-bottom: 20px;
+    .word-p{
+      max-width: 546px;
+      line-height: 18px;
+      border-radius: 6px;
+      position: relative;
+    }
+  }
+  .line2 .word-p:after, .line .word-p:before {
+    border: solid transparent;
+    content: ' ';
+    height: 0;
+    top: 100%;
+    position: absolute;
+    width: 0;
+  }
+  .line{
+    justify-items: flex-start;
+    justify-content: flex-start;
+    -webkit-justify-content: flex-start;
+    -webkit-justify-items: flex-start;
+    -ms-flex-justify-content: flex-start;
+    -ms-flex-justify-items: flex-start;
+    .word-p{
+      background: #F3F7FD;
+      padding: 17px 19px 18px 22px;
+      display: flex;
+      align-content: center;
+      align-items: center;
+      &:before{
+        border-width:10px;
+        border-right-color: #F3F7FD;
+        position: absolute;
+        left: -20px;
+        top:50%;
+        margin-top: -10px;
+      }
+    }
+  }
+  .line2{
+    justify-items: flex-end;
+    justify-content: flex-end;
+    -webkit-justify-content: flex-end;
+    -webkit-justify-items: flex-end;
+    -ms-flex-justify-content: flex-end;
+    -ms-flex-justify-items: flex-end;
+    .word-p{
+      padding: 17px 22px 19px 20px;
+      background: #4CC6D8;
+      color: #fff;
+    }
+    .word-p:after{
+      border-width:10px;
+      border-left-color: #4CC6D8;
+      position: absolute;
+      top: 50%;
+      right: -18px;
+      margin-top: -10px;
+    }
+  }
+  .line>img,.line2>img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  .line>img{
+    margin-right: 12px;
+  }
+  .line2>img{
+    margin-left: 12px;
+  }
+}
+.footer-bottom{
+  border-top: 1px solid #EFF1FA ;
+  padding: 10px 15px;
+  line-height: 30px;
+  img{
+    width: 23px;
+    height: 19px;
+    margin-left: 2px;
+    margin-right: 12px;
+    margin-top: 5px;
+    cursor: pointer;
+  }
+  input{
+    border: 1px solid #EFF1FA;
+    background: #f3f7fd;
+    border-radius: 3px;
+    width: 688px;
+    line-height: 28px;
+    padding: 0 10px;
+    margin-right: 16px;
+    color: #666;
+  }
+  button{
+    cursor: pointer;
+    background: #4CC6D8;
+    width: 80px;
+    height: 30px;
+    border: none;
+    line-height: 30px;
+    color: #fff;
+    border-radius: 3px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
+.btn-footer{
+  text-align: right;
+  .go-consult{
+    border: 1px solid #4CC6D8;
+    background: #fff;
+    color:#4CC6D8;
+    margin-right: 12px;
+  }
+}
+.consult-box{
+  width: 100%;
+  height: 640px;
+  background: #ddd;
+  .another-person{
+    top:30px;
+    right: 17px;
+    width: 188px;
+    height: 253px;
+    border: 1px solid #4CC6D8;
+    box-sizing: border-box;
+    background: #fff;
+  }
+  .hang-up{
+    bottom: 51px;
+    width: 62px;
+    left: 50%;
+    margin-left: -62px;
+    .time{
+      .color999(14px,#fff);
+      margin-bottom: 9.5px;
+      text-align: center;
+    }
+    img{
+      width:61px;
+      height:62px;
+      margin: 0 auto;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .word{
+      .color999(14px,#fff);
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>创建机构</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="js/assets/css/amazeui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/font_icon/iconfont.css" />
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+		
+		<link rel="stylesheet" type="text/css" href="css/y_public.css" />
+
+		<style type="text/css">
+			.y_header_yonghu span {
+				position: relative;
+				top: 2px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!--头部-->
+		<div class="header">
+			<div class="header_inner y_clear">
+				<div class="header_logo y_f_l"><img src="images/logo.png" /></div>
+				<ul class="header_nav y_f_l y_font_14">
+					<li>
+						<a href="h3_index.html" class="y_a_n ">首页</a>
+					</li>
+					<li class="cj y_p_r">
+						<a href="h5_createClass.html" class="y_a_n y_a_s">创建</a>
+						<div class="cj_inner">
+							<a href="javascript:video(0)">校园班级</a>
+							<a href="javascript:video(0)">辅导机构</a>
+						</div>
+					</li>
+					<li>
+						<a href="l1_wenjiao.html" class="y_a_n">文教中心</a>
+					</li>
+					<li>
+						<a href="m1_myManagement.html" class="y_a_n">我的管理</a>
+					</li>
+				</ul>
+				<div class="y_header_yonghu y_color_lan y_font_14 y_f_r">
+					<img src="images/huang.png" />
+					<span>阿拉丁</span>
+					<span><a href="" class="y_color_lan">【退出】</a></span>
+				</div>
+			</div>
+		</div>
+		<form class="y_inner formValidator">
+			<div style="clear: both;"></div>
+			<div class="h5_createClass" >
+				<div class="h5_createClass_title" ><span></span>创建机构</div>
+			</div>
+			<!--基本资料-->
+			<div class="h5_classData">
+				<div class="h5_classData_title y_inner_padding">
+					<i class="icon iconfont icon-xuexiao y_color_00 y_font_20"></i>
+					<span class="y_font_14 y_color_00">基本资料</span>
+					<span class="y_font_14 y_color_hong">(必填)</span>
+				</div>
+				<div class="y_border_b h5_banji_inner">
+					<div class="h5_banji y_margin_l_26 y_inner_padding">
+						<span class="y_font_14 y_color_57">机构名称</span>
+						<input type="text" datatype="*" nullmsg="请输入机构名称" placeholder="请输入机构名称" class="banzhurenName y_border y_p_l_10 jigouName" />
+						<span class="y_font_14 y_color_57">机构类别</span>
+						<select data-am-selected="{ btnStyle: 'secondary'}">
+							<option value="a">成人教育</option>
+							<option value="b">Banana</option>
+							<option value="o">Orange</option>
+							<option value="m">Mango</option>
+						</select>
+
+					</div>
+					<div class="h5_banji y_margin_l_26 y_inner_padding">
+						<span class="y_font_14 y_color_57 y_p_r_5">联 系 人</span>
+						<input type="text" placeholder="请输入机构联系人姓名" class="banzhurenName y_border y_p_l_10" class="y_font_14" datatype="*" nullmsg="请输入机构联系人姓名" />
+						<span class="y_font_14 y_color_57 y_p_l_50">联系电话</span>
+						<input type="text" placeholder="请输入联系人电话" class="banzhurenName y_border y_p_l_10" datatype="m" nullmsg="请输入联系人电话" errormsg="请输入正确的联系人电话！" maxlength="11" />
+
+					</div>
+					<div class="h5_dizhi info y_margin_l_26 y_inner_padding">
+						<div>
+							<span class="y_font_14 y_color_57">机构地址</span>
+							<select data-am-selected="{ btnStyle: 'secondary', maxHeight: 280}" id="s_province" name="s_province"></select>
+							<span class="y_font_14 y_color_lan sheng_txt">省／自治区</span>
+							<select data-am-selected="{ btnStyle: 'secondary', maxHeight: 280}" id="s_city" name="s_city"></select>
+							<span class="y_font_14 y_color_lan shi_txt">市</span>
+
+							<select data-am-selected="{ btnStyle: 'secondary', maxHeight:280}" id="s_county" name="s_county"></select>
+							<span class="y_font_14 y_color_lan">县/区</span>
+
+							<div id="show"></div>
+						</div>
+					</div>
+					<div class="h5_banji y_margin_l_26 y_inner_padding">
+						<span class="y_font_14 y_color_57">详细地址</span>
+						<input type="text" placeholder="请输入机构详细地址" class="banzhurenName y_border y_p_l_10 input_xiangxidizhi" datatype="*" nullmsg="请输入机构详细地址" />
+
+					</div>
+					<div class="h5_banji y_margin_l_26 y_inner_padding  y_clear">
+						<span class="y_font_14 y_color_57 y_f_l y_p_r_20">开课时段</span>
+
+						<div class="am-form-group y_f_l y_color_21 y_font_14 ">
+							<label class="am-radio-inline y_p_r_30 y_p_l_30">
+								<input type="radio" name="radio10" value="qiu" data-am-ucheck checked="checked" > 秋季学期（约9月～1月）</label>
+							<label class="am-radio-inline y_p_r_30 y_p_l_30">
+    								<input type="radio" name="radio10" value="chun" data-am-ucheck> 春季学期（约3月～6月）</label>
+							<label class="am-radio-inline y_p_r_30 y_p_l_30">
+    							<input type="radio" name="radio10" value="shujia" data-am-ucheck> 暑假妖</label>
+							<label class="am-radio-inline y_p_r_30 y_p_l_30">
+    							<input type="radio" name="radio10" value="hanjia" data-am-ucheck> 寒假</label>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<!--机构宣传页-->
+			<div class="studentsData y_border_b">
+				<div class="h5_classData_title y_inner_padding">
+					<img src="images/xuanchuan.png" />
+					<span class="y_font_14 y_color_00">机构宣传页</span>
+				</div>
+				<div class="h5_banji  y_inner_padding  y_clear">
+					<div class="y_font_14 y_color_57 y_f_l y_p_r_20 y_p_l_20">请选择您要显示的模块</div>
+
+					<div class="am-form-group y_f_l y_color_21 y_font_14 width720 youjianjudecg">
+						<div>
+
+							<label class="am-checkbox-inline y_p_r_30 y_p_l_30">
+								<input  type="checkbox" name="radio11" value="qiu" data-am-ucheck checked="checked"> 机构简介</label>
+							<label class="am-checkbox-inline y_p_r_30 y_p_l_30">
+    								<input type="checkbox" name="radio11" value="chun" data-am-ucheck> 办学特色</label>
+							<label class="am-checkbox-inline y_p_r_30 y_p_l_30">
+    							<input type="checkbox" name="radio11" value="shujia" data-am-ucheck> 教学环境</label>
+							<label class="am-checkbox-inline y_p_r_30 y_p_l_30">
+    							<input type="checkbox" name="radio11" value="hanjia" data-am-ucheck> 机构成就</label>
+							<label class="am-checkbox-inline y_p_r_30 y_p_l_30">
+    							<input type="checkbox" name="radio11" value="hanjia" data-am-ucheck> 视频介绍</label>
+							<label class="am-checkbox-inline  y_p_l_30">
+    							<input type="checkbox" name="radio11" value="hanjia" data-am-ucheck> 优惠政策</label>
+						</div>
+						<div style="padding-top: 27px;">
+							<label class="am-checkbox-inline ">
+    							<input type="checkbox" name="radio11" value="hanjia" data-am-ucheck> 自定义模块</label>
+						</div>
+					</div>
+
+				</div>
+				<!--机构简介-->
+				<div class="y_clear y_color_57 y_font_14 y_p_l_45 y_margin_t_30">
+					<span class="y_f_l y_p_r_10 y_p_t_15">机构简介</span>
+					<div style="float: left;">
+						<script id="editor" type="text/plain" style="width:826px;height:173px;"></script>
+					</div>
+				</div>
+				<!--办学特色-->
+				<div class="y_clear y_color_57 y_font_14 y_p_l_45 y_margin_t_30">
+					<span class="y_f_l y_p_r_10 y_p_t_15">办学特色</span>
+					<div style="float: left;">
+						<script id="editor2" type="text/plain" style="width:826px;height:173px;"></script>
+					</div>
+				</div>
+				<!--教学环境-->
+				<div class="y_clear y_color_57 y_font_14 y_p_l_45 y_margin_t_30">
+					<span class="y_f_l y_p_r_10 y_p_t_15">教学环境</span>
+					<div style="float: left;">
+						<script id="editor3" type="text/plain" style="width:826px;height:173px;"></script>
+					</div>
+				</div>
+				<!--视频介绍-->
+				<div class="y_clear y_color_57 y_font_14 y_p_l_45 y_margin_t_30">
+					<span class="y_f_l y_p_r_10 y_p_t_15">视频介绍</span>
+					<div style="float: left;">
+						<a class='file-upload-btn'>
+							<input type="file" />
+						</a>
+						<span class="y_color_a3 y_font_14 shangchuan_video">请保证视频是在2分钟内</span>
+					</div>
+				</div>
+				<!--自定义模块-->
+				<div class="y_clear y_color_57 y_font_14 y_p_l_35 y_margin_t_30">
+					<span class="y_f_l y_p_r_10 y_p_t_15" id="doc-prompt-toggle">自定义模块</span>
+					<div style="float: left;">
+						<script id="editor4" type="text/plain" style="width:826px;height:173px;"></script>
+					</div>
+				</div>
+			</div>
+			<div class="h5_yhxy  y_margin_t_5 y_p_b_40 y_margin_l_26">
+				<input id='xuanze1' class="y_checkbox " type="checkbox" />
+				<label class="y_checkbox_label " for="xuanze1"></label>
+				<span class="y_color_a3 y_font_12">确认创建表示已阅读并同意《<a href="javascript:void(0);" class="y_color_lan">用户协议</a>》</span>
+			</div>
+			<div class="y_btn y_p_b_30">
+
+				<button type="submit">确认创建</button>
+
+			</div>
+		</form>
+		<!--底部-->
+		<footer class="">
+			<div class="footer_inner">
+				<p>·免费声明·友情链接·网站地图·通讯录服务热线：400-080-9180</p>
+				<p>2008 学知非公司版权所有 闵 ICP 备05007286号 design by Clh</p>
+			</div>
+		</footer>
+		<!--自定义模块弹窗-->
+		<form class="formValidator">
+			<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+				<div class="am-modal-dialog zidingyimokuai">
+					<div class="am-modal-hd pop_title y_p_b_20 y_p_t_40">自定义模块</div>
+					<div class="am-modal-bd y_p_b_40">
+						<input type="text" class="y_background_input y_border am-modal-prompt-input" placeholder="请输入自定义模块名称" datatype="*" nullmsg="请输入自定义模块名称">
+					</div>
+					<div class="am-modal-footer">
+						<span class="am-modal-btn y-am-modal-btn" data-am-modal-cancel>取消</span>
+						<button type="submit" class=" y-am-modal-btn">提交</button>
+						<!--<span class="am-modal-btn y-am-modal-btn" data-am-modal-confirm>提交</span>-->
+					</div>
+				</div>
+			</div>
+		</form>
+		<script src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/Validform_v5.1_min.js"></script>
+		<script type="text/javascript" src="js/layer/layer.js"></script>
+		<script src="js/assets/js/amazeui.min.js"></script>
+		<script src="js/y_public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/area.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/ueditor.all.min.js">
+		</script>
+		<script type="text/javascript" charset="utf-8" src="js/utf8-php/lang/zh-cn/zh-cn.js"></script>
+
+		<script type="text/javascript">
+			//创建自定义模块
+			$(function() {
+				$('#doc-prompt-toggle').on('click', function() {
+					$('#my-prompt').modal({
+						relatedTarget: this,
+						onConfirm: function(e) {
+							//							
+						},
+						onCancel: function(e) {
+							//							
+						}
+					});
+				});
+			});
+
+			//配置富文本框
+			var config = {
+				maximumWords: 300,
+				toolbars: [
+					[
+						'fullscreen', 'source', '|', 'undo', 'redo', '|',
+						'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+						'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+
+					]
+				]
+			}
+			var ue = UE.getEditor('editor', config);
+			var ue = UE.getEditor('editor2', config);
+			var ue = UE.getEditor('editor3', config);
+			var ue = UE.getEditor('editor4', config);
+
+			//选择地区
+			_init_area();
+			var Gid = document.getElementById;
+			var showArea = function() {
+				Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" +
+					Gid('s_city').value + " - 县/区" +
+					Gid('s_county').value + "</h3>"
+			}
+			$('#s_county').attr('onchange', 'showArea()');
+		</script>
+	</body>
+
+</html>

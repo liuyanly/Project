@@ -1,0 +1,140 @@
+<template>
+    <div class="warpper">
+        <!-- 导航部分 -->
+        <div class="header">
+            <div class="container clearfix">
+                <div class="logo"><img src="../assets/images/logo.png" alt="爱美图"></div>
+                <div class="nav">
+                    <router-link to="home">首页</router-link><router-link to="picture">图片</router-link><router-link to="video">视频</router-link><router-link to="about">关于我们</router-link><router-link to="download" class="active">下载APP</router-link>
+                </div>
+            </div>
+        </div>
+        <div class="appbox">
+            <div class="container">
+                <div class="app">
+                    <div class="codebox">
+                        <div class="code"><img src="../assets/images/code.jpg" alt=""></div>
+                        <p>扫码下载APP</p>
+                    </div>
+                    <div class="introduce">
+                        <div class="h4">APP介绍</div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 底部导航 -->
+        <div class="footer">
+            <div class="container">
+                <div class="nav"><a href="#">网站地图</a><span>|</span><router-link to="modelInJoin">模特加入</router-link><span>|</span><router-link to="copyright">版权说明</router-link></div>
+                <p>爱美图@版权所有</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+}
+</script>
+
+<style scoped lang="scss">
+// @import "../assets/scss/index.scss";
+.warpper {
+    .container {
+        width: 1040px;
+        margin: 0 auto;
+    }
+    .header {
+        height: 70px;
+        .logo {
+            float: left;
+            width: 80px;
+            height: 52px;
+            margin: 10px 26px 8px 0;
+        }
+        .nav {
+            float: left;
+            margin: 24px 0 17px;
+            font-size: 17px;
+            a{
+                display: inline-block;
+                height: 29px;
+                margin: 0 35px;
+                line-height: 22px;
+                font-weight: bold;
+                &.active,
+                &:hover{
+                    background: url("../assets/images/rectangle_13.png") no-repeat bottom center;
+                    color: #FF68C8;
+                }
+            }
+        }
+    }
+    .appbox {
+        height: 710px;
+        margin-bottom: -20px;
+        background: url("../assets/images/downloadbg.jpg") no-repeat;
+        background-size: cover;
+        .app{
+            width: 940px;
+            margin: 0 auto;
+            color: #FFFFFF;
+            .codebox {
+                float: left;
+                width: 180px;
+                margin-top: 230px;
+                margin-right: 140px;
+                .code{
+                    width: 180px;
+                    height: 180px;
+                    margin-bottom: 20px;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                p{
+                  font-size: 20px;
+                  font-weight: bold;
+                  text-align: center;
+                }
+            }
+            .introduce {
+                padding-top: 120px;
+                margin-left: 320px;
+                font-size: 20px;
+                .h4{
+                    margin-bottom: 30px;
+                    text-align: center;
+                    font-weight: bold;
+                }
+                p{
+                    line-height: 26px;
+                }
+            }
+        }
+    }
+    .footer {
+        min-height: 100px;
+        margin-top: 20px;
+        padding-top: 20px;
+        text-align: center;
+        background: #F7F7F7;
+        .nav {
+            margin-bottom: 25px;
+            line-height: 19px;
+            vertical-align: middle;
+            a{
+                display: inline-block;
+                margin: 0 20px;
+            }
+            span{
+                display: inline-block;
+                color: #dddddd;
+            }
+        }
+    }
+}
+</style>
+

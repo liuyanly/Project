@@ -1,0 +1,53 @@
+.cc {
+  font-size: 14px;
+  color: #4CC6D8;
+}
+.header-title {
+  line-height: 50px;
+  border-bottom: 1px solid #eff1fa;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+.order-list li {
+  padding: 17px 14px;
+  border-bottom: 1px solid #EFF1FA;
+}
+.order-list li p {
+  line-height: 24px;
+}
+.order-list li .time {
+  font-size: 14px;
+  color: #666;
+  width: 156px;
+}
+.order-list li .name {
+  font-size: 14px;
+  color: #000;
+}
+.order-list li > .right .money {
+  font-size: 14px;
+  color: #ee774d;
+  margin-right: 17px;
+}
+.order-list li > .right .now-pay {
+  width: 84px;
+  height: 24px;
+  background: #4cc6d8;
+  border-radius: 3px ;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  color: #fff;
+  line-height: 24px;
+  font-size: 14px;
+  margin-right: 6px;
+}
+.order-pay li .name {
+  width: 188px;
+}
+.order-pay li .money {
+  font-size: 14px;
+  color: #ee774d;
+  margin-right: 17px;
+}
